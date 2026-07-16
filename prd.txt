@@ -1,0 +1,202 @@
+PRODUCT REQUIREMENTS DOCUMENT
+Pengembangan Website Resmi Desa
+────────────────────────────────────────────────────────────
+Nomor Dokumen
+PRD-WEB-DESA-2026/001
+Versi
+1.0
+Tanggal Dibuat
+Status
+Draft  /  Final
+1. INFORMASI PROYEK
+Keterangan
+Detail
+Nama Proyek
+Website Resmi Desa Tanjung Harapan
+Nama Desa
+Desa Tanjung Harapan, Kec. Kampar Kiri, Kab. Kampar
+Developer
+Dicky Aldian Pratama
+Rival
+Instansi
+Mahasiswa KKN – Universitas Muhammadiyyah Riau
+Klien
+Pemerintah Desa Tanjung Harapan
+Nama Kepala Desa
+________________
+Tanggal Mulai
+________________
+Target Selesai
+________________
+Biaya
+Rp 0  (Gratis – Bagian dari Program Kerja KKN)
+2. LATAR BELAKANG & TUJUAN
+2.1  Latar Belakang
+Desa Tanjung Harapan saat ini belum memiliki platform digital resmi yang dapat menjadi sarana informasi dan komunikasi antara pemerintah desa dengan masyarakat maupun pihak luar. Dengan berkembangnya kebutuhan akan transparansi dan digitalisasi, dibutuhkan sebuah website resmi desa yang informatif, mudah diakses, dan dapat dikelola secara mandiri oleh perangkat desa.
+2.2  Tujuan Proyek
+Menyediakan platform informasi resmi Desa Tanjung Harapan yang dapat diakses publik.
+Meningkatkan transparansi pemerintahan desa kepada masyarakat.
+Mempromosikan potensi wisata, budaya, dan produk UMKM desa.
+Mendukung program digitalisasi desa.
+2.3  Target Pengguna
+Pengguna
+Kebutuhan
+Masyarakat Desa
+Mendapatkan informasi & pengumuman desa
+Pemerintah Desa
+Mempublikasikan berita, program, dan laporan
+Pengunjung / Wisatawan
+Mengenal potensi desa
+Instansi Pemerintah
+Mengakses data dan profil desa
+3. RUANG LINGKUP (SCOPE)
+ 3.1  Fitur Yang AKAN Dibuat
+Halaman Utama (Beranda)
+Hero section dengan foto dan tagline desa
+ Sambutan kepala desa
+ Statistik desa (jumlah penduduk, luas wilayah, RT/RW)
+Berita/pengumuman terbaru
+Navigasi yang responsif (mobile-friendly)
+Profil Desa
+Sejarah desa
+Visi dan misi desa
+Letak geografis dan peta desa
+Batas wilayah desa
+Struktur Organisasi
+Profil kepala desa dan perangkat desa
+Foto dan jabatan masing-masing perangkat
+Berita & Pengumuman
+Halaman daftar berita
+Halaman detail berita
+Kategori berita (kegiatan, pengumuman, pembangunan, dll)
+Admin dapat menambah/edit/hapus berita (fitur dinamis)
+Potensi Desa
+Potensi wisata lokal
+Produk unggulan / UMKM desa
+Potensi pertanian / sumber daya alam
+Transparansi & Informasi Publik
+Informasi APBDes (Anggaran Pendapatan Belanja Desa)
+Laporan kegiatan dan realisasi program
+Data kependudukan umum
+Kontak & Layanan
+Informasi kontak desa (telepon, email, alamat)
+Peta lokasi kantor desa (Google Maps embed)
+Jam pelayanan
+Form pengaduan / aspirasi masyarakat
+Halaman Admin (Panel Pengelola)
+Login admin
+Kelola berita (tambah, edit, hapus)
+Kelola pengumuman
+Kelola data profil desa
+3.2  Fitur Yang TIDAK Termasuk (Out of Scope)
+Sistem informasi administrasi kependudukan (surat-menyurat online)
+Sistem absensi atau presensi perangkat desa
+Aplikasi mobile (Android/iOS)
+Integrasi dengan sistem pemerintah pusat (SIAK, dll)
+Fitur e-commerce / toko online
+Fitur forum diskusi / komentar masyarakat
+Pemeliharaan website jangka panjang setelah masa KKN selesai
+Catatan: Penambahan fitur di luar scope di atas dapat dipertimbangkan dengan kesepakatan baru dan di luar periode KKN.
+4. SPESIFIKASI TEKNIS
+Komponen
+Spesifikasi
+Bahasa Pemrograman
+________________
+Framework
+________________
+Database
+________________
+Hosting
+Disediakan oleh Pemerintah Desa ________________
+Domain
+________________
+Jenis Hosting
+________________  (cPanel / VPS / Cloud)
+Responsif (Mobile)
+✔  Ya
+Browser Support
+Chrome, Firefox, Edge, Safari
+5. KEBUTUHAN DARI PIHAK DESA
+Untuk kelancaran pengerjaan, pihak desa wajib menyediakan data dan aset berikut:
+Foto desa (minimal 10 foto berkualitas baik)
+Logo / lambang desa (format PNG/SVG)
+Foto kepala desa dan seluruh perangkat desa
+Profil singkat kepala desa
+Data statistik desa (jumlah penduduk, RT/RW, luas wilayah)
+Sejarah desa (narasi tertulis)
+Visi dan misi desa
+Data APBDes yang ingin dipublikasikan
+Akses ke hosting dan domain (cPanel / FTP)
+Nomor kontak dan email resmi desa
+Batas waktu penyerahan aset:  ________________
+6. TIMELINE PENGERJAAN
+No
+Tahap
+Deskripsi
+Durasi
+Target Tanggal
+1
+Persiapan
+Pengumpulan data & aset dari desa
+__ hari
+________________
+2
+Desain
+Pembuatan tampilan (UI/UX)
+__ hari
+________________
+3
+Development
+Pembuatan website
+__ hari
+________________
+4
+Testing
+Uji coba dan perbaikan
+__ hari
+________________
+5
+Deployment
+Upload ke hosting
+__ hari
+________________
+6
+Training
+Pelatihan admin desa
+__ hari
+________________
+7
+Serah Terima
+Penyerahan resmi website
+__ hari
+________________
+7. KRITERIA PENERIMAAN (ACCEPTANCE CRITERIA)
+Website dinyatakan selesai dan diterima apabila:
+Semua fitur dalam scope telah berfungsi dengan baik
+Website dapat diakses melalui domain yang telah disepakati
+Tampilan responsif di perangkat mobile dan desktop
+Admin desa dapat login dan mengelola konten secara mandiri
+Dokumen panduan penggunaan admin telah diserahkan
+Pelatihan admin desa telah dilaksanakan
+8. DELIVERABLES (HASIL AKHIR)
+1.  Website yang sudah live dan dapat diakses publik
+2.  Akun admin desa (username & password)
+3.  Dokumen panduan penggunaan admin panel
+4.  Source code website (opsional, jika diminta)
+5.  Berita Acara Serah Terima (BAST)
+9. PERSETUJUAN DOKUMEN
+Dengan ditandatanganinya dokumen ini, kedua pihak menyatakan telah membaca, memahami, dan menyetujui seluruh isi PRD ini sebagai acuan resmi pengerjaan proyek.
+Pihak Pengembang
+Nama: ________________________________
+Jabatan: Mahasiswa KKN
+Universitas: ________________________________
+Tanggal: ________________________________
+________________________________
+Pihak Desa
+Nama: ________________________________
+Jabatan: Kepala Desa ________________
+: 
+Tanggal: ________________________________
+________________________________
+* Kolom kanan disertai cap/stempel resmi desa
+Dokumen ini dibuat dalam rangka Program Kerja KKN dan bersifat sebagai acuan teknis pengembangan website resmi desa.Versi: 1.0  |  PRD-WEB-DESA-2026/001
