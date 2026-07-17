@@ -1,15 +1,10 @@
 {
     "version": 2,
-    "builds": [
-        {
-            "src": "api/index.php",
-            "use": "vercel-php@0.6.1"
-        },
-        {
-            "src": "/public/**",
-            "use": "@vercel/static"
+    "functions": {
+        "api/index.php": {
+            "runtime": "vercel-php@0.7.4"
         }
-    ],
+    },
     "routes": [
         {
             "src": "/build/(.*)",
@@ -23,7 +18,7 @@
     "env": {
         "APP_ENV": "production",
         "APP_DEBUG": "true",
-        "APP_URL": "https://nama-proyekmu.vercel.app",
+        "APP_URL": "https://website-desa-tanjung-harapan.vercel.app/",
         "LOG_CHANNEL": "stderr"
     }
 }
