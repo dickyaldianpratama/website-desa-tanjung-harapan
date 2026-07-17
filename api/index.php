@@ -1,22 +1,19 @@
 <?php
-try {
-    // Force Laravel to use /tmp for views and array for cache on Vercel
-    putenv('VIEW_COMPILED_PATH=/tmp');
-    $_ENV['VIEW_COMPILED_PATH'] = '/tmp';
-    $_SERVER['VIEW_COMPILED_PATH'] = '/tmp';
+    // Force Laravel to use /tmp for views and cache on Vercel
+    $tmpPaths = [
+        'VIEW_COMPILED_PATH' => '/tmp',
+        'CACHE_STORE' => 'array',
+        'APP_SERVICES_CACHE' => '/tmp/services.php',
+        'APP_PACKAGES_CACHE' => '/tmp/packages.php',
+        'APP_CONFIG_CACHE' => '/tmp/config.php',
+        'APP_ROUTES_CACHE' => '/tmp/routes-v7.php',
+        'APP_EVENTS_CACHE' => '/tmp/events.php',
+    ];
 
-    putenv('CACHE_STORE=array');
-    $_ENV['CACHE_STORE'] = 'array';
-    $_SERVER['CACHE_STORE'] = 'array';
+    foreach ($tmpPaths as $key => $value) {
+        putenv("{$key}={$value}");
+        $_ENV[$key] = $value;
+        $_SERVER[$key] = $value;
+    }
 
     require __DIR__ . '/../public/index.php';
-} catch (\Throwable $e) {
-    header('Content-Type: application/json');
-    http_response_code(500);
-    echo json_encode([
-        'error' => $e->getMessage(),
-        'file' => $e->getFile(),
-        'line' => $e->getLine(),
-        'trace' => $e->getTraceAsString()
-    ]);
-}
