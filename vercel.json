@@ -15,11 +15,12 @@
     ],
     "routes": [
         {
-            "handle": "filesystem"
+            "src": "/(build|images|assets)/(.*)",
+            "dest": "/public/$1/$2"
         },
         {
-            "src": "/build/(.*)",
-            "dest": "/public/build/$1"
+            "src": "/(favicon\\.ico|robots\\.txt)",
+            "dest": "/public/$1"
         },
         {
             "src": "/(.*)",

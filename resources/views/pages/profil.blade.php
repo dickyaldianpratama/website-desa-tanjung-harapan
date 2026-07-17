@@ -574,7 +574,7 @@
                 @forelse($perangkats as $perangkat)
                     <div class="swiper-slide">
                         <div class="perangkat-slide-card">
-                            @if($perangkat->foto && file_exists(public_path('images/perangkat/'.$perangkat->foto)))
+                            @if($perangkat->foto)
                                 <img src="{{ asset('images/perangkat/'.$perangkat->foto) }}" alt="{{ $perangkat->nama }}">
                             @else
                                 <div class="placeholder">👤</div>

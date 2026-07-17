@@ -440,14 +440,10 @@
             @php $logo = $settings['logo_desa'] ?? ''; @endphp
             {{-- Lingkaran = div.brand-logo (DIAM), gambar di dalamnya yang FLIP --}}
             <div class="brand-logo">
-                @if($logo && file_exists(public_path('images/'.$logo)))
-                    <img src="{{ asset('images/'.$logo) }}" alt="Logo Desa">
-                @elseif(file_exists(public_path('images/logo_desa.png')))
-                    <img src="{{ asset('images/logo_desa.png') }}" alt="Logo Desa">
-                @elseif(file_exists(public_path('images/logo_desa.jpg')))
-                    <img src="{{ asset('images/logo_desa.jpg') }}" alt="Logo Desa">
+                @if($logo)
+                    <img src="{{ asset('images/'.$logo) }}" alt="Logo">
                 @else
-                    🏡
+                    <img src="{{ asset('images/logo_desa.png') }}" alt="Logo Default">
                 @endif
             </div>
             <div class="brand-text">

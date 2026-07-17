@@ -105,7 +105,7 @@
     <div class="swiper-wrapper">
         @forelse($sliders as $slider)
         <div class="swiper-slide hero-slide">
-            @if($slider->gambar && file_exists(public_path('images/sliders/'.$slider->gambar)))
+            @if($slider->gambar)
                 <img src="{{ asset('images/sliders/'.$slider->gambar) }}" alt="{{ $slider->judul }}">
             @else
                 <div class="hero-placeholder">🏡</div>
@@ -182,9 +182,9 @@
                         $fotoKades = $settings['foto_kades'] ?? ''; 
                         $defaultKades = 'perangkat/kades.jpg';
                     @endphp
-                    @if($fotoKades && file_exists(public_path('images/'.$fotoKades)))
+                    @if($fotoKades)
                         <img src="{{ asset('images/'.$fotoKades) }}" class="kades-photo" alt="Kepala Desa">
-                    @elseif(file_exists(public_path('images/'.$defaultKades)))
+                    @elseif($defaultKades)
                         <img src="{{ asset('images/'.$defaultKades) }}" class="kades-photo" alt="Kepala Desa">
                     @else
                         <div class="kades-photo-placeholder">👤</div>
@@ -225,9 +225,9 @@
                 <div class="swiper-slide h-auto">
                     <div class="card-desa h-100 reveal" style="transition-delay: {{ $loop->index * 150 }}ms;">
                         @php $defaultImg = 'berita' . $loop->iteration . '.jpg'; @endphp
-                        @if($berita->gambar && file_exists(public_path('images/berita/'.$berita->gambar)))
+                        @if($berita->gambar)
                             <img src="{{ asset('images/berita/'.$berita->gambar) }}" alt="{{ $berita->judul }}">
-                        @elseif(file_exists(public_path('images/berita/'.$defaultImg)))
+                        @elseif($defaultImg)
                             <img src="{{ asset('images/berita/'.$defaultImg) }}" alt="{{ $berita->judul }}">
                         @else
                             <div class="img-placeholder" style="height:200px">📰</div>
@@ -272,9 +272,9 @@
                             $defaultImg = 'potensi' . $loop->iteration . '.jpg'; 
                             $icons = ['wisata'=>'🏞️','umkm'=>'🛒','pertanian'=>'🌾','budaya'=>'🎭']; 
                         @endphp
-                        @if($potensi->gambar && file_exists(public_path('images/potensi/'.$potensi->gambar)))
+                        @if($potensi->gambar)
                             <img src="{{ asset('images/potensi/'.$potensi->gambar) }}" alt="{{ $potensi->judul }}">
-                        @elseif(file_exists(public_path('images/potensi/'.$defaultImg)))
+                        @elseif($defaultImg)
                             <img src="{{ asset('images/potensi/'.$defaultImg) }}" alt="{{ $potensi->judul }}">
                         @else
                             <div class="img-placeholder" style="height:200px">{{ $icons[$potensi->kategori] ?? '🌟' }}</div>
