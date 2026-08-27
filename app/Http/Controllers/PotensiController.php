@@ -6,12 +6,12 @@ class PotensiController extends Controller {
     public function index() {
         $settings = Setting::all()->pluck('value', 'key');
         
-        $wisata = Potensi::where('kategori', 'wisata')->latest()->get();
-        $umkm = Potensi::where('kategori', 'umkm')->latest()->get();
-        $pertanian = Potensi::where('kategori', 'pertanian')->latest()->get();
-        $budaya = Potensi::where('kategori', 'budaya')->latest()->get();
+        // Fetch all and group by category
+        $groupedPotensi = Potensi::latest()->get()->groupBy(function($item) {
+            return strtolower($item->kategori);
+        });
 
-        return view('pages.potensi.index', compact('settings', 'wisata', 'umkm', 'pertanian', 'budaya'));
+        return view('pages.potensi.index', compact('settings', 'groupedPotensi'));
     }
     public function show($slug) {
         $settings = Setting::all()->pluck('value', 'key');

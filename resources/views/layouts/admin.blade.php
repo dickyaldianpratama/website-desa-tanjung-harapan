@@ -99,6 +99,15 @@
             --cream:         #F5ECD7;
             --sidebar-w:     260px;
         }
+        @if(isset($activeTheme) && $activeTheme)
+        /* ═══ HOLIDAY THEME OVERRIDE (Admin Panel) ═══ */
+        :root {
+            --coklat-tua:    {{ $activeTheme->warna_primer }};
+            --coklat-medium: {{ $activeTheme->warna_sekunder }};
+            --gold:          {{ $activeTheme->warna_aksen }};
+            --gold-light:    {{ $activeTheme->warna_aksen }}cc;
+        }
+        @endif
         body { font-family: 'Plus Jakarta Sans', sans-serif; background: #f4f6f9; }
 
         /* SIDEBAR */
@@ -275,13 +284,20 @@
         <a href="{{ route('admin.perangkat.index') }}" class="sidebar-link {{ request()->routeIs('admin.perangkat*') ? 'active' : '' }}">
             <i class="bi bi-people"></i> Perangkat Desa
         </a>
+        <a href="{{ route('admin.lembaga.index') }}" class="sidebar-link {{ request()->routeIs('admin.lembaga*') ? 'active' : '' }}">
+            <i class="bi bi-diagram-3"></i> Lembaga Desa
+        </a>
 
         <div class="menu-label mt-2">Layanan & Keuangan</div>
+        <a href="{{ route('admin.layanan.index') }}" class="sidebar-link {{ request()->routeIs('admin.layanan*') ? 'active' : '' }}">
+            <i class="bi bi-envelope-paper"></i> Permohonan Surat
+            @php $pendingCount = \App\Models\Layanan::where('status', 'pending')->count(); @endphp
+            @if($pendingCount > 0)
+                <span class="badge bg-danger rounded-pill ms-auto">{{ $pendingCount }}</span>
+            @endif
+        </a>
         <a href="{{ route('admin.pengaduan.index') }}" class="sidebar-link {{ request()->routeIs('admin.pengaduan*') ? 'active' : '' }}">
             <i class="bi bi-chat-dots"></i> Pengaduan
-        </a>
-        <a href="{{ route('admin.apbdes.index') }}" class="sidebar-link {{ request()->routeIs('admin.apbdes*') ? 'active' : '' }}">
-            <i class="bi bi-wallet2"></i> Transparansi APBDes
         </a>
         <a href="{{ route('admin.setting.index') }}" class="sidebar-link {{ request()->routeIs('admin.setting*') ? 'active' : '' }}">
             <i class="bi bi-gear"></i> Setting Desa

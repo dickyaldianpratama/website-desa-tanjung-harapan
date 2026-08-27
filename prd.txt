@@ -74,10 +74,7 @@ Potensi Desa
 Potensi wisata lokal
 Produk unggulan / UMKM desa
 Potensi pertanian / sumber daya alam
-Transparansi & Informasi Publik
-Informasi APBDes (Anggaran Pendapatan Belanja Desa)
-Laporan kegiatan dan realisasi program
-Data kependudukan umum
+
 Kontak & Layanan
 Informasi kontak desa (telepon, email, alamat)
 Peta lokasi kantor desa (Google Maps embed)

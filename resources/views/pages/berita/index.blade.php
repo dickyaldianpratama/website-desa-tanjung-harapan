@@ -146,10 +146,14 @@
         <!-- FILTER KATEGORI -->
         <div class="d-flex flex-wrap justify-content-center gap-2 mb-5 kategori-wrapper" data-aos="fade-up">
             <a href="{{ route('berita.index') }}" class="filter-btn {{ !$kategori ? 'active' : '' }}">Semua Berita</a>
-            <a href="{{ route('berita.index', ['kategori' => 'berita']) }}" class="filter-btn {{ $kategori == 'berita' ? 'active' : '' }}">Berita</a>
-            <a href="{{ route('berita.index', ['kategori' => 'pengumuman']) }}" class="filter-btn {{ $kategori == 'pengumuman' ? 'active' : '' }}">Pengumuman</a>
-            <a href="{{ route('berita.index', ['kategori' => 'pembangunan']) }}" class="filter-btn {{ $kategori == 'pembangunan' ? 'active' : '' }}">Pembangunan</a>
-            <a href="{{ route('berita.index', ['kategori' => 'kegiatan']) }}" class="filter-btn {{ $kategori == 'kegiatan' ? 'active' : '' }}">Kegiatan</a>
+            
+            @if(isset($kategoris) && count($kategoris) > 0)
+                @foreach($kategoris as $kat)
+                    @if($kat)
+                        <a href="{{ route('berita.index', ['kategori' => $kat]) }}" class="filter-btn {{ $kategori == $kat ? 'active' : '' }}">{{ $kat }}</a>
+                    @endif
+                @endforeach
+            @endif
         </div>
 
         <!-- GRID BERITA -->
@@ -158,7 +162,7 @@
             <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
                 <div class="news-card">
                     <div class="news-img-wrap">
-                        @if($berita->gambar && file_exists(public_path('images/berita/'.$berita->gambar)))
+                        @if($berita->gambar)
                             <img src="{{ asset('images/berita/'.$berita->gambar) }}" alt="{{ $berita->judul }}">
                         @else
                             @php $fallbackImg = 'berita' . (($berita->id % 3) + 1) . '.jpg'; @endphp

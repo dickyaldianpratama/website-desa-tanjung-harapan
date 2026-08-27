@@ -468,9 +468,23 @@
             <div class="col-lg-3 col-md-12" data-aos="fade-left" data-aos-delay="200">
                 <div class="kades-card-profil">
                     <p class="text-muted fw-bold mb-4" style="letter-spacing: 1px;"><i class="bi bi-person-badge text-gold me-2"></i>Kepala Desa</p>
-                    <img src="{{ asset('images/perangkat/kades.jpg') }}" alt="Foto Kades" onerror="this.src='https://ui-avatars.com/api/?name=Kades&background=C9963A&color=fff&size=150'">
-                    <h5 class="fw-bold text-coklat-tua mb-1 text-uppercase">{{ $settings['nama_kades'] ?? 'H. Ahmad Suryadi, S.E.' }}</h5>
-                    <span class="badge bg-cream px-3 py-2 mt-2 rounded-pill" style="color: var(--coklat-tua) !important;">Kepala {{ $settings['nama_desa'] ?? 'Desa Tanjung Harapan' }}</span>
+                    
+                    @php 
+                        $fotoKades = $kades && $kades->foto ? 'perangkat/'.$kades->foto : ($settings['foto_kades'] ?? 'perangkat/kades.jpg');
+                        $namaKades = $kades ? $kades->nama : ($settings['nama_kades'] ?? 'H. Ahmad Suryadi, S.E.');
+                        $jabatanKades = $kades ? $kades->jabatan : ($settings['jabatan_kades'] ?? 'Kepala Desa');
+                    @endphp
+                    
+                    @if($kades && $kades->foto)
+                        <img src="{{ asset('images/perangkat/'.$kades->foto) }}" alt="Foto Kades">
+                    @elseif(isset($settings['foto_kades']) && $settings['foto_kades'])
+                        <img src="{{ asset('images/'.$settings['foto_kades']) }}" alt="Foto Kades">
+                    @else
+                        <img src="{{ asset('images/perangkat/kades.jpg') }}" alt="Foto Kades" onerror="this.src='https://ui-avatars.com/api/?name=Kades&background=C9963A&color=fff&size=150'">
+                    @endif
+                    
+                    <h5 class="fw-bold text-coklat-tua mb-1 text-uppercase">{{ $namaKades }}</h5>
+                    <span class="badge bg-cream px-3 py-2 mt-2 rounded-pill" style="color: var(--coklat-tua) !important;">{{ $jabatanKades }} {{ $settings['nama_desa'] ?? 'Tanjung Harapan' }}</span>
                 </div>
             </div>
         </div>
@@ -533,7 +547,13 @@
             <div class="row g-0">
                 <div class="col-md-4" data-aos="fade-right">
                     <div class="sambutan-img-wrap">
-                        <img src="{{ asset('images/perangkat/kades.jpg') }}" alt="Kepala Desa" onerror="this.src='https://ui-avatars.com/api/?name=Kades&background=C9963A&color=fff&size=500'">
+                        @if($kades && $kades->foto)
+                            <img src="{{ asset('images/perangkat/'.$kades->foto) }}" alt="Kepala Desa">
+                        @elseif(isset($settings['foto_kades']) && $settings['foto_kades'])
+                            <img src="{{ asset('images/'.$settings['foto_kades']) }}" alt="Kepala Desa">
+                        @else
+                            <img src="{{ asset('images/perangkat/kades.jpg') }}" alt="Kepala Desa" onerror="this.src='https://ui-avatars.com/api/?name=Kades&background=C9963A&color=fff&size=500'">
+                        @endif
                     </div>
                 </div>
                 <div class="col-md-8 d-flex align-items-center" data-aos="fade-left">
@@ -542,8 +562,8 @@
                             <i class="bi bi-megaphone-fill"></i>
                             <span class="fw-bold text-uppercase" style="letter-spacing: 2px; font-size: 0.85rem;">Sambutan Kepala Desa</span>
                         </div>
-                        <h3 class="fw-bold text-coklat-tua text-uppercase mb-2">{{ $settings['nama_kades'] ?? 'H. Ahmad Suryadi, S.E.' }}</h3>
-                        <p class="text-muted fw-semibold mb-4 d-flex align-items-center gap-2"><i class="bi bi-person-vcard"></i> {{ $settings['jabatan_kades'] ?? 'Kepala Desa' }}</p>
+                        <h3 class="fw-bold text-coklat-tua text-uppercase mb-2">{{ $namaKades }}</h3>
+                        <p class="text-muted fw-semibold mb-4 d-flex align-items-center gap-2"><i class="bi bi-person-vcard"></i> {{ $jabatanKades }}</p>
                         
                         <div class="text-secondary" style="line-height: 1.8;">
                             <p><em>Assalamu'alaikum Warahmatullahi Wabarakatuh,</em></p>
@@ -625,11 +645,120 @@
             
             <div class="swiper-pagination mt-4"></div>
         </div>
+
+        <div class="text-center mt-5" data-aos="fade-up">
+            <button class="btn btn-outline-primary rounded-pill px-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBaganPerangkat" aria-expanded="false" aria-controls="collapseBaganPerangkat" style="border-color: var(--c-gold); color: var(--coklat-tua); font-weight: 600;">
+                <i class="bi bi-diagram-3-fill me-2"></i>Lihat Bagan Struktur
+            </button>
+        </div>
+        <div class="collapse mt-4" id="collapseBaganPerangkat">
+            <div class="card card-body border-0 shadow-sm rounded-4 bg-light overflow-auto">
+                <div id="chart_perangkat" style="min-width: 800px; padding: 20px 0;"></div>
+            </div>
+        </div>
     </div>
 </section>
 
-{{-- 6. PETA LOKASI DAN KEPEMIMPINAN --}}
+{{-- 6. LEMBAGA DESA (PKK & BPD) --}}
 <section class="section-spacing bg-light-cream">
+    <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <p class="badge bg-cream rounded-pill px-3 py-2 fw-bold mb-3" style="color: var(--coklat-tua) !important; letter-spacing: 2px;"><i class="bi bi-diagram-3-fill me-1"></i> LEMBAGA DESA</p>
+            <h2 class="font-serif fw-bold text-coklat-tua">Struktur Organisasi</h2>
+            <p class="text-muted">Susunan kepengurusan Badan Permusyawaratan Desa (BPD) dan Tim Penggerak PKK</p>
+        </div>
+
+        <ul class="nav nav-pills justify-content-center mb-4" id="lembagaTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active rounded-pill px-4" id="bpd-tab" data-bs-toggle="tab" data-bs-target="#bpd-tab-pane" type="button" role="tab" style="font-weight: 600;">BPD</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link rounded-pill px-4 mx-2" id="pkk-tab" data-bs-toggle="tab" data-bs-target="#pkk-tab-pane" type="button" role="tab" style="font-weight: 600;">Tim Penggerak PKK</button>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="lembagaTabContent">
+            <!-- BPD Tab -->
+            <div class="tab-pane fade show active" id="bpd-tab-pane" role="tabpanel" tabindex="0">
+                <div class="swiper bpd-swiper" data-aos="fade-up" data-aos-delay="100">
+                    <div class="swiper-wrapper">
+                        @forelse($bpd as $anggota)
+                            <div class="swiper-slide">
+                                <div class="perangkat-slide-card">
+                                    @if($anggota->foto)
+                                        <img src="{{ asset('images/lembaga/'.$anggota->foto) }}" alt="{{ $anggota->nama }}">
+                                    @else
+                                        <div class="placeholder">👤</div>
+                                    @endif
+                                    <h5 class="fw-bold text-coklat-tua mb-1 text-uppercase" style="font-size: 1.1rem;">{{ $anggota->nama }}</h5>
+                                    <p class="text-secondary small mb-0">{{ $anggota->jabatan }}</p>
+                                </div>
+                            </div>
+                        @empty
+                            <div class="col-12 text-center text-muted py-5">
+                                <p>Data struktur BPD belum tersedia. Admin dapat menambahkannya melalui Panel Admin.</p>
+                                <!-- Fallback image if data empty -->
+                                <img src="{{ asset('images/lembaga/struktur-bpd.jpg') }}" alt="Struktur BPD Sementara" style="max-width: 100%; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" onerror="this.style.display='none'">
+                            </div>
+                        @endforelse
+                    </div>
+                    <div class="swiper-pagination bpd-pagination mt-4"></div>
+                </div>
+            </div>
+
+            <!-- PKK Tab -->
+            <div class="tab-pane fade" id="pkk-tab-pane" role="tabpanel" tabindex="0">
+                <div class="swiper pkk-swiper" data-aos="fade-up" data-aos-delay="100">
+                    <div class="swiper-wrapper">
+                        @forelse($pkk as $anggota)
+                            <div class="swiper-slide">
+                                <div class="perangkat-slide-card">
+                                    @if($anggota->foto)
+                                        <img src="{{ asset('images/lembaga/'.$anggota->foto) }}" alt="{{ $anggota->nama }}">
+                                    @else
+                                        <div class="placeholder">👤</div>
+                                    @endif
+                                    <h5 class="fw-bold text-coklat-tua mb-1 text-uppercase" style="font-size: 1.1rem;">{{ $anggota->nama }}</h5>
+                                    <p class="text-secondary small mb-0">{{ $anggota->jabatan }}</p>
+                                </div>
+                            </div>
+                        @empty
+                            <div class="col-12 text-center text-muted py-5">
+                                <p>Data struktur Tim Penggerak PKK belum tersedia. Admin dapat menambahkannya melalui Panel Admin.</p>
+                                <!-- Fallback image if data empty -->
+                                <img src="{{ asset('images/lembaga/struktur-pkk.jpg') }}" alt="Struktur PKK Sementara" style="max-width: 100%; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" onerror="this.style.display='none'">
+                            </div>
+                        @endforelse
+                    </div>
+                    <div class="swiper-pagination pkk-pagination mt-4"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-5" data-aos="fade-up">
+            <button class="btn btn-outline-primary rounded-pill px-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBaganLembaga" aria-expanded="false" aria-controls="collapseBaganLembaga" style="border-color: var(--c-gold); color: var(--coklat-tua); font-weight: 600;">
+                <i class="bi bi-diagram-3-fill me-2"></i>Lihat Bagan Struktur Lembaga
+            </button>
+        </div>
+        <div class="collapse mt-4" id="collapseBaganLembaga">
+            <div class="card card-body border-0 shadow-sm rounded-4 bg-white overflow-auto">
+                <div class="row g-4">
+                    <div class="col-12">
+                        <h5 class="font-serif text-coklat-tua text-center mb-3">Bagan BPD</h5>
+                        <div id="chart_bpd" style="min-width: 800px; padding: 20px 0; border: 1px dashed #e2e8f0; border-radius: 12px;"></div>
+                    </div>
+                    <div class="col-12 mt-5">
+                        <h5 class="font-serif text-coklat-tua text-center mb-3">Bagan Tim Penggerak PKK</h5>
+                        <div id="chart_pkk" style="min-width: 1000px; padding: 20px 0; border: 1px dashed #e2e8f0; border-radius: 12px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{{-- 7. PETA LOKASI DAN KEPEMIMPINAN --}}
+<section class="section-spacing">
     <div class="container">
         
         <!-- PERJALANAN KEPEMIMPINAN -->
@@ -644,8 +773,8 @@
                 <div class="timeline-node">
                     <div class="timeline-content">
                         <div class="periode">2024 - 2029</div>
-                        <h6 class="text-uppercase">{{ $settings['nama_kades'] ?? 'H. Ahmad Suryadi, S.E.' }}</h6>
-                        <div class="jabatan">Kepala Desa</div>
+                        <h6 class="text-uppercase">{{ $namaKades }}</h6>
+                        <div class="jabatan">{{ $jabatanKades }}</div>
                     </div>
                 </div>
             </div>
@@ -676,28 +805,28 @@
                         <div class="batas-icon-arrow"><i class="bi bi-arrow-up"></i></div>
                         <div>
                             <div class="label">Batas Utara</div>
-                            <div class="value">Jalan Propinsi & Desa Gading Sari</div>
+                            <div class="value">{{ $settings['batas_utara'] ?? 'Desa Sungai Paku / Desa Sungai Sarik (Kecamatan Kampar Kiri)' }}</div>
                         </div>
                     </div>
                     <div class="batas-item">
                         <div class="batas-icon-arrow"><i class="bi bi-arrow-down"></i></div>
                         <div>
                             <div class="label">Batas Selatan</div>
-                            <div class="value">Desa Petapahan</div>
+                            <div class="value">{{ $settings['batas_selatan'] ?? 'Desa Teluk Paman (Kecamatan Kampar Kiri)' }}</div>
                         </div>
                     </div>
                     <div class="batas-item">
                         <div class="batas-icon-arrow"><i class="bi bi-arrow-right"></i></div>
                         <div>
                             <div class="label">Batas Timur</div>
-                            <div class="value">Desa Indrapuri</div>
+                            <div class="value">{{ $settings['batas_timur'] ?? 'Desa Kuntu / Desa Kuntu Darussalam' }}</div>
                         </div>
                     </div>
                     <div class="batas-item">
                         <div class="batas-icon-arrow"><i class="bi bi-arrow-left"></i></div>
                         <div>
                             <div class="label">Batas Barat</div>
-                            <div class="value">Desa Petapahan</div>
+                            <div class="value">{{ $settings['batas_barat'] ?? 'Hutan Lindung / Desa Siabu' }}</div>
                         </div>
                     </div>
                 </div>
@@ -706,7 +835,7 @@
                     <div class="b-stat-item">
                         <i class="bi bi-map b-stat-icon"></i>
                         <div class="b-stat-info">
-                            <div class="val">{{ $settings['luas_wilayah'] ?? '1.544 Ha' }}</div>
+                            <div class="val">{{ $settings['luas_wilayah'] ?? '46.266 M' }}</div>
                             <div class="lbl">Total luas wilayah</div>
                         </div>
                     </div>
@@ -726,15 +855,27 @@
             
             <!-- Kolom Embed Maps -->
             <div class="map-embed-side" data-aos="zoom-in" data-aos-delay="200">
-                <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127670.36873523455!2d101.12187765103217!3d0.015386657954302097!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d5b1285bf8a48b%3A0xf601df52b04c8f25!2sKampar%20Kiri%2C%20Kabupaten%20Kampar%2C%20Riau!5e0!3m2!1sid!2sid!4v1704123456789!5m2!1sid!2sid" 
-                    width="100%" 
-                    height="100%" 
-                    style="border:0; display:block; min-height: 500px;" 
-                    allowfullscreen="" 
-                    loading="lazy" 
-                    referrerpolicy="no-referrer-when-downgrade">
-                </iframe>
+                @if(!empty($settings['link_map']))
+                    <iframe 
+                        src="{{ $settings['link_map'] }}" 
+                        width="100%" 
+                        height="100%" 
+                        style="border:0; display:block; min-height: 500px;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                @else
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127670.36873523455!2d101.12187765103217!3d0.015386657954302097!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d5b1285bf8a48b%3A0xf601df52b04c8f25!2sKampar%20Kiri%2C%20Kabupaten%20Kampar%2C%20Riau!5e0!3m2!1sid!2sid!4v1704123456789!5m2!1sid!2sid" 
+                        width="100%" 
+                        height="100%" 
+                        style="border:0; display:block; min-height: 500px;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                @endif
             </div>
         </div>
 
@@ -746,14 +887,10 @@
 @push('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const swiper = new Swiper('.perangkat-swiper', {
+        const swiperConfig = {
             slidesPerView: 1,
             spaceBetween: 20,
             loop: false,
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
             autoplay: {
                 delay: 3000,
                 disableOnInteraction: false,
@@ -764,7 +901,235 @@
                 992: { slidesPerView: 4, spaceBetween: 30 },
                 1200: { slidesPerView: 5, spaceBetween: 30 }
             }
+        };
+
+        new Swiper('.perangkat-swiper', {
+            ...swiperConfig,
+            pagination: { el: '.swiper-pagination', clickable: true },
         });
+
+        new Swiper('.bpd-swiper', {
+            ...swiperConfig,
+            pagination: { el: '.bpd-pagination', clickable: true },
+        });
+
+        new Swiper('.pkk-swiper', {
+            ...swiperConfig,
+            pagination: { el: '.pkk-pagination', clickable: true },
+        });
+    });
+</script>
+
+<style>
+    /* Styling khusus untuk Google Org Chart Node */
+    .google-visualization-orgchart-node {
+        border: none !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+    }
+    .google-visualization-orgchart-node-hover {
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+    }
+    .org-card {
+        background: #ffffff;
+        border: 2px solid #c9963a;
+        border-radius: 12px;
+        padding: 12px 15px;
+        box-shadow: 0 4px 15px rgba(201, 150, 58, 0.15);
+        color: #3d1f0a;
+        font-family: 'Inter', sans-serif;
+        min-width: 140px;
+        text-align: center;
+        transition: transform 0.3s;
+    }
+    .org-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(201, 150, 58, 0.25);
+    }
+    .org-card .nama {
+        font-weight: bold;
+        font-size: 0.95rem;
+        margin-bottom: 4px;
+        white-space: nowrap;
+    }
+    .org-card .jabatan {
+        font-size: 0.8rem;
+        color: #6c757d;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+</style>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    google.charts.load('current', {packages:["orgchart"]});
+    google.charts.setOnLoadCallback(drawCharts);
+
+    function drawCharts() {
+        // --- DATA PERANGKAT DESA ---
+        var dataPerangkat = new google.visualization.DataTable();
+        dataPerangkat.addColumn('string', 'Name');
+        dataPerangkat.addColumn('string', 'Manager');
+        dataPerangkat.addColumn('string', 'ToolTip');
+
+        @php
+            $kadesId = $perangkats->where('urutan', 1)->first()->id ?? '';
+            $sekdesId = $perangkats->where('urutan', 2)->first()->id ?? $kadesId;
+        @endphp
+
+        var perangkatRows = [
+            @php
+                $lastKadusId = null;
+            @endphp
+            @foreach($perangkats as $p)
+                @php
+                    $parentId = '';
+                    $jabatan = strtolower($p->jabatan);
+                    $isKadus = (strpos($jabatan, 'kadus') !== false || strpos($jabatan, 'dusun') !== false);
+                    
+                    if ($p->id == $kadesId) {
+                        $parentId = '';
+                    } elseif (strpos($jabatan, 'sekretaris') !== false) {
+                        $parentId = (string)$kadesId;
+                    } elseif (strpos($jabatan, 'kaur') !== false && strpos($jabatan, 'pelayanan') === false) {
+                        // Kaur Umum, Kaur Keuangan, Kaur Perencanaan -> di bawah Sekdes
+                        $parentId = (string)$sekdesId;
+                    } elseif ($isKadus) {
+                        // Susun Kadus ke bawah (vertikal)
+                        if ($lastKadusId !== null) {
+                            $parentId = (string)$lastKadusId;
+                        } else {
+                            $parentId = (string)$kadesId;
+                        }
+                        $lastKadusId = $p->id;
+                    } else {
+                        // Kasi dan Kaur Pelayanan -> di bawah Kades
+                        $parentId = (string)$kadesId;
+                    }
+                @endphp
+                [
+                    {
+                        v: '{{ $p->id }}',
+                        f: `<div class="org-card"><div class="nama">{{ $p->nama }}</div><div class="jabatan">{{ $p->jabatan }}</div></div>`
+                    },
+                    '{{ $parentId }}',
+                    '{{ $p->jabatan }}'
+                ],
+            @endforeach
+        ];
+        
+        if (perangkatRows.length > 0) {
+            dataPerangkat.addRows(perangkatRows);
+            var chartPerangkat = new google.visualization.OrgChart(document.getElementById('chart_perangkat'));
+            chartPerangkat.draw(dataPerangkat, {allowHtml:true, allowCollapse:true});
+        }
+
+        // --- DATA BPD ---
+        var dataBpd = new google.visualization.DataTable();
+        dataBpd.addColumn('string', 'Name');
+        dataBpd.addColumn('string', 'Manager');
+        dataBpd.addColumn('string', 'ToolTip');
+
+        @php
+            $ketuaBpdId = $bpd->where('urutan', 1)->first()->id ?? '';
+        @endphp
+
+        var bpdRows = [
+            @foreach($bpd as $b)
+                @php
+                    $parentId = ($b->urutan > 1) ? (string)$ketuaBpdId : '';
+                @endphp
+                [
+                    {
+                        v: '{{ $b->id }}',
+                        f: `<div class="org-card"><div class="nama">{{ $b->nama }}</div><div class="jabatan">{{ $b->jabatan }}</div></div>`
+                    },
+                    '{{ $parentId }}',
+                    '{{ $b->jabatan }}'
+                ],
+            @endforeach
+        ];
+
+        if (bpdRows.length > 0) {
+            dataBpd.addRows(bpdRows);
+            var chartBpd = new google.visualization.OrgChart(document.getElementById('chart_bpd'));
+            chartBpd.draw(dataBpd, {allowHtml:true, allowCollapse:true});
+        }
+
+        // --- DATA PKK ---
+        var dataPkk = new google.visualization.DataTable();
+        dataPkk.addColumn('string', 'Name');
+        dataPkk.addColumn('string', 'Manager');
+        dataPkk.addColumn('string', 'ToolTip');
+
+        @php
+            $pembinaId = $pkk->where('urutan', 8)->first()->id ?? '';
+            $pjKetuaId = $pkk->where('urutan', 9)->first()->id ?? $pembinaId;
+            $wakilId = $pkk->where('urutan', 10)->first()->id ?? $pjKetuaId;
+        @endphp
+
+        var pkkRows = [
+            @php
+                $lastNodeForGroup = [];
+            @endphp
+            @foreach($pkk as $pk)
+                @php
+                    $parentId = '';
+                    $jabatanUpper = strtoupper($pk->jabatan);
+                    if ($pk->urutan == 9) {
+                        $parentId = (string)$pembinaId;
+                    } elseif ($pk->urutan == 10) {
+                        $parentId = (string)$pjKetuaId;
+                    } elseif ($pk->urutan == 11 || $pk->urutan == 12) {
+                        $parentId = (string)$wakilId;
+                    } else {
+                        // Cek apakah ini bagian dari POKJA
+                        if (preg_match('/POKJA\s+([A-Z]+)/i', $jabatanUpper, $matches)) {
+                            $group = $matches[1];
+                            if (strpos($jabatanUpper, 'KETUA') !== false) {
+                                $parentId = (string)$wakilId;
+                                $lastNodeForGroup[$group] = $pk->id;
+                            } elseif (strpos($jabatanUpper, 'ANGGOTA') !== false) {
+                                if (isset($lastNodeForGroup[$group])) {
+                                    // Sambungkan ke anggota sebelumnya agar membentuk list vertikal (ke bawah)
+                                    $parentId = (string)$lastNodeForGroup[$group];
+                                    $lastNodeForGroup[$group] = $pk->id; 
+                                } else {
+                                    $parentId = (string)$wakilId;
+                                }
+                            }
+                        } else {
+                            if ($pk->id != $pembinaId) $parentId = (string)$wakilId;
+                        }
+                    }
+                @endphp
+                [
+                    {
+                        v: '{{ $pk->id }}',
+                        f: `<div class="org-card"><div class="nama">{{ $pk->nama }}</div><div class="jabatan">{{ $pk->jabatan }}</div></div>`
+                    },
+                    '{{ $parentId }}',
+                    '{{ $pk->jabatan }}'
+                ],
+            @endforeach
+        ];
+
+        if (pkkRows.length > 0) {
+            dataPkk.addRows(pkkRows);
+            var chartPkk = new google.visualization.OrgChart(document.getElementById('chart_pkk'));
+            chartPkk.draw(dataPkk, {allowHtml:true, allowCollapse:true});
+        }
+    }
+    
+    // Redraw charts when collapse is shown to fix width rendering issues
+    document.getElementById('collapseBaganPerangkat').addEventListener('shown.bs.collapse', function () {
+        drawCharts();
+    });
+    document.getElementById('collapseBaganLembaga').addEventListener('shown.bs.collapse', function () {
+        drawCharts();
     });
 </script>
 @endpush

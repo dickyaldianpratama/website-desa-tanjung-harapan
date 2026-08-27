@@ -57,7 +57,7 @@
         width: 100%;
         max-width: 100%;
         max-height: 500px;
-        object-fit: contain;
+        object-fit: cover;
         background-color: #f8f9fa; /* Latar belakang abu-abu muda jika gambar tidak memenuhi lebar penuh */
         border-radius: 12px;
         margin-bottom: 2rem;
@@ -203,7 +203,7 @@
                         </div>
                     </div>
 
-                    @if($berita->gambar && file_exists(public_path('images/berita/'.$berita->gambar)))
+                    @if($berita->gambar)
                         <img src="{{ asset('images/berita/'.$berita->gambar) }}" class="article-image" alt="{{ $berita->judul }}">
                     @else
                         @php $fallbackImg = 'berita' . (($berita->id % 3) + 1) . '.jpg'; @endphp
@@ -235,9 +235,9 @@
                 <div class="sidebar-widget" data-aos="fade-up" data-aos-delay="100">
                     <h3 class="sidebar-title">Berita Terbaru</h3>
                     <div class="recent-posts-list">
-                        @forelse($related as $item)
+                        @forelse($terbaru as $item)
                         <div class="recent-post">
-                            @if($item->gambar && file_exists(public_path('images/berita/'.$item->gambar)))
+                            @if($item->gambar)
                                 <img src="{{ asset('images/berita/'.$item->gambar) }}" class="recent-img" alt="{{ $item->judul }}">
                             @else
                                 @php $recentFallbackImg = 'berita' . (($item->id % 3) + 1) . '.jpg'; @endphp
@@ -262,18 +262,17 @@
                 <div class="sidebar-widget mt-4" data-aos="fade-up" data-aos-delay="200">
                     <h3 class="sidebar-title">Kategori</h3>
                     <ul class="list-group list-group-flush border-0">
-                        <a href="{{ route('berita.index', ['kategori' => 'berita']) }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center bg-transparent border-bottom">
-                            Berita <i class="bi bi-chevron-right small text-gold"></i>
-                        </a>
-                        <a href="{{ route('berita.index', ['kategori' => 'pengumuman']) }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center bg-transparent border-bottom">
-                            Pengumuman <i class="bi bi-chevron-right small text-gold"></i>
-                        </a>
-                        <a href="{{ route('berita.index', ['kategori' => 'pembangunan']) }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center bg-transparent border-bottom">
-                            Pembangunan <i class="bi bi-chevron-right small text-gold"></i>
-                        </a>
-                        <a href="{{ route('berita.index', ['kategori' => 'kegiatan']) }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center bg-transparent">
-                            Kegiatan <i class="bi bi-chevron-right small text-gold"></i>
-                        </a>
+                        @if(isset($kategoris) && count($kategoris) > 0)
+                            @foreach($kategoris as $kat)
+                                @if($kat)
+                                    <a href="{{ route('berita.index', ['kategori' => $kat]) }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center bg-transparent border-bottom">
+                                        {{ $kat }} <i class="bi bi-chevron-right small text-gold"></i>
+                                    </a>
+                                @endif
+                            @endforeach
+                        @else
+                            <p class="text-muted small">Belum ada kategori.</p>
+                        @endif
                     </ul>
                 </div>
             </div>

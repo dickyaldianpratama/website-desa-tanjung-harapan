@@ -106,7 +106,14 @@
         @forelse($sliders as $slider)
         <div class="swiper-slide hero-slide">
             @if($slider->gambar)
-                <img src="{{ asset('images/sliders/'.$slider->gambar) }}" alt="{{ $slider->judul }}">
+                @php
+                    $imgPos   = $slider->image_position ?? '50% 50%';
+                    $imgScale = ($slider->image_scale ?? 100) / 100;
+                @endphp
+                <img src="{{ asset('images/sliders/'.$slider->gambar) }}"
+                     alt="{{ $slider->judul }}"
+                     style="object-position:{{ $imgPos }};transform:scale({{ $imgScale }});transform-origin:{{ $imgPos }};">
+
             @else
                 <div class="hero-placeholder">🏡</div>
             @endif
@@ -129,7 +136,7 @@
             <div class="hero-overlay"></div>
             <div class="hero-content">
                 <div class="hero-ornament">✦ &nbsp; Selamat Datang &nbsp; ✦</div>
-                <h1 class="hero-title">Selamat Datang di<br><span>{{ $settings['nama_desa'] ?? 'Desa Nusantara' }}</span></h1>
+                <h1 class="hero-title">Selamat Datang di<br><span>{{ $settings['nama_desa'] ?? 'Desa Tanjung Harapan' }}</span></h1>
                 <p class="hero-subtitle">{{ $settings['nama_kecamatan'] ?? '' }} · {{ $settings['nama_kabupaten'] ?? '' }}</p>
                 <div class="hero-buttons">
                     <a href="{{ route('profil') }}" class="btn-desa-primary">Profil Desa</a>
@@ -147,26 +154,21 @@
 {{-- ── STATISTIK ── --}}
 <section class="stats-bar">
     <div class="container">
-        <div class="row g-0">
-            <div class="col-6 col-md-3 stat-item">
+        <div class="row g-0 justify-content-center">
+            <div class="col-4 col-md-4 stat-item">
                 <div class="stat-number" data-target="{{ preg_replace('/[^0-9]/', '', $settings['jumlah_penduduk'] ?? '0') }}">0</div>
                 <div class="stat-unit">Jiwa</div>
                 <div class="stat-label">Jumlah Penduduk</div>
             </div>
-            <div class="col-6 col-md-3 stat-item stat-divider">
+            <div class="col-4 col-md-4 stat-item stat-divider">
                 <div class="stat-number" data-target="{{ preg_replace('/[^0-9]/', '', $settings['jumlah_kk'] ?? '0') }}">0</div>
                 <div class="stat-unit">KK</div>
                 <div class="stat-label">Kepala Keluarga</div>
             </div>
-            <div class="col-6 col-md-3 stat-item stat-divider">
-                <div class="stat-number" data-target="{{ preg_replace('/[^0-9]/', '', $settings['jumlah_rw'] ?? '0') }}">0</div>
-                <div class="stat-unit">RW</div>
-                <div class="stat-label">Rukun Warga</div>
-            </div>
-            <div class="col-6 col-md-3 stat-item stat-divider">
-                <div class="stat-number" data-target="{{ preg_replace('/[^0-9]/', '', $settings['jumlah_rt'] ?? '0') }}">0</div>
-                <div class="stat-unit">RT</div>
-                <div class="stat-label">Rukun Tetangga</div>
+            <div class="col-4 col-md-4 stat-item stat-divider">
+                <div class="stat-number" data-target="{{ preg_replace('/[^0-9]/', '', $settings['jumlah_dusun'] ?? '4') }}">0</div>
+                <div class="stat-unit">Dusun</div>
+                <div class="stat-label">Jumlah Dusun</div>
             </div>
         </div>
     </div>
@@ -179,19 +181,24 @@
             <div class="col-md-4 text-center">
                 <div class="kades-photo-wrap d-inline-block position-relative">
                     @php 
-                        $fotoKades = $settings['foto_kades'] ?? ''; 
+                        $fotoKades = $kades && $kades->foto ? 'perangkat/'.$kades->foto : ($settings['foto_kades'] ?? '');
+                        $namaKades = $kades ? $kades->nama : ($settings['nama_kades'] ?? '-');
+                        $jabatanKades = $kades ? $kades->jabatan : ($settings['jabatan_kades'] ?? 'Kepala Desa');
                         $defaultKades = 'perangkat/kades.jpg';
                     @endphp
+                    
                     @if($fotoKades)
-                        <img src="{{ asset('images/'.$fotoKades) }}" class="kades-photo" alt="Kepala Desa">
-                    @elseif($defaultKades)
-                        <img src="{{ asset('images/'.$defaultKades) }}" class="kades-photo" alt="Kepala Desa">
+                        <img src="{{ asset('images/'.$fotoKades) }}" class="kades-photo" alt="{{ $namaKades }}">
+                    @elseif(isset($settings['foto_kades']) && $settings['foto_kades'])
+                        <img src="{{ asset('images/'.$settings['foto_kades']) }}" class="kades-photo" alt="{{ $namaKades }}">
                     @else
-                        <div class="kades-photo-placeholder">👤</div>
+                        {{-- Fallback to default dummy --}}
+                        <img src="{{ asset('images/'.$defaultKades) }}" class="kades-photo" alt="{{ $namaKades }}" onerror="this.outerHTML='<div class=\'kades-photo-placeholder\'>👤</div>'">
                     @endif
+
                     <div class="kades-badge">
-                        <div style="font-size:.65rem;opacity:.8">{{ $settings['jabatan_kades'] ?? 'Kepala Desa' }}</div>
-                        <div>{{ $settings['nama_kades'] ?? '-' }}</div>
+                        <div style="font-size:.65rem;opacity:.8">{{ $jabatanKades }}</div>
+                        <div>{{ $namaKades }}</div>
                     </div>
                 </div>
             </div>
@@ -202,8 +209,8 @@
                     {{ $settings['sambutan_kades'] ?? 'Selamat datang di website resmi desa Tanjung Harapan. Melalui website ini, kami berkomitmen untuk memberikan informasi yang transparan dan akurat kepada seluruh masyarakat. Mari bersama-sama membangun desa kita tercinta.' }}
                 </div>
                 <div class="mt-4">
-                    <div class="signature-line">{{ $settings['nama_kades'] ?? '-' }}</div>
-                    <div style="font-size:.85rem;color:var(--teks-abu)">{{ $settings['jabatan_kades'] ?? 'Kepala Desa' }}</div>
+                    <div class="signature-line">{{ $namaKades }}</div>
+                    <div style="font-size:.85rem;color:var(--teks-abu)">{{ $jabatanKades }}</div>
                 </div>
                 <a href="{{ route('profil') }}" class="btn-desa-primary mt-3 d-inline-block">Selengkapnya</a>
             </div>
@@ -282,7 +289,7 @@
                         <div class="card-body d-flex flex-column">
                             <span class="badge-kategori">{{ ucfirst($potensi->kategori) }}</span>
                             <h3 class="card-title mt-2">{{ $potensi->judul }}</h3>
-                            <p style="font-size:.875rem;color:var(--teks-abu);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;" class="mb-auto">{{ $potensi->deskripsi }}</p>
+                            <p style="font-size:.875rem;color:var(--teks-abu);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;" class="mb-auto">{{ strip_tags($potensi->deskripsi) }}</p>
                             <a href="{{ route('potensi.show', $potensi->slug) }}" class="link-gold mt-3">Selengkapnya <i class="bi bi-arrow-right"></i></a>
                         </div>
                     </div>

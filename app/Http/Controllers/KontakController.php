@@ -10,7 +10,14 @@ class KontakController extends Controller {
     public function index() {
         $settings = Setting::all()->pluck('value', 'key');
         $beritas = Berita::publish()->latest('published_at')->take(4)->get();
-        return view('pages.kontak', compact('settings', 'beritas'));
+        
+        // Ambil data Kepala Desa
+        $kades = \App\Models\Perangkat::where('urutan', 1)
+            ->orWhere('jabatan', 'like', '%Kepala Desa%')
+            ->orderBy('urutan')
+            ->first();
+            
+        return view('pages.kontak', compact('settings', 'beritas', 'kades'));
     }
 
     public function store(Request $request) {
@@ -38,7 +45,7 @@ class KontakController extends Controller {
 
         // Prepare WhatsApp Redirection
         $settings = Setting::all()->pluck('value', 'key');
-        $noWaAdmin = $settings['telepon'] ?? '6281234567890';
+        $noWaAdmin = $settings['telepon_desa'] ?? '6281234567890';
         
         // Ensure number starts with 62
         $noWaAdmin = preg_replace('/[^0-9]/', '', $noWaAdmin);

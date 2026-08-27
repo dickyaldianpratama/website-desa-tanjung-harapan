@@ -43,7 +43,9 @@ class AppServiceProvider extends ServiceProvider
                 'total' => Visitor::count(),
             ];
 
-            $view->with('visitorStats', $visitorStats);
+            $settings = \App\Models\Setting::pluck('value', 'key')->toArray();
+
+            $view->with('visitorStats', $visitorStats)->with('settings', $settings);
         });
     }
 }

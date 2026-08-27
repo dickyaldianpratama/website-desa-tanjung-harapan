@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cover Proposal KKN - Desa Tanjung Harapan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800;900&family=Cinzel:wght@400;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        @page {
+            size: A4 portrait;
+            margin: 0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #111;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .cover-page {
+            width: 210mm;
+            height: 297mm;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(170deg, #0d2818 0%, #1a472a 25%, #0f3d1f 50%, #1a472a 75%, #0d2818 100%);
+            box-shadow: 0 25px 80px rgba(0,0,0,0.6);
+        }
+
+        /* Subtle Islamic geometric pattern overlay */
+        .cover-page::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(212, 168, 73, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(212, 168, 73, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(212, 168, 73, 0.02) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Gold ornamental border */
+        .border-outer {
+            position: absolute;
+            top: 12mm;
+            left: 12mm;
+            right: 12mm;
+            bottom: 12mm;
+            border: 2.5px solid #c9a84c;
+            border-radius: 4px;
+            z-index: 1;
+        }
+
+        .border-inner {
+            position: absolute;
+            top: 16mm;
+            left: 16mm;
+            right: 16mm;
+            bottom: 16mm;
+            border: 1px solid rgba(201, 168, 76, 0.5);
+            border-radius: 2px;
+            z-index: 1;
+        }
+
+        /* Corner ornaments */
+        .corner {
+            position: absolute;
+            width: 45px;
+            height: 45px;
+            z-index: 2;
+        }
+        .corner::before, .corner::after {
+            content: '';
+            position: absolute;
+            background: #c9a84c;
+        }
+        .corner-tl { top: 14mm; left: 14mm; }
+        .corner-tl::before { top: 0; left: 0; width: 25px; height: 2px; }
+        .corner-tl::after { top: 0; left: 0; width: 2px; height: 25px; }
+        
+        .corner-tr { top: 14mm; right: 14mm; }
+        .corner-tr::before { top: 0; right: 0; width: 25px; height: 2px; }
+        .corner-tr::after { top: 0; right: 0; width: 2px; height: 25px; }
+        
+        .corner-bl { bottom: 14mm; left: 14mm; }
+        .corner-bl::before { bottom: 0; left: 0; width: 25px; height: 2px; }
+        .corner-bl::after { bottom: 0; left: 0; width: 2px; height: 25px; }
+        
+        .corner-br { bottom: 14mm; right: 14mm; }
+        .corner-br::before { bottom: 0; right: 0; width: 25px; height: 2px; }
+        .corner-br::after { bottom: 0; right: 0; width: 2px; height: 25px; }
+
+        /* Diamond ornament at corners */
+        .diamond {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #c9a84c;
+            transform: rotate(45deg);
+            z-index: 3;
+        }
+        .diamond-tl { top: calc(14mm - 4px); left: calc(14mm - 4px); }
+        .diamond-tr { top: calc(14mm - 4px); right: calc(14mm - 4px); }
+        .diamond-bl { bottom: calc(14mm - 4px); left: calc(14mm - 4px); }
+        .diamond-br { bottom: calc(14mm - 4px); right: calc(14mm - 4px); }
+
+        /* Content wrapper */
+        .content {
+            position: relative;
+            z-index: 5;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 28mm 25mm;
+        }
+
+        /* Top decorative line */
+        .top-ornament {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .top-ornament .line {
+            width: 80px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #c9a84c, transparent);
+        }
+        .top-ornament .dot {
+            width: 6px;
+            height: 6px;
+            background: #c9a84c;
+            border-radius: 50%;
+        }
+
+        /* Logos section */
+        .logos-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 22px;
+        }
+
+        .logo-container {
+            text-align: center;
+        }
+
+        .logo-container img {
+            height: 85px;
+            width: auto;
+            filter: drop-shadow(0 3px 8px rgba(0,0,0,0.3));
+        }
+
+        .logo-kkn img {
+            height: 120px;
+        }
+
+        /* Divider line */
+        .gold-divider {
+            width: 70%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #c9a84c 20%, #e8d283 50%, #c9a84c 80%, transparent);
+            margin: 18px 0;
+            position: relative;
+        }
+        .gold-divider::after {
+            content: '✦';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #c9a84c;
+            font-size: 14px;
+            background: #1a472a;
+            padding: 0 10px;
+        }
+
+        /* Title section */
+        .proposal-label {
+            font-family: 'Cinzel', serif;
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 12px;
+            color: #e8d283;
+            text-transform: uppercase;
+            margin-top: 8px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .main-title {
+            font-family: 'Cinzel', serif;
+            font-size: 38px;
+            font-weight: 900;
+            color: #ffffff;
+            letter-spacing: 5px;
+            text-shadow: 0 3px 10px rgba(0,0,0,0.4), 0 0 40px rgba(212, 168, 73, 0.15);
+            margin: 10px 0 5px;
+            line-height: 1.1;
+        }
+
+        .main-title-sub {
+            font-family: 'Cinzel', serif;
+            font-size: 16px;
+            font-weight: 600;
+            color: #e8d283;
+            letter-spacing: 6px;
+            margin-bottom: 5px;
+        }
+
+        .subtitle-full {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 15px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.75);
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+        }
+
+        /* University name */
+        .university-name {
+            font-family: 'Cinzel', serif;
+            font-size: 14px;
+            font-weight: 700;
+            color: #e8d283;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin: 5px 0 20px;
+        }
+
+        /* Location details section */
+        .location-section {
+            text-align: center;
+            margin: 15px 0;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .desa-label {
+            font-family: 'Poppins', sans-serif;
+            font-size: 12px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.6);
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .desa-name {
+            font-family: 'Cinzel', serif;
+            font-size: 32px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: 3px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            margin-bottom: 14px;
+            line-height: 1.2;
+        }
+
+        .location-detail {
+            font-family: 'Poppins', sans-serif;
+            font-size: 13px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.8);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            line-height: 2.2;
+        }
+
+        .location-detail span {
+            display: block;
+        }
+
+        /* Gold badge for year */
+        .year-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            margin: 20px 0 10px;
+            padding: 8px 35px;
+            background: linear-gradient(135deg, #c9a84c, #e8d283, #c9a84c);
+            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(201, 168, 76, 0.3);
+        }
+
+        .year-badge .year-text {
+            font-family: 'Cinzel', serif;
+            font-size: 22px;
+            font-weight: 800;
+            color: #1a472a;
+            letter-spacing: 4px;
+        }
+
+        /* Tagline */
+        .tagline-section {
+            margin-top: 18px;
+        }
+
+        .tagline {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 15px;
+            font-weight: 600;
+            font-style: italic;
+            color: #e8d283;
+            letter-spacing: 2px;
+            text-align: center;
+        }
+
+        /* Bottom decorative village silhouette */
+        .bottom-decoration {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            z-index: 4;
+            overflow: hidden;
+        }
+
+        .bottom-decoration svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Small ornamental dividers */
+        .mini-divider {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 8px 0;
+        }
+        .mini-divider .line-sm {
+            width: 40px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(201, 168, 76, 0.6), transparent);
+        }
+        .mini-divider .diamond-sm {
+            width: 5px;
+            height: 5px;
+            background: #c9a84c;
+            transform: rotate(45deg);
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                background: none;
+                padding: 0;
+            }
+            .cover-page {
+                box-shadow: none;
+                width: 100%;
+                height: 100vh;
+            }
+        }
+
+        /* Responsive for screen viewing */
+        @media screen and (max-width: 800px) {
+            body {
+                padding: 10px;
+            }
+            .cover-page {
+                width: 100%;
+                height: auto;
+                aspect-ratio: 210/297;
+            }
+            .content {
+                padding: 20px 15px;
+            }
+            .main-title {
+                font-size: 28px;
+            }
+            .desa-name {
+                font-size: 24px;
+            }
+            .logos-section {
+                gap: 20px;
+            }
+            .logo-container img {
+                height: 55px;
+            }
+            .logo-kkn img {
+                height: 80px;
+            }
+        }
+
+        /* Subtle glow animation */
+        @keyframes subtleGlow {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+
+        .main-title {
+            animation: subtleGlow 4s ease-in-out infinite;
+        }
+
+        /* Gradient overlay at bottom */
+        .gradient-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: linear-gradient(to top, rgba(10, 30, 18, 0.6), transparent);
+            z-index: 3;
+        }
+    </style>
+</head>
+<body>
+    <div class="cover-page">
+        <!-- Ornamental borders -->
+        <div class="border-outer"></div>
+        <div class="border-inner"></div>
+        
+        <!-- Corner ornaments -->
+        <div class="corner corner-tl"></div>
+        <div class="corner corner-tr"></div>
+        <div class="corner corner-bl"></div>
+        <div class="corner corner-br"></div>
+        
+        <!-- Corner diamonds -->
+        <div class="diamond diamond-tl"></div>
+        <div class="diamond diamond-tr"></div>
+        <div class="diamond diamond-bl"></div>
+        <div class="diamond diamond-br"></div>
+
+        <!-- Gradient overlay -->
+        <div class="gradient-bottom"></div>
+
+        <!-- Main content -->
+        <div class="content">
+            <!-- Top ornament -->
+            <div class="top-ornament">
+                <div class="line"></div>
+                <div class="dot"></div>
+                <div class="line"></div>
+            </div>
+
+            <!-- Logos -->
+            <div class="logos-section">
+                <div class="logo-container">
+                    <img src="images/kkn/logo_umri.png" alt="Logo UMRI" 
+                         onerror="this.style.display='none'">
+                </div>
+                <div class="logo-container logo-kkn">
+                    <img src="images/kkn/logo_kkn.png" alt="Logo KKN" 
+                         onerror="this.style.display='none'">
+                </div>
+                <div class="logo-container">
+                    <img src="images/kkn/logo_kampar.png" alt="Logo Kabupaten Kampar" 
+                         onerror="this.style.display='none'">
+                </div>
+            </div>
+
+            <!-- Gold divider -->
+            <div class="gold-divider"></div>
+
+            <!-- Title -->
+            <p class="proposal-label">PROPOSAL</p>
+            <h1 class="main-title">KULIAH KERJA NYATA</h1>
+            <p class="main-title-sub">(K K N)</p>
+            <p class="university-name">Universitas Muhammadiyah Riau</p>
+
+            <!-- Gold divider -->
+            <div class="gold-divider"></div>
+
+            <!-- Location section -->
+            <div class="location-section">
+                <p class="desa-label">Lokasi Penempatan</p>
+                <h2 class="desa-name">DESA TANJUNG HARAPAN</h2>
+                
+                <div class="mini-divider" style="justify-content: center;">
+                    <div class="line-sm"></div>
+                    <div class="diamond-sm"></div>
+                    <div class="line-sm"></div>
+                </div>
+
+                <div class="location-detail">
+                    <span>Kecamatan Kampar Kiri</span>
+                    <span>Kabupaten Kampar</span>
+                    <span>Provinsi Riau</span>
+                </div>
+            </div>
+
+            <!-- Year badge -->
+            <div class="year-badge">
+                <span class="year-text">TAHUN 2026</span>
+            </div>
+
+            <!-- Tagline -->
+            <div class="tagline-section">
+                <div class="mini-divider" style="justify-content: center;">
+                    <div class="line-sm"></div>
+                    <div class="diamond-sm"></div>
+                    <div class="line-sm"></div>
+                </div>
+                <p class="tagline">"Mahasiswa Berdampak, Masyarakat Berkemajuan"</p>
+            </div>
+
+            <!-- Bottom ornament -->
+            <div class="top-ornament" style="margin-top: 12px; margin-bottom: 0;">
+                <div class="line"></div>
+                <div class="dot"></div>
+                <div class="line"></div>
+            </div>
+        </div>
+
+        <!-- Bottom village silhouette decoration -->
+        <div class="bottom-decoration">
+            <svg viewBox="0 0 800 60" preserveAspectRatio="none">
+                <defs>
+                    <linearGradient id="silGrad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="rgba(10,30,15,0.4)" />
+                        <stop offset="100%" stop-color="rgba(10,30,15,0.8)" />
+                    </linearGradient>
+                </defs>
+                <!-- Village silhouette -->
+                <path d="M0,60 L0,45 Q20,42 40,45 L50,35 L55,20 L57,35 L70,38 L75,25 L78,18 L81,25 L90,38 
+                         Q120,40 150,42 L160,30 L170,22 L175,30 L185,35 L190,20 L195,35 L210,38 
+                         Q250,40 300,42 L310,38 L320,28 L325,20 L327,28 L335,30 L340,35 
+                         Q380,38 420,40 L430,35 L440,25 L445,18 L448,10 L451,18 L455,25 L465,35 
+                         Q500,38 550,40 L560,35 L570,28 L575,20 L577,28 L585,30 L595,38 
+                         Q630,40 670,42 L680,35 L690,22 L695,35 L710,40 L720,30 L725,18 L728,30 L735,35 
+                         Q760,38 800,42 L800,60 Z" 
+                      fill="url(#silGrad)" opacity="0.5"/>
+                <!-- Palm tree silhouettes -->
+                <path d="M60,45 L62,20 Q55,15 45,12 Q55,10 62,14 Q58,5 52,0 Q60,3 64,10 Q66,2 72,0 Q68,8 64,14 Q72,10 80,12 Q68,15 64,20 L66,45" 
+                      fill="rgba(10,30,15,0.3)" />
+                <path d="M720,42 L722,18 Q715,13 705,10 Q715,8 722,12 Q718,3 712,0 Q720,2 724,8 Q726,0 732,0 Q728,6 724,12 Q732,8 740,10 Q728,13 724,18 L726,42" 
+                      fill="rgba(10,30,15,0.3)" />
+            </svg>
+        </div>
+    </div>
+
+    <script>
+        // Print functionality
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key === 'p') {
+                // Allow default print behavior
+            }
+        });
+    </script>
+</body>
+</html>

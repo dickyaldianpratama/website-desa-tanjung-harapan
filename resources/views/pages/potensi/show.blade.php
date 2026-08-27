@@ -17,7 +17,7 @@
         width: 100%;
         max-width: 100%;
         max-height: 500px;
-        object-fit: contain;
+        object-fit: cover;
         background-color: #f8f9fa;
         border-radius: 12px;
         margin-bottom: 2rem;
@@ -62,7 +62,7 @@
             </div>
 
             <!-- IMAGE -->
-            @if($potensi->gambar && file_exists(public_path('images/potensi/'.$potensi->gambar)))
+            @if($potensi->gambar)
                 <img src="{{ asset('images/potensi/'.$potensi->gambar) }}" alt="{{ $potensi->judul }}" class="article-image">
             @else
                 <img src="{{ asset('images/hero-placeholder.jpg') }}" alt="{{ $potensi->judul }}" class="article-image">
@@ -70,7 +70,7 @@
 
             <!-- CONTENT -->
             <div class="article-content">
-                {!! nl2br(e($potensi->deskripsi)) !!}
+                {!! $potensi->deskripsi !!}
             </div>
 
             <!-- CONTACT BOX (Khusus UMKM / Pertanian) -->

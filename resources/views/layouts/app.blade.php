@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Website Resmi {{ $settings['nama_desa'] ?? 'Desa' }} - {{ $settings['nama_kecamatan'] ?? '' }}, {{ $settings['nama_kabupaten'] ?? '' }}. Pusat informasi, transparansi, dan pelayanan publik masyarakat desa.">
-    <meta name="keywords" content="desa {{ $settings['nama_desa'] ?? '' }}, website desa, pemerintah desa, {{ $settings['nama_kecamatan'] ?? '' }}, {{ $settings['nama_kabupaten'] ?? '' }}, pelayanan desa, potensi desa, transparansi desa">
+    <meta name="description" content="Website Resmi {{ $settings['nama_desa'] ?? 'Desa' }} - {{ $settings['nama_kecamatan'] ?? '' }}, {{ $settings['nama_kabupaten'] ?? '' }}. Pusat informasi dan pelayanan publik masyarakat desa.">
+    <meta name="keywords" content="desa {{ $settings['nama_desa'] ?? '' }}, website desa, pemerintah desa, {{ $settings['nama_kecamatan'] ?? '' }}, {{ $settings['nama_kabupaten'] ?? '' }}, pelayanan desa, potensi desa">
     <meta name="author" content="Pemerintah {{ $settings['nama_desa'] ?? 'Desa' }}">
     <meta name="robots" content="index, follow">
     
@@ -447,7 +447,7 @@
                 @endif
             </div>
             <div class="brand-text">
-                <div class="nama">{{ $settings['nama_desa'] ?? 'Desa Nusantara' }}</div>
+                <div class="nama">{{ $settings['nama_desa'] ?? 'Desa Tanjung Harapan' }}</div>
                 <div class="sub">{{ $settings['nama_kabupaten'] ?? 'Website Resmi Desa' }}</div>
             </div>
         </a>
@@ -468,7 +468,7 @@
                     <li class="nav-item"><a class="nav-link {{ request()->routeIs('profil') ? 'active' : '' }}" href="{{ route('profil') }}">Profil Desa</a></li>
                     <li class="nav-item"><a class="nav-link {{ request()->routeIs('berita*') ? 'active' : '' }}" href="{{ route('berita.index') }}">Berita</a></li>
                     <li class="nav-item"><a class="nav-link {{ request()->routeIs('potensi*') ? 'active' : '' }}" href="{{ route('potensi.index') }}">Potensi</a></li>
-                    <li class="nav-item"><a class="nav-link {{ request()->routeIs('transparansi') ? 'active' : '' }}" href="{{ route('transparansi') }}">Transparansi</a></li>
+                    <li class="nav-item"><a class="nav-link {{ request()->routeIs('layanan*') ? 'active' : '' }}" href="{{ route('layanan.index') }}">E-Layanan</a></li>
                     <li class="nav-item"><a class="nav-link {{ request()->routeIs('kontak') ? 'active' : '' }}" href="{{ route('kontak') }}">Kontak</a></li>
                 </ul>
             </div>
@@ -486,12 +486,12 @@
                 <div class="d-flex align-items-center mb-4">
                     <img src="{{ asset('images/logo_desa.png') }}" alt="Logo Desa" style="width:65px; height:auto; object-fit:contain" class="me-3 drop-shadow-sm">
                     <div>
-                        <h4 class="mb-0 font-serif text-white fw-bold" style="font-size: 1.4rem;">{{ $settings['nama_desa'] ?? 'Desa Nusantara' }}</h4>
+                        <h4 class="mb-0 font-serif text-white fw-bold" style="font-size: 1.4rem;">{{ $settings['nama_desa'] ?? 'Desa Tanjung Harapan' }}</h4>
                         <div style="color:var(--gold); font-size:.85rem; letter-spacing:1px; text-transform:uppercase;" class="mt-1">{{ $settings['nama_kabupaten'] ?? '' }}</div>
                     </div>
                 </div>
                 <p class="mb-4 text-white-50" style="line-height: 1.8; font-size: .95rem;">
-                    Website Resmi {{ $settings['nama_desa'] ?? 'Desa Nusantara' }} hadir sebagai pusat informasi dan pelayanan digital terpadu untuk kemudahan masyarakat desa demi mewujudkan transparansi dan kemajuan bersama.
+                    Website Resmi {{ $settings['nama_desa'] ?? 'Desa Tanjung Harapan' }} hadir sebagai pusat informasi dan pelayanan digital terpadu untuk kemudahan masyarakat desa demi mewujudkan kemajuan bersama.
                 </p>
                 <div class="d-flex">
                     <a href="{{ $settings['facebook'] ?? '#' }}" class="social-icon"><i class="bi bi-facebook"></i></a>
@@ -508,7 +508,6 @@
                     <li><a href="{{ route('profil') }}">Profil Desa</a></li>
                     <li><a href="{{ route('berita.index') }}">Berita & Pengumuman</a></li>
                     <li><a href="{{ route('potensi.index') }}">Potensi Desa</a></li>
-                    <li><a href="{{ route('transparansi') }}">Transparansi APBDes</a></li>
                 </ul>
             </div>
 
@@ -519,22 +518,21 @@
                     <i class="bi bi-geo-alt-fill"></i>
                     <div>
                         <strong>Alamat Kantor</strong><br>
-                        {{ $settings['alamat'] ?? '-' }}<br>
-                        {{ $settings['nama_kecamatan'] ?? '' }}, {{ $settings['nama_kabupaten'] ?? '' }}
+                        {{ $settings['alamat_desa'] ?? $settings['alamat'] ?? '-' }}
                     </div>
                 </div>
                 <div class="footer-contact-item">
                     <i class="bi bi-telephone-fill"></i>
                     <div>
                         <strong>Telepon</strong><br>
-                        {{ $settings['telepon'] ?? '-' }}
+                        {{ $settings['telepon_desa'] ?? $settings['telepon'] ?? '-' }}
                     </div>
                 </div>
                 <div class="footer-contact-item">
                     <i class="bi bi-envelope-fill"></i>
                     <div>
                         <strong>Email</strong><br>
-                        {{ $settings['email'] ?? '-' }}
+                        {{ $settings['email_desa'] ?? $settings['email'] ?? '-' }}
                     </div>
                 </div>
             </div>
@@ -542,7 +540,7 @@
     </div>
     <div class="footer-bottom">
         <div class="container text-center">
-            &copy; {{ date('Y') }} Website Resmi {{ $settings['nama_desa'] ?? 'Desa Nusantara' }}. Hak Cipta Dilindungi.
+            &copy; {{ date('Y') }} Website Resmi {{ $settings['nama_desa'] ?? 'Desa Tanjung Harapan' }}. Hak Cipta Dilindungi.
         </div>
     </div>
 </footer>

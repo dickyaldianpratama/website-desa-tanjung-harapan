@@ -34,7 +34,8 @@ class BeritaController extends Controller
 
     public function create()
     {
-        return view('admin.berita.create');
+        $kategoris = Berita::select('kategori')->distinct()->pluck('kategori');
+        return view('admin.berita.create', compact('kategoris'));
     }
 
     public function store(Request $request)
@@ -70,7 +71,8 @@ class BeritaController extends Controller
     public function edit(string $id)
     {
         $berita = Berita::findOrFail($id);
-        return view('admin.berita.edit', compact('berita'));
+        $kategoris = Berita::select('kategori')->distinct()->pluck('kategori');
+        return view('admin.berita.edit', compact('berita', 'kategoris'));
     }
 
     public function update(Request $request, string $id)

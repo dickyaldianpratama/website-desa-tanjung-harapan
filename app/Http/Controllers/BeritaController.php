@@ -5,10 +5,18 @@ use App\Models\Setting;
 class BeritaController extends Controller {
     public function index() {
         $settings = Setting::all()->pluck('value', 'key');
-        $beritas  = Berita::publish()->latest('published_at')->paginate(6);
         $kategori = request('kategori');
-        if ($kategori) $beritas = Berita::publish()->where('kategori', $kategori)->latest('published_at')->paginate(6);
-        return view('pages.berita.index', compact('settings', 'beritas', 'kategori'));
+        
+        $query = Berita::publish();
+        if ($kategori) {
+            $query->where('kategori', $kategori);
+        }
+        $beritas = $query->latest('published_at')->paginate(6);
+        
+        // Ambil daftar kategori unik yang ada di berita yang sudah di-publish
+        $kategoris = Berita::publish()->select('kategori')->distinct()->pluck('kategori');
+        
+        return view('pages.berita.index', compact('settings', 'beritas', 'kategori', 'kategoris'));
     }
     public function show($slug) {
         $settings = Setting::all()->pluck('value', 'key');
@@ -17,7 +25,15 @@ class BeritaController extends Controller {
         // Increment views
         $berita->increment('views');
         
-        $related  = Berita::publish()->where('kategori', $berita->kategori)->where('id', '!=', $berita->id)->take(3)->get();
-        return view('pages.berita.show', compact('settings', 'berita', 'related'));
+        $terbaru = Berita::publish()
+                    ->where('id', '!=', $berita->id)
+                    ->latest('published_at')
+                    ->take(5)
+                    ->get();
+        
+        // Ambil daftar kategori unik
+        $kategoris = Berita::publish()->select('kategori')->distinct()->pluck('kategori');
+        
+        return view('pages.berita.show', compact('settings', 'berita', 'terbaru', 'kategoris'));
     }
 }

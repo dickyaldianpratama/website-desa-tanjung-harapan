@@ -154,19 +154,19 @@
                         <tbody>
                             <tr>
                                 <td><i class="bi bi-geo-alt-fill text-danger me-2"></i> Alamat Kantor</td>
-                                <td>{{ $settings['alamat'] ?? 'Jl. Poros Tanjung Harapan No. 1, Kecamatan X, Kabupaten Y' }}</td>
+                                <td>{{ $settings['alamat_desa'] ?? 'Jl. Poros Tanjung Harapan No. 1, Kecamatan X, Kabupaten Y' }}</td>
                             </tr>
                             <tr>
                                 <td><i class="bi bi-telephone-fill text-success me-2"></i> No. Telepon / WA</td>
-                                <td>{{ $settings['telepon'] ?? '0812-3456-7890' }}</td>
+                                <td>{{ $settings['telepon_desa'] ?? '0812-3456-7890' }}</td>
                             </tr>
                             <tr>
                                 <td><i class="bi bi-envelope-fill text-primary me-2"></i> Email Resmi</td>
-                                <td>{{ $settings['email'] ?? 'pemdes@tanjungharapan.desa.id' }}</td>
+                                <td>{{ $settings['email_desa'] ?? 'pemdes@tanjungharapan.desa.id' }}</td>
                             </tr>
                             <tr>
                                 <td><i class="bi bi-clock-fill text-warning me-2"></i> Jam Pelayanan</td>
-                                <td>Senin - Jumat (08:00 - 15:00 WIB)</td>
+                                <td>{{ $settings['jam_kerja'] ?? 'Senin - Jumat (08:00 - 15:00 WIB)' }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -176,42 +176,72 @@
             <!-- NOMOR TELEPON PENTING -->
             <div class="contact-card">
                 <h3 class="contact-title text-danger">Nomor Telepon Penting</h3>
+                @php
+                    $teleponPenting = json_decode($settings['telepon_penting'] ?? '[]', true) ?? [];
+                @endphp
+                @if(count($teleponPenting) > 0)
                 <div class="table-responsive">
                     <table class="table-floating">
                         <tbody>
+                            @foreach($teleponPenting as $tp)
+                            @if(!empty($tp['jabatan']) || !empty($tp['nomor']))
                             <tr>
-                                <td><i class="bi bi-person-badge-fill text-primary me-2"></i> Kepala Dusun 1</td>
-                                <td>0852-1111-2222</td>
+                                <td>
+                                    <i class="bi {{ $tp['ikon'] ?? 'bi-telephone-fill' }} text-primary me-2"></i>
+                                    {{ $tp['jabatan'] ?? '-' }}
+                                </td>
+                                <td>
+                                    @if(!empty($tp['nomor']))
+                                        <a href="tel:{{ preg_replace('/[^0-9+]/', '', $tp['nomor']) }}"
+                                           class="text-decoration-none fw-semibold text-dark">
+                                            {{ $tp['nomor'] }}
+                                        </a>
+                                    @else
+                                        <span class="text-muted fst-italic">Belum diisi</span>
+                                    @endif
+                                </td>
                             </tr>
-                            <tr>
-                                <td><i class="bi bi-person-badge-fill text-primary me-2"></i> Kepala Dusun 2</td>
-                                <td>0852-3333-4444</td>
-                            </tr>
-                            <tr>
-                                <td><i class="bi bi-shield-fill-check text-success me-2"></i> Bhabinkamtibmas</td>
-                                <td>0813-9999-8888</td>
-                            </tr>
-                            <tr>
-                                <td><i class="bi bi-shield-shaded text-warning me-2"></i> Babinsa</td>
-                                <td>0821-7777-6666</td>
-                            </tr>
-                            <tr>
-                                <td><i class="bi bi-hospital-fill text-danger me-2"></i> Puskesmas Terdekat</td>
-                                <td>(0761) 555-1234</td>
-                            </tr>
+                            @endif
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
+                @else
+                <div class="text-center py-4 text-muted">
+                    <i class="bi bi-telephone-x display-6 d-block mb-2 opacity-50"></i>
+                    <p class="small mb-1">Belum ada nomor telepon penting.</p>
+                    <a href="{{ route('admin.setting.index') }}" class="btn btn-sm btn-outline-warning mt-1">
+                        <i class="bi bi-gear me-1"></i> Atur di Panel Admin
+                    </a>
+                </div>
+                @endif
             </div>
+
 
             <!-- LOKASI KANTOR -->
             <div class="contact-card p-0 overflow-hidden">
                 <div class="p-4 pb-0">
                     <h3 class="contact-title">Peta Lokasi Kantor Desa</h3>
                 </div>
-                <!-- Dummy Map Embed -->
+                {{-- Peta Lokasi --}}
                 <div class="map-container rounded-0 border-0 mt-3">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15958.82565651543!2d101.4426543!3d0.5255477!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d5ac07db3c9bfb%3A0xc6ba0e44b93198de!2sPekanbaru%2C%20Riau!5e0!3m2!1sen!2sid!4v1700000000000!5m2!1sen!2sid" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    @if(!empty($settings['link_map']))
+                        <iframe src="{{ $settings['link_map'] }}"
+                                allowfullscreen="" loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    @else
+                        {{--
+                            PENTING: Gunakan URL format /maps/embed?pb=...
+                            BUKAN link share biasa (maps.app.goo.gl atau google.com/maps)
+                            karena Google memblokir URL biasa di dalam iframe.
+                        --}}
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63686.87!2d101.08267!3d0.03289!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d562fc967fd8e3%3A0xbf7c72be4b207359!2sTj.%20Harapan%2C%20Kec.%20Kampar%20Kiri%2C%20Kabupaten%20Kampar%2C%20Riau!5e0!3m2!1sid!2sid!4v1724200000000!5m2!1sid!2sid"
+                            allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    @endif
                 </div>
             </div>
 
@@ -266,16 +296,16 @@
             <!-- PROFIL KADES WIDGET -->
             <div class="kades-profile">
                 <div class="kades-img-wrapper">
-                    <img src="{{ asset('images/perangkat/kades.jpg') }}" alt="Kepala Desa">
+                    @if(isset($kades) && $kades->foto)
+                        <img src="{{ asset('images/perangkat/' . $kades->foto) }}" alt="{{ $kades->nama }}">
+                    @else
+                        <img src="{{ asset('images/perangkat/kades.jpg') }}" onerror="this.src='{{ asset('images/hero-placeholder.jpg') }}'" alt="Kepala Desa">
+                    @endif
                 </div>
-                <h4 class="fw-bold text-dark mb-1">Bpk. H. Rahmat, S.Pd</h4>
-                <p class="text-muted small fw-bold mb-3">KEPALA DESA TANJUNG HARAPAN</p>
+                <h4 class="fw-bold text-dark mb-1">{{ $kades->nama ?? 'Nama Belum Diatur' }}</h4>
+                <p class="text-muted small fw-bold mb-3 text-uppercase">{{ $kades->jabatan ?? 'Kepala Desa' }}</p>
                 <hr class="opacity-10 my-3">
-                <p class="small text-muted fst-italic">"Melayani dengan Hati, Membangun Desa Tanjung Harapan yang Mandiri dan Bermartabat."</p>
-                <div class="d-flex justify-content-center gap-2 mt-3">
-                    <a href="#" class="btn btn-sm btn-light rounded-circle"><i class="bi bi-facebook text-primary"></i></a>
-                    <a href="#" class="btn btn-sm btn-light rounded-circle"><i class="bi bi-instagram text-danger"></i></a>
-                </div>
+                <p class="small text-muted fst-italic">"Melayani dengan Hati, Membangun {{ $settings['nama_desa'] ?? 'Desa' }} yang Mandiri dan Bermartabat."</p>
             </div>
 
             <!-- POS TERBARU WIDGET -->
