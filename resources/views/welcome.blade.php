@@ -4,7 +4,13 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>Website Resmi Desa Tanjung Harapan - Kec. Kampar Kiri, Kab. Kampar</title>
+        <meta name="description" content="Website Resmi Pemerintahan Desa Tanjung Harapan, Kecamatan Kampar Kiri, Kabupaten Kampar, Provinsi Riau. Pusat informasi kegiatan dan pelayanan masyarakat desa.">
+        <meta name="keywords" content="Desa Tanjung Harapan, Kampar Kiri, Kampar, Riau, Website Desa, Pemerintahan Desa, Profil Desa">
+        <meta property="og:title" content="Website Resmi Desa Tanjung Harapan - Kampar">
+        <meta property="og:description" content="Website Resmi Pemerintahan Desa Tanjung Harapan, Kecamatan Kampar Kiri, Kabupaten Kampar, Provinsi Riau.">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="{{ url('/') }}">
 
         @fonts
 
