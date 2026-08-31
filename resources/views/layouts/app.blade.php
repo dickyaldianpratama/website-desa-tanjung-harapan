@@ -653,7 +653,9 @@ AOS.init({
 
 <script>
     @if(session('success'))
-        alert("{{ session('success') }}");
+        @if(!request()->routeIs('layanan.cek') && !request()->routeIs('kontak'))
+            alert("{!! strip_tags(session('success')) !!}");
+        @endif
     @endif
 
     @if(session('wa_link'))
