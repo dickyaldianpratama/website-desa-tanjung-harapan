@@ -72,8 +72,13 @@
                     <div class="col-sm-4 text-muted fw-semibold">Lampiran (KTP/Pengantar)</div>
                     <div class="col-sm-8">
                         @if($layanan->file_lampiran)
-                            <a href="{{ asset('images/layanan/'.$layanan->file_lampiran) }}" target="_blank">
-                                <img src="{{ asset('images/layanan/'.$layanan->file_lampiran) }}" class="img-thumbnail rounded" style="max-height: 200px; object-fit: cover;">
+                            @php
+                                $imgUrl = Str::startsWith($layanan->file_lampiran, 'http') 
+                                            ? $layanan->file_lampiran 
+                                            : Storage::disk('supabase')->url('layanan/'.$layanan->file_lampiran);
+                            @endphp
+                            <a href="{{ $imgUrl }}" target="_blank">
+                                <img src="{{ $imgUrl }}" class="img-thumbnail rounded" style="max-height: 200px; object-fit: cover;">
                             </a>
                         @else
                             <span class="text-muted">Tidak ada lampiran yang diunggah.</span>

@@ -60,6 +60,19 @@ return [
             'report' => false,
         ],
 
+        'supabase' => [
+            'driver' => 's3',
+            'key' => env('SUPABASE_S3_KEY'),
+            'secret' => env('SUPABASE_S3_SECRET'),
+            'region' => env('SUPABASE_REGION', 'ap-south-1'),
+            'bucket' => env('SUPABASE_BUCKET', 'public-images'),
+            'url' => env('SUPABASE_URL'),
+            'endpoint' => env('SUPABASE_ENDPOINT'),
+            'use_path_style_endpoint' => true, // Required for Supabase Storage
+            'throw' => false,
+            'report' => false,
+        ],
+
     ],
 
     /*

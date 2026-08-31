@@ -24,7 +24,7 @@ Route::get('/berita/{slug}', [BeritaController::class, 'show'])->name('berita.sh
 Route::get('/potensi',       [PotensiController::class, 'index'])->name('potensi.index');
 Route::get('/potensi/{slug}',[PotensiController::class, 'show'])->name('potensi.show');
 Route::get('/layanan',       [App\Http\Controllers\LayananController::class, 'index'])->name('layanan.index');
-Route::post('/layanan',      [App\Http\Controllers\LayananController::class, 'store'])->name('layanan.store')->middleware('throttle:5,1');
+Route::post('/layanan',      [App\Http\Controllers\LayananController::class, 'store'])->name('layanan.store')->middleware('throttle:3,60');
 Route::get('/layanan/cek',   [App\Http\Controllers\LayananController::class, 'cek'])->name('layanan.cek');
 Route::post('/layanan/cek',  [App\Http\Controllers\LayananController::class, 'cekStatus'])->name('layanan.cekStatus');
 Route::get('/layanan/cetak-tiket/{nomor_tiket}', [App\Http\Controllers\LayananController::class, 'cetakTiket'])->name('layanan.cetakTiket');

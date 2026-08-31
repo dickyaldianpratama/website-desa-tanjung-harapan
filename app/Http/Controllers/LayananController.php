@@ -24,15 +24,23 @@ class LayananController extends Controller
             'file_lampiran' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // Opsional
         ]);
 
+        // --- ANTI SPAM CHECK: 1 Tiket Pending per NIK ---
+        $hasPending = Layanan::where('nik', $request->nik)->where('status', 'pending')->exists();
+        if ($hasPending) {
+            return back()->withInput()->with('error', 'Maaf, NIK Anda masih memiliki pengajuan layanan yang sedang diproses. Harap tunggu hingga selesai.');
+        }
+
         $data = $request->except('file_lampiran');
         $data['nomor_tiket'] = Layanan::generateTiket();
         $data['status'] = 'pending';
 
         if ($request->hasFile('file_lampiran')) {
             $file = $request->file('file_lampiran');
-            // Menggunakan hashName() untuk mencegah kerentanan Path Traversal atau XSS via nama file
             $fileName = $file->hashName();
-            $file->move(public_path('images/layanan'), $fileName);
+            
+            // Upload ke Supabase Storage
+            $file->storeAs('layanan', $fileName, 'supabase');
+            
             $data['file_lampiran'] = $fileName;
         }
 
