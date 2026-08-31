@@ -651,11 +651,26 @@ AOS.init({
 })();
 </script>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     @if(session('success'))
-        @if(!request()->routeIs('layanan.cek') && !request()->routeIs('kontak'))
-            alert("{!! strip_tags(session('success')) !!}");
-        @endif
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil!',
+            html: {!! json_encode(session('success')) !!},
+            confirmButtonColor: '#3D1F0A',
+            confirmButtonText: 'Tutup'
+        });
+    @endif
+
+    @if(session('error'))
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal!',
+            html: {!! json_encode(session('error')) !!},
+            confirmButtonColor: '#3D1F0A',
+            confirmButtonText: 'Tutup'
+        });
     @endif
 
     @if(session('wa_link'))
