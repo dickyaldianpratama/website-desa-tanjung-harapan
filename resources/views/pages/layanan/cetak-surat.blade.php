@@ -99,8 +99,8 @@
             @endif
         </div>
         <div class="kop-text">
-            <h2>PEMERINTAH KABUPATEN {{ strtoupper(str_replace('Kabupaten ', '', $settings['nama_kabupaten'] ?? 'KAMPAR')) }}</h2>
-            <h2>KECAMATAN {{ strtoupper(str_replace('Kecamatan ', '', $settings['nama_kecamatan'] ?? 'KAMPAR KIRI')) }}</h2>
+            <h2><strong>PEMERINTAH KABUPATEN {{ strtoupper(str_replace('Kabupaten ', '', $settings['nama_kabupaten'] ?? 'KAMPAR')) }}</strong></h2>
+            <h2><strong>KECAMATAN {{ strtoupper(str_replace('Kecamatan ', '', $settings['nama_kecamatan'] ?? 'KAMPAR KIRI')) }}</strong></h2>
             <h1>{{ strtoupper($settings['nama_desa'] ?? 'DESA TANJUNG HARAPAN') }}</h1>
             <p>{{ $settings['alamat_desa'] ?? $settings['alamat'] ?? 'Alamat Desa Belum Diatur' }}</p>
             <p>Telepon: {{ $settings['telepon_desa'] ?? $settings['telepon'] ?? '-' }} | Email: {{ $settings['email_desa'] ?? $settings['email'] ?? '-' }} | Website: www.desatanjungharapan.site</p>
@@ -142,16 +142,9 @@
     <div class="ttd-section">
         <div class="ttd-box">
             <p>{{ str_replace('Desa ', '', $settings['nama_desa'] ?? 'Tanjung Harapan') }}, {{ \Carbon\Carbon::parse($layanan->updated_at)->locale('id')->translatedFormat('d F Y') }}</p>
-            <p>{{ $settings['jabatan_kades'] ?? 'Kepala Desa' }}</p>
-            
-            @if(isset($settings['foto_kades']) && $settings['foto_kades'])
-                <!-- Ruang kosong untuk ditempel/di-import tanda tangan -->
-                <div style="height: 90px; margin: 15px 0;"></div>
-            @else
-                <div style="height: 70px; margin: 15px 0;"></div>
-            @endif
-
-            <p style="font-weight: bold; text-decoration: underline;">{{ $settings['nama_kades'] ?? 'NAMA KADES' }}</p>
+            <p>{{ $settings['jabatan_kades'] ?? 'Kepala Desa' }} {{ str_replace('Desa ', '', $settings['nama_desa'] ?? 'Tanjung Harapan') }}</p>
+            <img src="{{ asset('images/ttd_kades.png') }}" alt="TTD" class="ttd-kades-img" style="height:90px; object-fit:contain; display:block; margin:8px auto;">
+            <p style="font-weight: bold; text-decoration: underline;">{{ $settings['nama_kades'] ?? 'SARIPUDDIN' }}</p>
         </div>
     </div>
 
