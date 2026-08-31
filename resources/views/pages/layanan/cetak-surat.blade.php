@@ -39,7 +39,7 @@
             top: calc(20mm + 115px);
             border-bottom: 1px solid #000;
         }
-        .logo-container { width: 90px; text-align: center; }
+        .logo-container { width: 90px; text-align: center; align-self: flex-start; padding-top: 5px; }
         .logo-container img { max-width: 80px; height: auto; }
         .kop-text { flex-grow: 1; text-align: center; line-height: 1.1; }
         .kop-text h2 { margin: 0; font-size: 16pt; font-weight: normal; text-transform: uppercase; }
