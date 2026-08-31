@@ -19,9 +19,14 @@ class LayananController extends Controller
             'jenis_layanan' => 'required|string|max:150',
             'nik'           => 'required|numeric|digits:16',
             'nama_lengkap'  => 'required|string|max:150',
-            'no_whatsapp'   => 'required|string|max:20',
+            'no_whatsapp'   => 'required|numeric|digits:12',
             'keperluan'     => 'nullable|string',
             'file_lampiran' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // Opsional
+        ], [
+            'nik.digits' => 'NIK wajib berisi tepat 16 angka.',
+            'nik.numeric' => 'NIK hanya boleh berupa angka.',
+            'no_whatsapp.digits' => 'Nomor WhatsApp wajib berisi tepat 12 angka.',
+            'no_whatsapp.numeric' => 'Nomor WhatsApp hanya boleh berupa angka.',
         ]);
 
         // --- ANTI SPAM CHECK: 1 Tiket Pending per NIK ---

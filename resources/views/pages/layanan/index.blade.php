@@ -90,7 +90,7 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label class="form-label fw-semibold">NIK (Nomor Induk Kependudukan) <span class="text-danger">*</span></label>
-                            <input type="text" name="nik" class="form-control @error('nik') is-invalid @enderror" value="{{ old('nik') }}" maxlength="16" required placeholder="16 Digit NIK">
+                            <input type="text" name="nik" class="form-control @error('nik') is-invalid @enderror" value="{{ old('nik') }}" minlength="16" maxlength="16" pattern="\d{16}" title="NIK harus berupa 16 digit angka" required placeholder="16 Digit NIK">
                             @error('nik') <div class="invalid-feedback">{{ $message }}</div> @enderror
                         </div>
                         <div class="col-md-6 mb-3">
@@ -102,7 +102,7 @@
 
                     <div class="mb-3">
                         <label class="form-label fw-semibold">No. WhatsApp <span class="text-danger">*</span></label>
-                        <input type="text" name="no_whatsapp" class="form-control @error('no_whatsapp') is-invalid @enderror" value="{{ old('no_whatsapp') }}" required placeholder="Contoh: 08123456789">
+                        <input type="text" name="no_whatsapp" class="form-control @error('no_whatsapp') is-invalid @enderror" value="{{ old('no_whatsapp') }}" minlength="12" maxlength="12" pattern="\d{12}" title="Nomor WhatsApp harus berupa 12 digit angka" required placeholder="Contoh: 081234567890">
                         <div class="form-text">Nomor yang bisa dihubungi untuk konfirmasi surat.</div>
                         @error('no_whatsapp') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>

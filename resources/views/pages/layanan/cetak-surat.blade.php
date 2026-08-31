@@ -103,7 +103,7 @@
             <h2>KECAMATAN {{ strtoupper(str_replace('Kecamatan ', '', $settings['nama_kecamatan'] ?? 'KAMPAR KIRI')) }}</h2>
             <h1>{{ strtoupper($settings['nama_desa'] ?? 'DESA TANJUNG HARAPAN') }}</h1>
             <p>{{ $settings['alamat_desa'] ?? $settings['alamat'] ?? 'Alamat Desa Belum Diatur' }}</p>
-            <p>Telepon: {{ $settings['telepon_desa'] ?? $settings['telepon'] ?? '-' }} | Email: {{ $settings['email_desa'] ?? $settings['email'] ?? '-' }} | Website: {{ str_replace(['http://', 'https://'], '', $settings['website'] ?? request()->getHost()) }}</p>
+            <p>Telepon: {{ $settings['telepon_desa'] ?? $settings['telepon'] ?? '-' }} | Email: {{ $settings['email_desa'] ?? $settings['email'] ?? '-' }} | Website: www.desatanjungharapan.site</p>
         </div>
     </div>
 
