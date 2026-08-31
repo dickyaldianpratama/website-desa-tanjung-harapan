@@ -90,7 +90,7 @@
                                 <a href="{{ $imgUrl }}" target="_blank" class="btn btn-sm btn-outline-primary">
                                     <i class="bi bi-eye me-1"></i> Lihat Lampiran
                                 </a>
-                                <a href="{{ $imgUrl }}" download class="btn btn-sm btn-outline-success">
+                                <a href="{{ route('admin.layanan.download', $layanan->id) }}" class="btn btn-sm btn-success">
                                     <i class="bi bi-download me-1"></i> Download
                                 </a>
                             </div>

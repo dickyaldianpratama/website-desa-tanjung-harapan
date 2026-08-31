@@ -53,6 +53,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('pengaduan/{id}',     [PengaduanController::class, 'show'])->name('pengaduan.show');
     Route::delete('pengaduan/{id}',  [PengaduanController::class, 'destroy'])->name('pengaduan.destroy');
     Route::resource('layanan',       App\Http\Controllers\Admin\LayananController::class)->except(['create','store','edit']);
+    Route::get('layanan/{id}/download-lampiran', [App\Http\Controllers\Admin\LayananController::class, 'downloadLampiran'])->name('admin.layanan.download');
     Route::get('setting',            [SettingController::class, 'index'])->name('setting.index');
     Route::post('setting',           [SettingController::class, 'update'])->name('setting.update');
 

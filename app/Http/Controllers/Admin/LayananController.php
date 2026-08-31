@@ -51,4 +51,39 @@ class LayananController extends Controller
 
         return redirect()->route('admin.layanan.index')->with('success', 'Data permohonan berhasil dihapus.');
     }
+
+    public function downloadLampiran($id)
+    {
+        $layanan = Layanan::findOrFail($id);
+
+        if (!$layanan->file_lampiran) {
+            abort(404, 'File lampiran tidak ditemukan.');
+        }
+
+        $fileLampiran = $layanan->file_lampiran;
+
+        // Bangun URL publik Supabase
+        $supabaseUrl = rtrim(env('SUPABASE_URL', ''), '/');
+        $bucket      = env('SUPABASE_BUCKET', 'public-images');
+        $fileUrl     = "{$supabaseUrl}/storage/v1/object/public/{$bucket}/layanan/{$fileLampiran}";
+
+        // Ambil konten file dari Supabase
+        $fileContent = @file_get_contents($fileUrl);
+
+        if ($fileContent === false) {
+            abort(404, 'File tidak dapat diunduh dari server.');
+        }
+
+        // Deteksi ekstensi
+        $ext      = pathinfo($fileLampiran, PATHINFO_EXTENSION) ?: 'jpg';
+        $mimeMap  = ['jpg' => 'image/jpeg', 'jpeg' => 'image/jpeg', 'png' => 'image/png', 'pdf' => 'application/pdf'];
+        $mimeType = $mimeMap[strtolower($ext)] ?? 'application/octet-stream';
+
+        $downloadName = 'lampiran-' . $layanan->nomor_tiket . '.' . $ext;
+
+        return response($fileContent, 200)
+            ->header('Content-Type', $mimeType)
+            ->header('Content-Disposition', 'attachment; filename="' . $downloadName . '"')
+            ->header('Content-Length', strlen($fileContent));
+    }
 }
