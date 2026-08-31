@@ -73,9 +73,9 @@
                     <div class="col-sm-8">
                         @if($layanan->file_lampiran)
                             @php
-                                $imgUrl = Str::startsWith($layanan->file_lampiran, 'http') 
+                                $imgUrl = \Illuminate\Support\Str::startsWith($layanan->file_lampiran, 'http') 
                                             ? $layanan->file_lampiran 
-                                            : Storage::disk('supabase')->url('layanan/'.$layanan->file_lampiran);
+                                            : \Illuminate\Support\Facades\Storage::disk('supabase')->url('layanan/'.$layanan->file_lampiran);
                             @endphp
                             <a href="{{ $imgUrl }}" target="_blank">
                                 <img src="{{ $imgUrl }}" class="img-thumbnail rounded" style="max-height: 200px; object-fit: cover;">
