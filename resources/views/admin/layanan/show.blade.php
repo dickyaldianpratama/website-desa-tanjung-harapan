@@ -73,12 +73,26 @@
                     <div class="col-sm-8">
                         @if($layanan->file_lampiran)
                             @php
-                                $imgUrl = \Illuminate\Support\Str::startsWith($layanan->file_lampiran, 'http') 
-                                            ? $layanan->file_lampiran 
-                                            : \Illuminate\Support\Facades\Storage::disk('supabase')->url('layanan/'.$layanan->file_lampiran);
+                                $fileLampiran = $layanan->file_lampiran;
+                                // Jika sudah full URL, langsung pakai
+                                if (\Illuminate\Support\Str::startsWith($fileLampiran, 'http')) {
+                                    $imgUrl = $fileLampiran;
+                                } else {
+                                    // Bangun URL publik Supabase secara langsung
+                                    $supabaseUrl = rtrim(env('SUPABASE_URL', ''), '/');
+                                    $bucket      = env('SUPABASE_BUCKET', 'public-images');
+                                    $imgUrl      = $supabaseUrl
+                                                    ? "{$supabaseUrl}/storage/v1/object/public/{$bucket}/layanan/{$fileLampiran}"
+                                                    : asset('storage/layanan/' . $fileLampiran);
+                                }
                             @endphp
+                            <div class="mb-2">
+                                <a href="{{ $imgUrl }}" target="_blank" class="btn btn-sm btn-outline-primary mb-2">
+                                    <i class="bi bi-eye me-1"></i> Lihat Lampiran
+                                </a>
+                            </div>
                             <a href="{{ $imgUrl }}" target="_blank">
-                                <img src="{{ $imgUrl }}" class="img-thumbnail rounded" style="max-height: 200px; object-fit: cover;">
+                                <img src="{{ $imgUrl }}" class="img-thumbnail rounded" style="max-height: 250px; object-fit: cover; border: 2px solid #dee2e6;">
                             </a>
                         @else
                             <span class="text-muted">Tidak ada lampiran yang diunggah.</span>
