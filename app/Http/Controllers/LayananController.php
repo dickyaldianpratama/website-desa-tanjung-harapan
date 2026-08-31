@@ -69,7 +69,24 @@ class LayananController extends Controller
         $layanan = Layanan::where('nomor_tiket', $request->nomor_tiket)->first();
 
         if (!$layanan) {
-            return back()->with('error', 'Nomor Tiket tidak ditemukan.');
+            $inputted = $request->nomor_tiket;
+            $trimmed  = trim($inputted);
+            $upper    = strtoupper($trimmed);
+
+            $tips = 'Nomor Tiket <strong>"' . e($inputted) . '"</strong> tidak ditemukan.<br><br>'
+                  . '<strong>Kemungkinan penyebabnya:</strong><ul style="text-align:left;margin-top:6px;">';
+
+            if ($inputted !== $trimmed) {
+                $tips .= '<li>Ada <strong>spasi di awal atau akhir</strong> nomor tiket. Coba hapus spasi tersebut.</li>';
+            }
+            if ($inputted !== $upper) {
+                $tips .= '<li>Huruf harus <strong>KAPITAL SEMUA</strong>. Contoh: <code>SRT-202608-001</code></li>';
+            }
+            $tips .= '<li>Pastikan format penulisannya benar: <code>SRT-202608-001</code> (ada tanda hubung <strong>-</strong>, bukan titik atau spasi).</li>';
+            $tips .= '<li>Cek kembali nomor tiket di <strong>foto/screenshot</strong> yang Anda simpan sebelumnya.</li>';
+            $tips .= '</ul>';
+
+            return back()->withInput()->with('error', $tips);
         }
 
         return view('pages.layanan.cek', compact('layanan'));
