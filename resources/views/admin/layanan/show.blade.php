@@ -86,9 +86,12 @@
                                                     : asset('storage/layanan/' . $fileLampiran);
                                 }
                             @endphp
-                            <div class="mb-2">
-                                <a href="{{ $imgUrl }}" target="_blank" class="btn btn-sm btn-outline-primary mb-2">
+                            <div class="mb-2 d-flex gap-2">
+                                <a href="{{ $imgUrl }}" target="_blank" class="btn btn-sm btn-outline-primary">
                                     <i class="bi bi-eye me-1"></i> Lihat Lampiran
+                                </a>
+                                <a href="{{ $imgUrl }}" download class="btn btn-sm btn-outline-success">
+                                    <i class="bi bi-download me-1"></i> Download
                                 </a>
                             </div>
                             <a href="{{ $imgUrl }}" target="_blank">
