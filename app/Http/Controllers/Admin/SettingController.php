@@ -1,10 +1,11 @@
-<?php
+﻿<?php
 
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class SettingController extends Controller
 {
@@ -16,8 +17,32 @@ class SettingController extends Controller
 
     public function update(Request $request)
     {
-        // Pisahkan field telepon_penting (array) dari field biasa
-        $data = $request->except(['_token', 'telepon_jabatan', 'telepon_nomor', 'telepon_ikon']);
+        // Fields that are files
+        $fileKeys = ['struktur_perangkat', 'struktur_bpd', 'struktur_pkk'];
+        
+        // Pisahkan field telepon_penting (array) dari field biasa, termasuk file keys
+        $exceptKeys = array_merge(['_token', 'telepon_jabatan', 'telepon_nomor', 'telepon_ikon'], $fileKeys);
+        $data = $request->except($exceptKeys);
+
+        // Handle file uploads
+        foreach ($fileKeys as $key) {
+            if ($request->hasFile($key)) {
+                $file = $request->file($key);
+                $imageName = time() . '_' . $file->getClientOriginalName();
+                Storage::disk('s3')->putFileAs('images/struktur', $file, $imageName);
+                
+                // Get old image and delete
+                $oldSetting = Setting::where('key', $key)->first();
+                if ($oldSetting && $oldSetting->value && Storage::disk('s3')->exists('images/struktur/' . $oldSetting->value)) {
+                    Storage::disk('s3')->delete('images/struktur/' . $oldSetting->value);
+                }
+
+                Setting::updateOrCreate(
+                    ['key' => $key],
+                    ['value' => $imageName]
+                );
+            }
+        }
 
         // Simpan setting biasa (key => value)
         foreach ($data as $key => $value) {
@@ -36,7 +61,7 @@ class SettingController extends Controller
             );
         }
 
-        // Proses nomor telepon penting (array → JSON)
+        // Proses nomor telepon penting (array -> JSON)
         $jabatans = $request->input('telepon_jabatan', []);
         $nomors   = $request->input('telepon_nomor', []);
         $ikons    = $request->input('telepon_ikon', []);

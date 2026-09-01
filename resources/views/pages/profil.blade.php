@@ -646,117 +646,43 @@
             <div class="swiper-pagination mt-4"></div>
         </div>
 
-        <div class="text-center mt-5" data-aos="fade-up">
-            <button class="btn btn-outline-primary rounded-pill px-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBaganPerangkat" aria-expanded="false" aria-controls="collapseBaganPerangkat" style="border-color: var(--c-gold); color: var(--coklat-tua); font-weight: 600;">
-                <i class="bi bi-diagram-3-fill me-2"></i>Lihat Bagan Struktur
-            </button>
-        </div>
-        <div class="collapse mt-4" id="collapseBaganPerangkat">
-            <div class="card card-body border-0 shadow-sm rounded-4 bg-light overflow-auto">
-                <p class="text-muted small text-center d-md-none mb-3"><i class="bi bi-arrows-expand me-1"></i> Geser ke kiri/kanan untuk melihat struktur penuh</p>
-                  <div id="chart_perangkat" style="min-width: 800px; padding: 20px 0;"></div>
-            </div>
-        </div>
-    </div>
-</section>
+        
+          
+          <div class="text-center mt-5" data-aos="fade-up">
+              <button class="btn btn-outline-primary rounded-pill px-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBaganLembaga" aria-expanded="false" aria-controls="collapseBaganLembaga" style="border-color: var(--c-gold); color: var(--coklat-tua); font-weight: 600;">
+                  <i class="bi bi-diagram-3-fill me-2"></i>Lihat Bagan Struktur Lembaga
+              </button>
+          </div>
+          <div class="collapse mt-4" id="collapseBaganLembaga">
+              <div class="card card-body border-0 shadow-sm rounded-4 bg-white overflow-auto text-center">
+                  <div class="row g-5">
+                      <div class="col-12">
+                          <h5 class="font-serif text-coklat-tua text-center mb-3">Bagan BPD</h5>
+                          @php $strukturBpd = \App\Models\Setting::get('struktur_bpd'); @endphp
+                          @if($strukturBpd)
+                              <img src="{{ Storage::disk('s3')->url('images/struktur/' . $strukturBpd) }}" alt="Bagan BPD" class="img-fluid rounded shadow-sm mx-auto d-block" style="max-width: 100%;">
+                          @else
+                              <div class="py-4 border border-dashed rounded bg-light text-muted">
+                                  <p class="mb-0">Gambar bagan struktur BPD belum diunggah.</p>
+                              </div>
+                          @endif
+                      </div>
+                      
+                      <div class="col-12 mt-5">
+                          <h5 class="font-serif text-coklat-tua text-center mb-3">Bagan Tim Penggerak PKK</h5>
+                          @php $strukturPkk = \App\Models\Setting::get('struktur_pkk'); @endphp
+                          @if($strukturPkk)
+                              <img src="{{ Storage::disk('s3')->url('images/struktur/' . $strukturPkk) }}" alt="Bagan PKK" class="img-fluid rounded shadow-sm mx-auto d-block" style="max-width: 100%;">
+                          @else
+                              <div class="py-4 border border-dashed rounded bg-light text-muted">
+                                  <p class="mb-0">Gambar bagan struktur PKK belum diunggah.</p>
+                              </div>
+                          @endif
+                      </div>
+                  </div>
+              </div>
+          </div>
 
-{{-- 6. LEMBAGA DESA (PKK & BPD) --}}
-<section class="section-spacing bg-light-cream">
-    <div class="container">
-        <div class="text-center mb-5" data-aos="fade-up">
-            <p class="badge bg-cream rounded-pill px-3 py-2 fw-bold mb-3" style="color: var(--coklat-tua) !important; letter-spacing: 2px;"><i class="bi bi-diagram-3-fill me-1"></i> LEMBAGA DESA</p>
-            <h2 class="font-serif fw-bold text-coklat-tua">Struktur Organisasi</h2>
-            <p class="text-muted">Susunan kepengurusan Badan Permusyawaratan Desa (BPD) dan Tim Penggerak PKK</p>
-        </div>
-
-        <ul class="nav nav-pills justify-content-center mb-4" id="lembagaTab" role="tablist">
-            <li class="nav-item" role="presentation">
-                <button class="nav-link active rounded-pill px-4" id="bpd-tab" data-bs-toggle="tab" data-bs-target="#bpd-tab-pane" type="button" role="tab" style="font-weight: 600;">BPD</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link rounded-pill px-4 mx-2" id="pkk-tab" data-bs-toggle="tab" data-bs-target="#pkk-tab-pane" type="button" role="tab" style="font-weight: 600;">Tim Penggerak PKK</button>
-            </li>
-        </ul>
-
-        <div class="tab-content" id="lembagaTabContent">
-            <!-- BPD Tab -->
-            <div class="tab-pane fade show active" id="bpd-tab-pane" role="tabpanel" tabindex="0">
-                <div class="swiper bpd-swiper" data-aos="fade-up" data-aos-delay="100">
-                    <div class="swiper-wrapper">
-                        @forelse($bpd as $anggota)
-                            <div class="swiper-slide">
-                                <div class="perangkat-slide-card">
-                                    @if($anggota->foto)
-                                        <img src="{{ Storage::disk('s3')->url('images/lembaga/' . $anggota->foto) }}" alt="{{ $anggota->nama }}">
-                                    @else
-                                        <div class="placeholder">👤</div>
-                                    @endif
-                                    <h5 class="fw-bold text-coklat-tua mb-1 text-uppercase" style="font-size: 1.1rem;">{{ $anggota->nama }}</h5>
-                                    <p class="text-secondary small mb-0">{{ $anggota->jabatan }}</p>
-                                </div>
-                            </div>
-                        @empty
-                            <div class="col-12 text-center text-muted py-5">
-                                <p>Data struktur BPD belum tersedia. Admin dapat menambahkannya melalui Panel Admin.</p>
-                                <!-- Fallback image if data empty -->
-                                <img src="{{ Storage::disk('s3')->url('images/lembaga/struktur-bpd.jpg') }}" alt="Struktur BPD Sementara" style="max-width: 100%; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" onerror="this.style.display='none'">
-                            </div>
-                        @endforelse
-                    </div>
-                    <div class="swiper-pagination bpd-pagination mt-4"></div>
-                </div>
-            </div>
-
-            <!-- PKK Tab -->
-            <div class="tab-pane fade" id="pkk-tab-pane" role="tabpanel" tabindex="0">
-                <div class="swiper pkk-swiper" data-aos="fade-up" data-aos-delay="100">
-                    <div class="swiper-wrapper">
-                        @forelse($pkk as $anggota)
-                            <div class="swiper-slide">
-                                <div class="perangkat-slide-card">
-                                    @if($anggota->foto)
-                                        <img src="{{ Storage::disk('s3')->url('images/lembaga/' . $anggota->foto) }}" alt="{{ $anggota->nama }}">
-                                    @else
-                                        <div class="placeholder">👤</div>
-                                    @endif
-                                    <h5 class="fw-bold text-coklat-tua mb-1 text-uppercase" style="font-size: 1.1rem;">{{ $anggota->nama }}</h5>
-                                    <p class="text-secondary small mb-0">{{ $anggota->jabatan }}</p>
-                                </div>
-                            </div>
-                        @empty
-                            <div class="col-12 text-center text-muted py-5">
-                                <p>Data struktur Tim Penggerak PKK belum tersedia. Admin dapat menambahkannya melalui Panel Admin.</p>
-                                <!-- Fallback image if data empty -->
-                                <img src="{{ Storage::disk('s3')->url('images/lembaga/struktur-pkk.jpg') }}" alt="Struktur PKK Sementara" style="max-width: 100%; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" onerror="this.style.display='none'">
-                            </div>
-                        @endforelse
-                    </div>
-                    <div class="swiper-pagination pkk-pagination mt-4"></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="text-center mt-5" data-aos="fade-up">
-            <button class="btn btn-outline-primary rounded-pill px-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBaganLembaga" aria-expanded="false" aria-controls="collapseBaganLembaga" style="border-color: var(--c-gold); color: var(--coklat-tua); font-weight: 600;">
-                <i class="bi bi-diagram-3-fill me-2"></i>Lihat Bagan Struktur Lembaga
-            </button>
-        </div>
-        <div class="collapse mt-4" id="collapseBaganLembaga">
-            <div class="card card-body border-0 shadow-sm rounded-4 bg-white overflow-auto">
-                <div class="row g-4">
-                    <div class="col-12">
-                        <h5 class="font-serif text-coklat-tua text-center mb-3">Bagan BPD</h5>
-                          <p class="text-muted small text-center d-md-none mb-3"><i class="bi bi-arrows-expand me-1"></i> Geser ke kiri/kanan untuk melihat struktur penuh</p>
-                        <div id="chart_bpd" style="min-width: 800px; padding: 20px 0; border: 1px dashed #e2e8f0; border-radius: 12px;"></div>
-                    </div>
-                    <div class="col-12 mt-5">
-                        <h5 class="font-serif text-coklat-tua text-center mb-3">Bagan Tim Penggerak PKK</h5>
-                          <p class="text-muted small text-center d-md-none mb-3"><i class="bi bi-arrows-expand me-1"></i> Geser ke kiri/kanan untuk melihat struktur penuh</p>
-                        <div id="chart_pkk" style="min-width: 1000px; padding: 20px 0; border: 1px dashed #e2e8f0; border-radius: 12px;"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </section>
 
@@ -934,25 +860,6 @@
     }
     
     
-    @media (max-width: 768px) {
-        .google-visualization-orgchart-table {
-            transform: scale(0.85);
-            transform-origin: top center;
-        }
-    }
-
-    /* Styling khusus untuk Google Org Chart Node */
-    .google-visualization-orgchart-node {
-        border: none !important;
-        background: transparent !important;
-        box-shadow: none !important;
-        padding: 0 !important;
-    }
-    .google-visualization-orgchart-node-hover {
-        background: transparent !important;
-        border: none !important;
-        box-shadow: none !important;
-    }
     .org-card {
         background: #ffffff;
         border: 2px solid #c9963a;

@@ -64,7 +64,7 @@
     </div>
 </div>
 
-<form action="{{ route('admin.setting.update') }}" method="POST">
+<form action="{{ route('admin.setting.update') }}" method="POST" enctype="multipart/form-data">
     @csrf
     
     <div class="row">
