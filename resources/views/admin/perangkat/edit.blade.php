@@ -76,6 +76,15 @@
                             <input class="form-control d-none" type="file" id="foto" name="foto" accept="image/*">
                             <small class="text-muted" style="font-size: 0.75rem;">Biarkan kosong jika tidak ingin mengubah foto saat ini.</small>
                             @error('foto') <div class="text-danger small mt-1">{{ $message }}</div> @enderror
+                            
+                            @if($perangkat->foto)
+                            <div class="form-check mt-3 d-flex justify-content-center">
+                                <input class="form-check-input me-2" type="checkbox" id="hapus_foto" name="hapus_foto" value="1">
+                                <label class="form-check-label text-danger small fw-bold" for="hapus_foto">
+                                    Hapus foto saat ini (kosongkan)
+                                </label>
+                            </div>
+                            @endif
                         </div>
                     </div>
                 </div>

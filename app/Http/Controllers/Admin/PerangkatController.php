@@ -72,9 +72,14 @@ class PerangkatController extends Controller
             'urutan' => 'required|integer|min:1',
         ]);
 
-        $data = $request->except('foto');
+        $data = $request->except(['foto', 'hapus_foto']);
 
-        if ($request->hasFile('foto')) {
+        if ($request->has('hapus_foto') && $request->hapus_foto == '1') {
+            if ($perangkat->foto && Storage::disk('s3')->exists('images/perangkat/' . $perangkat->foto)) {
+                Storage::disk('s3')->delete('images/perangkat/' . $perangkat->foto);
+            }
+            $data['foto'] = null;
+        } elseif ($request->hasFile('foto')) {
             if ($perangkat->foto && Storage::disk('s3')->exists('images/perangkat/' . $perangkat->foto)) {
                 Storage::disk('s3')->delete('images/perangkat/' . $perangkat->foto);
             }
