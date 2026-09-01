@@ -653,8 +653,3 @@ input[type=range].tool-range::-webkit-slider-thumb {
 </script>
 @endpush
 @endsection
-
-
-@push('styles')
-<style>
-/* ══════════════════════════════════════════
