@@ -283,7 +283,7 @@
             
             <div class="id-card-photo-wrapper">
                 @if($p->foto)
-                    <img src="{{ asset('images/perangkat/' . $p->foto) }}" alt="{{ $p->nama }}" class="id-card-photo">
+                    <img src="{{ Storage::disk('s3')->url('images/perangkat/' . $p->foto) }}" alt="{{ $p->nama }}" class="id-card-photo">
                 @else
                     <div class="id-card-photo d-flex align-items-center justify-content-center text-muted" style="background: #e2e8f0;">
                         <i class="bi bi-person-fill" style="font-size: 3rem; opacity: 0.4;"></i>

@@ -297,9 +297,9 @@
             <div class="kades-profile">
                 <div class="kades-img-wrapper">
                     @if(isset($kades) && $kades->foto)
-                        <img src="{{ asset('images/perangkat/' . $kades->foto) }}" alt="{{ $kades->nama }}">
+                        <img src="{{ Storage::disk('s3')->url('images/perangkat/' . $kades->foto) }}" alt="{{ $kades->nama }}">
                     @else
-                        <img src="{{ asset('images/perangkat/kades.jpg') }}" onerror="this.src='{{ asset('images/hero-placeholder.jpg') }}'" alt="Kepala Desa">
+                        <img src="{{ Storage::disk('s3')->url('images/perangkat/kades.jpg') }}" onerror="this.src='{{ asset('images/hero-placeholder.jpg') }}'" alt="Kepala Desa">
                     @endif
                 </div>
                 <h4 class="fw-bold text-dark mb-1">{{ $kades->nama ?? 'Nama Belum Diatur' }}</h4>
@@ -316,7 +316,7 @@
                 <div class="bg-white rounded-4 p-3 shadow-sm border border-light">
                     @forelse($beritas as $berita)
                         <div class="news-item {{ !$loop->last ? 'border-bottom pb-3' : '' }}">
-                            <img src="{{ $berita->gambar ? asset('images/berita/'.$berita->gambar) : 'https://placehold.co/150x150/f1f5f9/94a3b8?text=News' }}" alt="{{ $berita->judul }}">
+                            <img src="{{ $berita->gambar ? Storage::disk('s3')->url('images/berita/' . $berita->gambar) : 'https://placehold.co/150x150/f1f5f9/94a3b8?text=News' }}" alt="{{ $berita->judul }}">
                             <div class="news-content">
                                 <h6><a href="{{ route('berita.show', $berita->slug) }}">{{ Str::limit($berita->judul, 40) }}</a></h6>
                                 <div class="news-date"><i class="bi bi-calendar-event me-1"></i>{{ $berita->published_at->format('d M Y') }}</div>

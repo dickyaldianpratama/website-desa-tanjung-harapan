@@ -160,7 +160,7 @@
                     <div class="tani-card" style="background:var(--putih); padding:1.5rem; border-radius:12px; border:1px solid rgba(0,0,0,0.08); height:100%; display:flex; flex-direction:column; transition: transform 0.3s ease, box-shadow 0.3s ease;">
                         <div class="tani-img-wrap mb-3" style="height: 200px; border-radius: 12px; overflow: hidden; position:relative;">
                             @if($item->gambar)
-                                <img src="{{ asset('images/potensi/'.$item->gambar) }}" alt="{{ $item->judul }}" style="width: 100%; height: 100%; object-fit: cover;">
+                                <img src="{{ Storage::disk('s3')->url('images/potensi/' . $item->gambar) }}" alt="{{ $item->judul }}" style="width: 100%; height: 100%; object-fit: cover;">
                             @else
                                 <img src="{{ asset('images/hero-placeholder.jpg') }}" alt="{{ $item->judul }}" style="width: 100%; height: 100%; object-fit: cover;">
                             @endif

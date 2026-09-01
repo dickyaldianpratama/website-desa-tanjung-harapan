@@ -476,11 +476,11 @@
                     @endphp
                     
                     @if($kades && $kades->foto)
-                        <img src="{{ asset('images/perangkat/'.$kades->foto) }}" alt="Foto Kades">
+                        <img src="{{ Storage::disk('s3')->url('images/perangkat/' . $kades->foto) }}" alt="Foto Kades">
                     @elseif(isset($settings['foto_kades']) && $settings['foto_kades'])
                         <img src="{{ asset('images/'.$settings['foto_kades']) }}" alt="Foto Kades">
                     @else
-                        <img src="{{ asset('images/perangkat/kades.jpg') }}" alt="Foto Kades" onerror="this.src='https://ui-avatars.com/api/?name=Kades&background=C9963A&color=fff&size=150'">
+                        <img src="{{ Storage::disk('s3')->url('images/perangkat/kades.jpg') }}" alt="Foto Kades" onerror="this.src='https://ui-avatars.com/api/?name=Kades&background=C9963A&color=fff&size=150'">
                     @endif
                     
                     <h5 class="fw-bold text-coklat-tua mb-1 text-uppercase">{{ $namaKades }}</h5>
@@ -548,11 +548,11 @@
                 <div class="col-md-4" data-aos="fade-right">
                     <div class="sambutan-img-wrap">
                         @if($kades && $kades->foto)
-                            <img src="{{ asset('images/perangkat/'.$kades->foto) }}" alt="Kepala Desa">
+                            <img src="{{ Storage::disk('s3')->url('images/perangkat/' . $kades->foto) }}" alt="Kepala Desa">
                         @elseif(isset($settings['foto_kades']) && $settings['foto_kades'])
                             <img src="{{ asset('images/'.$settings['foto_kades']) }}" alt="Kepala Desa">
                         @else
-                            <img src="{{ asset('images/perangkat/kades.jpg') }}" alt="Kepala Desa" onerror="this.src='https://ui-avatars.com/api/?name=Kades&background=C9963A&color=fff&size=500'">
+                            <img src="{{ Storage::disk('s3')->url('images/perangkat/kades.jpg') }}" alt="Kepala Desa" onerror="this.src='https://ui-avatars.com/api/?name=Kades&background=C9963A&color=fff&size=500'">
                         @endif
                     </div>
                 </div>
@@ -595,7 +595,7 @@
                     <div class="swiper-slide">
                         <div class="perangkat-slide-card">
                             @if($perangkat->foto)
-                                <img src="{{ asset('images/perangkat/'.$perangkat->foto) }}" alt="{{ $perangkat->nama }}">
+                                <img src="{{ Storage::disk('s3')->url('images/perangkat/' . $perangkat->foto) }}" alt="{{ $perangkat->nama }}">
                             @else
                                 <div class="placeholder">👤</div>
                             @endif
@@ -686,7 +686,7 @@
                             <div class="swiper-slide">
                                 <div class="perangkat-slide-card">
                                     @if($anggota->foto)
-                                        <img src="{{ asset('images/lembaga/'.$anggota->foto) }}" alt="{{ $anggota->nama }}">
+                                        <img src="{{ Storage::disk('s3')->url('images/lembaga/' . $anggota->foto) }}" alt="{{ $anggota->nama }}">
                                     @else
                                         <div class="placeholder">👤</div>
                                     @endif
@@ -698,7 +698,7 @@
                             <div class="col-12 text-center text-muted py-5">
                                 <p>Data struktur BPD belum tersedia. Admin dapat menambahkannya melalui Panel Admin.</p>
                                 <!-- Fallback image if data empty -->
-                                <img src="{{ asset('images/lembaga/struktur-bpd.jpg') }}" alt="Struktur BPD Sementara" style="max-width: 100%; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" onerror="this.style.display='none'">
+                                <img src="{{ Storage::disk('s3')->url('images/lembaga/struktur-bpd.jpg') }}" alt="Struktur BPD Sementara" style="max-width: 100%; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" onerror="this.style.display='none'">
                             </div>
                         @endforelse
                     </div>
@@ -714,7 +714,7 @@
                             <div class="swiper-slide">
                                 <div class="perangkat-slide-card">
                                     @if($anggota->foto)
-                                        <img src="{{ asset('images/lembaga/'.$anggota->foto) }}" alt="{{ $anggota->nama }}">
+                                        <img src="{{ Storage::disk('s3')->url('images/lembaga/' . $anggota->foto) }}" alt="{{ $anggota->nama }}">
                                     @else
                                         <div class="placeholder">👤</div>
                                     @endif
@@ -726,7 +726,7 @@
                             <div class="col-12 text-center text-muted py-5">
                                 <p>Data struktur Tim Penggerak PKK belum tersedia. Admin dapat menambahkannya melalui Panel Admin.</p>
                                 <!-- Fallback image if data empty -->
-                                <img src="{{ asset('images/lembaga/struktur-pkk.jpg') }}" alt="Struktur PKK Sementara" style="max-width: 100%; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" onerror="this.style.display='none'">
+                                <img src="{{ Storage::disk('s3')->url('images/lembaga/struktur-pkk.jpg') }}" alt="Struktur PKK Sementara" style="max-width: 100%; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" onerror="this.style.display='none'">
                             </div>
                         @endforelse
                     </div>

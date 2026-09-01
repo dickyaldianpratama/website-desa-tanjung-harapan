@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Perangkat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class PerangkatController extends Controller
 {
@@ -44,7 +45,7 @@ class PerangkatController extends Controller
         if ($request->hasFile('foto')) {
             $image = $request->file('foto');
             $imageName = time() . '_' . $image->getClientOriginalName();
-            $image->move(public_path('images/perangkat'), $imageName);
+            Storage::disk('s3')->putFileAs('images/perangkat', $image, $imageName);
             $data['foto'] = $imageName;
         }
 
@@ -74,13 +75,13 @@ class PerangkatController extends Controller
         $data = $request->except('foto');
 
         if ($request->hasFile('foto')) {
-            if ($perangkat->foto && File::exists(public_path('images/perangkat/' . $perangkat->foto))) {
-                File::delete(public_path('images/perangkat/' . $perangkat->foto));
+            if ($perangkat->foto && Storage::disk('s3')->exists('images/perangkat/' . $perangkat->foto)) {
+                Storage::disk('s3')->delete('images/perangkat/' . $perangkat->foto);
             }
             
             $image = $request->file('foto');
             $imageName = time() . '_' . $image->getClientOriginalName();
-            $image->move(public_path('images/perangkat'), $imageName);
+            Storage::disk('s3')->putFileAs('images/perangkat', $image, $imageName);
             $data['foto'] = $imageName;
         }
 
@@ -93,8 +94,8 @@ class PerangkatController extends Controller
     {
         $perangkat = Perangkat::findOrFail($id);
         
-        if ($perangkat->foto && File::exists(public_path('images/perangkat/' . $perangkat->foto))) {
-            File::delete(public_path('images/perangkat/' . $perangkat->foto));
+        if ($perangkat->foto && Storage::disk('s3')->exists('images/perangkat/' . $perangkat->foto)) {
+            Storage::disk('s3')->delete('images/perangkat/' . $perangkat->foto);
         }
         
         $perangkat->delete();

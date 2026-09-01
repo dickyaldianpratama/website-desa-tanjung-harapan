@@ -78,7 +78,7 @@
                         <div class="mb-3">
                             <div class="text-center p-4 border border-dashed rounded mb-2 bg-white" id="imagePreviewContainer" style="border-width: 2px; cursor: pointer;" onclick="document.getElementById('gambar').click()" title="Klik untuk import gambar">
                                 @if($berita->gambar)
-                                    <img id="imagePreview" src="{{ asset('images/berita/' . $berita->gambar) }}" alt="Preview" class="img-fluid rounded shadow-sm" style="max-height: 200px; width: 100%; object-fit: cover;">
+                                    <img id="imagePreview" src="{{ Storage::disk('s3')->url('images/berita/' . $berita->gambar) }}" alt="Preview" class="img-fluid rounded shadow-sm" style="max-height: 200px; width: 100%; object-fit: cover;">
                                 @else
                                     <i class="bi bi-cloud-arrow-up display-4 text-muted" id="uploadIcon"></i>
                                     <p class="text-muted small mt-2 mb-0" id="uploadText">Klik area ini untuk memilih gambar baru</p>

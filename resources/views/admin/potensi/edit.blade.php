@@ -44,7 +44,7 @@
                             <label class="form-label text-muted small">Foto/Gambar</label>
                             <div class="text-center p-3 border border-dashed rounded mb-2 bg-white" id="imagePreviewContainer" style="border-width: 2px; cursor: pointer;" onclick="document.getElementById('gambar').click()">
                                 @if($potensi->gambar)
-                                    <img id="imagePreview" src="{{ asset('images/potensi/' . $potensi->gambar) }}" alt="Preview" class="img-fluid rounded" style="width: 100%; max-height: 200px; object-fit: cover;">
+                                    <img id="imagePreview" src="{{ Storage::disk('s3')->url('images/potensi/' . $potensi->gambar) }}" alt="Preview" class="img-fluid rounded" style="width: 100%; max-height: 200px; object-fit: cover;">
                                 @else
                                     <i class="bi bi-cloud-arrow-up display-4 text-muted" id="uploadIcon"></i>
                                     <p class="text-muted small mt-2 mb-0" id="uploadText">Klik untuk upload foto</p>

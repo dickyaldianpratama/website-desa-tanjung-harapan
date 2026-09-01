@@ -36,7 +36,7 @@ class KontakController extends Controller {
         if ($request->hasFile('lampiran')) {
             $file = $request->file('lampiran');
             $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('images/pengaduan'), $filename);
+            Storage::disk('s3')->putFileAs('images/pengaduan', $file, $filename);
             $data['lampiran'] = $filename;
         }
 

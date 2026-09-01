@@ -163,10 +163,10 @@
                 <div class="news-card">
                     <div class="news-img-wrap">
                         @if($berita->gambar)
-                            <img src="{{ asset('images/berita/'.$berita->gambar) }}" alt="{{ $berita->judul }}">
+                            <img src="{{ Storage::disk('s3')->url('images/berita/' . $berita->gambar) }}" alt="{{ $berita->judul }}">
                         @else
                             @php $fallbackImg = 'berita' . (($berita->id % 3) + 1) . '.jpg'; @endphp
-                            <img src="{{ asset('images/berita/' . $fallbackImg) }}" alt="{{ $berita->judul }}" onerror="this.src='{{ asset('images/hero-placeholder.jpg') }}'">
+                            <img src="{{ Storage::disk('s3')->url('images/berita/' . $fallbackImg) }}" alt="{{ $berita->judul }}" onerror="this.src='{{ asset('images/hero-placeholder.jpg') }}'">
                         @endif
                         
                         <!-- DATE BADGE -->

@@ -65,7 +65,7 @@
                             <label class="form-label text-muted small">Foto Profil / Pas Foto</label>
                             <div class="text-center p-3 border border-dashed rounded mb-2 bg-white" id="imagePreviewContainer" style="border-width: 2px; cursor: pointer;" onclick="document.getElementById('foto').click()" title="Klik untuk import gambar">
                                 @if($lembaga->foto)
-                                    <img id="imagePreview" src="{{ asset('images/lembaga/' . $lembaga->foto) }}" alt="Preview" class="img-fluid mt-2 rounded-circle shadow-sm" style="width: 120px; height: 120px; object-fit: cover; margin: 0 auto;">
+                                    <img id="imagePreview" src="{{ Storage::disk('s3')->url('images/lembaga/' . $lembaga->foto) }}" alt="Preview" class="img-fluid mt-2 rounded-circle shadow-sm" style="width: 120px; height: 120px; object-fit: cover; margin: 0 auto;">
                                 @else
                                     <i class="bi bi-person-bounding-box display-4 text-muted" id="uploadIcon"></i>
                                     <p class="text-muted small mt-2 mb-0" id="uploadText">Klik untuk pilih pas foto (3x4 atau 1:1)</p>

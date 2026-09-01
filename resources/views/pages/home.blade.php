@@ -241,9 +241,9 @@
                     <div class="card-desa h-100 reveal" style="transition-delay: {{ $loop->index * 150 }}ms;">
                         @php $defaultImg = 'berita' . $loop->iteration . '.jpg'; @endphp
                         @if($berita->gambar)
-                            <img src="{{ asset('images/berita/'.$berita->gambar) }}" alt="{{ $berita->judul }}">
+                            <img src="{{ Storage::disk('s3')->url('images/berita/' . $berita->gambar) }}" alt="{{ $berita->judul }}">
                         @elseif($defaultImg)
-                            <img src="{{ asset('images/berita/'.$defaultImg) }}" alt="{{ $berita->judul }}">
+                            <img src="{{ Storage::disk('s3')->url('images/berita/' . $defaultImg) }}" alt="{{ $berita->judul }}">
                         @else
                             <div class="img-placeholder" style="height:200px">📰</div>
                         @endif
@@ -288,9 +288,9 @@
                             $icons = ['wisata'=>'🏞️','umkm'=>'🛒','pertanian'=>'🌾','budaya'=>'🎭']; 
                         @endphp
                         @if($potensi->gambar)
-                            <img src="{{ asset('images/potensi/'.$potensi->gambar) }}" alt="{{ $potensi->judul }}">
+                            <img src="{{ Storage::disk('s3')->url('images/potensi/' . $potensi->gambar) }}" alt="{{ $potensi->judul }}">
                         @elseif($defaultImg)
-                            <img src="{{ asset('images/potensi/'.$defaultImg) }}" alt="{{ $potensi->judul }}">
+                            <img src="{{ Storage::disk('s3')->url('images/potensi/' . $defaultImg) }}" alt="{{ $potensi->judul }}">
                         @else
                             <div class="img-placeholder" style="height:200px">{{ $icons[$potensi->kategori] ?? '🌟' }}</div>
                         @endif

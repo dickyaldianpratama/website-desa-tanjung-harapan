@@ -273,7 +273,7 @@
                 </div>
                 
                 @if($potensi->gambar)
-                    <img src="{{ asset('images/potensi/' . $potensi->gambar) }}" alt="{{ $potensi->judul }}" class="card-img">
+                    <img src="{{ Storage::disk('s3')->url('images/potensi/' . $potensi->gambar) }}" alt="{{ $potensi->judul }}" class="card-img">
                 @else
                     <div class="card-img d-flex flex-column align-items-center justify-content-center text-muted" style="background: #e2e8f0;">
                         <i class="bi bi-image" style="font-size: 2rem; opacity: 0.4;"></i>

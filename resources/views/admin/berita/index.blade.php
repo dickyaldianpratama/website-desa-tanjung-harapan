@@ -372,7 +372,7 @@
                 </div>
                 
                 @if($berita->gambar)
-                    <img src="{{ asset('images/berita/' . $berita->gambar) }}" alt="{{ $berita->judul }}" class="card-img">
+                    <img src="{{ Storage::disk('s3')->url('images/berita/' . $berita->gambar) }}" alt="{{ $berita->judul }}" class="card-img">
                     <div class="img-overlay"></div>
                 @else
                     <div class="card-img d-flex flex-column align-items-center justify-content-center text-muted" style="background: #e2e8f0;">

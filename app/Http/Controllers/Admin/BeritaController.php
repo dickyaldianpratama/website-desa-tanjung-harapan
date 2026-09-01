@@ -59,7 +59,7 @@ class BeritaController extends Controller
         if ($request->hasFile('gambar')) {
             $image = $request->file('gambar');
             $imageName = time() . '_' . $image->getClientOriginalName();
-            $image->move(public_path('images/berita'), $imageName);
+            Storage::disk('s3')->putFileAs('images/berita', $image, $imageName);
             $data['gambar'] = $imageName;
         }
 
@@ -97,13 +97,13 @@ class BeritaController extends Controller
 
         if ($request->hasFile('gambar')) {
             // Hapus gambar lama jika ada
-            if ($berita->gambar && File::exists(public_path('images/berita/' . $berita->gambar))) {
-                File::delete(public_path('images/berita/' . $berita->gambar));
+            if ($berita->gambar && Storage::disk('s3')->exists('images/berita/' . $berita->gambar)) {
+                Storage::disk('s3')->delete('images/berita/' . $berita->gambar);
             }
             
             $image = $request->file('gambar');
             $imageName = time() . '_' . $image->getClientOriginalName();
-            $image->move(public_path('images/berita'), $imageName);
+            Storage::disk('s3')->putFileAs('images/berita', $image, $imageName);
             $data['gambar'] = $imageName;
         }
 
@@ -116,8 +116,8 @@ class BeritaController extends Controller
     {
         $berita = Berita::findOrFail($id);
         
-        if ($berita->gambar && File::exists(public_path('images/berita/' . $berita->gambar))) {
-            File::delete(public_path('images/berita/' . $berita->gambar));
+        if ($berita->gambar && Storage::disk('s3')->exists('images/berita/' . $berita->gambar)) {
+            Storage::disk('s3')->delete('images/berita/' . $berita->gambar);
         }
         
         $berita->delete();

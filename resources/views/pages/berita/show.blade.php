@@ -204,10 +204,10 @@
                     </div>
 
                     @if($berita->gambar)
-                        <img src="{{ asset('images/berita/'.$berita->gambar) }}" class="article-image" alt="{{ $berita->judul }}">
+                        <img src="{{ Storage::disk('s3')->url('images/berita/' . $berita->gambar) }}" class="article-image" alt="{{ $berita->judul }}">
                     @else
                         @php $fallbackImg = 'berita' . (($berita->id % 3) + 1) . '.jpg'; @endphp
-                        <img src="{{ asset('images/berita/' . $fallbackImg) }}" class="article-image" alt="{{ $berita->judul }}" onerror="this.src='{{ asset('images/hero-placeholder.jpg') }}'">
+                        <img src="{{ Storage::disk('s3')->url('images/berita/' . $fallbackImg) }}" class="article-image" alt="{{ $berita->judul }}" onerror="this.src='{{ asset('images/hero-placeholder.jpg') }}'">
                     @endif
 
                     <div class="article-content">
@@ -238,10 +238,10 @@
                         @forelse($terbaru as $item)
                         <div class="recent-post">
                             @if($item->gambar)
-                                <img src="{{ asset('images/berita/'.$item->gambar) }}" class="recent-img" alt="{{ $item->judul }}">
+                                <img src="{{ Storage::disk('s3')->url('images/berita/' . $item->gambar) }}" class="recent-img" alt="{{ $item->judul }}">
                             @else
                                 @php $recentFallbackImg = 'berita' . (($item->id % 3) + 1) . '.jpg'; @endphp
-                                <img src="{{ asset('images/berita/' . $recentFallbackImg) }}" class="recent-img" alt="{{ $item->judul }}" onerror="this.src='{{ asset('images/hero-placeholder.jpg') }}'">
+                                <img src="{{ Storage::disk('s3')->url('images/berita/' . $recentFallbackImg) }}" class="recent-img" alt="{{ $item->judul }}" onerror="this.src='{{ asset('images/hero-placeholder.jpg') }}'">
                             @endif
                             <div class="recent-body">
                                 <a href="{{ route('berita.show', $item->slug) }}" class="recent-title">{{ $item->judul }}</a>

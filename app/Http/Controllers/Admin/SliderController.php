@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Slider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class SliderController extends Controller
 {
@@ -108,8 +109,8 @@ class SliderController extends Controller
 
         if ($request->hasFile('gambar')) {
             // Hapus file lama
-            if ($slider->gambar && File::exists(public_path('images/sliders/' . $slider->gambar))) {
-                File::delete(public_path('images/sliders/' . $slider->gambar));
+            if ($slider->gambar && Storage::disk('s3')->exists('images/sliders/' . $slider->gambar)) {
+                Storage::disk('s3')->delete('images/sliders/' . $slider->gambar);
             }
 
             if ($tipe === 'video') {
@@ -131,8 +132,8 @@ class SliderController extends Controller
     {
         $slider = Slider::findOrFail($id);
 
-        if ($slider->gambar && File::exists(public_path('images/sliders/' . $slider->gambar))) {
-            File::delete(public_path('images/sliders/' . $slider->gambar));
+        if ($slider->gambar && Storage::disk('s3')->exists('images/sliders/' . $slider->gambar)) {
+            Storage::disk('s3')->delete('images/sliders/' . $slider->gambar);
         }
 
         $slider->delete();

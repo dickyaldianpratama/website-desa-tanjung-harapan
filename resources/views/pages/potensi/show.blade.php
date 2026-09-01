@@ -63,7 +63,7 @@
 
             <!-- IMAGE -->
             @if($potensi->gambar)
-                <img src="{{ asset('images/potensi/'.$potensi->gambar) }}" alt="{{ $potensi->judul }}" class="article-image">
+                <img src="{{ Storage::disk('s3')->url('images/potensi/' . $potensi->gambar) }}" alt="{{ $potensi->judul }}" class="article-image">
             @else
                 <img src="{{ asset('images/hero-placeholder.jpg') }}" alt="{{ $potensi->judul }}" class="article-image">
             @endif

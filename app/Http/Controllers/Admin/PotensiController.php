@@ -7,6 +7,7 @@ use App\Models\Potensi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class PotensiController extends Controller
 {
@@ -44,7 +45,7 @@ class PotensiController extends Controller
         if ($request->hasFile('gambar')) {
             $image = $request->file('gambar');
             $imageName = time() . '_' . $image->getClientOriginalName();
-            $image->move(public_path('images/potensi'), $imageName);
+            Storage::disk('s3')->putFileAs('images/potensi', $image, $imageName);
             $data['gambar'] = $imageName;
         }
 
@@ -74,13 +75,13 @@ class PotensiController extends Controller
         $data['slug'] = Str::slug($request->judul);
 
         if ($request->hasFile('gambar')) {
-            if ($potensi->gambar && File::exists(public_path('images/potensi/' . $potensi->gambar))) {
-                File::delete(public_path('images/potensi/' . $potensi->gambar));
+            if ($potensi->gambar && Storage::disk('s3')->exists('images/potensi/' . $potensi->gambar)) {
+                Storage::disk('s3')->delete('images/potensi/' . $potensi->gambar);
             }
             
             $image = $request->file('gambar');
             $imageName = time() . '_' . $image->getClientOriginalName();
-            $image->move(public_path('images/potensi'), $imageName);
+            Storage::disk('s3')->putFileAs('images/potensi', $image, $imageName);
             $data['gambar'] = $imageName;
         }
 
@@ -93,8 +94,8 @@ class PotensiController extends Controller
     {
         $potensi = Potensi::findOrFail($id);
         
-        if ($potensi->gambar && File::exists(public_path('images/potensi/' . $potensi->gambar))) {
-            File::delete(public_path('images/potensi/' . $potensi->gambar));
+        if ($potensi->gambar && Storage::disk('s3')->exists('images/potensi/' . $potensi->gambar)) {
+            Storage::disk('s3')->delete('images/potensi/' . $potensi->gambar);
         }
         
         $potensi->delete();

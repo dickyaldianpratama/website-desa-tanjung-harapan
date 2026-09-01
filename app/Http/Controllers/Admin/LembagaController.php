@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Lembaga;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class LembagaController extends Controller
 {
@@ -51,7 +52,7 @@ class LembagaController extends Controller
         if ($request->hasFile('foto')) {
             $image = $request->file('foto');
             $imageName = time() . '_' . $image->getClientOriginalName();
-            $image->move(public_path('images/lembaga'), $imageName);
+            Storage::disk('s3')->putFileAs('images/lembaga', $image, $imageName);
             $data['foto'] = $imageName;
         }
 
@@ -81,13 +82,13 @@ class LembagaController extends Controller
         $data = $request->except('foto');
 
         if ($request->hasFile('foto')) {
-            if ($lembaga->foto && File::exists(public_path('images/lembaga/' . $lembaga->foto))) {
-                File::delete(public_path('images/lembaga/' . $lembaga->foto));
+            if ($lembaga->foto && Storage::disk('s3')->exists('images/lembaga/' . $lembaga->foto)) {
+                Storage::disk('s3')->delete('images/lembaga/' . $lembaga->foto);
             }
             
             $image = $request->file('foto');
             $imageName = time() . '_' . $image->getClientOriginalName();
-            $image->move(public_path('images/lembaga'), $imageName);
+            Storage::disk('s3')->putFileAs('images/lembaga', $image, $imageName);
             $data['foto'] = $imageName;
         }
 
@@ -100,8 +101,8 @@ class LembagaController extends Controller
     {
         $lembaga = Lembaga::findOrFail($id);
         
-        if ($lembaga->foto && File::exists(public_path('images/lembaga/' . $lembaga->foto))) {
-            File::delete(public_path('images/lembaga/' . $lembaga->foto));
+        if ($lembaga->foto && Storage::disk('s3')->exists('images/lembaga/' . $lembaga->foto)) {
+            Storage::disk('s3')->delete('images/lembaga/' . $lembaga->foto);
         }
         
         $lembaga->delete();
