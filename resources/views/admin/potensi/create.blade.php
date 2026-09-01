@@ -1,5 +1,15 @@
-﻿@extends('layouts.admin')
+@extends('layouts.admin')
 @section('title', 'Tambah Potensi Desa')
+
+@push('styles')
+<!-- Cropper.js CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" rel="stylesheet">
+<style>
+    .img-container img {
+        max-width: 100%;
+    }
+</style>
+@endpush
 
 @section('content')
 <div class="mb-4">
