@@ -212,7 +212,18 @@
                 </div>
                 
                 @if($slider->gambar)
-                    <img src="{{ asset('images/sliders/' . $slider->gambar) }}" alt="{{ $slider->judul }}" class="slider-img">
+                    @if(($slider->tipe_media ?? 'gambar') === 'video')
+                        {{-- Badge VIDEO --}}
+                        <div class="slider-status" style="left:1rem;right:auto;background:rgba(99,102,241,.9);">
+                            <i class="bi bi-camera-video-fill me-1"></i>VIDEO
+                        </div>
+                        <video autoplay muted loop playsinline class="slider-img"
+                               style="object-fit:cover;">
+                            <source src="{{ asset('images/sliders/' . $slider->gambar) }}">
+                        </video>
+                    @else
+                        <img src="{{ asset('images/sliders/' . $slider->gambar) }}" alt="{{ $slider->judul }}" class="slider-img">
+                    @endif
                 @else
                     <div class="slider-img d-flex align-items-center justify-content-center bg-secondary">
                         <i class="bi bi-image text-white" style="font-size: 2rem;"></i>

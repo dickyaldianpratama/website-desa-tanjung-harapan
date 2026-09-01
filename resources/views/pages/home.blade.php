@@ -109,10 +109,18 @@
                 @php
                     $imgPos   = $slider->image_position ?? '50% 50%';
                     $imgScale = ($slider->image_scale ?? 100) / 100;
+                    $isVideo  = ($slider->tipe_media ?? 'gambar') === 'video';
                 @endphp
-                <img src="{{ asset('images/sliders/'.$slider->gambar) }}"
-                     alt="{{ $slider->judul }}"
-                     style="object-position:{{ $imgPos }};transform:scale({{ $imgScale }});transform-origin:{{ $imgPos }};">
+                @if($isVideo)
+                    <video autoplay muted loop playsinline
+                           style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+                        <source src="{{ asset('images/sliders/'.$slider->gambar) }}">
+                    </video>
+                @else
+                    <img src="{{ asset('images/sliders/'.$slider->gambar) }}"
+                         alt="{{ $slider->judul }}"
+                         style="object-position:{{ $imgPos }};transform:scale({{ $imgScale }});transform-origin:{{ $imgPos }};">
+                @endif
 
             @else
                 <div class="hero-placeholder">🏡</div>

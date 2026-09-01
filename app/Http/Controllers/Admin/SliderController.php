@@ -23,27 +23,44 @@ class SliderController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $tipe = $request->input('tipe_media', 'gambar');
+
+        $rules = [
             'judul'          => 'nullable|string|max:60',
             'subtitle'       => 'nullable|string|max:150',
-            'gambar'         => 'required|image|mimes:jpeg,png,jpg,webp|max:5120',
-            'image_position' => 'nullable|string|max:50',
-            'image_quality'  => 'nullable|integer|min:10|max:100',
-            'image_scale'    => 'nullable|integer|min:100|max:300',
+            'tipe_media'     => 'required|in:gambar,video',
             'urutan'         => 'required|integer|min:1',
             'aktif'          => 'required|boolean',
-        ]);
+        ];
+
+        if ($tipe === 'video') {
+            $rules['gambar'] = 'required|file|mimes:mp4,webm|max:51200'; // 50 MB
+        } else {
+            $rules['gambar']         = 'required|image|mimes:jpeg,png,jpg,webp|max:5120';
+            $rules['image_position'] = 'nullable|string|max:50';
+            $rules['image_quality']  = 'nullable|integer|min:10|max:100';
+            $rules['image_scale']    = 'nullable|integer|min:100|max:300';
+        }
+
+        $request->validate($rules);
 
         $data = $request->except('gambar');
-        $data['image_position'] = $request->input('image_position', '50% 50%');
-        $data['image_quality']  = $request->input('image_quality', 85);
-        $data['image_scale']    = $request->input('image_scale', 100);
+
+        if ($tipe === 'gambar') {
+            $data['image_position'] = $request->input('image_position', '50% 50%');
+            $data['image_quality']  = $request->input('image_quality', 85);
+            $data['image_scale']    = $request->input('image_scale', 100);
+        }
 
         if ($request->hasFile('gambar')) {
-            $data['gambar'] = $this->processAndSaveImage(
-                $request->file('gambar'),
-                (int) $data['image_quality']
-            );
+            if ($tipe === 'video') {
+                $data['gambar'] = $this->saveVideo($request->file('gambar'));
+            } else {
+                $data['gambar'] = $this->processAndSaveImage(
+                    $request->file('gambar'),
+                    (int) $data['image_quality']
+                );
+            }
         }
 
         Slider::create($data);
@@ -60,31 +77,49 @@ class SliderController extends Controller
     public function update(Request $request, string $id)
     {
         $slider = Slider::findOrFail($id);
+        $tipe   = $request->input('tipe_media', $slider->tipe_media ?? 'gambar');
 
-        $request->validate([
-            'judul'          => 'nullable|string|max:60',
-            'subtitle'       => 'nullable|string|max:150',
-            'gambar'         => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
-            'image_position' => 'nullable|string|max:50',
-            'image_quality'  => 'nullable|integer|min:10|max:100',
-            'image_scale'    => 'nullable|integer|min:100|max:300',
-            'urutan'         => 'required|integer|min:1',
-            'aktif'          => 'required|boolean',
-        ]);
+        $rules = [
+            'judul'      => 'nullable|string|max:60',
+            'subtitle'   => 'nullable|string|max:150',
+            'tipe_media' => 'required|in:gambar,video',
+            'urutan'     => 'required|integer|min:1',
+            'aktif'      => 'required|boolean',
+        ];
+
+        if ($tipe === 'video') {
+            $rules['gambar'] = 'nullable|file|mimes:mp4,webm|max:51200';
+        } else {
+            $rules['gambar']         = 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120';
+            $rules['image_position'] = 'nullable|string|max:50';
+            $rules['image_quality']  = 'nullable|integer|min:10|max:100';
+            $rules['image_scale']    = 'nullable|integer|min:100|max:300';
+        }
+
+        $request->validate($rules);
 
         $data = $request->except('gambar');
-        $data['image_position'] = $request->input('image_position', $slider->image_position ?? '50% 50%');
-        $data['image_quality']  = $request->input('image_quality', $slider->image_quality ?? 85);
-        $data['image_scale']    = $request->input('image_scale', $slider->image_scale ?? 100);
+
+        if ($tipe === 'gambar') {
+            $data['image_position'] = $request->input('image_position', $slider->image_position ?? '50% 50%');
+            $data['image_quality']  = $request->input('image_quality', $slider->image_quality ?? 85);
+            $data['image_scale']    = $request->input('image_scale', $slider->image_scale ?? 100);
+        }
 
         if ($request->hasFile('gambar')) {
+            // Hapus file lama
             if ($slider->gambar && File::exists(public_path('images/sliders/' . $slider->gambar))) {
                 File::delete(public_path('images/sliders/' . $slider->gambar));
             }
-            $data['gambar'] = $this->processAndSaveImage(
-                $request->file('gambar'),
-                (int) $data['image_quality']
-            );
+
+            if ($tipe === 'video') {
+                $data['gambar'] = $this->saveVideo($request->file('gambar'));
+            } else {
+                $data['gambar'] = $this->processAndSaveImage(
+                    $request->file('gambar'),
+                    (int) $data['image_quality']
+                );
+            }
         }
 
         $slider->update($data);
@@ -103,6 +138,24 @@ class SliderController extends Controller
         $slider->delete();
 
         return redirect()->route('admin.slider.index')->with('success', 'Banner berhasil dihapus!');
+    }
+
+    /**
+     * Simpan file video langsung tanpa kompresi.
+     */
+    private function saveVideo(\Illuminate\Http\UploadedFile $file): string
+    {
+        $destDir = public_path('images/sliders');
+        if (!File::isDirectory($destDir)) {
+            File::makeDirectory($destDir, 0755, true);
+        }
+
+        $ext      = strtolower($file->getClientOriginalExtension());
+        $baseName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+        $safeName = time() . '_' . preg_replace('/[^a-zA-Z0-9_\-]/', '_', $baseName) . '.' . $ext;
+
+        $file->move($destDir, $safeName);
+        return $safeName;
     }
 
     /**
@@ -148,3 +201,4 @@ class SliderController extends Controller
         return $safeName;
     }
 }
+
