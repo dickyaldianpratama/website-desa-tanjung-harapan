@@ -71,10 +71,15 @@ class PotensiController extends Controller
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:3072',
         ]);
 
-        $data = $request->except('gambar');
+        $data = $request->except(['gambar', 'hapus_gambar']);
         $data['slug'] = Str::slug($request->judul);
 
-        if ($request->hasFile('gambar')) {
+        if ($request->has('hapus_gambar') && $request->hapus_gambar == '1') {
+            if ($potensi->gambar && Storage::disk('s3')->exists('images/potensi/' . $potensi->gambar)) {
+                Storage::disk('s3')->delete('images/potensi/' . $potensi->gambar);
+            }
+            $data['gambar'] = null;
+        } elseif ($request->hasFile('gambar')) {
             if ($potensi->gambar && Storage::disk('s3')->exists('images/potensi/' . $potensi->gambar)) {
                 Storage::disk('s3')->delete('images/potensi/' . $potensi->gambar);
             }
