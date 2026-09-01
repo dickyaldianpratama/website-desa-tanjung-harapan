@@ -237,7 +237,7 @@ input[type=range].tool-range::-webkit-slider-thumb {
                     <div class="media-toggle-wrap">
                         <div class="media-toggle-btn active-gambar" id="btnGambar" onclick="setMode('gambar')">
                             <div class="toggle-icon">
-                                <img src="{{ asset('images/icons/icon-image.png') }}" alt="Image" style="width:24px; height:auto; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));">
+                                <img src="{{ asset('images/icons/icon-image.png') }}" alt="Image" style="width:32px; height:auto; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));">
                             </div>
                             <span>GAMBAR</span>
                         </div>
