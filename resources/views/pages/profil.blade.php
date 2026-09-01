@@ -653,7 +653,8 @@
         </div>
         <div class="collapse mt-4" id="collapseBaganPerangkat">
             <div class="card card-body border-0 shadow-sm rounded-4 bg-light overflow-auto">
-                <div id="chart_perangkat" style="min-width: 800px; padding: 20px 0;"></div>
+                <p class="text-muted small text-center d-md-none mb-3"><i class="bi bi-arrows-expand me-1"></i> Geser ke kiri/kanan untuk melihat struktur penuh</p>
+                  <div id="chart_perangkat" style="min-width: 800px; padding: 20px 0;"></div>
             </div>
         </div>
     </div>
@@ -745,10 +746,12 @@
                 <div class="row g-4">
                     <div class="col-12">
                         <h5 class="font-serif text-coklat-tua text-center mb-3">Bagan BPD</h5>
+                          <p class="text-muted small text-center d-md-none mb-3"><i class="bi bi-arrows-expand me-1"></i> Geser ke kiri/kanan untuk melihat struktur penuh</p>
                         <div id="chart_bpd" style="min-width: 800px; padding: 20px 0; border: 1px dashed #e2e8f0; border-radius: 12px;"></div>
                     </div>
                     <div class="col-12 mt-5">
                         <h5 class="font-serif text-coklat-tua text-center mb-3">Bagan Tim Penggerak PKK</h5>
+                          <p class="text-muted small text-center d-md-none mb-3"><i class="bi bi-arrows-expand me-1"></i> Geser ke kiri/kanan untuk melihat struktur penuh</p>
                         <div id="chart_pkk" style="min-width: 1000px; padding: 20px 0; border: 1px dashed #e2e8f0; border-radius: 12px;"></div>
                     </div>
                 </div>
@@ -921,6 +924,23 @@
 </script>
 
 <style>
+    
+    /* Fix Swiper Dots Overlap */
+    .swiper {
+        padding-bottom: 50px !important;
+    }
+    .swiper-pagination {
+        bottom: 0 !important;
+    }
+    
+    
+    @media (max-width: 768px) {
+        .google-visualization-orgchart-table {
+            transform: scale(0.85);
+            transform-origin: top center;
+        }
+    }
+
     /* Styling khusus untuk Google Org Chart Node */
     .google-visualization-orgchart-node {
         border: none !important;
