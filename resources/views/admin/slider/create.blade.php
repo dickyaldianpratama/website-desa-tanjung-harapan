@@ -242,7 +242,9 @@ input[type=range].tool-range::-webkit-slider-thumb {
                             <span>GAMBAR</span>
                         </div>
                         <div class="media-toggle-btn" id="btnVideo" onclick="setMode('video')">
-                            <div class="toggle-icon">🎬</div>
+                            <div class="toggle-icon">
+                                <img src="{{ asset('images/icons/icon-vidios.png') }}" alt="Video" style="width:32px; height:auto; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));">
+                            </div>
                             <span>VIDEO</span>
                         </div>
                     </div>
