@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\SettingController;
 // ═══════════════════════════════════════════
 Route::get('/',              [HomeController::class, 'index'])->name('home');
 Route::get('/profil',        [ProfilController::class, 'index'])->name('profil');
+Route::get('/profil/download-bagan/{id}', [ProfilController::class, 'downloadBagan'])->name('profil.downloadBagan');
 Route::get('/berita',        [BeritaController::class, 'index'])->name('berita.index');
 Route::get('/berita/{slug}', [BeritaController::class, 'show'])->name('berita.show');
 Route::get('/potensi',       [PotensiController::class, 'index'])->name('potensi.index');

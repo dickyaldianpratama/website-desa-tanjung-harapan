@@ -663,7 +663,7 @@
                                             <img src="{{ Storage::disk('s3')->url('images/struktur/' . $bagan->gambar) }}" alt="{{ $bagan->nama }}" class="img-fluid rounded shadow-sm mx-auto d-block" style="max-width: 100%; cursor: zoom-in;">
                                         </a>
                                         <div class="mt-3">
-                                            <a href="{{ Storage::disk('s3')->url('images/struktur/' . $bagan->gambar) }}" download="{{ Str::slug($bagan->nama) }}.jpg" class="btn btn-sm btn-light border rounded-pill" target="_blank">
+                                            <a href="{{ route('profil.downloadBagan', $bagan->id) }}" class="btn btn-sm btn-light border rounded-pill">
                                                 <i class="bi bi-download me-1"></i> Download Bagan
                                             </a>
                                         </div>
@@ -745,7 +745,7 @@
                                                     <img src="{{ Storage::disk('s3')->url('images/struktur/' . $bagan->gambar) }}" alt="{{ $bagan->nama }}" class="img-fluid rounded shadow-sm mx-auto d-block" style="max-width: 100%; cursor: zoom-in;">
                                                 </a>
                                                 <div class="mt-3">
-                                                    <a href="{{ Storage::disk('s3')->url('images/struktur/' . $bagan->gambar) }}" download="{{ Str::slug($bagan->nama) }}.jpg" class="btn btn-sm btn-light border rounded-pill" target="_blank">
+                                                    <a href="{{ route('profil.downloadBagan', $bagan->id) }}" class="btn btn-sm btn-light border rounded-pill">
                                                         <i class="bi bi-download me-1"></i> Download Bagan
                                                     </a>
                                                 </div>
@@ -806,7 +806,7 @@
                                                     <img src="{{ Storage::disk('s3')->url('images/struktur/' . $bagan->gambar) }}" alt="{{ $bagan->nama }}" class="img-fluid rounded shadow-sm mx-auto d-block" style="max-width: 100%; cursor: zoom-in;">
                                                 </a>
                                                 <div class="mt-3">
-                                                    <a href="{{ Storage::disk('s3')->url('images/struktur/' . $bagan->gambar) }}" download="{{ Str::slug($bagan->nama) }}.jpg" class="btn btn-sm btn-light border rounded-pill" target="_blank">
+                                                    <a href="{{ route('profil.downloadBagan', $bagan->id) }}" class="btn btn-sm btn-light border rounded-pill">
                                                         <i class="bi bi-download me-1"></i> Download Bagan
                                                     </a>
                                                 </div>
@@ -849,7 +849,7 @@
                                 <img src="{{ Storage::disk('s3')->url('images/struktur/' . $bagan->gambar) }}" alt="{{ $bagan->nama }}" class="img-fluid rounded shadow-sm mx-auto d-block" style="max-width: 100%; cursor: zoom-in;">
                             </a>
                             <div class="mt-3">
-                                <a href="{{ Storage::disk('s3')->url('images/struktur/' . $bagan->gambar) }}" download="{{ Str::slug($bagan->nama) }}.jpg" class="btn btn-sm btn-light border rounded-pill" target="_blank">
+                                <a href="{{ route('profil.downloadBagan', $bagan->id) }}" class="btn btn-sm btn-light border rounded-pill">
                                     <i class="bi bi-download me-1"></i> Download Bagan
                                 </a>
                             </div>

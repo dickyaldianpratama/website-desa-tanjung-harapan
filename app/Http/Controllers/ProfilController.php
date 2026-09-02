@@ -22,4 +22,30 @@ class ProfilController extends Controller {
 
         return view('pages.profil', compact('settings', 'perangkats', 'kades', 'bpd', 'pkk', 'bagans'));
     }
+
+    public function downloadBagan($id) {
+        $bagan = BaganStruktur::findOrFail($id);
+        
+        if (!$bagan->gambar) {
+            abort(404, 'Gambar bagan tidak ditemukan.');
+        }
+
+        $fileUrl = \Illuminate\Support\Facades\Storage::disk('s3')->url('images/struktur/' . $bagan->gambar);
+        $fileContent = @file_get_contents($fileUrl);
+
+        if ($fileContent === false) {
+            abort(404, 'File tidak dapat diunduh dari server.');
+        }
+
+        $ext = pathinfo($bagan->gambar, PATHINFO_EXTENSION) ?: 'jpg';
+        $mimeMap = ['jpg' => 'image/jpeg', 'jpeg' => 'image/jpeg', 'png' => 'image/png', 'webp' => 'image/webp'];
+        $mimeType = $mimeMap[strtolower($ext)] ?? 'application/octet-stream';
+
+        $downloadName = \Illuminate\Support\Str::slug($bagan->nama) . '.' . $ext;
+
+        return response($fileContent, 200)
+            ->header('Content-Type', $mimeType)
+            ->header('Content-Disposition', 'attachment; filename="' . $downloadName . '"')
+            ->header('Content-Length', strlen($fileContent));
+    }
 }
