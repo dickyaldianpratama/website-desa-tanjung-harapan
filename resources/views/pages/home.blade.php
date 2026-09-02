@@ -189,19 +189,17 @@
             <div class="col-md-4 text-center">
                 <div class="kades-photo-wrap d-inline-block position-relative">
                     @php 
-                        $fotoKades = $kades && $kades->foto ? 'perangkat/'.$kades->foto : ($settings['foto_kades'] ?? '');
                         $namaKades = $kades ? $kades->nama : ($settings['nama_kades'] ?? '-');
                         $jabatanKades = $kades ? $kades->jabatan : ($settings['jabatan_kades'] ?? 'Kepala Desa');
-                        $defaultKades = 'perangkat/kades.jpg';
                     @endphp
                     
-                    @if($fotoKades)
-                        <img src="{{ asset('images/'.$fotoKades) }}" class="kades-photo" alt="{{ $namaKades }}">
+                    @if($kades && $kades->foto)
+                        <img src="{{ Storage::disk('s3')->url('images/perangkat/' . $kades->foto) }}" class="kades-photo" alt="{{ $namaKades }}" onerror="this.outerHTML='<div class=\'kades-photo-placeholder\'>👤</div>'">
                     @elseif(isset($settings['foto_kades']) && $settings['foto_kades'])
-                        <img src="{{ asset('images/'.$settings['foto_kades']) }}" class="kades-photo" alt="{{ $namaKades }}">
+                        <img src="{{ asset('images/'.$settings['foto_kades']) }}" class="kades-photo" alt="{{ $namaKades }}" onerror="this.outerHTML='<div class=\'kades-photo-placeholder\'>👤</div>'">
                     @else
                         {{-- Fallback to default dummy --}}
-                        <img src="{{ asset('images/'.$defaultKades) }}" class="kades-photo" alt="{{ $namaKades }}" onerror="this.outerHTML='<div class=\'kades-photo-placeholder\'>👤</div>'">
+                        <img src="{{ Storage::disk('s3')->url('images/perangkat/kades.jpg') }}" class="kades-photo" alt="{{ $namaKades }}" onerror="this.outerHTML='<div class=\'kades-photo-placeholder\'>👤</div>'">
                     @endif
 
                     <div class="kades-badge">
