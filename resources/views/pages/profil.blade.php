@@ -645,6 +645,39 @@
             </div>
             
             <div class="swiper-pagination mt-4"></div>
+            
+            @php $baganPerangkat = $bagans->filter(fn($b) => str_contains(strtolower($b->nama), 'perangkat')); @endphp
+            @if($baganPerangkat->count() > 0)
+                <div class="row">
+                    @foreach($baganPerangkat as $bagan)
+                        <div class="col-12 text-center mt-5" data-aos="fade-up">
+                            <button class="btn btn-outline-primary rounded-pill px-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBagan{{ $bagan->id }}" aria-expanded="false" aria-controls="collapseBagan{{ $bagan->id }}" style="border-color: var(--gold); color: var(--coklat-tua); font-weight: 600;">
+                                <i class="bi bi-diagram-3-fill me-2"></i>Lihat {{ $bagan->nama }}
+                            </button>
+                            <p class="text-muted small mt-2 d-md-none"><i class="bi bi-zoom-in"></i> Ketuk gambar untuk memperbesar</p>
+                            
+                            <div class="collapse mt-4" id="collapseBagan{{ $bagan->id }}">
+                                <div class="card card-body border-0 shadow-sm rounded-4 bg-white text-center">
+                                    @if($bagan->gambar)
+                                        <a href="{{ Storage::disk('s3')->url('images/struktur/' . $bagan->gambar) }}" data-fancybox="bagan-gallery" data-caption="{{ $bagan->nama }}" class="d-block text-decoration-none">
+                                            <img src="{{ Storage::disk('s3')->url('images/struktur/' . $bagan->gambar) }}" alt="{{ $bagan->nama }}" class="img-fluid rounded shadow-sm mx-auto d-block" style="max-width: 100%; cursor: zoom-in;">
+                                        </a>
+                                        <div class="mt-3">
+                                            <a href="{{ Storage::disk('s3')->url('images/struktur/' . $bagan->gambar) }}" download="{{ Str::slug($bagan->nama) }}.jpg" class="btn btn-sm btn-light border rounded-pill" target="_blank">
+                                                <i class="bi bi-download me-1"></i> Download Bagan
+                                            </a>
+                                        </div>
+                                    @else
+                                        <div class="py-4 border border-dashed rounded bg-light text-muted">
+                                            <p class="mb-0">Gambar {{ $bagan->nama }} belum diunggah.</p>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            @endif
         </div>
 
     </div>
@@ -694,6 +727,39 @@
                         @endforelse
                     </div>
                     <div class="swiper-pagination bpd-pagination mt-4"></div>
+                    
+                    @php $baganBpd = $bagans->filter(fn($b) => str_contains(strtolower($b->nama), 'bpd')); @endphp
+                    @if($baganBpd->count() > 0)
+                        <div class="row">
+                            @foreach($baganBpd as $bagan)
+                                <div class="col-12 text-center mt-5" data-aos="fade-up">
+                                    <button class="btn btn-outline-primary rounded-pill px-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBagan{{ $bagan->id }}" aria-expanded="false" aria-controls="collapseBagan{{ $bagan->id }}" style="border-color: var(--gold); color: var(--coklat-tua); font-weight: 600;">
+                                        <i class="bi bi-diagram-3-fill me-2"></i>Lihat {{ $bagan->nama }}
+                                    </button>
+                                    <p class="text-muted small mt-2 d-md-none"><i class="bi bi-zoom-in"></i> Ketuk gambar untuk memperbesar</p>
+                                    
+                                    <div class="collapse mt-4" id="collapseBagan{{ $bagan->id }}">
+                                        <div class="card card-body border-0 shadow-sm rounded-4 bg-white text-center">
+                                            @if($bagan->gambar)
+                                                <a href="{{ Storage::disk('s3')->url('images/struktur/' . $bagan->gambar) }}" data-fancybox="bagan-gallery" data-caption="{{ $bagan->nama }}" class="d-block text-decoration-none">
+                                                    <img src="{{ Storage::disk('s3')->url('images/struktur/' . $bagan->gambar) }}" alt="{{ $bagan->nama }}" class="img-fluid rounded shadow-sm mx-auto d-block" style="max-width: 100%; cursor: zoom-in;">
+                                                </a>
+                                                <div class="mt-3">
+                                                    <a href="{{ Storage::disk('s3')->url('images/struktur/' . $bagan->gambar) }}" download="{{ Str::slug($bagan->nama) }}.jpg" class="btn btn-sm btn-light border rounded-pill" target="_blank">
+                                                        <i class="bi bi-download me-1"></i> Download Bagan
+                                                    </a>
+                                                </div>
+                                            @else
+                                                <div class="py-4 border border-dashed rounded bg-light text-muted">
+                                                    <p class="mb-0">Gambar {{ $bagan->nama }} belum diunggah.</p>
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
                 </div>
             </div>
 
@@ -722,42 +788,82 @@
                         @endforelse
                     </div>
                     <div class="swiper-pagination pkk-pagination mt-4"></div>
+                    
+                    @php $baganPkk = $bagans->filter(fn($b) => str_contains(strtolower($b->nama), 'pkk')); @endphp
+                    @if($baganPkk->count() > 0)
+                        <div class="row">
+                            @foreach($baganPkk as $bagan)
+                                <div class="col-12 text-center mt-5" data-aos="fade-up">
+                                    <button class="btn btn-outline-primary rounded-pill px-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBagan{{ $bagan->id }}" aria-expanded="false" aria-controls="collapseBagan{{ $bagan->id }}" style="border-color: var(--gold); color: var(--coklat-tua); font-weight: 600;">
+                                        <i class="bi bi-diagram-3-fill me-2"></i>Lihat {{ $bagan->nama }}
+                                    </button>
+                                    <p class="text-muted small mt-2 d-md-none"><i class="bi bi-zoom-in"></i> Ketuk gambar untuk memperbesar</p>
+                                    
+                                    <div class="collapse mt-4" id="collapseBagan{{ $bagan->id }}">
+                                        <div class="card card-body border-0 shadow-sm rounded-4 bg-white text-center">
+                                            @if($bagan->gambar)
+                                                <a href="{{ Storage::disk('s3')->url('images/struktur/' . $bagan->gambar) }}" data-fancybox="bagan-gallery" data-caption="{{ $bagan->nama }}" class="d-block text-decoration-none">
+                                                    <img src="{{ Storage::disk('s3')->url('images/struktur/' . $bagan->gambar) }}" alt="{{ $bagan->nama }}" class="img-fluid rounded shadow-sm mx-auto d-block" style="max-width: 100%; cursor: zoom-in;">
+                                                </a>
+                                                <div class="mt-3">
+                                                    <a href="{{ Storage::disk('s3')->url('images/struktur/' . $bagan->gambar) }}" download="{{ Str::slug($bagan->nama) }}.jpg" class="btn btn-sm btn-light border rounded-pill" target="_blank">
+                                                        <i class="bi bi-download me-1"></i> Download Bagan
+                                                    </a>
+                                                </div>
+                                            @else
+                                                <div class="py-4 border border-dashed rounded bg-light text-muted">
+                                                    <p class="mb-0">Gambar {{ $bagan->nama }} belum diunggah.</p>
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>        
-          @if($bagans->count() > 0)
-          <div class="text-center mt-5" data-aos="fade-up">
-              <button class="btn btn-outline-primary rounded-pill px-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBaganLembaga" aria-expanded="false" aria-controls="collapseBaganLembaga" style="border-color: var(--gold); color: var(--coklat-tua); font-weight: 600;">
-                  <i class="bi bi-diagram-3-fill me-2"></i>Lihat Bagan Struktur Organisasi
-              </button>
-              <p class="text-muted small mt-2 d-md-none"><i class="bi bi-zoom-in"></i> Ketuk gambar untuk memperbesar / melihat detail</p>
-          </div>
-          <div class="collapse mt-4" id="collapseBaganLembaga">
-              <div class="card card-body border-0 shadow-sm rounded-4 bg-white text-center">
-                  <div class="row g-5">
-                      @foreach($bagans as $bagan)
-                      <div class="col-12 {{ !$loop->first ? 'mt-5' : '' }}">
-                          <h5 class="font-serif text-coklat-tua text-center mb-3">{{ $bagan->nama }}</h5>
-                          @if($bagan->gambar)
-                              <a href="{{ Storage::disk('s3')->url('images/struktur/' . $bagan->gambar) }}" data-fancybox="bagan-gallery" data-caption="{{ $bagan->nama }}" class="d-block text-decoration-none">
-                                  <img src="{{ Storage::disk('s3')->url('images/struktur/' . $bagan->gambar) }}" alt="{{ $bagan->nama }}" class="img-fluid rounded shadow-sm mx-auto d-block" style="max-width: 100%; cursor: zoom-in;">
-                              </a>
-                              <div class="mt-3">
-                                  <a href="{{ Storage::disk('s3')->url('images/struktur/' . $bagan->gambar) }}" download="{{ Str::slug($bagan->nama) }}.jpg" class="btn btn-sm btn-light border rounded-pill" target="_blank">
-                                      <i class="bi bi-download me-1"></i> Download Bagan
-                                  </a>
-                              </div>
-                          @else
-                              <div class="py-4 border border-dashed rounded bg-light text-muted">
-                                  <p class="mb-0">Gambar {{ $bagan->nama }} belum diunggah.</p>
-                              </div>
-                          @endif
-                      </div>
-                      @endforeach
-                  </div>
-              </div>
-          </div>
-          @endif
+        @php 
+            $baganLainnya = $bagans->reject(fn($b) => 
+                str_contains(strtolower($b->nama), 'perangkat') || 
+                str_contains(strtolower($b->nama), 'bpd') || 
+                str_contains(strtolower($b->nama), 'pkk')
+            );
+        @endphp
+        @if($baganLainnya->count() > 0)
+        <div class="text-center mt-5" data-aos="fade-up">
+            <button class="btn btn-outline-primary rounded-pill px-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBaganLainnya" aria-expanded="false" aria-controls="collapseBaganLainnya" style="border-color: var(--gold); color: var(--coklat-tua); font-weight: 600;">
+                <i class="bi bi-diagram-3-fill me-2"></i>Lihat Bagan Struktur Lainnya
+            </button>
+            <p class="text-muted small mt-2 d-md-none"><i class="bi bi-zoom-in"></i> Ketuk gambar untuk memperbesar / melihat detail</p>
+        </div>
+        <div class="collapse mt-4" id="collapseBaganLainnya">
+            <div class="card card-body border-0 shadow-sm rounded-4 bg-white text-center">
+                <div class="row g-5">
+                    @foreach($baganLainnya as $bagan)
+                    <div class="col-12 {{ !$loop->first ? 'mt-5' : '' }}">
+                        <h5 class="font-serif text-coklat-tua text-center mb-3">{{ $bagan->nama }}</h5>
+                        @if($bagan->gambar)
+                            <a href="{{ Storage::disk('s3')->url('images/struktur/' . $bagan->gambar) }}" data-fancybox="bagan-gallery" data-caption="{{ $bagan->nama }}" class="d-block text-decoration-none">
+                                <img src="{{ Storage::disk('s3')->url('images/struktur/' . $bagan->gambar) }}" alt="{{ $bagan->nama }}" class="img-fluid rounded shadow-sm mx-auto d-block" style="max-width: 100%; cursor: zoom-in;">
+                            </a>
+                            <div class="mt-3">
+                                <a href="{{ Storage::disk('s3')->url('images/struktur/' . $bagan->gambar) }}" download="{{ Str::slug($bagan->nama) }}.jpg" class="btn btn-sm btn-light border rounded-pill" target="_blank">
+                                    <i class="bi bi-download me-1"></i> Download Bagan
+                                </a>
+                            </div>
+                        @else
+                            <div class="py-4 border border-dashed rounded bg-light text-muted">
+                                <p class="mb-0">Gambar {{ $bagan->nama }} belum diunggah.</p>
+                            </div>
+                        @endif
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+        @endif
 
     </div>
 </section>
