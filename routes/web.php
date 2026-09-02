@@ -18,6 +18,17 @@ use App\Http\Controllers\Admin\SettingController;
 //  PUBLIC ROUTES — Bebas diakses siapapun
 // ═══════════════════════════════════════════
 Route::get('/',              [HomeController::class, 'index'])->name('home');
+
+// Temporary route to migrate production database
+Route::get('/run-migration-secret-123', function() {
+    try {
+        \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
+        return "Migration Success: " . \Illuminate\Support\Facades\Artisan::output();
+    } catch (\Exception $e) {
+        return "Migration Error: " . $e->getMessage();
+    }
+});
+
 Route::get('/profil',        [ProfilController::class, 'index'])->name('profil');
 Route::get('/berita',        [BeritaController::class, 'index'])->name('berita.index');
 Route::get('/berita/{slug}', [BeritaController::class, 'show'])->name('berita.show');
