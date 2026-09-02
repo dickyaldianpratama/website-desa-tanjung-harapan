@@ -304,6 +304,9 @@
         </a>
 
         <div class="menu-label mt-2">Akun</div>
+        <a href="{{ route('admin.bagan.index') }}" class="sidebar-link {{ request()->routeIs('admin.bagan*') ? 'active' : '' }}">
+            <i class="bi bi-diagram-3"></i> Setting Bagan Struktur
+        </a>
         <form method="POST" action="{{ route('logout') }}" id="form-logout">
             @csrf
             <button type="button" id="btn-logout" class="sidebar-link w-100 border-0 text-start" style="background:none; cursor:pointer;">

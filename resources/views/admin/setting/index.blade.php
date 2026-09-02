@@ -274,12 +274,25 @@
                     </div>
                     <div class="mb-0">
                         <label class="form-label fw-bold"><i class="bi bi-youtube" style="color: #FF0000;"></i> Link YouTube</label>
-                        <input type="url" name="link_youtube" class="form-control" value="{{ $settings['link_youtube'] ?? '' }}" placeholder="https://youtube.com/...">
+                            <input type="url" name="link_youtube" class="form-control" value="{{ $settings['link_youtube'] ?? '' }}" placeholder="https://youtube.com/...">
                     </div>
                 </div>
             </div>
 
-            {{-- ══ NOMOR TELEPON PENTING ══ --}}
+            {{-- 📊 BAGAN STRUKTUR ORGANISASI --}}
+            <div class="setting-card mb-4">
+                <div class="setting-card-header">
+                    <i class="bi bi-diagram-3-fill text-primary"></i> Bagan Struktur Organisasi
+                </div>
+                <div class="setting-card-body text-center py-4">
+                    <p class="text-muted mb-3">Pengaturan Bagan Struktur telah dipindahkan ke menu khusus agar lebih canggih dan fleksibel. Anda kini dapat menambah struktur baru tanpa batas.</p>
+                    <a href="{{ route('admin.bagan.index') }}" class="btn btn-outline-primary rounded-pill px-4">
+                        <i class="bi bi-arrow-right-circle me-1"></i> Pergi ke Menu Setting Bagan
+                    </a>
+                </div>
+            </div>
+
+            {{-- 🚨 NOMOR TELEPON PENTING 🚨 --}}
             <div class="setting-card mb-4">
                 <div class="setting-card-header">
                     <i class="bi bi-telephone-fill text-danger"></i> Nomor Telepon Penting

@@ -56,6 +56,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('layanan/{id}/download-lampiran', [App\Http\Controllers\Admin\LayananController::class, 'downloadLampiran'])->name('layanan.download');
     Route::get('setting',            [SettingController::class, 'index'])->name('setting.index');
     Route::post('setting',           [SettingController::class, 'update'])->name('setting.update');
+    Route::resource('bagan',         App\Http\Controllers\Admin\BaganStrukturController::class);
 
     // Profile Account Settings
     Route::get('/profile', [App\Http\Controllers\Admin\ProfileController::class, 'index'])->name('profile.index');

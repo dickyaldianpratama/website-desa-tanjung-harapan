@@ -373,6 +373,7 @@
     }
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" />
 @endpush
 
 @section('content')
@@ -647,41 +648,39 @@
         </div>
 
         
-          
+          @if($bagans->count() > 0)
           <div class="text-center mt-5" data-aos="fade-up">
-              <button class="btn btn-outline-primary rounded-pill px-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBaganLembaga" aria-expanded="false" aria-controls="collapseBaganLembaga" style="border-color: var(--c-gold); color: var(--coklat-tua); font-weight: 600;">
-                  <i class="bi bi-diagram-3-fill me-2"></i>Lihat Bagan Struktur Lembaga
+              <button class="btn btn-outline-primary rounded-pill px-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBaganLembaga" aria-expanded="false" aria-controls="collapseBaganLembaga" style="border-color: var(--gold); color: var(--coklat-tua); font-weight: 600;">
+                  <i class="bi bi-diagram-3-fill me-2"></i>Lihat Bagan Struktur Organisasi
               </button>
+              <p class="text-muted small mt-2 d-md-none"><i class="bi bi-zoom-in"></i> Ketuk gambar untuk memperbesar / melihat detail</p>
           </div>
           <div class="collapse mt-4" id="collapseBaganLembaga">
-              <div class="card card-body border-0 shadow-sm rounded-4 bg-white overflow-auto text-center">
+              <div class="card card-body border-0 shadow-sm rounded-4 bg-white text-center">
                   <div class="row g-5">
-                      <div class="col-12">
-                          <h5 class="font-serif text-coklat-tua text-center mb-3">Bagan BPD</h5>
-                          @php $strukturBpd = \App\Models\Setting::get('struktur_bpd'); @endphp
-                          @if($strukturBpd)
-                              <img src="{{ Storage::disk('s3')->url('images/struktur/' . $strukturBpd) }}" alt="Bagan BPD" class="img-fluid rounded shadow-sm mx-auto d-block" style="max-width: 100%;">
+                      @foreach($bagans as $bagan)
+                      <div class="col-12 {{ !$loop->first ? 'mt-5' : '' }}">
+                          <h5 class="font-serif text-coklat-tua text-center mb-3">{{ $bagan->nama }}</h5>
+                          @if($bagan->gambar)
+                              <a href="{{ Storage::disk('s3')->url('images/struktur/' . $bagan->gambar) }}" data-fancybox="bagan-gallery" data-caption="{{ $bagan->nama }}" class="d-block text-decoration-none">
+                                  <img src="{{ Storage::disk('s3')->url('images/struktur/' . $bagan->gambar) }}" alt="{{ $bagan->nama }}" class="img-fluid rounded shadow-sm mx-auto d-block" style="max-width: 100%; cursor: zoom-in;">
+                              </a>
+                              <div class="mt-3">
+                                  <a href="{{ Storage::disk('s3')->url('images/struktur/' . $bagan->gambar) }}" download="{{ Str::slug($bagan->nama) }}.jpg" class="btn btn-sm btn-light border rounded-pill" target="_blank">
+                                      <i class="bi bi-download me-1"></i> Download Bagan
+                                  </a>
+                              </div>
                           @else
                               <div class="py-4 border border-dashed rounded bg-light text-muted">
-                                  <p class="mb-0">Gambar bagan struktur BPD belum diunggah.</p>
+                                  <p class="mb-0">Gambar {{ $bagan->nama }} belum diunggah.</p>
                               </div>
                           @endif
                       </div>
-                      
-                      <div class="col-12 mt-5">
-                          <h5 class="font-serif text-coklat-tua text-center mb-3">Bagan Tim Penggerak PKK</h5>
-                          @php $strukturPkk = \App\Models\Setting::get('struktur_pkk'); @endphp
-                          @if($strukturPkk)
-                              <img src="{{ Storage::disk('s3')->url('images/struktur/' . $strukturPkk) }}" alt="Bagan PKK" class="img-fluid rounded shadow-sm mx-auto d-block" style="max-width: 100%;">
-                          @else
-                              <div class="py-4 border border-dashed rounded bg-light text-muted">
-                                  <p class="mb-0">Gambar bagan struktur PKK belum diunggah.</p>
-                              </div>
-                          @endif
-                      </div>
+                      @endforeach
                   </div>
               </div>
           </div>
+          @endif
 
     </div>
 </section>
@@ -814,8 +813,12 @@
 @endsection
 
 @push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        Fancybox.bind("[data-fancybox]", {
+            // Options
+        });
         const swiperConfig = {
             slidesPerView: 1,
             spaceBetween: 20,

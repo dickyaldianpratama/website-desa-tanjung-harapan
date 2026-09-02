@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use App\Models\Setting;
 use App\Models\Perangkat;
 use App\Models\Lembaga;
+use App\Models\BaganStruktur;
 
 class ProfilController extends Controller {
     public function index() {
@@ -16,7 +17,9 @@ class ProfilController extends Controller {
 
         $bpd = Lembaga::where('tipe', 'BPD')->urut()->get();
         $pkk = Lembaga::where('tipe', 'PKK')->urut()->get();
+        
+        $bagans = BaganStruktur::orderBy('urutan', 'asc')->get();
 
-        return view('pages.profil', compact('settings', 'perangkats', 'kades', 'bpd', 'pkk'));
+        return view('pages.profil', compact('settings', 'perangkats', 'kades', 'bpd', 'pkk', 'bagans'));
     }
 }
