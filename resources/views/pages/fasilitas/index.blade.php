@@ -1,6 +1,20 @@
 @extends('layouts.app')
 @section('title', 'Fasilitas Desa')
 
+@php
+    if(!function_exists('getFasilitasIcon')) {
+        function getFasilitasIcon($kat) {
+            $kat = strtolower($kat);
+            if (str_contains($kat, 'pendidikan') || str_contains($kat, 'sekolah')) return 'bi-mortarboard-fill';
+            if (str_contains($kat, 'kesehatan') || str_contains($kat, 'puskesmas') || str_contains($kat, 'posyandu')) return 'bi-heart-pulse-fill';
+            if (str_contains($kat, 'ibadah') || str_contains($kat, 'masjid') || str_contains($kat, 'mushola')) return 'bi-moon-stars-fill';
+            if (str_contains($kat, 'olahraga') || str_contains($kat, 'lapangan')) return 'bi-trophy-fill';
+            if (str_contains($kat, 'kantor') || str_contains($kat, 'desa')) return 'bi-building-fill';
+            return 'bi-geo-alt-fill';
+        }
+    }
+@endphp
+
 @push('styles')
 <style>
     /* Styling modern untuk Filter dan Grid Fasilitas */
@@ -169,7 +183,9 @@
                     @endif
                     
                     <div class="fasilitas-overlay">
-                        <span class="fasilitas-kategori">{{ $item->kategori }}</span>
+                        <span class="fasilitas-kategori">
+                            <i class="{{ getFasilitasIcon($item->kategori) }} me-1"></i> {{ $item->kategori }}
+                        </span>
                         <h4 class="fasilitas-title font-serif">{{ $item->nama_fasilitas }}</h4>
                         @if($item->deskripsi)
                             <div class="fasilitas-desc">
@@ -191,24 +207,34 @@
 <!-- Modal Zoom In Detail Fasilitas -->
 <div class="modal fade" id="fasilitasModal" tabindex="-1" aria-labelledby="modalNama" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-zoom" style="max-width: 500px;">
-        <div class="modal-content border-0 shadow-lg" style="border-radius: 20px; overflow: hidden;">
+        <div class="modal-content border-0 shadow-lg" style="border-radius: 20px; overflow: hidden; background: #faf9f6;">
             
             <!-- Tombol Close (Silang) menumpuk di atas gambar -->
             <button type="button" class="btn-close btn-close-custom position-absolute top-0 end-0 m-3" data-bs-dismiss="modal" aria-label="Close" style="z-index: 10;"></button>
             
-            <!-- Gambar Fasilitas (Zoomed) -->
-            <img id="modalFoto" src="" alt="Foto Fasilitas" class="d-none" style="width: 100%; height: 260px; object-fit: cover;">
-            
-            <!-- Placeholder jika tidak ada gambar -->
-            <div id="modalFotoPlaceholder" class="bg-secondary d-none align-items-center justify-content-center" style="width: 100%; height: 260px;">
-                <i class="bi bi-building" style="font-size: 4rem; color: rgba(255,255,255,0.7);"></i>
+            <div class="position-relative">
+                <!-- Gambar Fasilitas (Zoomed) -->
+                <img id="modalFoto" src="" alt="Foto Fasilitas" class="d-none" style="width: 100%; height: 280px; object-fit: cover; border-bottom: 3px solid var(--gold);">
+                
+                <!-- Placeholder jika tidak ada gambar -->
+                <div id="modalFotoPlaceholder" class="bg-secondary d-none align-items-center justify-content-center" style="width: 100%; height: 280px; border-bottom: 3px solid var(--gold);">
+                    <i class="bi bi-building" style="font-size: 4rem; color: rgba(255,255,255,0.7);"></i>
+                </div>
+                
+                <!-- Badge Kategori Overlapping (Melayang di antara gambar & teks) -->
+                <div class="position-absolute w-100 text-center" style="bottom: -16px; left: 0;">
+                    <span class="badge bg-gold text-coklat-tua px-4 py-2 rounded-pill shadow" style="font-size: 0.85rem; border: 2px solid #fff;">
+                        <i id="modalKategoriIcon" class="bi me-1"></i> <span id="modalKategori"></span>
+                    </span>
+                </div>
             </div>
             
             <!-- Detail Teks -->
-            <div class="modal-body p-4 text-center">
-                <span id="modalKategori" class="badge bg-gold text-coklat-tua px-3 py-1 rounded-pill mb-3 fw-bold" style="font-size: 0.75rem; letter-spacing: 1px;"></span>
-                <h4 id="modalNama" class="fw-bold text-coklat-tua mb-3 font-serif"></h4>
-                <div id="modalDeskripsi" class="text-secondary" style="line-height: 1.6; font-size: 0.95rem;"></div>
+            <div class="modal-body px-4 pb-4 pt-5 text-center">
+                <h3 id="modalNama" class="fw-bold text-coklat-tua mb-2 font-serif"></h3>
+                <div style="width: 50px; height: 3px; background: var(--gold); margin: 0 auto 1.5rem; border-radius: 50px;"></div>
+                
+                <p id="modalDeskripsi" class="text-secondary mb-0" style="line-height: 1.7; font-size: 0.95rem;"></p>
             </div>
             
         </div>
@@ -254,9 +280,19 @@
         const deskripsi = element.getAttribute('data-deskripsi');
         const foto = element.getAttribute('data-foto');
 
+        // Logic untuk mendapatkan icon class berdasarkan nama kategori (seragam dengan PHP helper)
+        let iconClass = 'bi-geo-alt-fill';
+        const katLower = kategori.toLowerCase();
+        if (katLower.includes('pendidikan') || katLower.includes('sekolah')) iconClass = 'bi-mortarboard-fill';
+        else if (katLower.includes('kesehatan') || katLower.includes('puskesmas') || katLower.includes('posyandu')) iconClass = 'bi-heart-pulse-fill';
+        else if (katLower.includes('ibadah') || katLower.includes('masjid') || katLower.includes('mushola')) iconClass = 'bi-moon-stars-fill';
+        else if (katLower.includes('olahraga') || katLower.includes('lapangan')) iconClass = 'bi-trophy-fill';
+        else if (katLower.includes('kantor') || katLower.includes('desa')) iconClass = 'bi-building-fill';
+
         // Isi konten modal
         document.getElementById('modalNama').innerText = nama;
         document.getElementById('modalKategori').innerText = kategori;
+        document.getElementById('modalKategoriIcon').className = 'bi ' + iconClass + ' me-1';
         document.getElementById('modalDeskripsi').innerText = deskripsi ? deskripsi : 'Tidak ada deskripsi/informasi tambahan untuk fasilitas ini.';
 
         const imgEl = document.getElementById('modalFoto');
