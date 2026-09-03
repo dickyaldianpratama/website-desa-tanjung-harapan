@@ -27,7 +27,7 @@ class FasilitasController extends Controller
         $request->validate([
             'nama_fasilitas' => 'required|string|max:150',
             'kategori'       => 'required|string|max:100',
-            'deskripsi'      => 'nullable|string',
+            'deskripsi'      => 'nullable|string|max:400',
             'foto'           => 'required|image|mimes:jpeg,png,jpg,webp|max:3072',
         ]);
 
@@ -59,7 +59,7 @@ class FasilitasController extends Controller
         $request->validate([
             'nama_fasilitas' => 'required|string|max:150',
             'kategori'       => 'required|string|max:100',
-            'deskripsi'      => 'nullable|string',
+            'deskripsi'      => 'nullable|string|max:400',
             'foto'           => 'nullable|image|mimes:jpeg,png,jpg,webp|max:3072',
         ]);
 

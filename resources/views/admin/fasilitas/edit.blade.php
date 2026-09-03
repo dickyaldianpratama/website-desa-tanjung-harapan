@@ -42,7 +42,8 @@
 
             <div class="mb-3">
                 <label class="form-label fw-semibold">Deskripsi / Info Tambahan (Opsional)</label>
-                <textarea name="deskripsi" class="form-control @error('deskripsi') is-invalid @enderror" rows="3" placeholder="Contoh: Terletak di Dusun 1, diresmikan tahun 2020...">{{ old('deskripsi', $fasilitas->deskripsi) }}</textarea>
+                <textarea name="deskripsi" class="form-control @error('deskripsi') is-invalid @enderror" rows="4" maxlength="400" placeholder="Contoh: Terletak di Dusun 1, diresmikan tahun 2020...">{{ old('deskripsi', $fasilitas->deskripsi) }}</textarea>
+                <div class="form-text text-muted">Maksimal 400 karakter agar tampilan pop-up / modal tetap rapi.</div>
                 @error('deskripsi') <div class="invalid-feedback">{{ $message }}</div> @enderror
             </div>
 
