@@ -22,6 +22,13 @@
     <meta property="twitter:description" content="Website Resmi {{ $settings['nama_desa'] ?? 'Desa' }} - Pusat informasi dan pelayanan digital terpadu untuk kemudahan masyarakat desa.">
     <meta property="twitter:image" content="{{ asset('images/'.($settings['logo_desa'] ?? 'logo_desa.png')) }}">
 
+    <!-- Favicon untuk Browser & Google Search -->
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('images/'.($settings['logo_desa'] ?? 'logo_desa.png')) }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/'.($settings['logo_desa'] ?? 'logo_desa.png')) }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/'.($settings['logo_desa'] ?? 'logo_desa.png')) }}">
+    <link rel="apple-touch-icon" href="{{ asset('images/'.($settings['logo_desa'] ?? 'logo_desa.png')) }}">
+    <link rel="shortcut icon" href="{{ asset('images/'.($settings['logo_desa'] ?? 'logo_desa.png')) }}">
+
     <title>@yield('title', 'Beranda') | {{ $settings['nama_desa'] ?? 'Website Desa' }}</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
