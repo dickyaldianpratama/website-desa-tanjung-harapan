@@ -52,6 +52,20 @@
     .btn-submit:hover {
         background: var(--coklat-tua);
     }
+    /* Box peringatan KTP */
+    .ktp-warning {
+        background: #fff8e1;
+        border: 1px solid #f9c846;
+        border-radius: 8px;
+        padding: 0.6rem 0.9rem;
+        font-size: 0.85rem;
+        color: #7a5800;
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        margin-top: 6px;
+    }
+    .ktp-warning i { margin-top: 2px; flex-shrink: 0; }
 </style>
 @endpush
 
@@ -70,21 +84,33 @@
             <div class="form-card">
                 <h4 class="font-serif fw-bold mb-4 text-center" style="color: var(--coklat-tua);">Formulir Pengajuan Surat</h4>
                 
-                <form action="{{ route('layanan.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('layanan.store') }}" method="POST" enctype="multipart/form-data" id="formLayanan">
                     @csrf
                     
                     <div class="mb-3">
                         <label class="form-label fw-semibold">Jenis Layanan Surat <span class="text-danger">*</span></label>
-                        <select name="jenis_layanan" class="form-select @error('jenis_layanan') is-invalid @enderror" required>
+                        <select name="jenis_layanan" id="jenisLayananSelect" class="form-select @error('jenis_layanan') is-invalid @enderror" required>
                             <option value="">-- Pilih Jenis Surat --</option>
-                            <option value="Pengantar Pembuatan KK Baru">Pengantar Pembuatan KK Baru</option>
-                            <option value="Surat Keterangan Buka Lahan">Surat Keterangan Buka Lahan</option>
-                            <option value="Surat Keterangan Domisili">Surat Keterangan Domisili</option>
-                            <option value="Surat Keterangan Usaha (SKU)">Surat Keterangan Usaha (SKU)</option>
-                            <option value="Surat Keterangan Tidak Mampu (SKTM)">Surat Keterangan Tidak Mampu (SKTM)</option>
-                            <option value="Lainnya">Lainnya...</option>
+                            <option value="Pengantar Pembuatan KK Baru" {{ old('jenis_layanan') == 'Pengantar Pembuatan KK Baru' ? 'selected' : '' }}>Pengantar Pembuatan KK Baru</option>
+                            <option value="Surat Keterangan Buka Lahan" {{ old('jenis_layanan') == 'Surat Keterangan Buka Lahan' ? 'selected' : '' }}>Surat Keterangan Buka Lahan</option>
+                            <option value="Surat Keterangan Domisili" {{ old('jenis_layanan') == 'Surat Keterangan Domisili' ? 'selected' : '' }}>Surat Keterangan Domisili</option>
+                            <option value="Surat Keterangan Usaha (SKU)" {{ old('jenis_layanan') == 'Surat Keterangan Usaha (SKU)' ? 'selected' : '' }}>Surat Keterangan Usaha (SKU)</option>
+                            <option value="Surat Keterangan Tidak Mampu (SKTM)" {{ old('jenis_layanan') == 'Surat Keterangan Tidak Mampu (SKTM)' ? 'selected' : '' }}>Surat Keterangan Tidak Mampu (SKTM)</option>
+                            <option value="Lainnya" {{ old('jenis_layanan') == 'Lainnya' ? 'selected' : '' }}>Lainnya...</option>
                         </select>
                         @error('jenis_layanan') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                    </div>
+
+                    {{-- Field Lainnya: muncul & wajib hanya jika pilih "Lainnya" --}}
+                    <div class="mb-3" id="fieldLainnya" style="display: none;">
+                        <label class="form-label fw-semibold">Tuliskan Jenis Layanan <span class="text-danger">*</span></label>
+                        <input type="text" name="jenis_layanan_lainnya" id="inputLainnya"
+                            class="form-control @error('jenis_layanan_lainnya') is-invalid @enderror"
+                            value="{{ old('jenis_layanan_lainnya') }}"
+                            placeholder="Contoh: Surat Keterangan Kelahiran, Surat Pengantar SKCK, dll."
+                            maxlength="150">
+                        <div class="form-text text-muted">Wajib diisi jika Anda memilih "Lainnya".</div>
+                        @error('jenis_layanan_lainnya') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
 
                     <div class="row">
@@ -114,10 +140,22 @@
                     </div>
 
                     <div class="mb-4">
-                        <label class="form-label fw-semibold">Unggah File Persyaratan (Opsional)</label>
-                        <input type="file" name="file_lampiran" class="form-control @error('file_lampiran') is-invalid @enderror" accept="image/*">
-                        <div class="form-text">Upload foto KTP atau Pengantar RT/RW (Maks: 2MB). Jika tidak diperlukan, biarkan kosong.</div>
-                        @error('file_lampiran') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        <label class="form-label fw-semibold">
+                            Unggah Foto KTP <span class="text-danger">*</span>
+                        </label>
+                        <input type="file" name="file_lampiran" id="fileKtp"
+                            class="form-control @error('file_lampiran') is-invalid @enderror"
+                            accept="image/jpeg,image/png,image/jpg"
+                            required>
+                        <div class="ktp-warning mt-2">
+                            <i class="bi bi-exclamation-triangle-fill text-warning"></i>
+                            <span>
+                                <strong>Wajib:</strong> Foto KTP harus <strong>jernih</strong>, <strong>jelas terbaca</strong>, dan <strong>tidak rusak/terpotong</strong>.
+                                Pengajuan dengan foto KTP buram atau tidak terbaca akan ditolak.<br>
+                                <span class="text-muted">Format: JPG / PNG &bull; Maks. 2 MB</span>
+                            </span>
+                        </div>
+                        @error('file_lampiran') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
                     </div>
 
                     <div class="text-center">
@@ -154,3 +192,27 @@
 </div>
 
 @endsection
+
+@push('scripts')
+<script>
+    const jenisSelect   = document.getElementById('jenisLayananSelect');
+    const fieldLainnya  = document.getElementById('fieldLainnya');
+    const inputLainnya  = document.getElementById('inputLainnya');
+
+    function toggleLainnya() {
+        if (jenisSelect.value === 'Lainnya') {
+            fieldLainnya.style.display = 'block';
+            inputLainnya.setAttribute('required', 'required');
+        } else {
+            fieldLainnya.style.display = 'none';
+            inputLainnya.removeAttribute('required');
+            inputLainnya.value = '';
+        }
+    }
+
+    jenisSelect.addEventListener('change', toggleLainnya);
+
+    // Jalankan saat halaman load (untuk kasus old input setelah validasi error)
+    toggleLainnya();
+</script>
+@endpush
