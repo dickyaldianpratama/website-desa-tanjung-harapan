@@ -206,7 +206,7 @@
 
 <!-- Modal Zoom In Detail Fasilitas -->
 <div class="modal fade" id="fasilitasModal" tabindex="-1" aria-labelledby="modalNama" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-zoom" style="max-width: 500px;">
+    <div class="modal-dialog modal-dialog-centered modal-zoom mx-4 mx-sm-auto" style="max-width: 500px;">
         <div class="modal-content border-0 shadow-lg" style="border-radius: 20px; overflow: hidden; background: #faf9f6;">
             
             <!-- Tombol Close (Silang) menumpuk di atas gambar -->
