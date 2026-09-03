@@ -1077,22 +1077,30 @@
 
     /* === DESKTOP ONLY: Perkecil card bagan gambar & card perangkat === */
     @media (min-width: 768px) {
-        /* Card putih bagan: hapus padding, biarkan gambar isi penuh card */
+        /* Card putih bagan: fit ke gambar, tidak ada space putih */
         .card.card-body.rounded-4 {
             padding: 0 !important;
             overflow: hidden;
-        }
-        /* Wrapper download button tetap punya jarak */
-        .card.card-body.rounded-4 > .mt-3 {
-            padding: 0.75rem 0 !important;
-        }
-        /* Gambar bagan pas memenuhi card, tidak ada ruang putih */
-        .card.card-body.rounded-4 img.img-fluid {
-            max-width: 100% !important;
-            width: auto !important;
-            display: block !important;
+            max-width: 65% !important;
             margin: 0 auto !important;
+            display: block;
+        }
+        /* Gambar bagan mengisi card 100% — card mengikuti lebar gambar */
+        .card.card-body.rounded-4 > a {
+            display: block;
+        }
+        .card.card-body.rounded-4 img.img-fluid {
+            width: 100% !important;
+            max-width: 100% !important;
+            display: block !important;
+            margin: 0 !important;
             border-radius: 0 !important;
+            box-shadow: none !important;
+        }
+        /* Tombol download — beri jarak kecil, tidak nempel */
+        .card.card-body.rounded-4 > .mt-3 {
+            padding: 0.6rem 0 !important;
+            margin: 0 !important;
         }
 
         /* Card swiper perangkat/BPD/PKK: foto lebih kecil, padding lebih ringkas */
