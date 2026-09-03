@@ -132,18 +132,6 @@
 
 @section('content')
 
-<div class="page-header text-center">
-    <div class="container position-relative" style="z-index: 1;">
-        <h1 class="fw-bold mb-3">Fasilitas Desa</h1>
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb justify-content-center mb-0">
-                <li class="breadcrumb-item"><a href="{{ route('home') }}" class="text-decoration-none">Beranda</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Fasilitas</li>
-            </ol>
-        </nav>
-    </div>
-</div>
-
 <div class="container py-5 my-3">
     <!-- Filter Section -->
     <div class="row mb-5">
