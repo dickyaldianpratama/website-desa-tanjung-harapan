@@ -243,10 +243,10 @@
                     <div class="position-absolute w-100 h-100 top-0 start-0" style="background-color: #fcfbf8;"></div>
                     
                     <!-- Logo Desa (sebagai objek di balik kaca) -->
-                    <img src="{{ asset('images/logo_desa.png') }}" alt="Watermark" class="position-absolute top-50 start-50 translate-middle" style="width: 170px; opacity: 0.25; pointer-events: none; z-index: 0;">
+                    <img src="{{ asset('images/logo_desa.png') }}" alt="Watermark" class="position-absolute top-50 start-50 translate-middle" style="width: 170px; opacity: 0.65; pointer-events: none; z-index: 0;">
 
                     <!-- Layer Kaca (Glassmorphism Effect) -->
-                    <div class="position-absolute w-100 h-100 top-0 start-0" style="background: linear-gradient(135deg, rgba(255,255,255,0.4), rgba(255,255,255,0.1)); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); z-index: 1; border-top: 1.5px solid rgba(255,255,255,0.9); border-left: 1.5px solid rgba(255,255,255,0.9);"></div>
+                    <div class="position-absolute w-100 h-100 top-0 start-0" style="background: linear-gradient(135deg, rgba(255,255,255,0.35), rgba(255,255,255,0.05)); backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px); z-index: 1; border-top: 1.5px solid rgba(255,255,255,0.9); border-left: 1.5px solid rgba(255,255,255,0.9);"></div>
 
                     <!-- Konten Teks -->
                     <div class="position-relative" style="z-index: 2;">
