@@ -236,14 +236,20 @@
                     <div style="width: 50px; height: 3px; background: var(--gold); margin: 0 auto; border-radius: 50px;"></div>
                 </div>
                 
-                <div class="p-3 p-md-4 rounded-4" style="background: linear-gradient(145deg, #ffffff, #fdfbf7); border: 1px solid rgba(201, 150, 58, 0.2); box-shadow: 0 4px 20px rgba(0,0,0,0.04);">
-                    <div class="d-flex align-items-center mb-3 pb-2" style="border-bottom: 1px dashed rgba(201, 150, 58, 0.3);">
-                        <div class="rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 36px; height: 36px; background-color: rgba(201, 150, 58, 0.15); color: #C9963A;">
-                            <i class="bi bi-info-circle-fill fs-5"></i>
+                <div class="p-3 p-md-4 rounded-4 position-relative overflow-hidden" style="background: linear-gradient(145deg, rgba(255,255,255,0.85), rgba(253,251,247,0.85)); backdrop-filter: blur(10px); border: 1px solid rgba(201, 150, 58, 0.3); box-shadow: 0 4px 20px rgba(0,0,0,0.04);">
+                    
+                    <!-- Watermark Logo Desa -->
+                    <img src="{{ asset('images/logo_desa.png') }}" alt="Watermark" class="position-absolute top-50 start-50 translate-middle" style="width: 150px; opacity: 0.1; pointer-events: none; z-index: 0;">
+
+                    <div class="position-relative" style="z-index: 1;">
+                        <div class="d-flex align-items-center mb-3 pb-2" style="border-bottom: 1px dashed rgba(201, 150, 58, 0.3);">
+                            <div class="rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 36px; height: 36px; background-color: rgba(201, 150, 58, 0.15); color: #C9963A;">
+                                <i class="bi bi-info-circle-fill fs-5"></i>
+                            </div>
+                            <h6 class="fw-bold mb-0 text-coklat-tua" style="letter-spacing: 0.5px;">Tentang Fasilitas</h6>
                         </div>
-                        <h6 class="fw-bold mb-0 text-coklat-tua" style="letter-spacing: 0.5px;">Tentang Fasilitas</h6>
+                        <p id="modalDeskripsi" class="text-secondary mb-0" style="line-height: 1.8; font-size: 0.95rem; text-align: justify; font-weight: 500;"></p>
                     </div>
-                    <p id="modalDeskripsi" class="text-secondary mb-0" style="line-height: 1.8; font-size: 0.95rem; text-align: justify;"></p>
                 </div>
             </div>
             
