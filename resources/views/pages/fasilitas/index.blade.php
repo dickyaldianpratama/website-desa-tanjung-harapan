@@ -135,7 +135,7 @@
 <!-- Memberikan jarak dari navbar -->
 <div class="container" style="margin-top: 130px; margin-bottom: 80px;">
     <!-- Filter Section -->
-    <div class="row mb-5">
+    <div class="row mb-5" data-aos="fade-down">
         <div class="col-12 text-center">
             <h2 class="font-serif fw-bold text-coklat-tua mb-4">Eksplorasi Fasilitas Kami</h2>
             <div id="fasilitas-filters" class="d-flex flex-wrap justify-content-center">
@@ -150,7 +150,7 @@
     <!-- Grid Section -->
     <div class="fasilitas-grid" id="fasilitas-container">
         @forelse($fasilitas as $item)
-            <div class="fasilitas-item" data-category="{{ Str::slug($item->kategori) }}">
+            <div class="fasilitas-item" data-category="{{ Str::slug($item->kategori) }}" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
                 <!-- Ditambahkan attribut data-* untuk JS Modal -->
                 <div class="fasilitas-card" 
                      data-nama="{{ $item->nama_fasilitas }}"
