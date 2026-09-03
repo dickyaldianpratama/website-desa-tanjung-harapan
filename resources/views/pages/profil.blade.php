@@ -484,7 +484,7 @@
                         <img src="{{ Storage::disk('s3')->url('images/perangkat/kades.jpg') }}" alt="Foto Kades" onerror="this.src='https://ui-avatars.com/api/?name=Kades&background=C9963A&color=fff&size=150'">
                     @endif
                     
-                    <h5 class="fw-bold text-coklat-tua mb-1 text-uppercase">{{ $namaKades }}</h5>
+                    <h5 class="fw-bold text-coklat-tua mb-1">{{ $namaKades }}</h5>
                     <span class="badge bg-cream px-3 py-2 mt-2 rounded-pill" style="color: var(--coklat-tua) !important;">{{ $jabatanKades }} {{ $settings['nama_desa'] ?? 'Tanjung Harapan' }}</span>
                 </div>
             </div>
@@ -563,7 +563,7 @@
                             <i class="bi bi-megaphone-fill"></i>
                             <span class="fw-bold text-uppercase" style="letter-spacing: 2px; font-size: 0.85rem;">Sambutan Kepala Desa</span>
                         </div>
-                        <h3 class="fw-bold text-coklat-tua text-uppercase mb-2">{{ $namaKades }}</h3>
+                        <h3 class="fw-bold text-coklat-tua mb-2">{{ $namaKades }}</h3>
                         <p class="text-muted fw-semibold mb-4 d-flex align-items-center gap-2"><i class="bi bi-person-vcard"></i> {{ $jabatanKades }}</p>
                         
                         <div class="text-secondary" style="line-height: 1.8;">
@@ -884,7 +884,7 @@
                 <div class="timeline-node">
                     <div class="timeline-content">
                         <div class="periode">2024 - 2029</div>
-                        <h6 class="text-uppercase">{{ $namaKades }}</h6>
+                        <h6>{{ $namaKades }}</h6>
                         <div class="jabatan">{{ $jabatanKades }}</div>
                     </div>
                 </div>
