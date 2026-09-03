@@ -236,17 +236,25 @@
                     <div style="width: 50px; height: 3px; background: var(--gold); margin: 0 auto; border-radius: 50px;"></div>
                 </div>
                 
-                <div class="p-3 p-md-4 rounded-4 position-relative overflow-hidden" style="background: linear-gradient(145deg, rgba(255,255,255,0.85), rgba(253,251,247,0.85)); backdrop-filter: blur(10px); border: 1px solid rgba(201, 150, 58, 0.3); box-shadow: 0 4px 20px rgba(0,0,0,0.04);">
+                <!-- Wrapper untuk Kotak Deskripsi -->
+                <div class="position-relative p-3 p-md-4 rounded-4 overflow-hidden" style="border: 1px solid rgba(201, 150, 58, 0.3); box-shadow: 0 8px 32px rgba(0,0,0,0.06);">
                     
-                    <!-- Watermark Logo Desa -->
-                    <img src="{{ asset('images/logo_desa.png') }}" alt="Watermark" class="position-absolute top-50 start-50 translate-middle" style="width: 150px; opacity: 0.1; pointer-events: none; z-index: 0;">
+                    <!-- Latar Belakang Dasar -->
+                    <div class="position-absolute w-100 h-100 top-0 start-0" style="background-color: #fcfbf8;"></div>
+                    
+                    <!-- Logo Desa (sebagai objek di balik kaca) -->
+                    <img src="{{ asset('images/logo_desa.png') }}" alt="Watermark" class="position-absolute top-50 start-50 translate-middle" style="width: 170px; opacity: 0.25; pointer-events: none; z-index: 0;">
 
-                    <div class="position-relative" style="z-index: 1;">
-                        <div class="d-flex align-items-center mb-3 pb-2" style="border-bottom: 1px dashed rgba(201, 150, 58, 0.3);">
-                            <div class="rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 36px; height: 36px; background-color: rgba(201, 150, 58, 0.15); color: #C9963A;">
+                    <!-- Layer Kaca (Glassmorphism Effect) -->
+                    <div class="position-absolute w-100 h-100 top-0 start-0" style="background: linear-gradient(135deg, rgba(255,255,255,0.4), rgba(255,255,255,0.1)); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); z-index: 1; border-top: 1.5px solid rgba(255,255,255,0.9); border-left: 1.5px solid rgba(255,255,255,0.9);"></div>
+
+                    <!-- Konten Teks -->
+                    <div class="position-relative" style="z-index: 2;">
+                        <div class="d-flex align-items-center mb-3 pb-2" style="border-bottom: 1px dashed rgba(201, 150, 58, 0.4);">
+                            <div class="rounded-circle d-flex align-items-center justify-content-center me-3 shadow-sm" style="width: 36px; height: 36px; background-color: rgba(255, 255, 255, 0.6); color: #C9963A; border: 1px solid rgba(201, 150, 58, 0.2);">
                                 <i class="bi bi-info-circle-fill fs-5"></i>
                             </div>
-                            <h6 class="fw-bold mb-0 text-coklat-tua" style="letter-spacing: 0.5px;">Tentang Fasilitas</h6>
+                            <h6 class="fw-bold mb-0 text-coklat-tua" style="letter-spacing: 0.5px; text-shadow: 0 1px 2px rgba(255,255,255,0.8);">Tentang Fasilitas</h6>
                         </div>
                         <p id="modalDeskripsi" class="text-secondary mb-0" style="line-height: 1.8; font-size: 0.95rem; text-align: justify; font-weight: 500;"></p>
                     </div>
