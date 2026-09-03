@@ -39,7 +39,7 @@
                         </td>
                         <td class="fw-bold">{{ $item->nama_fasilitas }}</td>
                         <td>
-                            <span class="badge bg-cream text-coklat-tua px-2 py-1">{{ $item->kategori }}</span>
+                            <span class="badge border px-2 py-1" style="background-color: #fdfbf7; color: #3D1F0A; border-color: #C9963A !important;">{{ $item->kategori }}</span>
                         </td>
                         <td>
                             <span class="text-muted small d-inline-block text-truncate" style="max-width: 200px;">
