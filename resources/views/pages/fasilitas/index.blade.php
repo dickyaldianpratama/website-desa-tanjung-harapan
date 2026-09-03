@@ -105,6 +105,28 @@
     .fasilitas-item.hide {
         display: none;
     }
+    
+    /* Animasi Zoom In Modal Khusus Fasilitas */
+    .modal.fade .modal-dialog.modal-zoom {
+        transform: scale(0.8);
+        transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+        opacity: 0;
+    }
+    .modal.show .modal-dialog.modal-zoom {
+        transform: scale(1);
+        opacity: 1;
+    }
+    .btn-close-custom {
+        background-color: rgba(255,255,255,0.9);
+        border-radius: 50%;
+        padding: 0.6rem;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        transition: all 0.2s ease;
+    }
+    .btn-close-custom:hover {
+        background-color: #fff;
+        transform: scale(1.1);
+    }
 </style>
 @endpush
 
@@ -140,11 +162,18 @@
     <div class="fasilitas-grid" id="fasilitas-container">
         @forelse($fasilitas as $item)
             <div class="fasilitas-item" data-category="{{ Str::slug($item->kategori) }}">
-                <div class="fasilitas-card">
+                <!-- Ditambahkan attribut data-* untuk JS Modal -->
+                <div class="fasilitas-card" 
+                     data-nama="{{ $item->nama_fasilitas }}"
+                     data-kategori="{{ $item->kategori }}"
+                     data-deskripsi="{{ $item->deskripsi }}"
+                     data-foto="{{ $item->foto ? Storage::disk('s3')->url('images/fasilitas/' . $item->foto) : '' }}"
+                     onclick="openFasilitasModal(this)">
+                     
                     @if($item->foto)
                         <img src="{{ Storage::disk('s3')->url('images/fasilitas/' . $item->foto) }}" alt="{{ $item->nama_fasilitas }}" loading="lazy">
                     @else
-                        <!-- Placeholder jika foto kosong (meski diwajibkan) -->
+                        <!-- Placeholder jika foto kosong -->
                         <div class="w-100 h-100 bg-secondary d-flex align-items-center justify-content-center">
                             <i class="bi bi-building fs-1 text-light"></i>
                         </div>
@@ -170,20 +199,43 @@
     </div>
 </div>
 
+<!-- Modal Zoom In Detail Fasilitas -->
+<div class="modal fade" id="fasilitasModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-zoom">
+        <div class="modal-content border-0 shadow-lg" style="border-radius: 20px; overflow: hidden;">
+            
+            <!-- Tombol Close (Silang) menumpuk di atas gambar -->
+            <button type="button" class="btn-close btn-close-custom position-absolute top-0 end-0 m-3" data-bs-dismiss="modal" aria-label="Close" style="z-index: 10;"></button>
+            
+            <!-- Gambar Fasilitas (Zoomed) -->
+            <img id="modalFoto" src="" alt="Foto Fasilitas" style="width: 100%; max-height: 450px; object-fit: cover; display: none;">
+            <div id="modalFotoPlaceholder" class="bg-secondary d-flex align-items-center justify-content-center" style="width: 100%; height: 350px; display: none;">
+                <i class="bi bi-building" style="font-size: 5rem; color: #fff;"></i>
+            </div>
+            
+            <!-- Detail Teks -->
+            <div class="modal-body p-4 p-md-5">
+                <span id="modalKategori" class="badge bg-cream text-coklat-tua px-3 py-2 rounded-pill mb-3 fw-bold" style="font-size: 0.85rem; letter-spacing: 1px;"></span>
+                <h3 id="modalNama" class="fw-bold text-coklat-tua mb-3 font-serif"></h3>
+                <div id="modalDeskripsi" class="text-secondary" style="line-height: 1.8; font-size: 1rem;"></div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
 @endsection
 
 @push('scripts')
 <script>
-    // Simple Filtering Script
+    // 1. Script Filter Kategori
     document.addEventListener("DOMContentLoaded", function() {
         const filterBtns = document.querySelectorAll('.filter-btn');
         const items = document.querySelectorAll('.fasilitas-item');
 
         filterBtns.forEach(btn => {
             btn.addEventListener('click', function() {
-                // Remove active class from all
                 filterBtns.forEach(b => b.classList.remove('active'));
-                // Add active class to clicked
                 this.classList.add('active');
 
                 const filterValue = this.getAttribute('data-filter');
@@ -202,5 +254,37 @@
             });
         });
     });
+
+    // 2. Script Buka Modal Detail (Zoom-in)
+    function openFasilitasModal(element) {
+        // Ambil data dari atribut element yang diklik
+        const nama = element.getAttribute('data-nama');
+        const kategori = element.getAttribute('data-kategori');
+        const deskripsi = element.getAttribute('data-deskripsi');
+        const foto = element.getAttribute('data-foto');
+
+        // Isi konten modal
+        document.getElementById('modalNama').innerText = nama;
+        document.getElementById('modalKategori').innerText = kategori;
+        document.getElementById('modalDeskripsi').innerText = deskripsi ? deskripsi : 'Tidak ada deskripsi/informasi tambahan untuk fasilitas ini.';
+
+        const imgEl = document.getElementById('modalFoto');
+        const placeholder = document.getElementById('modalFotoPlaceholder');
+
+        // Tampilkan gambar jika ada
+        if (foto && foto.trim() !== '') {
+            imgEl.src = foto;
+            imgEl.style.display = 'block';
+            placeholder.style.display = 'none';
+        } else {
+            imgEl.style.display = 'none';
+            placeholder.style.display = 'flex';
+        }
+
+        // Tampilkan Modal Bootstrap
+        const modalElement = document.getElementById('fasilitasModal');
+        const modalInstance = new bootstrap.Modal(modalElement);
+        modalInstance.show();
+    }
 </script>
 @endpush
