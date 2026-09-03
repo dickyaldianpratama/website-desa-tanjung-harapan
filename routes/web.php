@@ -32,6 +32,7 @@ Route::get('/layanan/cetak-tiket/{nomor_tiket}', [App\Http\Controllers\LayananCo
 Route::get('/layanan/cetak-surat/{nomor_tiket}', [App\Http\Controllers\LayananController::class, 'cetakSurat'])->name('layanan.cetakSurat');
 Route::get('/kontak',        [KontakController::class, 'index'])->name('kontak');
 Route::post('/kontak',       [KontakController::class, 'store'])->name('kontak.store')->middleware('throttle:3,10');
+Route::get('/fasilitas',     [App\Http\Controllers\FasilitasController::class, 'index'])->name('fasilitas.index');
 
 // ═══════════════════════════════════════════
 //  ADMIN AUTH — Login/Logout admin desa
@@ -58,6 +59,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('setting',            [SettingController::class, 'index'])->name('setting.index');
     Route::post('setting',           [SettingController::class, 'update'])->name('setting.update');
     Route::resource('bagan',         App\Http\Controllers\Admin\BaganStrukturController::class);
+    Route::resource('fasilitas',     App\Http\Controllers\Admin\FasilitasController::class);
 
     // Profile Account Settings
     Route::get('/profile', [App\Http\Controllers\Admin\ProfileController::class, 'index'])->name('profile.index');

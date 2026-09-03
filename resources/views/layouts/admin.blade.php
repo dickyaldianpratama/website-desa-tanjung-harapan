@@ -287,6 +287,9 @@
         <a href="{{ route('admin.lembaga.index') }}" class="sidebar-link {{ request()->routeIs('admin.lembaga*') ? 'active' : '' }}">
             <i class="bi bi-diagram-3"></i> Lembaga Desa
         </a>
+        <a href="{{ route('admin.fasilitas.index') }}" class="sidebar-link {{ request()->routeIs('admin.fasilitas*') ? 'active' : '' }}">
+            <i class="bi bi-building"></i> Fasilitas Desa
+        </a>
 
         <div class="menu-label mt-2">Layanan & Keuangan</div>
         <a href="{{ route('admin.layanan.index') }}" class="sidebar-link {{ request()->routeIs('admin.layanan*') ? 'active' : '' }}">

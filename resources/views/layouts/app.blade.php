@@ -468,6 +468,7 @@
                     <li class="nav-item"><a class="nav-link {{ request()->routeIs('profil') ? 'active' : '' }}" href="{{ route('profil') }}">Profil Desa</a></li>
                     <li class="nav-item"><a class="nav-link {{ request()->routeIs('berita*') ? 'active' : '' }}" href="{{ route('berita.index') }}">Berita</a></li>
                     <li class="nav-item"><a class="nav-link {{ request()->routeIs('potensi*') ? 'active' : '' }}" href="{{ route('potensi.index') }}">Potensi</a></li>
+                    <li class="nav-item"><a class="nav-link {{ request()->routeIs('fasilitas*') ? 'active' : '' }}" href="{{ route('fasilitas.index') }}">Fasilitas</a></li>
                     <li class="nav-item"><a class="nav-link {{ request()->routeIs('layanan*') ? 'active' : '' }}" href="{{ route('layanan.index') }}">E-Layanan</a></li>
                     <li class="nav-item"><a class="nav-link {{ request()->routeIs('kontak') ? 'active' : '' }}" href="{{ route('kontak') }}">Kontak</a></li>
                 </ul>
