@@ -1077,9 +1077,22 @@
 
     /* === DESKTOP ONLY: Perkecil card bagan gambar & card perangkat === */
     @media (min-width: 768px) {
-        /* Gambar bagan (Lihat Bagan Perangkat/BPD/PKK/Lainnya) */
+        /* Card putih bagan: hapus padding, biarkan gambar isi penuh card */
+        .card.card-body.rounded-4 {
+            padding: 0 !important;
+            overflow: hidden;
+        }
+        /* Wrapper download button tetap punya jarak */
+        .card.card-body.rounded-4 > .mt-3 {
+            padding: 0.75rem 0 !important;
+        }
+        /* Gambar bagan pas memenuhi card, tidak ada ruang putih */
         .card.card-body.rounded-4 img.img-fluid {
-            max-width: 70% !important;
+            max-width: 100% !important;
+            width: auto !important;
+            display: block !important;
+            margin: 0 auto !important;
+            border-radius: 0 !important;
         }
 
         /* Card swiper perangkat/BPD/PKK: foto lebih kecil, padding lebih ringkas */
@@ -1098,13 +1111,6 @@
         }
         .perangkat-slide-card p.small {
             font-size: 0.78rem !important;
-        }
-    }
-
-    @media (min-width: 1200px) {
-        /* Layar lebar: gambar bagan lebih kecil lagi */
-        .card.card-body.rounded-4 img.img-fluid {
-            max-width: 60% !important;
         }
     }
 </style>
