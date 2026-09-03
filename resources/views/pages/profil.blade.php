@@ -472,7 +472,7 @@
                     
                     @php 
                         $fotoKades = $kades && $kades->foto ? 'perangkat/'.$kades->foto : ($settings['foto_kades'] ?? 'perangkat/kades.jpg');
-                        $namaKades = $kades ? $kades->nama : ($settings['nama_kades'] ?? 'H. Ahmad Suryadi, S.E.');
+                        $namaKades = $kades ? $kades->nama : ($settings['nama_kades'] ?? 'Saripudin, S.Pd.I');
                         $jabatanKades = $kades ? $kades->jabatan : ($settings['jabatan_kades'] ?? 'Kepala Desa');
                     @endphp
                     

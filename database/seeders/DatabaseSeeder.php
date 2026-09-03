@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
             ['key' => 'misi',             'value' => "1. Meningkatkan kualitas pelayanan publik yang transparan dan akuntabel.\n2. Mendorong pertumbuhan ekonomi masyarakat melalui pemberdayaan UMKM.\n3. Mengembangkan potensi wisata dan budaya lokal desa.\n4. Meningkatkan kualitas infrastruktur dan fasilitas desa.\n5. Mewujudkan tata kelola pemerintahan desa yang baik dan bersih."],
             ['key' => 'sejarah',          'value' => 'Desa Tanjung Harapan merupakan desa yang berdiri sejak tahun 1945. Dengan kekayaan alam dan budaya yang dimilikinya, desa ini terus berkembang menjadi desa yang mandiri dan sejahtera.'],
             ['key' => 'sambutan_kades',   'value' => 'Selamat datang di Website Resmi Desa Tanjung Harapan. Melalui website ini, kami berkomitmen untuk memberikan informasi yang transparan dan akurat kepada seluruh masyarakat. Mari bersama-sama membangun desa kita tercinta menuju kemajuan yang berkelanjutan.'],
-            ['key' => 'nama_kades',       'value' => 'H. Ahmad Suryadi, S.E.'],
+            ['key' => 'nama_kades',       'value' => 'Saripudin, S.Pd.I'],
             ['key' => 'jabatan_kades',    'value' => 'Kepala Desa Tanjung Harapan'],
             ['key' => 'jumlah_penduduk',  'value' => '2.450'],
             ['key' => 'jumlah_kk',        'value' => '745'],
