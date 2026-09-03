@@ -132,7 +132,8 @@
 
 @section('content')
 
-<div class="container py-5 my-3">
+<!-- Memberikan jarak dari navbar -->
+<div class="container" style="margin-top: 130px; margin-bottom: 80px;">
     <!-- Filter Section -->
     <div class="row mb-5">
         <div class="col-12 text-center">
