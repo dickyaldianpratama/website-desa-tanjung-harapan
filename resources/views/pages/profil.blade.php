@@ -1077,15 +1077,16 @@
 
     /* === DESKTOP ONLY: Perkecil card bagan gambar & card perangkat === */
     @media (min-width: 768px) {
-        /* Card putih bagan: fit ke gambar, tidak ada space putih */
+        /* Card putih bagan: fit ke gambar, tidak ada space putih sama sekali */
         .card.card-body.rounded-4 {
             padding: 0 !important;
             overflow: hidden;
             max-width: 65% !important;
             margin: 0 auto !important;
             display: block;
+            position: relative !important;
         }
-        /* Gambar bagan mengisi card 100% — card mengikuti lebar gambar */
+        /* Gambar bagan mengisi card 100% */
         .card.card-body.rounded-4 > a {
             display: block;
         }
@@ -1097,10 +1098,27 @@
             border-radius: 0 !important;
             box-shadow: none !important;
         }
-        /* Tombol download — beri jarak kecil, tidak nempel */
+        /* Tombol download: overlay di sudut kanan bawah gambar */
         .card.card-body.rounded-4 > .mt-3 {
-            padding: 0.6rem 0 !important;
+            position: absolute !important;
+            bottom: 12px !important;
+            right: 12px !important;
             margin: 0 !important;
+            padding: 0 !important;
+            z-index: 10;
+        }
+        .card.card-body.rounded-4 > .mt-3 .btn {
+            background: rgba(0, 0, 0, 0.55) !important;
+            color: #fff !important;
+            border: none !important;
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            font-size: 0.78rem !important;
+            padding: 0.35rem 0.85rem !important;
+            border-radius: 20px !important;
+        }
+        .card.card-body.rounded-4 > .mt-3 .btn:hover {
+            background: rgba(0, 0, 0, 0.78) !important;
         }
 
         /* Card swiper perangkat/BPD/PKK: foto lebih kecil, padding lebih ringkas */
