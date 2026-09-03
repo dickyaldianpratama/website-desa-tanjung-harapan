@@ -72,8 +72,11 @@ require __DIR__.'/auth.php';
 // Route sementara untuk menjalankan migrasi di Production (Supabase)
 Route::get('/migrate-db-production-rahasia', function() {
     try {
-        \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
-        return 'Migrasi database production BERHASIL! Output: ' . \Illuminate\Support\Facades\Artisan::output();
+        \Illuminate\Support\Facades\Artisan::call('migrate', [
+            '--force' => true,
+            '--path' => 'database/migrations/2026_09_03_031817_create_fasilitas_table.php'
+        ]);
+        return 'Migrasi tabel fasilitas BERHASIL! Output: ' . \Illuminate\Support\Facades\Artisan::output();
     } catch (\Exception $e) {
         return 'Error: ' . $e->getMessage();
     }
