@@ -200,24 +200,26 @@
 </div>
 
 <!-- Modal Zoom In Detail Fasilitas -->
-<div class="modal fade" id="fasilitasModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg modal-zoom">
+<div class="modal fade" id="fasilitasModal" tabindex="-1" aria-labelledby="modalNama" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-zoom" style="max-width: 500px;">
         <div class="modal-content border-0 shadow-lg" style="border-radius: 20px; overflow: hidden;">
             
             <!-- Tombol Close (Silang) menumpuk di atas gambar -->
             <button type="button" class="btn-close btn-close-custom position-absolute top-0 end-0 m-3" data-bs-dismiss="modal" aria-label="Close" style="z-index: 10;"></button>
             
             <!-- Gambar Fasilitas (Zoomed) -->
-            <img id="modalFoto" src="" alt="Foto Fasilitas" style="width: 100%; max-height: 450px; object-fit: cover; display: none;">
-            <div id="modalFotoPlaceholder" class="bg-secondary d-flex align-items-center justify-content-center" style="width: 100%; height: 350px; display: none;">
-                <i class="bi bi-building" style="font-size: 5rem; color: #fff;"></i>
+            <img id="modalFoto" src="" alt="Foto Fasilitas" class="d-none" style="width: 100%; height: 260px; object-fit: cover;">
+            
+            <!-- Placeholder jika tidak ada gambar -->
+            <div id="modalFotoPlaceholder" class="bg-secondary d-none align-items-center justify-content-center" style="width: 100%; height: 260px;">
+                <i class="bi bi-building" style="font-size: 4rem; color: rgba(255,255,255,0.7);"></i>
             </div>
             
             <!-- Detail Teks -->
-            <div class="modal-body p-4 p-md-5">
-                <span id="modalKategori" class="badge bg-cream text-coklat-tua px-3 py-2 rounded-pill mb-3 fw-bold" style="font-size: 0.85rem; letter-spacing: 1px;"></span>
-                <h3 id="modalNama" class="fw-bold text-coklat-tua mb-3 font-serif"></h3>
-                <div id="modalDeskripsi" class="text-secondary" style="line-height: 1.8; font-size: 1rem;"></div>
+            <div class="modal-body p-4 text-center">
+                <span id="modalKategori" class="badge bg-gold text-coklat-tua px-3 py-1 rounded-pill mb-3 fw-bold" style="font-size: 0.75rem; letter-spacing: 1px;"></span>
+                <h4 id="modalNama" class="fw-bold text-coklat-tua mb-3 font-serif"></h4>
+                <div id="modalDeskripsi" class="text-secondary" style="line-height: 1.6; font-size: 0.95rem;"></div>
             </div>
             
         </div>
@@ -271,14 +273,18 @@
         const imgEl = document.getElementById('modalFoto');
         const placeholder = document.getElementById('modalFotoPlaceholder');
 
-        // Tampilkan gambar jika ada
+        // Mengatur tampilan gambar vs placeholder dengan class d-none / d-flex
         if (foto && foto.trim() !== '') {
             imgEl.src = foto;
-            imgEl.style.display = 'block';
-            placeholder.style.display = 'none';
+            imgEl.classList.remove('d-none');
+            
+            placeholder.classList.remove('d-flex');
+            placeholder.classList.add('d-none');
         } else {
-            imgEl.style.display = 'none';
-            placeholder.style.display = 'flex';
+            imgEl.classList.add('d-none');
+            
+            placeholder.classList.remove('d-none');
+            placeholder.classList.add('d-flex');
         }
 
         // Tampilkan Modal Bootstrap
