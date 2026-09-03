@@ -223,7 +223,7 @@
                 
                 <!-- Badge Kategori Overlapping (Melayang di antara gambar & teks) -->
                 <div class="position-absolute w-100 text-center" style="bottom: -16px; left: 0;">
-                    <span class="badge bg-gold text-coklat-tua px-4 py-2 rounded-pill shadow" style="font-size: 0.85rem; border: 2px solid #fff;">
+                    <span class="px-4 py-2 rounded-pill shadow" style="background-color: #C9963A; color: #3D1F0A; font-size: 0.85rem; border: 2px solid #fff; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">
                         <i id="modalKategoriIcon" class="bi me-1"></i> <span id="modalKategori"></span>
                     </span>
                 </div>
