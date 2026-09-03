@@ -68,16 +68,3 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
 
 // Breeze auth helper (hanya profile update, tidak dipakai di publik)
 require __DIR__.'/auth.php';
-
-// Route sementara untuk menjalankan migrasi di Production (Supabase)
-Route::get('/migrate-db-production-rahasia', function() {
-    try {
-        \Illuminate\Support\Facades\Artisan::call('migrate', [
-            '--force' => true,
-            '--path' => 'database/migrations/2026_09_03_031817_create_fasilitas_table.php'
-        ]);
-        return 'Migrasi tabel fasilitas BERHASIL! Output: ' . \Illuminate\Support\Facades\Artisan::output();
-    } catch (\Exception $e) {
-        return 'Error: ' . $e->getMessage();
-    }
-});
