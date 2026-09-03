@@ -600,7 +600,7 @@
                             @else
                                 <div class="placeholder">👤</div>
                             @endif
-                            <h5 class="fw-bold text-coklat-tua mb-1 text-uppercase" style="font-size: 1.1rem;">{{ $perangkat->nama }}</h5>
+                            <h5 class="fw-bold text-coklat-tua mb-1" style="font-size: 1.1rem;">{{ $perangkat->nama }}</h5>
                             <p class="text-secondary small mb-0">{{ $perangkat->jabatan }}</p>
                         </div>
                     </div>
@@ -714,7 +714,7 @@
                                     @else
                                         <div class="placeholder">👤</div>
                                     @endif
-                                    <h5 class="fw-bold text-coklat-tua mb-1 text-uppercase" style="font-size: 1.1rem;">{{ $anggota->nama }}</h5>
+                                    <h5 class="fw-bold text-coklat-tua mb-1" style="font-size: 1.1rem;">{{ $anggota->nama }}</h5>
                                     <p class="text-secondary small mb-0">{{ $anggota->jabatan }}</p>
                                 </div>
                             </div>
@@ -775,7 +775,7 @@
                                     @else
                                         <div class="placeholder">👤</div>
                                     @endif
-                                    <h5 class="fw-bold text-coklat-tua mb-1 text-uppercase" style="font-size: 1.1rem;">{{ $anggota->nama }}</h5>
+                                    <h5 class="fw-bold text-coklat-tua mb-1" style="font-size: 1.1rem;">{{ $anggota->nama }}</h5>
                                     <p class="text-secondary small mb-0">{{ $anggota->jabatan }}</p>
                                 </div>
                             </div>
