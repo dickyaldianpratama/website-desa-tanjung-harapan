@@ -127,8 +127,30 @@
 .sambutan-quote { color:var(--teks-gelap); font-size:1.05rem; line-height:1.8; margin:1.5rem 0; }
 .signature-line { font-size:1.1rem; color:var(--coklat-tua); font-weight:700; margin-bottom:0; }
 
-/* HORIZONTAL SCROLL KHUSUS HP */
+/* ── PERBAIKAN TAMPILAN HP (MOBILE) ── */
 @media (max-width: 768px) {
+    /* 1. Mencegah Gambar Slider Terpotong di Layar HP */
+    .hero-swiper {
+        height: 90vh; /* Sedikit dikurangi agar tidak terlalu panjang ke bawah */
+        min-height: 500px;
+    }
+    .hero-slide img, .hero-slide video {
+        object-fit: contain !important; /* Menampilkan seluruh gambar tanpa dipotong */
+        object-position: center 25% !important; /* Geser gambar agak ke atas */
+    }
+    .hero-overlay {
+        /* Gelapkan area bawah untuk teks, biarkan area atas (gambar) lebih terang */
+        background: linear-gradient(to top, rgba(30,15,5,1) 0%, rgba(61,31,10,0.95) 45%, rgba(0,0,0,0.15) 100%);
+    }
+    .hero-content {
+        justify-content: flex-end; /* Dorong teks ke bawah agar tidak menabrak gambar */
+        padding-bottom: 3rem;
+    }
+    .hero-title {
+        font-size: 2.2rem; /* Ukuran font disesuaikan untuk HP */
+    }
+
+    /* 2. Horizontal Scroll untuk Berita & Potensi */
     .news-scroll-mobile {
         flex-wrap: nowrap !important;
         overflow-x: auto;
@@ -141,7 +163,6 @@
         max-width: 85%;
         scroll-snap-align: start;
     }
-    /* Sembunyikan scrollbar untuk tampilan lebih bersih */
     .news-scroll-mobile::-webkit-scrollbar { display: none; }
 }
 
