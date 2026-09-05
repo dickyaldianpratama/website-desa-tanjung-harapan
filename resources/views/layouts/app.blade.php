@@ -142,16 +142,19 @@
             }
             .navbar-desa.scrolled .brand-logo { width: 35px; height: 35px; }
             
+            @-webkit-keyframes nengok-kiri-kanan {
+                0%, 100% { -webkit-transform: perspective(400px) rotateY(-45deg); transform: perspective(400px) rotateY(-45deg); }
+                50% { -webkit-transform: perspective(400px) rotateY(45deg); transform: perspective(400px) rotateY(45deg); }
+            }
             @keyframes nengok-kiri-kanan {
-                0%, 10% { transform: perspective(300px) rotateY(0deg); }
-                15%, 25% { transform: perspective(300px) rotateY(-50deg); }
-                30%, 40% { transform: perspective(300px) rotateY(0deg); }
-                45%, 55% { transform: perspective(300px) rotateY(50deg); }
-                60%, 100% { transform: perspective(300px) rotateY(0deg); }
+                0%, 100% { transform: perspective(400px) rotateY(-45deg); }
+                50% { transform: perspective(400px) rotateY(45deg); }
             }
             .brand-logo img {
-                animation: nengok-kiri-kanan 5s ease-in-out infinite;
+                -webkit-animation: nengok-kiri-kanan 4s ease-in-out infinite;
+                animation: nengok-kiri-kanan 4s ease-in-out infinite;
                 transform-origin: center;
+                -webkit-transform-style: preserve-3d;
             }
             
             .brand-text { min-width: 0; /* Penting untuk ellipsis */ }
