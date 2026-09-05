@@ -28,7 +28,7 @@ class KontakController extends Controller {
             'subjek'   => 'required|string|max:200', // Saran/Aduan
             'kategori' => 'required|string|max:100',
             'pesan'    => 'required|string',
-            'lampiran' => 'nullable|file|mimes:jpeg,png,jpg,pdf|max:2048',
+            'lampiran' => 'nullable|file|mimes:jpeg,png,jpg,pdf,mp4,mov,avi|max:4096',
         ]);
 
         $data = $request->only('nama','telepon','subjek','kategori','pesan');

@@ -612,8 +612,8 @@
             </div>
             
             <div class="mb-4">
-                <label for="lampiran" class="form-label text-muted small fw-bold mb-2">Unggah Bukti/Foto (Max 2MB)</label>
-                <input class="form-control form-control-sm rounded-4" style="background-color: var(--cream-light); border-color: rgba(61,31,10,0.1);" type="file" id="lampiran" name="lampiran" accept="image/jpeg,image/png,application/pdf">
+                <label for="lampiran" class="form-label text-muted small fw-bold mb-2">Unggah Bukti/Foto/Video (Max 4MB)</label>
+                <input class="form-control form-control-sm rounded-4" style="background-color: var(--cream-light); border-color: rgba(61,31,10,0.1);" type="file" id="lampiran" name="lampiran" accept="image/jpeg,image/png,application/pdf,video/mp4,video/quicktime,video/x-msvideo">
             </div>
             
             <button type="submit" class="btn btn-gold w-100 rounded-pill py-2 fw-bold text-uppercase" style="letter-spacing: 1px;">
