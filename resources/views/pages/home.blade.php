@@ -129,12 +129,6 @@
 
 /* HORIZONTAL SCROLL KHUSUS HP */
 @media (max-width: 768px) {
-    /* Slider height lebih pendek di HP agar gambar landscape tercover dengan baik */
-    .hero-swiper {
-        height: 55vw; /* Proporsional dengan lebar layar — cocok untuk gambar 16:9 */
-        min-height: 240px;
-        max-height: 480px;
-    }
     .news-scroll-mobile {
         flex-wrap: nowrap !important;
         overflow-x: auto;
