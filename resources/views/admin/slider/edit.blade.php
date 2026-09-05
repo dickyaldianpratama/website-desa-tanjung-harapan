@@ -436,6 +436,8 @@ input[type=range].tool-range::-webkit-slider-thumb:hover {
             panelVideo.classList.add('d-none');
             toolsGambar.style.display = '';
             toolsVideo.classList.add('d-none');
+            if (inputGambar) inputGambar.disabled = false;
+            if (inputVideo) inputVideo.disabled = true;
             hdValid = true;
         } else {
             btnGambar.className = 'media-toggle-btn';
@@ -444,6 +446,8 @@ input[type=range].tool-range::-webkit-slider-thumb:hover {
             panelVideo.classList.remove('d-none');
             toolsGambar.style.display = 'none';
             toolsVideo.classList.remove('d-none');
+            if (inputGambar) inputGambar.disabled = true;
+            if (inputVideo) inputVideo.disabled = false;
         }
         updateSubmitBtn();
     };

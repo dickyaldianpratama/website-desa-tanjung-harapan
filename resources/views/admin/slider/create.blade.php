@@ -489,6 +489,8 @@ input[type=range].tool-range::-webkit-slider-thumb {
             toolsVideo.classList.add('d-none');
             inputGambar.required = true;
             inputVideo.required  = false;
+            if (inputGambar) inputGambar.disabled = false;
+            if (inputVideo) inputVideo.disabled = true;
             hdValid = true;
             updateSubmitBtn();
         } else {
@@ -500,6 +502,8 @@ input[type=range].tool-range::-webkit-slider-thumb {
             toolsVideo.classList.remove('d-none');
             inputGambar.required = false;
             inputVideo.required  = true;
+            if (inputGambar) inputGambar.disabled = true;
+            if (inputVideo) inputVideo.disabled = false;
             updateSubmitBtn();
         }
     };
