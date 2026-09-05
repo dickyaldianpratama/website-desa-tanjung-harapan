@@ -54,13 +54,18 @@
 .guide-item:last-child { margin-bottom:0; }
 
 /* ══ PREVIEW ══ */
-.preview-wrap { position:relative; width:100%; aspect-ratio:16/9; border-radius:14px; overflow:hidden; background:#1a1a2e; box-shadow:0 6px 24px rgba(0,0,0,.25); }
+.preview-wrap { position:relative; width:100%; aspect-ratio:16/9; border-radius:14px; overflow:hidden; background:#1a1a2e; box-shadow:0 6px 24px rgba(0,0,0,.25); transition:all .3s ease; }
+.preview-wrap.mobile-mode { aspect-ratio:9/16; max-width:220px; margin:0 auto; }
 .preview-wrap img#imgPreview { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 50%; transform-origin:50% 50%; transform:scale(1); transition:object-position .2s,transform .2s; }
 .preview-wrap video#vidPreview { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
 .preview-overlay { position:absolute; inset:0; background:linear-gradient(to top,rgba(0,0,0,.5) 0%,transparent 55%); display:flex; align-items:flex-end; padding:12px; pointer-events:none; }
 .preview-label { font-size:.7rem; color:rgba(255,255,255,.85); background:rgba(0,0,0,.4); padding:3px 10px; border-radius:20px; }
 .preview-change-btn { position:absolute; top:10px; right:10px; background:rgba(0,0,0,.5); color:#fff; font-size:.72rem; padding:5px 12px; border-radius:20px; cursor:pointer; display:flex; align-items:center; gap:5px; transition:background .2s; border:none; }
 .preview-change-btn:hover { background:rgba(99,102,241,.85); }
+/* Toggle preview mode */
+.preview-mode-toggle { display:flex; gap:6px; margin-bottom:10px; }
+.preview-mode-btn { flex:1; padding:6px 10px; border-radius:8px; border:1.5px solid #e2e8f0; background:#f8fafc; font-size:.75rem; font-weight:600; color:#64748b; cursor:pointer; transition:all .2s; display:flex; align-items:center; justify-content:center; gap:5px; }
+.preview-mode-btn.active { border-color:#c9963a; background:linear-gradient(135deg,#fff8ec,#fff3d4); color:#b07d20; }
 
 /* ══ HD BADGE ══ */
 .hd-badge-wrap { margin-top:10px; }
@@ -184,22 +189,41 @@ input[type=range].tool-range::-webkit-slider-thumb:hover {
                     </div>
 
                     @if($slider->gambar && ($slider->tipe_media ?? 'gambar') === 'gambar')
+                        {{-- Toggle Desktop / Mobile preview --}}
+                        <div class="preview-mode-toggle" id="previewToggle">
+                            <button type="button" class="preview-mode-btn active" id="btnDesktopPreview" onclick="setPreviewMode('desktop')">
+                                <i class="bi bi-display"></i> Desktop (16:9)
+                            </button>
+                            <button type="button" class="preview-mode-btn" id="btnMobilePreview" onclick="setPreviewMode('mobile')">
+                                <i class="bi bi-phone"></i> HP (9:16)
+                            </button>
+                        </div>
                         <div class="preview-wrap mb-2" id="previewWrapGambar">
                             <img id="imgPreview" src="{{ Storage::disk('s3')->url('images/sliders/' . $slider->gambar) }}" alt="Preview">
-                            <div class="preview-overlay"><span class="preview-label"><i class="bi bi-aspect-ratio me-1"></i>Preview 16:9</span></div>
+                            <div class="preview-overlay"><span class="preview-label" id="previewModeLabel"><i class="bi bi-aspect-ratio me-1"></i>Preview Desktop</span></div>
                             <button type="button" class="preview-change-btn" onclick="document.getElementById('inputGambar').click()">
                                 <i class="bi bi-pencil-square"></i> Ganti
                             </button>
                         </div>
+                        <small class="text-muted d-block mb-1" style="font-size:.72rem;"><i class="bi bi-lightbulb me-1 text-warning"></i>Klik <strong>HP (9:16)</strong> untuk cek tampilan di layar mobile.</small>
                     @else
                         <div class="upload-zone mb-2" id="uploadZoneGambar" onclick="document.getElementById('inputGambar').click()">
                             <div class="upload-icon-wrap"><i class="bi bi-cloud-upload"></i></div>
                             <p class="fw-bold mb-0" style="color:#b07d20;">Klik atau seret gambar ke sini</p>
                             <p class="text-muted small mb-0">JPG · PNG · WEBP — Maks. 5 MB</p>
                         </div>
+                        {{-- Toggle Desktop / Mobile preview (shown after file picked) --}}
+                        <div class="preview-mode-toggle d-none" id="previewToggle">
+                            <button type="button" class="preview-mode-btn active" id="btnDesktopPreview" onclick="setPreviewMode('desktop')">
+                                <i class="bi bi-display"></i> Desktop (16:9)
+                            </button>
+                            <button type="button" class="preview-mode-btn" id="btnMobilePreview" onclick="setPreviewMode('mobile')">
+                                <i class="bi bi-phone"></i> HP (9:16)
+                            </button>
+                        </div>
                         <div class="preview-wrap mb-2 d-none" id="previewWrapGambar">
                             <img id="imgPreview" src="#" alt="Preview">
-                            <div class="preview-overlay"><span class="preview-label"><i class="bi bi-aspect-ratio me-1"></i>Preview 16:9</span></div>
+                            <div class="preview-overlay"><span class="preview-label" id="previewModeLabel"><i class="bi bi-aspect-ratio me-1"></i>Preview Desktop</span></div>
                             <button type="button" class="preview-change-btn" onclick="document.getElementById('inputGambar').click()">
                                 <i class="bi bi-pencil-square"></i> Ganti
                             </button>
@@ -605,6 +629,36 @@ input[type=range].tool-range::-webkit-slider-thumb:hover {
     }
     updateQualityUI();
     if (qualitySlider) qualitySlider.addEventListener('input', updateQualityUI);
+
+    /* ─── PREVIEW MODE TOGGLE (Desktop vs Mobile) ─── */
+    window.setPreviewMode = function(mode) {
+        const wrap  = document.getElementById('previewWrapGambar');
+        const label = document.getElementById('previewModeLabel');
+        const btnD  = document.getElementById('btnDesktopPreview');
+        const btnM  = document.getElementById('btnMobilePreview');
+        if (!wrap) return;
+        if (mode === 'mobile') {
+            wrap.classList.add('mobile-mode');
+            if (label) label.innerHTML = '<i class="bi bi-phone me-1"></i>Preview HP';
+            if (btnD) btnD.classList.remove('active');
+            if (btnM) btnM.classList.add('active');
+        } else {
+            wrap.classList.remove('mobile-mode');
+            if (label) label.innerHTML = '<i class="bi bi-aspect-ratio me-1"></i>Preview Desktop';
+            if (btnD) btnD.classList.add('active');
+            if (btnM) btnM.classList.remove('active');
+        }
+        // Re-apply focal point & zoom to new aspect-ratio container
+        applyToPreview();
+    };
+
+    // Show toggle when a new image is picked (upload zone case)
+    if (inputGambar) {
+        inputGambar.addEventListener('change', function() {
+            const toggle = document.getElementById('previewToggle');
+            if (toggle) toggle.classList.remove('d-none');
+        });
+    }
 
     /* ─── INIT ─── */
     setMode(currentMode);
