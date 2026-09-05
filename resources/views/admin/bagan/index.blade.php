@@ -2,14 +2,16 @@
 @section('title', 'Setting Bagan Struktur')
 
 @section('content')
-<div class="d-flex justify-content-between align-items-center mb-4">
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
     <div>
         <h4 class="mb-1 text-coklat-tua fw-bold">Setting Bagan Struktur</h4>
         <p class="text-muted small mb-0">Kelola gambar bagan struktur organisasi (Perangkat, BPD, PKK, dll)</p>
     </div>
-    <a href="{{ route('admin.bagan.create') }}" class="btn btn-sm-gold">
-        <i class="bi bi-plus-lg me-1"></i> Tambah Bagan
-    </a>
+    <div class="d-grid d-md-block">
+        <a href="{{ route('admin.bagan.create') }}" class="btn btn-primary px-4 py-2 text-nowrap" style="background: linear-gradient(135deg, #c9963a 0%, #a67828 100%); border: none; border-radius: 12px; font-weight: 600; box-shadow: 0 4px 15px rgba(201, 150, 58, 0.3); transition: transform 0.2s; text-align: center;">
+            <i class="bi bi-plus-lg me-2"></i>Tambah Bagan
+        </a>
+    </div>
 </div>
 
 <div class="card card-admin">
