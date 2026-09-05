@@ -142,38 +142,28 @@ class SliderController extends Controller
     }
 
     /**
-     * Simpan file video langsung tanpa kompresi.
+     * Simpan file video langsung ke S3 tanpa kompresi.
      */
     private function saveVideo(\Illuminate\Http\UploadedFile $file): string
     {
-        $destDir = public_path('images/sliders');
-        if (!File::isDirectory($destDir)) {
-            File::makeDirectory($destDir, 0755, true);
-        }
-
         $ext      = strtolower($file->getClientOriginalExtension());
         $baseName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
         $safeName = time() . '_' . preg_replace('/[^a-zA-Z0-9_\-]/', '_', $baseName) . '.' . $ext;
 
-        $file->move($destDir, $safeName);
+        Storage::disk('s3')->putFileAs('images/sliders', $file, $safeName);
         return $safeName;
     }
 
     /**
-     * Proses gambar: kompres sesuai kualitas lalu simpan ke disk.
+     * Proses gambar: kompres sesuai kualitas lalu simpan ke S3.
      * Mendukung JPEG, PNG, dan WEBP. Gambar disimpan dalam format JPEG.
      */
     private function processAndSaveImage(\Illuminate\Http\UploadedFile $file, int $quality = 85): string
     {
-        $destDir = public_path('images/sliders');
-        if (!File::isDirectory($destDir)) {
-            File::makeDirectory($destDir, 0755, true);
-        }
-
         $extension = strtolower($file->getClientOriginalExtension());
         $baseName  = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
         $safeName  = time() . '_' . preg_replace('/[^a-zA-Z0-9_\-]/', '_', $baseName) . '.jpg';
-        $destPath  = $destDir . '/' . $safeName;
+        $tempPath  = sys_get_temp_dir() . '/' . $safeName;
 
         if (extension_loaded('gd')) {
             $source = match ($extension) {
@@ -192,13 +182,16 @@ class SliderController extends Controller
                     imagedestroy($source);
                     $source = $bg;
                 }
-                imagejpeg($source, $destPath, $quality);
+                imagejpeg($source, $tempPath, $quality);
                 imagedestroy($source);
+                
+                Storage::disk('s3')->put('images/sliders/' . $safeName, file_get_contents($tempPath));
+                @unlink($tempPath);
                 return $safeName;
             }
         }
 
-        $file->move($destDir, $safeName);
+        Storage::disk('s3')->putFileAs('images/sliders', $file, $safeName);
         return $safeName;
     }
 }

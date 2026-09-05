@@ -185,7 +185,7 @@ input[type=range].tool-range::-webkit-slider-thumb:hover {
 
                     @if($slider->gambar && ($slider->tipe_media ?? 'gambar') === 'gambar')
                         <div class="preview-wrap mb-2" id="previewWrapGambar">
-                            <img id="imgPreview" src="{{ asset('images/sliders/' . $slider->gambar) }}" alt="Preview">
+                            <img id="imgPreview" src="{{ Storage::disk('s3')->url('images/sliders/' . $slider->gambar) }}" alt="Preview">
                             <div class="preview-overlay"><span class="preview-label"><i class="bi bi-aspect-ratio me-1"></i>Preview 16:9</span></div>
                             <button type="button" class="preview-change-btn" onclick="document.getElementById('inputGambar').click()">
                                 <i class="bi bi-pencil-square"></i> Ganti
@@ -232,7 +232,7 @@ input[type=range].tool-range::-webkit-slider-thumb:hover {
                     @if($slider->gambar && ($slider->tipe_media ?? 'gambar') === 'video')
                         <div class="preview-wrap mb-2" id="previewWrapVideo">
                             <video id="vidPreview" autoplay muted loop playsinline>
-                                <source src="{{ asset('images/sliders/' . $slider->gambar) }}">
+                                <source src="{{ Storage::disk('s3')->url('images/sliders/' . $slider->gambar) }}">
                             </video>
                             <div class="preview-overlay"><span class="preview-label"><i class="bi bi-play-circle me-1"></i>Preview Video</span></div>
                             <button type="button" class="preview-change-btn" onclick="document.getElementById('inputVideo').click()">

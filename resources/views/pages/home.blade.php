@@ -181,10 +181,10 @@
                 @if($isVideo)
                     <video autoplay muted loop playsinline
                            style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
-                        <source src="{{ asset('images/sliders/'.$slider->gambar) }}">
+                        <source src="{{ Storage::disk('s3')->url('images/sliders/'.$slider->gambar) }}">
                     </video>
                 @else
-                    <img src="{{ asset('images/sliders/'.$slider->gambar) }}"
+                    <img src="{{ Storage::disk('s3')->url('images/sliders/'.$slider->gambar) }}"
                          alt="{{ $slider->judul }}"
                          style="object-position:{{ $imgPos }};transform:scale({{ $imgScale }});transform-origin:{{ $imgPos }};">
                 @endif
