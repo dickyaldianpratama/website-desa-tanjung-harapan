@@ -561,29 +561,29 @@
 
 <!-- MODAL PENGADUAN -->
 <div class="modal fade" id="pengaduanModal" tabindex="-1" aria-labelledby="pengaduanModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content border-0 shadow-lg" style="border-radius: 20px; overflow: hidden;">
-      <div class="modal-header bg-cream border-0" style="padding: 1.5rem;">
-        <h5 class="modal-title fw-bold text-coklat-tua d-flex align-items-center gap-2" id="pengaduanModalLabel">
-            <i class="bi bi-megaphone-fill text-gold fs-4"></i> Layanan Aduan & Saran
+      <div class="modal-header bg-cream border-0 p-3 p-md-4">
+        <h5 class="modal-title fw-bold text-coklat-tua d-flex align-items-center gap-2" id="pengaduanModalLabel" style="font-size: 1.1rem;">
+            <i class="bi bi-megaphone-fill text-gold fs-5"></i> Layanan Aduan & Saran
         </h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body" style="padding: 2rem 1.5rem;">
+      <div class="modal-body p-3 p-md-4">
         <form action="{{ route('kontak.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             
-            <div class="form-floating mb-3">
+            <div class="form-floating mb-2 mb-md-3">
                 <input type="text" class="form-control rounded-4" id="nama" name="nama" placeholder="Nama Lengkap" required>
                 <label for="nama"><i class="bi bi-person me-1"></i> Nama Lengkap <span class="text-danger">*</span></label>
             </div>
             
-            <div class="form-floating mb-3">
+            <div class="form-floating mb-2 mb-md-3">
                 <input type="tel" class="form-control rounded-4" id="telepon" name="telepon" placeholder="No. Telepon / WhatsApp" required>
                 <label for="telepon"><i class="bi bi-whatsapp me-1"></i> No. WhatsApp <span class="text-danger">*</span></label>
             </div>
             
-            <div class="row g-3 mb-3">
+            <div class="row g-2 g-md-3 mb-2 mb-md-3">
                 <div class="col-6">
                     <div class="form-floating">
                         <select class="form-select rounded-4" id="subjek" name="subjek" required>
@@ -607,17 +607,17 @@
             </div>
             
             <div class="form-floating mb-3">
-                <textarea class="form-control rounded-4" id="pesan" name="pesan" placeholder="Tulis pesan..." style="height: 120px" required></textarea>
+                <textarea class="form-control rounded-4" id="pesan" name="pesan" placeholder="Tulis pesan..." style="height: 90px" required></textarea>
                 <label for="pesan"><i class="bi bi-chat-text me-1"></i> Isi Pesan <span class="text-danger">*</span></label>
             </div>
             
             <div class="mb-4">
-                <label for="lampiran" class="form-label text-muted small fw-bold mb-2">Unggah Bukti/Foto/Video (Max 4MB)</label>
+                <label for="lampiran" class="form-label text-muted small fw-bold mb-1">Unggah Bukti/Foto/Video (Max 4MB)</label>
                 <input class="form-control form-control-sm rounded-4" style="background-color: var(--cream-light); border-color: rgba(61,31,10,0.1);" type="file" id="lampiran" name="lampiran" accept="image/jpeg,image/png,application/pdf,video/mp4,video/quicktime,video/x-msvideo">
             </div>
             
             <button type="submit" class="btn btn-gold w-100 rounded-pill py-2 fw-bold text-uppercase" style="letter-spacing: 1px;">
-                <i class="bi bi-send-fill me-2"></i> Kirim & Lanjutkan ke WA
+                <i class="bi bi-send-fill me-2"></i> Kirim & Lanjut ke WA
             </button>
         </form>
       </div>
