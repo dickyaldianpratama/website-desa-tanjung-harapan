@@ -300,6 +300,27 @@
         .img-placeholder { background:linear-gradient(135deg,var(--cream),var(--coklat-muda)); display:flex; align-items:center; justify-content:center; color:var(--coklat-medium); font-size:3rem; }
 
         /* FLOATING ACTION BUTTON (PENGADUAN) */
+        @keyframes heartbeat-glow {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2), 0 0 0 0 rgba(115, 115, 219, 0.8);
+            }
+            15% {
+                transform: scale(1.1);
+            }
+            30% {
+                transform: scale(1);
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2), 0 0 0 20px rgba(115, 115, 219, 0);
+            }
+            45% {
+                transform: scale(1.1);
+            }
+            60%, 100% {
+                transform: scale(1);
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2), 0 0 0 0 rgba(115, 115, 219, 0);
+            }
+        }
+
         .fab-pengaduan {
             position: fixed;
             bottom: 2rem;
@@ -319,6 +340,7 @@
             overflow: hidden;
             transition: width 0.4s ease;
             text-decoration: none;
+            animation: heartbeat-glow 2.5s infinite;
         }
         .fab-pengaduan i {
             font-size: 1.2rem;
@@ -336,6 +358,8 @@
         .fab-pengaduan:hover {
             width: 200px;
             color: #fff;
+            animation: none;
+            transform: scale(1);
         }
         .fab-pengaduan:hover span {
             opacity: 1;
