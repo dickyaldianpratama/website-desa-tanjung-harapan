@@ -53,10 +53,77 @@
 
 /* ── SAMBUTAN ── */
 .sambutan-section { background:var(--cream-light); }
-.kades-photo-wrap { position:relative; }
-.kades-photo { width:100%; max-width:300px; border-radius:12px; border:5px solid var(--gold); box-shadow:0 8px 30px rgba(61,31,10,.2); object-fit:cover; height:380px; }
-.kades-photo-placeholder { width:100%; max-width:300px; height:380px; border-radius:12px; border:5px solid var(--gold); background:linear-gradient(135deg,var(--cream),var(--coklat-muda)); display:flex; align-items:center; justify-content:center; font-size:5rem; box-shadow:0 8px 30px rgba(61,31,10,.2); }
-.kades-badge { position:absolute; bottom:-15px; left:50%; transform:translateX(-50%); background:var(--coklat-tua); color:#fff; padding:.6rem 1.5rem; border-radius:30px; font-size:.8rem; font-weight:600; text-align:center; white-space:nowrap; border:2px solid var(--gold); }
+.kades-photo-wrap {
+    position: relative;
+    display: inline-block;
+    padding: 10px;
+    margin-bottom: 1rem;
+}
+/* Modern offset frame */
+.kades-photo-wrap::before {
+    content: '';
+    position: absolute;
+    inset: 15px 0 0 15px;
+    border: 2px solid var(--gold);
+    border-radius: 20px;
+    z-index: 0;
+    transition: all 0.4s ease;
+}
+.kades-photo-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 0 15px 15px 0;
+    background: linear-gradient(135deg, var(--gold-light) 0%, rgba(201,150,58,0.1) 100%);
+    border-radius: 20px;
+    z-index: 0;
+    opacity: 0.5;
+}
+.kades-photo-wrap:hover::before {
+    inset: 5px -5px -5px 5px;
+}
+.kades-photo { 
+    width: 100%; 
+    max-width: 280px; 
+    border-radius: 16px; 
+    box-shadow: 0 15px 35px rgba(61,31,10,.15); 
+    object-fit: cover; 
+    height: 380px; 
+    position: relative;
+    z-index: 1;
+}
+.kades-photo-placeholder { 
+    width: 100%; max-width: 280px; height: 380px; border-radius: 16px; 
+    background: linear-gradient(135deg,var(--cream),var(--coklat-muda)); 
+    display: flex; align-items: center; justify-content: center; 
+    font-size: 5rem; box-shadow: 0 15px 35px rgba(61,31,10,.15); 
+    position: relative; z-index: 1;
+}
+.kades-badge { 
+    position: absolute; 
+    bottom: -5px; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    background: linear-gradient(145deg, var(--coklat-tua), #1A0F05); 
+    color: #fff; 
+    padding: .8rem 2rem; 
+    border-radius: 50px; 
+    text-align: center; 
+    white-space: nowrap; 
+    border: 1px solid rgba(201,150,58,0.4); 
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    z-index: 2;
+}
+.kades-badge .jabatan {
+    font-size: .7rem;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 2px;
+}
+.kades-badge .nama {
+    font-size: 1rem;
+    font-weight: 700;
+}
 .sambutan-quote { color:var(--teks-gelap); font-size:1.05rem; line-height:1.8; margin:1.5rem 0; }
 .signature-line { font-size:1.1rem; color:var(--coklat-tua); font-weight:700; margin-bottom:0; }
 
@@ -203,8 +270,8 @@
                     @endif
 
                     <div class="kades-badge">
-                        <div style="font-size:.65rem;opacity:.8">{{ $jabatanKades }}</div>
-                        <div>{{ $namaKades }}</div>
+                        <div class="jabatan">{{ $jabatanKades }}</div>
+                        <div class="nama">{{ $namaKades }}</div>
                     </div>
                 </div>
             </div>
