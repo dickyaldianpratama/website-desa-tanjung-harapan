@@ -233,8 +233,16 @@
             gap: 0.75rem !important;
             margin-top: 1rem;
         }
-        .search-container { max-width: 100%; }
-        .header-actions form, .btn-tambah { width: 100%; }
+        .header-actions form {
+            flex-direction: column !important;
+            width: 100%;
+            gap: 0.5rem !important;
+        }
+        .header-actions form select {
+            width: 100% !important;
+        }
+        .search-container { max-width: 100%; width: 100%; }
+        .btn-tambah { width: 100%; }
     }
 </style>
 
