@@ -138,8 +138,22 @@
                 box-shadow: none; 
                 backdrop-filter: none;
                 padding: 0;
+                transform-style: preserve-3d;
             }
             .navbar-desa.scrolled .brand-logo { width: 35px; height: 35px; }
+            
+            @keyframes nengok-kiri-kanan {
+                0%, 10% { transform: perspective(300px) rotateY(0deg); }
+                15%, 25% { transform: perspective(300px) rotateY(-50deg); }
+                30%, 40% { transform: perspective(300px) rotateY(0deg); }
+                45%, 55% { transform: perspective(300px) rotateY(50deg); }
+                60%, 100% { transform: perspective(300px) rotateY(0deg); }
+            }
+            .brand-logo img {
+                animation: nengok-kiri-kanan 5s ease-in-out infinite;
+                transform-origin: center;
+            }
+            
             .brand-text { min-width: 0; /* Penting untuk ellipsis */ }
             .brand-text .nama { 
                 font-size: 1.05rem; 
