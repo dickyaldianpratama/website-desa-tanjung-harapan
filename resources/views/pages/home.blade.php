@@ -146,8 +146,12 @@
             rgba(40,20,6,.50) 35%,
             rgba(0,0,0,.08)  100%);
     }
-    /* Teks ke bawah agar tidak menutupi area gambar */
-    .hero-content { justify-content: flex-end; padding-bottom: 2rem; }
+    /* Konten slider: padding-top = tinggi navbar agar tidak ketutupan header */
+    .hero-content {
+        justify-content: center;
+        padding-top: 70px;    /* ≈ tinggi navbar mobile (logo 40px + padding ~24px) */
+        padding-bottom: 1.5rem;
+    }
     .hero-title   { font-size: 1.75rem; }
     .hero-subtitle{ font-size: .9rem; }
     .hero-ornament{ font-size: .75rem; letter-spacing: 5px; }
@@ -473,30 +477,32 @@ const commonSwiperConfig = {
 new Swiper('.berita-swiper', commonSwiperConfig);
 new Swiper('.potensi-swiper', commonSwiperConfig);
 
-// Counter Animasi Statistik
-document.addEventListener('DOMContentLoaded', () => {
+// ── Counter Animasi Statistik ──
+// (Gunakan IIFE langsung — DOMContentLoaded sudah lewat saat script ini dirender)
+(function () {
     const counters = document.querySelectorAll('.stat-number');
-    
+    if (!counters.length) return;
+
     const animateCounter = (counter) => {
         const target = +counter.getAttribute('data-target');
-        const duration = 2000; // 2 detik
-        const increment = target / (duration / 16); 
-        
+        if (!target) { counter.innerText = '0'; return; }
+        const duration = 2000;
+        const increment = target / (duration / 16);
         let current = 0;
-        const updateCounter = () => {
+        const tick = () => {
             current += increment;
             if (current < target) {
-                // Format angka dengan pemisah ribuan ala Indonesia
                 counter.innerText = Math.ceil(current).toLocaleString('id-ID').replace(/,/g, '.');
-                requestAnimationFrame(updateCounter);
+                requestAnimationFrame(tick);
             } else {
                 counter.innerText = target.toLocaleString('id-ID').replace(/,/g, '.');
             }
         };
-        updateCounter();
+        tick();
     };
 
-    const observer = new IntersectionObserver((entries, obs) => {
+    // Jalankan animasi saat elemen masuk viewport (scroll trigger)
+    const counterObserver = new IntersectionObserver((entries, obs) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 animateCounter(entry.target);
@@ -505,22 +511,24 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, { threshold: 0.3 });
 
-    counters.forEach(counter => observer.observe(counter));
-});
+    counters.forEach(c => counterObserver.observe(c));
+})();
 
-// Animasi Scroll Reveal
-document.addEventListener('DOMContentLoaded', () => {
+// ── Animasi Scroll Reveal ──
+(function () {
     const reveals = document.querySelectorAll('.reveal');
+    if (!reveals.length) return;
+
     const revealObserver = new IntersectionObserver((entries, obs) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('active');
-                obs.unobserve(entry.target); // Hanya animasi 1x
+                obs.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.15, rootMargin: "0px 0px -50px 0px" });
+    }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
 
-    reveals.forEach(reveal => revealObserver.observe(reveal));
-});
+    reveals.forEach(el => revealObserver.observe(el));
+})();
 </script>
 @endpush
