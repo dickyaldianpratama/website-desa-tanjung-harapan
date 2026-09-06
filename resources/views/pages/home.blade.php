@@ -129,42 +129,28 @@
 
 /* ── PERBAIKAN TAMPILAN HP (MOBILE) ── */
 @media (max-width: 768px) {
-    /* Biarkan gambar menentukan tinggi slider sendiri (auto-height)
-       Hasil: gambar tampil PENUH tanpa terpotong, tanpa space kosong */
-    .hero-swiper,
-    .swiper-wrapper,
-    .hero-slide {
+    /*  Tinggi hero = lebar × rasio gambar (diset JS setelah gambar load).
+        Hasilnya: gambar tampil PENUH, tanpa terpotong, tanpa space kosong.   */
+    .hero-swiper {
         height: auto !important;
         min-height: 0 !important;
         max-height: none !important;
+        aspect-ratio: 4 / 3;   /* fallback — dioverride JS sesuai rasio foto asli */
     }
-    /* Ubah gambar menjadi elemen flow biasa agar ia mendefinisikan tinggi slide */
-    .hero-slide img {
-        position: relative !important;
-        inset: auto !important;
-        display: block;
-        width: 100% !important;
-        height: auto !important;
-        object-fit: fill !important;   /* Gambar stretch penuh sesuai lebar layar */
-    }
-    .hero-slide video {
-        position: relative !important;
-        inset: auto !important;
-        display: block;
-        width: 100% !important;
-        height: auto !important;
-    }
-    /* Overlay & konten tetap di atas gambar */
+    /* object-fit:cover aman karena container sudah sesuai rasio gambar */
+    .hero-slide img, .hero-slide video { object-fit: cover; }
+    /* Gradient lebih ringan di atas, lebih gelap di bawah → gambar tetap kelihatan */
     .hero-overlay {
-        position: absolute;
-        background: linear-gradient(to top, rgba(30,15,5,.9) 0%, rgba(61,31,10,.4) 40%, rgba(0,0,0,.05) 100%);
+        background: linear-gradient(to top,
+            rgba(20,10,3,.92) 0%,
+            rgba(40,20,6,.50) 35%,
+            rgba(0,0,0,.08)  100%);
     }
-    .hero-content {
-        position: absolute;
-        justify-content: flex-end;
-        padding-bottom: 2rem;
-    }
-    .hero-title { font-size: 1.8rem; }
+    /* Teks ke bawah agar tidak menutupi area gambar */
+    .hero-content { justify-content: flex-end; padding-bottom: 2rem; }
+    .hero-title   { font-size: 1.75rem; }
+    .hero-subtitle{ font-size: .9rem; }
+    .hero-ornament{ font-size: .75rem; letter-spacing: 5px; }
 
     /* Horizontal Scroll untuk Berita & Potensi */
     .news-scroll-mobile {
@@ -437,10 +423,36 @@ const heroSwiper = new Swiper('.hero-swiper', {
     fadeEffect: { crossFade: false },
     navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
     pagination: { el: '.swiper-pagination', clickable: true },
-    autoHeight: true,   /* Tinggi slide otomatis mengikuti gambar di mobile */
-    observer: true,
-    observeParents: true,
 });
+
+/* ── Mobile: sesuaikan tinggi hero dengan rasio gambar asli ──
+   Teknik: set CSS aspect-ratio pada container setelah gambar dimuat.
+   Container tepat proporsional → object-fit:cover = full image, 0 crop, 0 space. */
+(function () {
+    const heroEl = document.querySelector('.hero-swiper');
+    if (!heroEl || window.innerWidth > 768) return;          // hanya mobile
+
+    function applyRatio(img) {
+        if (!img || !img.naturalWidth) return;
+        heroEl.style.aspectRatio = img.naturalWidth + '/' + img.naturalHeight;
+        heroSwiper.update();
+    }
+
+    // Terapkan dari gambar pertama yang tersedia
+    const firstImg = heroEl.querySelector('.hero-slide img');
+    if (firstImg) {
+        if (firstImg.complete && firstImg.naturalWidth > 0) applyRatio(firstImg);
+        else firstImg.addEventListener('load', () => applyRatio(firstImg), { once: true });
+    }
+
+    // Ikuti resize (misal: rotasi layar)
+    window.addEventListener('resize', function () {
+        if (window.innerWidth > 768) {
+            heroEl.style.aspectRatio = '';   // kembalikan ke CSS desktop (100vh)
+        }
+        heroSwiper.update();
+    });
+})();
 
 // Berita & Potensi Swiper (Horizontal Scroll on Mobile)
 const commonSwiperConfig = {
