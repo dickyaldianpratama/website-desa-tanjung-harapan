@@ -127,8 +127,36 @@
 .sambutan-quote { color:var(--teks-gelap); font-size:1.05rem; line-height:1.8; margin:1.5rem 0; }
 .signature-line { font-size:1.1rem; color:var(--coklat-tua); font-weight:700; margin-bottom:0; }
 
-/* HORIZONTAL SCROLL KHUSUS HP */
+/* ── PERBAIKAN TAMPILAN HP (MOBILE) ── */
 @media (max-width: 768px) {
+    /* Mencegah Gambar Slider Terpotong di Layar HP */
+    .hero-swiper {
+        height: auto;           /* Tinggi otomatis menyesuaikan gambar */
+        min-height: 0;
+        max-height: none;
+    }
+    .hero-slide {
+        height: 100vw;          /* Persegi (1:1) — cocok untuk foto portrait/landscape */
+        max-height: 520px;
+    }
+    .hero-slide img, .hero-slide video {
+        object-fit: contain !important;     /* Tampilkan SELURUH gambar tanpa terpotong */
+        object-position: center center !important;
+        background: var(--coklat-tua);      /* Isi area kosong dengan warna gelap */
+    }
+    .hero-overlay {
+        /* Gelapkan area bawah untuk teks, area atas biarkan transparan */
+        background: linear-gradient(to top, rgba(30,15,5,.95) 0%, rgba(61,31,10,.6) 40%, rgba(0,0,0,.1) 100%);
+    }
+    .hero-content {
+        justify-content: flex-end;   /* Dorong teks ke bawah agar tidak menabrak gambar */
+        padding-bottom: 2.5rem;
+    }
+    .hero-title {
+        font-size: 1.8rem;
+    }
+
+    /* Horizontal Scroll untuk Berita & Potensi */
     .news-scroll-mobile {
         flex-wrap: nowrap !important;
         overflow-x: auto;
