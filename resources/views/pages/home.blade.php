@@ -176,17 +176,17 @@
     .hero-buttons { 
         position: absolute;
         bottom: 1rem;
-        left: 1rem;
-        right: 1rem;
+        left: 0;
+        right: 0;
         display: flex;
-        gap: .5rem;
-        justify-content: space-between;
+        gap: .6rem;
+        justify-content: center;
     }
     .hero-buttons a { 
-        flex: 1; 
         text-align: center; 
-        padding: .4rem .5rem; 
+        padding: .4rem 1rem; 
         font-size: .75rem; 
+        min-width: 130px;
     }
     /* Sembunyikan panah navigasi di HP (terlalu memakan tempat di layar kecil) */
     .swiper-button-next, .swiper-button-prev { display: none !important; }

@@ -64,17 +64,16 @@
         .navbar-desa {
             background: transparent;
             border-bottom: none;
-            padding: .75rem 0;
+            padding: .6rem 0; /* Padding konsisten */
             position: fixed;
             top: 0; left: 0; right: 0;
             z-index: 1000;
-            transition: background .4s ease, box-shadow .4s ease, padding .3s ease;
+            transition: background .4s ease, box-shadow .4s ease;
         }
         .navbar-desa.scrolled, 
         .navbar-desa.solid {
             background: var(--coklat-tua) !important;
             box-shadow: 0 2px 20px rgba(61,31,10,.4);
-            padding: .4rem 0;
         }
         .navbar-desa .navbar-brand {
             color: var(--putih) !important;
@@ -84,23 +83,23 @@
             align-items: center;
             gap: .85rem;
         }
+        /* Logo dibuat dengan ukuran konsisten di semua halaman */
         .brand-logo {
-            width: 85px;
-            height: 85px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
-            border: 3.5px solid var(--gold);
+            border: 2px solid var(--gold);
             background: rgba(255,255,255,.15);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.8rem;
+            font-size: 2rem;
             color: var(--coklat-tua);
             font-weight: bold;
-            padding: 5px;
+            padding: 3px;
             backdrop-filter: blur(4px);
             flex-shrink: 0;
             box-shadow: 0 0 0 2px rgba(201,150,58,.3);
-            transition: width 0.3s ease, height 0.3s ease;
         }
         .brand-logo img {
             width: 100%;
@@ -108,9 +107,6 @@
             object-fit: contain;
             border-radius: 50%;
         }
-        
-        .navbar-desa.scrolled .brand-logo,
-        .navbar-desa.solid .brand-logo { width: 58px; height: 58px; }
         .brand-text .nama {
             font-size: 1.4rem;
             font-weight: 800;
@@ -487,7 +483,7 @@
 </head>
 <body>
 
-<nav class="navbar navbar-desa navbar-expand-lg">
+<nav class="navbar navbar-desa navbar-expand-lg {{ request()->routeIs('home') || request()->routeIs('profil') ? '' : 'solid' }}">
     <div class="container">
         <a class="navbar-brand" href="{{ route('home') }}">
             @php $logo = $settings['logo_desa'] ?? ''; @endphp
