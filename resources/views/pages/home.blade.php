@@ -171,8 +171,22 @@
         overflow: hidden;
     }
     .hero-ornament { font-size: .6rem; letter-spacing: 2px; margin-bottom: .3rem; padding: .2rem .75rem; }
-    /* Tombol di dalam gambar disembunyikan di HP, diganti tombol di luar */
-    .hero-buttons { display: none !important; }
+    /* Tombol dikunci di bagian bawah card */
+    .hero-buttons { 
+        position: absolute;
+        bottom: 1rem;
+        left: 1rem;
+        right: 1rem;
+        display: flex;
+        gap: .5rem;
+        justify-content: space-between;
+    }
+    .hero-buttons a { 
+        flex: 1; 
+        text-align: center; 
+        padding: .4rem .5rem; 
+        font-size: .75rem; 
+    }
     /* Sembunyikan panah navigasi di HP (terlalu memakan tempat di layar kecil) */
     .swiper-button-next, .swiper-button-prev { display: none !important; }
 
@@ -275,12 +289,6 @@
     <div class="swiper-button-next"></div>
     <div class="swiper-button-prev"></div>
     <div class="swiper-pagination"></div>
-</div>
-
-{{-- TOMBOL KHUSUS HP (Di Luar Slider agar tidak menutupi gambar) --}}
-<div class="d-flex d-md-none justify-content-center gap-2 px-4 pb-4 pt-2">
-    <a href="{{ route('profil') }}" class="btn-desa-primary flex-grow-1 text-center py-2" style="font-size: .85rem;">Profil Desa</a>
-    <a href="{{ route('kontak') }}" class="btn-desa-outline flex-grow-1 text-center py-2" style="font-size: .85rem;">Hubungi Kami</a>
 </div>
 
 {{-- ── STATISTIK ── --}}
