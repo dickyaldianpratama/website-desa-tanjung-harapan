@@ -302,9 +302,9 @@ input[type=range].tool-range::-webkit-slider-thumb:hover {
                     </div>
                 </div>
 
-                {{-- ══ TOOLS GAMBAR ══ --}}
-                <div class="tools-panel mb-4" id="toolsGambar" {{ ($slider->tipe_media ?? 'gambar') === 'video' ? 'style=display:none' : '' }}>
-                    <h6 class="mb-3"><i class="bi bi-image-alt me-2 text-warning"></i>Tools Optimasi Gambar</h6>
+                {{-- ══ TOOLS TATA LETAK ══ --}}
+                <div class="tools-panel mb-4" id="toolsGambar">
+                    <h6 class="mb-3"><i class="bi bi-arrows-move me-2 text-warning"></i>Tools Tata Letak</h6>
                     <div class="mb-3">
                         <div class="tool-label">
                             <span><i class="bi bi-arrows-move me-1"></i>Posisi Gambar</span>
@@ -448,7 +448,7 @@ input[type=range].tool-range::-webkit-slider-thumb:hover {
             btnVideo.className  = 'media-toggle-btn active-video';
             panelGambar.classList.add('d-none');
             panelVideo.classList.remove('d-none');
-            toolsGambar.style.display = 'none';
+            // toolsGambar.style.display = 'none'; // <-- DIHAPUS agar Tata Letak tetap tampil untuk Video
             toolsVideo.classList.remove('d-none');
             if (inputGambar) inputGambar.disabled = true;
             if (inputVideo) inputVideo.disabled = false;
@@ -535,12 +535,18 @@ input[type=range].tool-range::-webkit-slider-thumb:hover {
     /* ─── POS PAD ─── */
     let posX = 50, posY = 50, dragging = false;
     function applyToPreview() {
-        if (!imgPreview) return;
         const pos = `${posX.toFixed(1)}% ${posY.toFixed(1)}%`;
         const scale = scaleSlider ? parseInt(scaleSlider.value) / 100 : 1;
-        imgPreview.style.objectPosition = pos;
-        imgPreview.style.transformOrigin = pos;
-        imgPreview.style.transform = `scale(${scale})`;
+        if (imgPreview) {
+            imgPreview.style.objectPosition = pos;
+            imgPreview.style.transformOrigin = pos;
+            imgPreview.style.transform = `scale(${scale})`;
+        }
+        if (typeof vidPreview !== 'undefined' && vidPreview) {
+            vidPreview.style.objectPosition = pos;
+            vidPreview.style.transformOrigin = pos;
+            vidPreview.style.transform = `scale(${scale})`;
+        }
     }
     function parsePosition(str) {
         if (!str) return { x:50, y:50 };

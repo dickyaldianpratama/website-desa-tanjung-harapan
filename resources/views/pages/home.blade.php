@@ -145,11 +145,11 @@
         height: 60vw !important; /* Aspect ratio memanjang (landscape) */
         background-color: var(--coklat-tua);
     }
-    .hero-slide img {
+    .hero-slide img, .hero-slide video {
         height: 100% !important;
         width: 100% !important;
         object-fit: cover !important;
-        transform: none !important;
+        /* Hapus transform:none agar fitur zoom (scale) dari admin tetap jalan di HP */
     }
     /* Teks diturunkan ke bagian bawah card */
     .hero-content {
@@ -215,7 +215,7 @@
                 @endphp
                 @if($isVideo)
                     <video autoplay muted loop playsinline
-                           style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+                           style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:{{ $imgPos }};transform:scale({{ $imgScale }});transform-origin:{{ $imgPos }};">
                         <source src="{{ Storage::disk('s3')->url('images/sliders/'.$slider->gambar) }}">
                     </video>
                 @else

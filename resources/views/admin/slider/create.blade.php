@@ -344,9 +344,9 @@ input[type=range].tool-range::-webkit-slider-thumb {
                     </div>
                 </div>
 
-                {{-- ══ TOOLS GAMBAR (hanya muncul di mode gambar) ══ --}}
+                {{-- ══ TOOLS TATA LETAK ══ --}}
                 <div class="tools-panel mb-4" id="toolsGambar">
-                    <h6 class="mb-3"><i class="bi bi-image-alt me-2 text-warning"></i>Tools Optimasi Gambar</h6>
+                    <h6 class="mb-3"><i class="bi bi-arrows-move me-2 text-warning"></i>Tools Tata Letak</h6>
 
                     {{-- Posisi --}}
                     <div class="mb-3">
@@ -498,7 +498,7 @@ input[type=range].tool-range::-webkit-slider-thumb {
             btnVideo.className  = 'media-toggle-btn active-video';
             panelGambar.classList.add('d-none');
             panelVideo.classList.remove('d-none');
-            toolsGambar.classList.add('d-none');
+            // toolsGambar.classList.add('d-none'); // <-- DIHAPUS agar Tata Letak tampil untuk Video
             toolsVideo.classList.remove('d-none');
             inputGambar.required = false;
             inputVideo.required  = true;
@@ -603,9 +603,16 @@ input[type=range].tool-range::-webkit-slider-thumb {
     function applyToPreview() {
         const pos = `${posX.toFixed(1)}% ${posY.toFixed(1)}%`;
         const scale = parseInt(scaleSlider.value) / 100;
-        imgPreview.style.objectPosition  = pos;
-        imgPreview.style.transformOrigin = pos;
-        imgPreview.style.transform       = `scale(${scale})`;
+        if (imgPreview) {
+            imgPreview.style.objectPosition  = pos;
+            imgPreview.style.transformOrigin = pos;
+            imgPreview.style.transform       = `scale(${scale})`;
+        }
+        if (typeof vidPreview !== 'undefined' && vidPreview) {
+            vidPreview.style.objectPosition  = pos;
+            vidPreview.style.transformOrigin = pos;
+            vidPreview.style.transform       = `scale(${scale})`;
+        }
     }
     function updatePadUI() {
         const pctX = posX.toFixed(1) + '%', pctY = posY.toFixed(1) + '%';
