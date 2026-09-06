@@ -142,27 +142,37 @@
         box-shadow: 0 10px 30px rgba(0,0,0,0.15);
     }
     .hero-slide {
-        height: 60vw !important; /* Aspect ratio memanjang (landscape) */
+        height: 57vw !important; /* Aspect ratio 16:9 murni agar video tidak terpotong sama sekali */
         background-color: var(--coklat-tua);
     }
     .hero-slide img, .hero-slide video {
         height: 100% !important;
         width: 100% !important;
         object-fit: cover !important;
-        /* Hapus transform:none agar fitur zoom (scale) dari admin tetap jalan di HP */
     }
-    /* Teks diturunkan ke bagian bawah card */
+    /* Teks dibuat sangat rapat agar muat di dalam card 16:9 yang pendek */
     .hero-content {
-        justify-content: flex-end;
-        padding: 1.5rem 1rem;
-        text-align: left; /* Teks rata kiri seperti di contoh */
+        justify-content: center; /* Taruh di tengah agar tidak luber ke atas */
+        padding: 1rem;
+        text-align: left;
+        align-items: flex-start;
     }
-    .hero-content { align-items: flex-start; } /* Rata kiri flex */
-    .hero-title    { font-size: 1.4rem; margin-bottom: .25rem; }
-    .hero-subtitle { font-size: .8rem; margin-bottom: 1rem; }
-    .hero-ornament { font-size: .7rem; letter-spacing: 3px; margin-bottom: .5rem; padding: .3rem 1rem; }
-    .hero-buttons { justify-content: flex-start; gap: .5rem; width: 100%; }
-    .hero-buttons a { padding: .4rem 1rem; font-size: .8rem; }
+    .hero-title    { font-size: 1.15rem; margin-bottom: .25rem; line-height: 1.2; text-shadow: 0 2px 10px rgba(0,0,0,0.9); }
+    .hero-subtitle { 
+        font-size: .7rem; 
+        margin-bottom: .5rem; 
+        line-height: 1.4; 
+        padding: .3rem .6rem; 
+        border-radius: 8px; 
+        background: rgba(0,0,0,0.5); 
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    .hero-ornament { font-size: .6rem; letter-spacing: 2px; margin-bottom: .3rem; padding: .2rem .75rem; }
+    .hero-buttons { justify-content: flex-start; gap: .3rem; width: 100%; }
+    .hero-buttons a { padding: .35rem .75rem; font-size: .7rem; }
 
     /* Horizontal Scroll untuk Berita & Potensi */
     .news-scroll-mobile {
