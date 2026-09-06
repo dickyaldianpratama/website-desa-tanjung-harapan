@@ -4,12 +4,12 @@
 @push('styles')
 <style>
 /* ── HERO SWIPER ── */
-.hero-swiper { width:100vw; max-width:100%; height:auto; overflow:hidden; margin:0; padding:0; background:var(--coklat-tua); }
+.hero-swiper { width:100vw; max-width:100%; height:100vh; min-height:550px; max-height:900px; overflow:hidden; margin:0; padding:0; background:var(--coklat-tua); }
 .hero-swiper .swiper-wrapper { margin:0; padding:0; }
-.hero-slide { position:relative; width:100%; height:auto; overflow:hidden; background-color: var(--coklat-tua); }
-.hero-slide img { position:relative; width:100%; height:auto; display:block; object-fit:cover; }
+.hero-slide { position:relative; width:100%; height:100%; overflow:hidden; background-color: var(--coklat-tua); }
+.hero-slide img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
 .hero-overlay { position:absolute; inset:0; background:linear-gradient(to top, rgba(61,31,10,.85) 0%, rgba(61,31,10,.4) 50%, rgba(0,0,0,.2) 100%); z-index:1; }
-.hero-content { position:absolute; inset:0; z-index:2; display:flex; align-items:center; justify-content:flex-end; flex-direction:column; text-align:center; padding:2rem 2rem 3rem 2rem; width:100%; }
+.hero-content { position:absolute; inset:0; z-index:2; display:flex; align-items:center; justify-content:center; flex-direction:column; text-align:center; padding:2rem; width:100%; }
 .hero-ornament {
     color: var(--gold);
     font-size: .95rem;
@@ -129,21 +129,22 @@
 
 /* ── TAMPILAN HP (MOBILE) ── */
 @media (max-width: 768px) {
-    /* Tinggi menyesuaikan gambar asli (auto), tidak ada paksaan 100vh */
+    /* Slider = satu layar penuh HP agar animasi scroll statistik terlihat */
     .hero-swiper {
-        height: auto !important;
-        min-height: 250px !important;
+        height: 100vh !important;
+        height: 100dvh !important;
+        min-height: 0 !important;
         max-height: none !important;
     }
     .hero-slide img {
-        height: auto !important;
+        height: 100% !important;
+        object-fit: cover !important;
         transform: none !important;   /* hapus efek zoom dari admin setting di mobile */
     }
-    /* Teks tetap di bawah gambar dengan gradient gelap */
+    /* Teks dipindah sedikit lebih ke bawah tapi tetap di tengah layar */
     .hero-content {
-        justify-content: flex-end;
-        padding-top: 72px;          /* minimal padding agar tidak nabrak navbar */
-        padding-bottom: 1.25rem;
+        justify-content: center;
+        padding-top: 5rem;
     }
     .hero-title    { font-size: 1.75rem; }
     .hero-subtitle { font-size: .9rem; }
@@ -414,7 +415,6 @@
 <script>
 const heroSwiper = new Swiper('.hero-swiper', {
     loop: true,
-    autoHeight: true,
     autoplay: { delay: 5000, disableOnInteraction: false },
     effect: 'fade',
     fadeEffect: { crossFade: true },
