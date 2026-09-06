@@ -128,26 +128,41 @@
 
 /* ── TAMPILAN HP (MOBILE) ── */
 @media (max-width: 768px) {
-    /* Slider = satu layar penuh HP agar animasi scroll statistik terlihat */
+    /* Slider bentuk Card untuk HP */
     .hero-swiper {
-        height: 100vh !important;
-        height: 100dvh !important;
+        height: auto !important;
         min-height: 0 !important;
         max-height: none !important;
+        background: transparent !important;
+        padding: 90px 1rem 2.5rem 1rem !important; /* Jarak untuk navbar dan pinggir layar */
+    }
+    .hero-swiper .swiper-wrapper {
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+    .hero-slide {
+        height: 60vw !important; /* Aspect ratio memanjang (landscape) */
+        background-color: var(--coklat-tua);
     }
     .hero-slide img {
         height: 100% !important;
+        width: 100% !important;
         object-fit: cover !important;
-        transform: none !important;   /* hapus efek zoom dari admin setting di mobile */
+        transform: none !important;
     }
-    /* Teks dipindah sedikit lebih ke bawah tapi tetap di tengah layar */
+    /* Teks diturunkan ke bagian bawah card */
     .hero-content {
-        justify-content: center;
-        padding-top: 5rem;
+        justify-content: flex-end;
+        padding: 1.5rem 1rem;
+        text-align: left; /* Teks rata kiri seperti di contoh */
     }
-    .hero-title    { font-size: 1.75rem; }
-    .hero-subtitle { font-size: .9rem; }
-    .hero-ornament { font-size: .8rem; letter-spacing: 5px; }
+    .hero-content { align-items: flex-start; } /* Rata kiri flex */
+    .hero-title    { font-size: 1.4rem; margin-bottom: .25rem; }
+    .hero-subtitle { font-size: .8rem; margin-bottom: 1rem; }
+    .hero-ornament { font-size: .7rem; letter-spacing: 3px; margin-bottom: .5rem; padding: .3rem 1rem; }
+    .hero-buttons { justify-content: flex-start; gap: .5rem; width: 100%; }
+    .hero-buttons a { padding: .4rem 1rem; font-size: .8rem; }
 
     /* Horizontal Scroll untuk Berita & Potensi */
     .news-scroll-mobile {

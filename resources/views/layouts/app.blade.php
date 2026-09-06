@@ -129,6 +129,11 @@
         }
         /* RESPONSIVE MOBILE NAVBAR */
         @media (max-width: 768px) {
+            .navbar-desa {
+                background: var(--coklat-tua) !important;
+                box-shadow: 0 2px 20px rgba(61,31,10,.4);
+                padding: .4rem 0 !important;
+            }
             .navbar-desa .navbar-brand { max-width: calc(100% - 60px); gap: .4rem; }
             .brand-logo { 
                 width: 40px; 
