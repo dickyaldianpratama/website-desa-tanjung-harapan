@@ -7,7 +7,7 @@
 .hero-swiper { width:100vw; max-width:100%; height:100vh; min-height:550px; max-height:900px; overflow:hidden; margin:0; padding:0; background:var(--coklat-tua); }
 .hero-swiper .swiper-wrapper { margin:0; padding:0; }
 .hero-slide { position:relative; width:100%; height:100%; overflow:hidden; }
-.hero-slide img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+.hero-slide img { position:absolute; inset:0; width:100%; height:100%; object-fit:contain; }
 .hero-overlay { position:absolute; inset:0; background:linear-gradient(to top, rgba(61,31,10,.85) 0%, rgba(61,31,10,.4) 50%, rgba(0,0,0,.2) 100%); z-index:1; }
 .hero-content { position:absolute; inset:0; z-index:2; display:flex; align-items:center; justify-content:center; flex-direction:column; text-align:center; padding:2rem; width:100%; }
 .hero-ornament {
@@ -129,16 +129,16 @@
 
 /* ── TAMPILAN HP (MOBILE) ── */
 @media (max-width: 768px) {
-    /*  Tinggi diset JS sesuai rasio gambar → gambar tampil PENUH, tanpa crop, tanpa space.
-        Sebelum JS jalan, min-height memberi tinggi awal yang masuk akal. */
+    /* Slider = satu layar penuh HP */
     .hero-swiper {
-        height: auto !important;
-        min-height: 280px !important;
+        height: 100vh !important;
+        height: 100dvh !important;
+        min-height: 0 !important;
         max-height: none !important;
     }
-    /* Gambar tampil penuh cover — karena container sudah disesuaikan rasionya oleh JS */
+    /* Gambar tampil utuh (tidak terpotong), jika landscape akan ada ruang kosong atas/bawah */
     .hero-slide img {
-        object-fit: cover !important;
+        object-fit: contain !important;
         object-position: center !important;
         transform: none !important;   /* hapus efek zoom dari admin setting di mobile */
     }
@@ -423,34 +423,6 @@ const heroSwiper = new Swiper('.hero-swiper', {
     navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
     pagination: { el: '.swiper-pagination', clickable: true },
 });
-
-/* ── Auto-height slider di mobile ──
-   Tinggi container = lebar layar × (tinggi_alami / lebar_alami) gambar.
-   Hasilnya: rasio container = rasio gambar → object-fit:cover = full gambar, 0 crop.
-   Desktop tidak terpengaruh (inline style hanya di-set jika ≤ 768px).          */
-(function () {
-    if (window.innerWidth > 768) return;
-    var heroEl  = document.querySelector('.hero-swiper');
-    var firstImg = document.querySelector('.hero-slide img');
-    if (!heroEl || !firstImg) return;
-
-    function setHeight() {
-        if (!firstImg.naturalWidth) return;
-        var w = heroEl.offsetWidth || window.innerWidth;
-        var h = Math.round(w * firstImg.naturalHeight / firstImg.naturalWidth);
-        heroEl.style.height = h + 'px';
-        heroSwiper.update();
-    }
-
-    if (firstImg.complete && firstImg.naturalWidth > 0) setHeight();
-    else firstImg.addEventListener('load', setHeight, { once: true });
-
-    window.addEventListener('resize', function () {
-        if (window.innerWidth > 768) { heroEl.style.height = ''; }
-        else setHeight();
-        heroSwiper.update();
-    });
-})();
 
 // Berita & Potensi Swiper (Horizontal Scroll on Mobile)
 const commonSwiperConfig = {
