@@ -6,7 +6,7 @@
 /* ── HERO SWIPER ── */
 .hero-swiper { width:100vw; max-width:100%; height:100vh; min-height:550px; max-height:900px; overflow:hidden; margin:0; padding:0; background:var(--coklat-tua); }
 .hero-swiper .swiper-wrapper { margin:0; padding:0; }
-.hero-slide { position:relative; width:100%; height:100%; overflow:hidden; }
+.hero-slide { position:relative; width:100%; height:100%; overflow:hidden; background-color: var(--coklat-tua); }
 .hero-slide img { position:absolute; inset:0; width:100%; height:100%; object-fit:contain; }
 .hero-overlay { position:absolute; inset:0; background:linear-gradient(to top, rgba(61,31,10,.85) 0%, rgba(61,31,10,.4) 50%, rgba(0,0,0,.2) 100%); z-index:1; }
 .hero-content { position:absolute; inset:0; z-index:2; display:flex; align-items:center; justify-content:center; flex-direction:column; text-align:center; padding:2rem; width:100%; }
@@ -419,7 +419,7 @@ const heroSwiper = new Swiper('.hero-swiper', {
     loop: true,
     autoplay: { delay: 5000, disableOnInteraction: false },
     effect: 'fade',
-    fadeEffect: { crossFade: false },
+    fadeEffect: { crossFade: true },
     navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
     pagination: { el: '.swiper-pagination', clickable: true },
 });
