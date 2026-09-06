@@ -128,58 +128,57 @@
 .signature-line { font-size:1.1rem; color:var(--coklat-tua); font-weight:700; margin-bottom:0; }
 
 /* ── TAMPILAN HP (MOBILE) ── */
+
+/* Elemen blur backdrop: disembunyikan di desktop */
+.hero-blur-bg { display: none; }
+
 @media (max-width: 768px) {
-    /*  Slider = satu layar penuh.
-        100dvh = tinggi viewport tanpa browser chrome (lebih akurat di HP). */
+    /* Slider = satu layar penuh */
     .hero-swiper {
-        height: 100vh !important;           /* fallback browser lama */
-        height: 100dvh !important;          /* modern — tidak termakan address bar */
+        height: 100vh !important;
+        height: 100dvh !important;
         min-height: 0 !important;
         max-height: none !important;
-        aspect-ratio: unset !important;
     }
 
-    /*  ── BLURRED BACKDROP TECHNIQUE ──
-        Gambar ditampilkan PENUH (contain = tidak crop sama sekali).
-        Area kosong diisi oleh versi blur gambar yang sama (di-set via JS).
-        Hasilnya: layar penuh, gambar utuh, tidak ada space hitam polos. */
-    .hero-slide {
-        background-color: var(--coklat-tua);   /* warna fallback jika gambar belum load */
-        background-size: cover !important;
-        background-position: center !important;
-        overflow: hidden;
-    }
-    /* Pseudo-element = versi blur gambar yang sama sebagai latar */
-    .hero-slide::before {
-        content: '';
+    /*  ── BLURRED BACKDROP ──
+        .hero-blur-bg = gambar yang sama, di-cover + blur → mengisi seluruh slide.
+        Gambar utama (.hero-slide > img) tetap cover di atasnya, tapi contain
+        di mobile agar kelihatan seluruhnya.                                     */
+    .hero-blur-bg {
+        display: block;
         position: absolute;
-        inset: -40px;                          /* lebih lebar agar tepi blur tidak terlihat */
-        background: inherit;                   /* salin background-image dari elemen induk */
-        background-size: cover !important;
-        background-position: center !important;
-        filter: blur(28px);
-        opacity: .75;
+        inset: -20px;                    /* sedikit overflow agar tepi blur hilang */
+        width: calc(100% + 40px);
+        height: calc(100% + 40px);
+        object-fit: cover;
+        filter: blur(22px);
+        opacity: .85;
         z-index: 0;
-        transform: scale(1.05);               /* scale sedikit untuk tutup artefak tepi */
+        transform: scale(1.05);
     }
-    /* Gambar asli di atas backdrop blur, tampil penuh tanpa crop */
-    .hero-slide img, .hero-slide video {
+    /* Gambar utama di atas blur, tampil penuh tanpa crop */
+    .hero-slide > img {
         object-fit: contain !important;
         object-position: center !important;
         z-index: 1;
+        /* reset inline transform dari admin setting — terlalu kecil jika discale */
+        transform: none !important;
     }
 
-    /*  Gradient & konten tetap di atas segalanya */
+    /* Overlay & konten di atas segalanya */
     .hero-overlay { z-index: 2; }
-    .hero-content  {
+    .hero-content {
         z-index: 3;
         justify-content: center;
         padding-top: 72px;
         padding-bottom: 1.5rem;
     }
-    .hero-title   { font-size: 1.75rem; }
-    .hero-subtitle{ font-size: .9rem; }
-    .hero-ornament{ font-size: .75rem; letter-spacing: 5px; }
+    .hero-title    { font-size: 1.75rem; }
+    .hero-subtitle { font-size: .9rem; }
+    .hero-ornament { font-size: .75rem; letter-spacing: 5px; }
+
+
 
     /* Horizontal Scroll untuk Berita & Potensi */
     .news-scroll-mobile {
@@ -237,6 +236,11 @@
                         <source src="{{ Storage::disk('s3')->url('images/sliders/'.$slider->gambar) }}">
                     </video>
                 @else
+                    {{-- Blur backdrop: hanya tampil di mobile, cover penuh, diblur --}}
+                    <img class="hero-blur-bg"
+                         src="{{ Storage::disk('s3')->url('images/sliders/'.$slider->gambar) }}"
+                         alt="" aria-hidden="true">
+                    {{-- Gambar utama: cover di desktop, contain di mobile (di atas blur) --}}
                     <img src="{{ Storage::disk('s3')->url('images/sliders/'.$slider->gambar) }}"
                          alt="{{ $slider->judul }}"
                          style="object-position:{{ $imgPos }};transform:scale({{ $imgScale }});transform-origin:{{ $imgPos }};">
