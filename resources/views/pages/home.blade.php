@@ -129,28 +129,50 @@
 
 /* ── TAMPILAN HP (MOBILE) ── */
 @media (max-width: 768px) {
-    /*  Slider = satu layar penuh, gambar di-cover (sedikit crop adalah wajar).
+    /*  Slider = satu layar penuh.
         100dvh = tinggi viewport tanpa browser chrome (lebih akurat di HP). */
     .hero-swiper {
         height: 100vh !important;           /* fallback browser lama */
         height: 100dvh !important;          /* modern — tidak termakan address bar */
         min-height: 0 !important;
         max-height: none !important;
-        aspect-ratio: unset !important;     /* hapus override aspect-ratio dari JS */
-    }
-    .hero-slide img, .hero-slide video { object-fit: cover; object-position: center; }
-
-    /*  Gradient lebih intens di bawah agar teks tetap terbaca di semua foto */
-    .hero-overlay {
-        background: linear-gradient(to top,
-            rgba(20,10,3,.95) 0%,
-            rgba(40,20,6,.55) 40%,
-            rgba(0,0,0,.10)  100%);
+        aspect-ratio: unset !important;
     }
 
-    /*  padding-top = tinggi navbar mobile (~64px) + sedikit napas.
-        Ini "mengunci" elemen pertama (SELAMAT DATANG) tepat di bawah header. */
-    .hero-content {
+    /*  ── BLURRED BACKDROP TECHNIQUE ──
+        Gambar ditampilkan PENUH (contain = tidak crop sama sekali).
+        Area kosong diisi oleh versi blur gambar yang sama (di-set via JS).
+        Hasilnya: layar penuh, gambar utuh, tidak ada space hitam polos. */
+    .hero-slide {
+        background-color: var(--coklat-tua);   /* warna fallback jika gambar belum load */
+        background-size: cover !important;
+        background-position: center !important;
+        overflow: hidden;
+    }
+    /* Pseudo-element = versi blur gambar yang sama sebagai latar */
+    .hero-slide::before {
+        content: '';
+        position: absolute;
+        inset: -40px;                          /* lebih lebar agar tepi blur tidak terlihat */
+        background: inherit;                   /* salin background-image dari elemen induk */
+        background-size: cover !important;
+        background-position: center !important;
+        filter: blur(28px);
+        opacity: .75;
+        z-index: 0;
+        transform: scale(1.05);               /* scale sedikit untuk tutup artefak tepi */
+    }
+    /* Gambar asli di atas backdrop blur, tampil penuh tanpa crop */
+    .hero-slide img, .hero-slide video {
+        object-fit: contain !important;
+        object-position: center !important;
+        z-index: 1;
+    }
+
+    /*  Gradient & konten tetap di atas segalanya */
+    .hero-overlay { z-index: 2; }
+    .hero-content  {
+        z-index: 3;
         justify-content: center;
         padding-top: 72px;
         padding-bottom: 1.5rem;
@@ -432,6 +454,20 @@ const heroSwiper = new Swiper('.hero-swiper', {
     pagination: { el: '.swiper-pagination', clickable: true },
 });
 
+/* ── Blurred Backdrop (Mobile Only) ──
+   Set background-image pada tiap .hero-slide = URL gambar di dalamnya.
+   CSS ::before kemudian mewarisi background-image ini dan memblurnya. */
+if (window.innerWidth <= 768) {
+    document.querySelectorAll('.hero-slide img').forEach(function (img) {
+        const slide = img.closest('.hero-slide');
+        if (!slide) return;
+        function apply() {
+            slide.style.backgroundImage = "url('" + (img.currentSrc || img.src) + "')";
+        }
+        if (img.complete && img.naturalWidth > 0) apply();
+        else img.addEventListener('load', apply, { once: true });
+    });
+}
 
 // Berita & Potensi Swiper (Horizontal Scroll on Mobile)
 const commonSwiperConfig = {
