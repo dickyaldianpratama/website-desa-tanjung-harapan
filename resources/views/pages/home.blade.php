@@ -133,7 +133,7 @@
         Hasilnya: gambar tampil PENUH, tanpa terpotong, tanpa space kosong.   */
     .hero-swiper {
         height: auto !important;
-        min-height: 0 !important;
+        min-height: 340px !important;   /* ← tinggi minimum di mobile */
         max-height: none !important;
         aspect-ratio: 4 / 3;   /* fallback — dioverride JS sesuai rasio foto asli */
     }
@@ -434,7 +434,8 @@ const heroSwiper = new Swiper('.hero-swiper', {
 
     function applyRatio(img) {
         if (!img || !img.naturalWidth) return;
-        heroEl.style.aspectRatio = img.naturalWidth + '/' + img.naturalHeight;
+        // Tambah 30% tinggi ekstra agar konten slider punya ruang yang cukup
+        heroEl.style.aspectRatio = img.naturalWidth + '/' + Math.round(img.naturalHeight * 1.3);
         heroSwiper.update();
     }
 
