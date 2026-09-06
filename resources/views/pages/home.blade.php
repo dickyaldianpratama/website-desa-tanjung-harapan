@@ -127,29 +127,32 @@
 .sambutan-quote { color:var(--teks-gelap); font-size:1.05rem; line-height:1.8; margin:1.5rem 0; }
 .signature-line { font-size:1.1rem; color:var(--coklat-tua); font-weight:700; margin-bottom:0; }
 
-/* ── PERBAIKAN TAMPILAN HP (MOBILE) ── */
+/* ── TAMPILAN HP (MOBILE) ── */
 @media (max-width: 768px) {
-    /*  Tinggi hero = lebar × rasio gambar (diset JS setelah gambar load).
-        Hasilnya: gambar tampil PENUH, tanpa terpotong, tanpa space kosong.   */
+    /*  Slider = satu layar penuh, gambar di-cover (sedikit crop adalah wajar).
+        100dvh = tinggi viewport tanpa browser chrome (lebih akurat di HP). */
     .hero-swiper {
-        height: auto !important;
-        min-height: 340px !important;   /* ← tinggi minimum di mobile */
+        height: 100vh !important;           /* fallback browser lama */
+        height: 100dvh !important;          /* modern — tidak termakan address bar */
+        min-height: 0 !important;
         max-height: none !important;
-        aspect-ratio: 4 / 3;   /* fallback — dioverride JS sesuai rasio foto asli */
+        aspect-ratio: unset !important;     /* hapus override aspect-ratio dari JS */
     }
-    /* object-fit:cover aman karena container sudah sesuai rasio gambar */
-    .hero-slide img, .hero-slide video { object-fit: cover; }
-    /* Gradient lebih ringan di atas, lebih gelap di bawah → gambar tetap kelihatan */
+    .hero-slide img, .hero-slide video { object-fit: cover; object-position: center; }
+
+    /*  Gradient lebih intens di bawah agar teks tetap terbaca di semua foto */
     .hero-overlay {
         background: linear-gradient(to top,
-            rgba(20,10,3,.92) 0%,
-            rgba(40,20,6,.50) 35%,
-            rgba(0,0,0,.08)  100%);
+            rgba(20,10,3,.95) 0%,
+            rgba(40,20,6,.55) 40%,
+            rgba(0,0,0,.10)  100%);
     }
-    /* Konten slider: padding-top = tinggi navbar agar tidak ketutupan header */
+
+    /*  padding-top = tinggi navbar mobile (~64px) + sedikit napas.
+        Ini "mengunci" elemen pertama (SELAMAT DATANG) tepat di bawah header. */
     .hero-content {
         justify-content: center;
-        padding-top: 70px;    /* ≈ tinggi navbar mobile (logo 40px + padding ~24px) */
+        padding-top: 72px;
         padding-bottom: 1.5rem;
     }
     .hero-title   { font-size: 1.75rem; }
@@ -429,35 +432,6 @@ const heroSwiper = new Swiper('.hero-swiper', {
     pagination: { el: '.swiper-pagination', clickable: true },
 });
 
-/* ── Mobile: sesuaikan tinggi hero dengan rasio gambar asli ──
-   Teknik: set CSS aspect-ratio pada container setelah gambar dimuat.
-   Container tepat proporsional → object-fit:cover = full image, 0 crop, 0 space. */
-(function () {
-    const heroEl = document.querySelector('.hero-swiper');
-    if (!heroEl || window.innerWidth > 768) return;          // hanya mobile
-
-    function applyRatio(img) {
-        if (!img || !img.naturalWidth) return;
-        // Tambah 30% tinggi ekstra agar konten slider punya ruang yang cukup
-        heroEl.style.aspectRatio = img.naturalWidth + '/' + Math.round(img.naturalHeight * 1.3);
-        heroSwiper.update();
-    }
-
-    // Terapkan dari gambar pertama yang tersedia
-    const firstImg = heroEl.querySelector('.hero-slide img');
-    if (firstImg) {
-        if (firstImg.complete && firstImg.naturalWidth > 0) applyRatio(firstImg);
-        else firstImg.addEventListener('load', () => applyRatio(firstImg), { once: true });
-    }
-
-    // Ikuti resize (misal: rotasi layar)
-    window.addEventListener('resize', function () {
-        if (window.innerWidth > 768) {
-            heroEl.style.aspectRatio = '';   // kembalikan ke CSS desktop (100vh)
-        }
-        heroSwiper.update();
-    });
-})();
 
 // Berita & Potensi Swiper (Horizontal Scroll on Mobile)
 const commonSwiperConfig = {
