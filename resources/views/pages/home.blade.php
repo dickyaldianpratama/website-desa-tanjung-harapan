@@ -239,9 +239,13 @@
             @endif
             <div class="hero-overlay"></div>
             <div class="hero-content">
-                <div class="hero-ornament">Selamat Datang</div>
-                <h1 class="hero-title">{{ $slider->judul }}<br><span>{{ $settings['nama_desa'] ?? '' }}</span></h1>
-                @if($slider->subtitle)
+                @if(trim($slider->judul) !== '' || trim($slider->subtitle) !== '')
+                    <div class="hero-ornament">Selamat Datang</div>
+                @endif
+                @if(trim($slider->judul) !== '')
+                    <h1 class="hero-title">{{ $slider->judul }}<br><span>{{ $settings['nama_desa'] ?? '' }}</span></h1>
+                @endif
+                @if(trim($slider->subtitle) !== '')
                     <p class="hero-subtitle">{{ $slider->subtitle }}</p>
                 @endif
                 <div class="hero-buttons">

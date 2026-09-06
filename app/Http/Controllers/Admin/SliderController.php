@@ -46,12 +46,13 @@ class SliderController extends Controller
         $request->validate($rules);
 
         $data = $request->except('gambar');
+        $data['judul'] = $request->input('judul') ?? ' '; // Cegah null violation
+        $data['subtitle'] = $request->input('subtitle') ?? ' '; // Cegah null violation untuk subtitle juga
 
-        if ($tipe === 'gambar') {
-            $data['image_position'] = $request->input('image_position', '50% 50%');
-            $data['image_quality']  = $request->input('image_quality', 85);
-            $data['image_scale']    = $request->input('image_scale', 100);
-        }
+        // Simpan konfigurasi posisi/zoom baik untuk gambar maupun video
+        $data['image_position'] = $request->input('image_position', '50% 50%');
+        $data['image_quality']  = $request->input('image_quality', 85);
+        $data['image_scale']    = $request->input('image_scale', 100);
 
         if ($request->hasFile('gambar')) {
             if ($tipe === 'video') {
@@ -100,12 +101,13 @@ class SliderController extends Controller
         $request->validate($rules);
 
         $data = $request->except('gambar');
+        $data['judul'] = $request->input('judul') ?? ' '; // Cegah null violation
+        $data['subtitle'] = $request->input('subtitle') ?? ' '; // Cegah null violation untuk subtitle juga
 
-        if ($tipe === 'gambar') {
-            $data['image_position'] = $request->input('image_position', $slider->image_position ?? '50% 50%');
-            $data['image_quality']  = $request->input('image_quality', $slider->image_quality ?? 85);
-            $data['image_scale']    = $request->input('image_scale', $slider->image_scale ?? 100);
-        }
+        // Simpan konfigurasi posisi/zoom baik untuk gambar maupun video
+        $data['image_position'] = $request->input('image_position', $slider->image_position ?? '50% 50%');
+        $data['image_quality']  = $request->input('image_quality', $slider->image_quality ?? 85);
+        $data['image_scale']    = $request->input('image_scale', $slider->image_scale ?? 100);
 
         if ($request->hasFile('gambar')) {
             // Hapus file lama
