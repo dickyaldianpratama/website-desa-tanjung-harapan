@@ -128,57 +128,29 @@
 .signature-line { font-size:1.1rem; color:var(--coklat-tua); font-weight:700; margin-bottom:0; }
 
 /* ── TAMPILAN HP (MOBILE) ── */
-
-/* Elemen blur backdrop: disembunyikan di desktop */
-.hero-blur-bg { display: none; }
-
 @media (max-width: 768px) {
-    /* Slider = satu layar penuh */
+    /*  Tinggi diset JS sesuai rasio gambar → gambar tampil PENUH, tanpa crop, tanpa space.
+        Sebelum JS jalan, min-height memberi tinggi awal yang masuk akal. */
     .hero-swiper {
-        height: 100vh !important;
-        height: 100dvh !important;
-        min-height: 0 !important;
+        height: auto !important;
+        min-height: 280px !important;
         max-height: none !important;
     }
-
-    /*  ── BLURRED BACKDROP ──
-        .hero-blur-bg = gambar yang sama, di-cover + blur → mengisi seluruh slide.
-        Gambar utama (.hero-slide > img) tetap cover di atasnya, tapi contain
-        di mobile agar kelihatan seluruhnya.                                     */
-    .hero-blur-bg {
-        display: block;
-        position: absolute;
-        inset: -20px;                    /* sedikit overflow agar tepi blur hilang */
-        width: calc(100% + 40px);
-        height: calc(100% + 40px);
-        object-fit: cover;
-        filter: blur(22px);
-        opacity: .85;
-        z-index: 0;
-        transform: scale(1.05);
-    }
-    /* Gambar utama di atas blur, tampil penuh tanpa crop */
-    .hero-slide > img {
-        object-fit: contain !important;
+    /* Gambar tampil penuh cover — karena container sudah disesuaikan rasionya oleh JS */
+    .hero-slide img {
+        object-fit: cover !important;
         object-position: center !important;
-        z-index: 1;
-        /* reset inline transform dari admin setting — terlalu kecil jika discale */
-        transform: none !important;
+        transform: none !important;   /* hapus efek zoom dari admin setting di mobile */
     }
-
-    /* Overlay & konten di atas segalanya */
-    .hero-overlay { z-index: 2; }
+    /* Teks tetap di bawah gambar dengan gradient gelap */
     .hero-content {
-        z-index: 3;
-        justify-content: center;
-        padding-top: 72px;
-        padding-bottom: 1.5rem;
+        justify-content: flex-end;
+        padding-top: 72px;          /* minimal padding agar tidak nabrak navbar */
+        padding-bottom: 1.25rem;
     }
     .hero-title    { font-size: 1.75rem; }
     .hero-subtitle { font-size: .9rem; }
-    .hero-ornament { font-size: .75rem; letter-spacing: 5px; }
-
-
+    .hero-ornament { font-size: .8rem; letter-spacing: 5px; }
 
     /* Horizontal Scroll untuk Berita & Potensi */
     .news-scroll-mobile {
@@ -193,7 +165,6 @@
         max-width: 85%;
         scroll-snap-align: start;
     }
-    /* Sembunyikan scrollbar untuk tampilan lebih bersih */
     .news-scroll-mobile::-webkit-scrollbar { display: none; }
 }
 
@@ -236,11 +207,6 @@
                         <source src="{{ Storage::disk('s3')->url('images/sliders/'.$slider->gambar) }}">
                     </video>
                 @else
-                    {{-- Blur backdrop: hanya tampil di mobile, cover penuh, diblur --}}
-                    <img class="hero-blur-bg"
-                         src="{{ Storage::disk('s3')->url('images/sliders/'.$slider->gambar) }}"
-                         alt="" aria-hidden="true">
-                    {{-- Gambar utama: cover di desktop, contain di mobile (di atas blur) --}}
                     <img src="{{ Storage::disk('s3')->url('images/sliders/'.$slider->gambar) }}"
                          alt="{{ $slider->judul }}"
                          style="object-position:{{ $imgPos }};transform:scale({{ $imgScale }});transform-origin:{{ $imgPos }};">
@@ -458,20 +424,33 @@ const heroSwiper = new Swiper('.hero-swiper', {
     pagination: { el: '.swiper-pagination', clickable: true },
 });
 
-/* ── Blurred Backdrop (Mobile Only) ──
-   Set background-image pada tiap .hero-slide = URL gambar di dalamnya.
-   CSS ::before kemudian mewarisi background-image ini dan memblurnya. */
-if (window.innerWidth <= 768) {
-    document.querySelectorAll('.hero-slide img').forEach(function (img) {
-        const slide = img.closest('.hero-slide');
-        if (!slide) return;
-        function apply() {
-            slide.style.backgroundImage = "url('" + (img.currentSrc || img.src) + "')";
-        }
-        if (img.complete && img.naturalWidth > 0) apply();
-        else img.addEventListener('load', apply, { once: true });
+/* ── Auto-height slider di mobile ──
+   Tinggi container = lebar layar × (tinggi_alami / lebar_alami) gambar.
+   Hasilnya: rasio container = rasio gambar → object-fit:cover = full gambar, 0 crop.
+   Desktop tidak terpengaruh (inline style hanya di-set jika ≤ 768px).          */
+(function () {
+    if (window.innerWidth > 768) return;
+    var heroEl  = document.querySelector('.hero-swiper');
+    var firstImg = document.querySelector('.hero-slide img');
+    if (!heroEl || !firstImg) return;
+
+    function setHeight() {
+        if (!firstImg.naturalWidth) return;
+        var w = heroEl.offsetWidth || window.innerWidth;
+        var h = Math.round(w * firstImg.naturalHeight / firstImg.naturalWidth);
+        heroEl.style.height = h + 'px';
+        heroSwiper.update();
+    }
+
+    if (firstImg.complete && firstImg.naturalWidth > 0) setHeight();
+    else firstImg.addEventListener('load', setHeight, { once: true });
+
+    window.addEventListener('resize', function () {
+        if (window.innerWidth > 768) { heroEl.style.height = ''; }
+        else setHeight();
+        heroSwiper.update();
     });
-}
+})();
 
 // Berita & Potensi Swiper (Horizontal Scroll on Mobile)
 const commonSwiperConfig = {
