@@ -32,7 +32,7 @@
     <title>@yield('title', 'Beranda') | {{ $settings['nama_desa'] ?? 'Website Desa' }}</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
@@ -55,7 +55,7 @@
             padding: 0;
             width: 100%;
             overflow-x: hidden;
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-family: 'Poppins', sans-serif;
             background: var(--cream-light);
         }
         * { margin:0; padding:0; box-sizing:border-box; }
@@ -122,7 +122,7 @@
         .brand-text .sub  {
             font-size: .9rem;
             color: var(--gold-light);
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-family: 'Poppins', sans-serif;
             font-weight: 600;
             text-shadow: 0 1px 4px rgba(0,0,0,.4);
             letter-spacing: .3px;

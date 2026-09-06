@@ -13,7 +13,7 @@
     <link rel="shortcut icon" href="{{ asset('images/logo_desa.png') }}">
 
     <title>@yield('title', 'Dashboard') | Admin Panel</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     
@@ -33,7 +33,7 @@
             padding: 1.5rem;
             background: #f8fafc;
             min-height: 400px;
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-family: 'Poppins', sans-serif;
             color: #1e293b;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
@@ -116,7 +116,7 @@
             --gold-light:    {{ $activeTheme->warna_aksen }}cc;
         }
         @endif
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #f4f6f9; }
+        body { font-family: 'Poppins', sans-serif; background: #f4f6f9; }
 
         /* SIDEBAR */
         .sidebar {

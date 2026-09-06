@@ -4,7 +4,7 @@
 @push('styles')
 <style>
     /* Custom Modern Calendar */
-    .custom-calendar { font-family: 'Plus Jakarta Sans', sans-serif; background: #fff; border-radius: 12px; padding: 10px; width: 100%; }
+    .custom-calendar { font-family: 'Poppins', sans-serif; background: #fff; border-radius: 12px; padding: 10px; width: 100%; }
     .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; font-weight: 700; color: var(--coklat-tua); }
     .calendar-header button { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; width: 32px; height: 32px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.2s; color: var(--coklat-tua); }
     .calendar-header button:hover { background: var(--gold); color: #fff; border-color: var(--gold); }
