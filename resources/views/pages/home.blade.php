@@ -56,73 +56,72 @@
 .kades-photo-wrap {
     position: relative;
     display: inline-block;
-    padding: 10px;
-    margin-bottom: 1rem;
+    padding: 0;
+    margin-bottom: 2rem;
 }
-/* Modern offset frame */
+/* Modern thin elegant frame */
 .kades-photo-wrap::before {
     content: '';
     position: absolute;
-    inset: 15px 0 0 15px;
-    border: 2px solid var(--gold);
+    inset: -8px;
+    border: 1px solid rgba(201,150,58,0.4);
     border-radius: 20px;
     z-index: 0;
     transition: all 0.4s ease;
 }
-.kades-photo-wrap::after {
-    content: '';
-    position: absolute;
-    inset: 0 15px 15px 0;
-    background: linear-gradient(135deg, var(--gold-light) 0%, rgba(201,150,58,0.1) 100%);
-    border-radius: 20px;
-    z-index: 0;
-    opacity: 0.5;
-}
 .kades-photo-wrap:hover::before {
-    inset: 5px -5px -5px 5px;
+    inset: -12px;
+    border-color: var(--gold);
+    background: rgba(201,150,58,0.03);
 }
 .kades-photo { 
     width: 100%; 
-    max-width: 280px; 
+    max-width: 290px; 
     border-radius: 16px; 
-    box-shadow: 0 15px 35px rgba(61,31,10,.15); 
+    box-shadow: 0 15px 40px rgba(61,31,10,0.15); 
     object-fit: cover; 
-    height: 380px; 
+    height: 390px; 
     position: relative;
     z-index: 1;
+    border: 5px solid #ffffff;
 }
 .kades-photo-placeholder { 
-    width: 100%; max-width: 280px; height: 380px; border-radius: 16px; 
+    width: 100%; max-width: 290px; height: 390px; border-radius: 16px; 
     background: linear-gradient(135deg,var(--cream),var(--coklat-muda)); 
     display: flex; align-items: center; justify-content: center; 
-    font-size: 5rem; box-shadow: 0 15px 35px rgba(61,31,10,.15); 
+    font-size: 5rem; box-shadow: 0 15px 40px rgba(61,31,10,0.15); 
     position: relative; z-index: 1;
+    border: 5px solid #ffffff;
 }
 .kades-badge { 
     position: absolute; 
-    bottom: -5px; 
+    bottom: -20px; 
     left: 50%; 
     transform: translateX(-50%); 
-    background: linear-gradient(145deg, var(--coklat-tua), #1A0F05); 
-    color: #fff; 
-    padding: .8rem 2rem; 
-    border-radius: 50px; 
+    background: rgba(255, 255, 255, 0.95); 
+    backdrop-filter: blur(10px);
+    color: var(--teks-gelap); 
+    padding: 0.8rem 1.8rem; 
+    border-radius: 12px; 
     text-align: center; 
     white-space: nowrap; 
-    border: 1px solid rgba(201,150,58,0.4); 
-    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    border: 1px solid rgba(201,150,58,0.2); 
+    box-shadow: 0 12px 30px rgba(61,31,10,0.12);
     z-index: 2;
 }
 .kades-badge .jabatan {
-    font-size: .7rem;
-    color: var(--gold);
+    font-size: 0.75rem;
+    color: var(--coklat-tua);
     text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 2px;
+    letter-spacing: 3px;
+    margin-bottom: 4px;
+    font-weight: 800;
+    opacity: 0.7;
 }
 .kades-badge .nama {
-    font-size: 1rem;
-    font-weight: 700;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--coklat-tua);
 }
 .sambutan-quote { color:var(--teks-gelap); font-size:1.05rem; line-height:1.8; margin:1.5rem 0; }
 .signature-line { font-size:1.1rem; color:var(--coklat-tua); font-weight:700; margin-bottom:0; }
