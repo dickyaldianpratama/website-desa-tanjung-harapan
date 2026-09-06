@@ -129,32 +129,42 @@
 
 /* ── PERBAIKAN TAMPILAN HP (MOBILE) ── */
 @media (max-width: 768px) {
-    /* Mencegah Gambar Slider Terpotong di Layar HP */
-    .hero-swiper {
-        height: auto;           /* Tinggi otomatis menyesuaikan gambar */
-        min-height: 0;
-        max-height: none;
-    }
+    /* Biarkan gambar menentukan tinggi slider sendiri (auto-height)
+       Hasil: gambar tampil PENUH tanpa terpotong, tanpa space kosong */
+    .hero-swiper,
+    .swiper-wrapper,
     .hero-slide {
-        height: 100vw;          /* Persegi (1:1) — cocok untuk foto portrait/landscape */
-        max-height: 520px;
+        height: auto !important;
+        min-height: 0 !important;
+        max-height: none !important;
     }
-    .hero-slide img, .hero-slide video {
-        object-fit: contain !important;     /* Tampilkan SELURUH gambar tanpa terpotong */
-        object-position: center center !important;
-        background: var(--coklat-tua);      /* Isi area kosong dengan warna gelap */
+    /* Ubah gambar menjadi elemen flow biasa agar ia mendefinisikan tinggi slide */
+    .hero-slide img {
+        position: relative !important;
+        inset: auto !important;
+        display: block;
+        width: 100% !important;
+        height: auto !important;
+        object-fit: fill !important;   /* Gambar stretch penuh sesuai lebar layar */
     }
+    .hero-slide video {
+        position: relative !important;
+        inset: auto !important;
+        display: block;
+        width: 100% !important;
+        height: auto !important;
+    }
+    /* Overlay & konten tetap di atas gambar */
     .hero-overlay {
-        /* Gelapkan area bawah untuk teks, area atas biarkan transparan */
-        background: linear-gradient(to top, rgba(30,15,5,.95) 0%, rgba(61,31,10,.6) 40%, rgba(0,0,0,.1) 100%);
+        position: absolute;
+        background: linear-gradient(to top, rgba(30,15,5,.9) 0%, rgba(61,31,10,.4) 40%, rgba(0,0,0,.05) 100%);
     }
     .hero-content {
-        justify-content: flex-end;   /* Dorong teks ke bawah agar tidak menabrak gambar */
-        padding-bottom: 2.5rem;
+        position: absolute;
+        justify-content: flex-end;
+        padding-bottom: 2rem;
     }
-    .hero-title {
-        font-size: 1.8rem;
-    }
+    .hero-title { font-size: 1.8rem; }
 
     /* Horizontal Scroll untuk Berita & Potensi */
     .news-scroll-mobile {
@@ -427,6 +437,9 @@ const heroSwiper = new Swiper('.hero-swiper', {
     fadeEffect: { crossFade: false },
     navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
     pagination: { el: '.swiper-pagination', clickable: true },
+    autoHeight: true,   /* Tinggi slide otomatis mengikuti gambar di mobile */
+    observer: true,
+    observeParents: true,
 });
 
 // Berita & Potensi Swiper (Horizontal Scroll on Mobile)
