@@ -142,7 +142,7 @@
         box-shadow: 0 10px 30px rgba(0,0,0,0.15);
     }
     .hero-slide {
-        height: 57vw !important; /* Aspect ratio 16:9 murni agar video tidak terpotong sama sekali */
+        height: 70vw !important; /* Sedikit lebih tinggi agar ada jarak spasi yang lega antara teks dan tombol */
         background-color: var(--coklat-tua);
     }
     .hero-slide img, .hero-slide video {
@@ -150,10 +150,11 @@
         width: 100% !important;
         object-fit: cover !important;
     }
-    /* Teks dibuat sangat rapat agar muat di dalam card 16:9 yang pendek */
+    /* Teks dibuat sangat rapat agar muat di dalam card yang pendek */
     .hero-content {
         justify-content: center; /* Taruh di tengah agar tidak luber ke atas */
         padding: 1rem;
+        padding-bottom: 3.5rem; /* Beri ruang ekstra di bawah agar tidak nabrak tombol */
         text-align: left;
         align-items: flex-start;
     }
@@ -166,7 +167,7 @@
         border-radius: 8px; 
         background: rgba(0,0,0,0.5); 
         display: -webkit-box;
-        -webkit-line-clamp: 3;
+        -webkit-line-clamp: 2; /* Dibatasi maksimal 2 baris saja */
         -webkit-box-orient: vertical;
         overflow: hidden;
     }
