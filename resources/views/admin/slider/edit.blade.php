@@ -189,41 +189,21 @@ input[type=range].tool-range::-webkit-slider-thumb:hover {
                     </div>
 
                     @if($slider->gambar && ($slider->tipe_media ?? 'gambar') === 'gambar')
-                        {{-- Toggle Desktop / Mobile preview --}}
-                        <div class="preview-mode-toggle" id="previewToggle">
-                            <button type="button" class="preview-mode-btn active" id="btnDesktopPreview" onclick="setPreviewMode('desktop')">
-                                <i class="bi bi-display"></i> Desktop (16:9)
-                            </button>
-                            <button type="button" class="preview-mode-btn" id="btnMobilePreview" onclick="setPreviewMode('mobile')">
-                                <i class="bi bi-phone"></i> HP (9:16)
-                            </button>
-                        </div>
                         <div class="preview-wrap mb-2" id="previewWrapGambar">
                             <img id="imgPreview" src="{{ Storage::disk('s3')->url('images/sliders/' . $slider->gambar) }}" alt="Preview">
-                            <div class="preview-overlay"><span class="preview-label" id="previewModeLabel"><i class="bi bi-aspect-ratio me-1"></i>Preview Desktop</span></div>
                             <button type="button" class="preview-change-btn" onclick="document.getElementById('inputGambar').click()">
                                 <i class="bi bi-pencil-square"></i> Ganti
                             </button>
                         </div>
-                        <small class="text-muted d-block mb-1" style="font-size:.72rem;"><i class="bi bi-lightbulb me-1 text-warning"></i>Klik <strong>HP (9:16)</strong> untuk cek tampilan di layar mobile.</small>
+
                     @else
                         <div class="upload-zone mb-2" id="uploadZoneGambar" onclick="document.getElementById('inputGambar').click()">
                             <div class="upload-icon-wrap"><i class="bi bi-cloud-upload"></i></div>
                             <p class="fw-bold mb-0" style="color:#b07d20;">Klik atau seret gambar ke sini</p>
                             <p class="text-muted small mb-0">JPG · PNG · WEBP — Maks. 5 MB</p>
                         </div>
-                        {{-- Toggle Desktop / Mobile preview (shown after file picked) --}}
-                        <div class="preview-mode-toggle d-none" id="previewToggle">
-                            <button type="button" class="preview-mode-btn active" id="btnDesktopPreview" onclick="setPreviewMode('desktop')">
-                                <i class="bi bi-display"></i> Desktop (16:9)
-                            </button>
-                            <button type="button" class="preview-mode-btn" id="btnMobilePreview" onclick="setPreviewMode('mobile')">
-                                <i class="bi bi-phone"></i> HP (9:16)
-                            </button>
-                        </div>
                         <div class="preview-wrap mb-2 d-none" id="previewWrapGambar">
                             <img id="imgPreview" src="#" alt="Preview">
-                            <div class="preview-overlay"><span class="preview-label" id="previewModeLabel"><i class="bi bi-aspect-ratio me-1"></i>Preview Desktop</span></div>
                             <button type="button" class="preview-change-btn" onclick="document.getElementById('inputGambar').click()">
                                 <i class="bi bi-pencil-square"></i> Ganti
                             </button>

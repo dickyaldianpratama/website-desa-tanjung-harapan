@@ -267,7 +267,7 @@ input[type=range].tool-range::-webkit-slider-thumb {
                     </div>
                     <div class="preview-wrap mb-2 d-none" id="previewWrapGambar">
                         <img id="imgPreview" src="#" alt="Preview">
-                        <div class="preview-overlay"><span class="preview-label"><i class="bi bi-aspect-ratio me-1"></i>Preview 16:9</span></div>
+
                         <button type="button" class="preview-change-btn" onclick="document.getElementById('inputGambar').click()">
                             <i class="bi bi-pencil-square"></i> Ganti
                         </button>
