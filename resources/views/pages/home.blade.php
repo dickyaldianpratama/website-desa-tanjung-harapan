@@ -76,33 +76,33 @@
 }
 .kades-photo { 
     width: 100%; 
-    max-width: 290px; 
-    border-radius: 16px; 
+    max-width: 240px; 
+    border-radius: 14px; 
     box-shadow: 0 15px 40px rgba(61,31,10,0.15); 
     object-fit: cover; 
-    height: 390px; 
+    height: 320px; 
     position: relative;
     z-index: 1;
-    border: 5px solid #ffffff;
+    border: 4px solid #ffffff;
 }
 .kades-photo-placeholder { 
-    width: 100%; max-width: 290px; height: 390px; border-radius: 16px; 
+    width: 100%; max-width: 240px; height: 320px; border-radius: 14px; 
     background: linear-gradient(135deg,var(--cream),var(--coklat-muda)); 
     display: flex; align-items: center; justify-content: center; 
-    font-size: 5rem; box-shadow: 0 15px 40px rgba(61,31,10,0.15); 
+    font-size: 4rem; box-shadow: 0 15px 40px rgba(61,31,10,0.15); 
     position: relative; z-index: 1;
-    border: 5px solid #ffffff;
+    border: 4px solid #ffffff;
 }
 .kades-badge { 
     position: absolute; 
-    bottom: -20px; 
+    bottom: -15px; 
     left: 50%; 
     transform: translateX(-50%); 
     background: rgba(255, 255, 255, 0.95); 
     backdrop-filter: blur(10px);
     color: var(--teks-gelap); 
-    padding: 0.8rem 1.8rem; 
-    border-radius: 12px; 
+    padding: 0.6rem 1.4rem; 
+    border-radius: 10px; 
     text-align: center; 
     white-space: nowrap; 
     border: 1px solid rgba(201,150,58,0.2); 
@@ -110,16 +110,16 @@
     z-index: 2;
 }
 .kades-badge .jabatan {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
     color: var(--coklat-tua);
     text-transform: uppercase;
-    letter-spacing: 3px;
-    margin-bottom: 4px;
+    letter-spacing: 2px;
+    margin-bottom: 2px;
     font-weight: 800;
     opacity: 0.7;
 }
 .kades-badge .nama {
-    font-size: 1.15rem;
+    font-size: 1rem;
     font-weight: 800;
     color: var(--coklat-tua);
 }
