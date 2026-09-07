@@ -643,8 +643,48 @@
 <section class="section-spacing bg-light-cream">
     <div class="container">
         
-        <!-- White Card Wrapper -->
-        <div class="bg-white rounded-4 shadow-sm border p-4 p-md-5 mb-5" data-aos="fade-up">
+        <div class="row g-4 justify-content-center">
+            
+            <!-- Kolom Kiri: Widget Absensi -->
+            <div class="col-lg-4" data-aos="fade-up">
+                <div class="bg-white rounded-4 shadow-sm border p-4 h-100 d-flex flex-column">
+                    <div class="d-flex align-items-center gap-3 mb-4 border-bottom pb-3">
+                        <div class="bg-cream text-gold rounded-3 d-flex align-items-center justify-content-center shadow-sm" style="width: 50px; height: 50px;">
+                            <i class="bi bi-calendar2-check-fill fs-4"></i>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold text-coklat-tua mb-1">Absensi Hari Ini</h5>
+                            <p class="small text-muted mb-0">{{ \Carbon\Carbon::now()->translatedFormat('l, d F Y') }}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex flex-column gap-3 flex-grow-1">
+                        <div class="d-flex justify-content-between align-items-center p-3 border rounded-3 bg-light">
+                            <span class="fw-semibold text-success"><i class="bi bi-check-circle-fill me-2"></i>Hadir</span>
+                            <span class="badge bg-success rounded-pill px-3 py-2">12 Orang</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center p-3 border rounded-3 bg-light">
+                            <span class="fw-semibold text-warning text-dark"><i class="bi bi-exclamation-circle-fill me-2"></i>Izin / Sakit</span>
+                            <span class="badge bg-warning text-dark rounded-pill px-3 py-2">2 Orang</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center p-3 border rounded-3 bg-light">
+                            <span class="fw-semibold text-danger"><i class="bi bi-x-circle-fill me-2"></i>Tanpa Keterangan</span>
+                            <span class="badge bg-danger rounded-pill px-3 py-2">0 Orang</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 pt-3 border-top text-center mt-auto">
+                        <button type="button" class="btn btn-outline-gold rounded-pill btn-sm w-100 fw-bold" onclick="alert('Fitur rekap absensi harian akan segera hadir.')">
+                            <i class="bi bi-list-columns-reverse me-1"></i> Lihat Rekap Kehadiran
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kolom Kanan: Card Aparatur -->
+            <div class="col-lg-8">
+                <!-- White Card Wrapper -->
+                <div class="bg-white rounded-4 shadow-sm border p-4 p-md-5 mb-5 h-100" data-aos="fade-up" data-aos-delay="100">
             
             <!-- Header Section -->
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 border-bottom pb-3 gap-3">
@@ -759,17 +799,19 @@
                     @endforeach
                 </div>
             @endif
-        </div>
-        </div> <!-- End White Card Wrapper -->
+                </div> <!-- End White Card Wrapper -->
+            </div> <!-- End col-lg-8 -->
+        </div> <!-- End row -->
     </div>
 </section>
 
 {{-- 6. LEMBAGA DESA (PKK & BPD) --}}
 <section class="section-spacing bg-light-cream">
     <div class="container">
-        
-        <!-- White Card Wrapper -->
-        <div class="bg-white rounded-4 shadow-sm border p-4 p-md-5 mb-5" data-aos="fade-up">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 col-xl-9">
+                <!-- White Card Wrapper -->
+                <div class="bg-white rounded-4 shadow-sm border p-4 p-md-5 mb-5" data-aos="fade-up">
             
             <!-- Header Section -->
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 border-bottom pb-3 gap-3">
@@ -921,6 +963,8 @@
             </div>
         </div>
         </div> <!-- End White Card Wrapper -->
+            </div>
+        </div>
         @php 
             $baganLainnya = $bagans->reject(fn($b) => 
                 str_contains(strtolower($b->nama), 'perangkat') || 
