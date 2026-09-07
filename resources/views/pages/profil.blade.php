@@ -1028,18 +1028,21 @@
             // Options
         });
         const swiperConfig = {
-            slidesPerView: 1,
-            spaceBetween: 20,
-            loop: false,
+            effect: 'coverflow',
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: 'auto',
+            loop: true,
+            coverflowEffect: {
+                rotate: 0,
+                stretch: 0,
+                depth: 150,
+                modifier: 1.5,
+                slideShadows: false,
+            },
             autoplay: {
                 delay: 3000,
                 disableOnInteraction: false,
-            },
-            breakpoints: {
-                576: { slidesPerView: 2, spaceBetween: 20 },
-                768: { slidesPerView: 3, spaceBetween: 30 },
-                992: { slidesPerView: 4, spaceBetween: 30 },
-                1200: { slidesPerView: 5, spaceBetween: 30 }
             }
         };
 
@@ -1065,9 +1068,33 @@
     /* Fix Swiper Dots Overlap */
     .swiper {
         padding-bottom: 50px !important;
+        padding-top: 20px !important; /* Memberi ruang untuk shadow coverflow */
     }
     .swiper-pagination {
         bottom: 0 !important;
+    }
+    
+    /* Coverflow Slide Styling */
+    .perangkat-swiper .swiper-slide,
+    .bpd-swiper .swiper-slide,
+    .pkk-swiper .swiper-slide {
+        width: 280px; /* Fixed width for coverflow */
+        opacity: 0.6; /* Faded by default */
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    
+    @media (max-width: 576px) {
+        .perangkat-swiper .swiper-slide,
+        .bpd-swiper .swiper-slide,
+        .pkk-swiper .swiper-slide {
+            width: 240px; /* Smaller width for mobile */
+        }
+    }
+    
+    .perangkat-swiper .swiper-slide-active,
+    .bpd-swiper .swiper-slide-active,
+    .pkk-swiper .swiper-slide-active {
+        opacity: 1; /* Fully visible in center */
     }
     
     
