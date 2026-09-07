@@ -191,19 +191,19 @@
         transition: transform 0.3s ease, box-shadow 0.3s ease;
         position: relative;
         overflow: hidden;
-        height: 340px; /* default for mobile */
+        height: 250px; /* default for mobile */
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
     }
     @media (min-width: 768px) {
         .perangkat-slide-card {
-            height: 380px;
+            height: 280px;
         }
     }
     @media (min-width: 992px) {
         .perangkat-slide-card {
-            height: 440px; /* Taller on desktop */
+            height: 300px; /* Taller on desktop */
         }
     }
     .perangkat-slide-card img {
@@ -233,20 +233,20 @@
     .perangkat-slide-card .card-content {
         position: relative;
         z-index: 2;
-        padding: 2rem 1rem 1.5rem 1rem;
+        padding: 1.5rem 1rem 1rem 1rem;
         background: linear-gradient(to top, rgba(61, 31, 10, 0.95) 0%, rgba(61, 31, 10, 0.8) 50%, transparent 100%);
         color: white;
     }
     .perangkat-slide-card .card-content h5 {
         color: white !important;
-        font-size: 1.1rem;
+        font-size: 0.95rem;
         margin-bottom: 0.25rem;
         text-transform: uppercase;
         letter-spacing: 0.5px;
     }
     .perangkat-slide-card .card-content p {
         color: rgba(255, 255, 255, 0.85) !important;
-        font-size: 0.85rem;
+        font-size: 0.75rem;
         margin-bottom: 0;
     }
 
@@ -735,7 +735,7 @@
             <!-- Kolom Kanan: Card Aparatur -->
             <div class="col-lg-8" data-aos="fade-up" data-aos-delay="100">
                 <!-- White Card Wrapper -->
-                <div style="background: #fff; border-radius: 20px; box-shadow: 0 8px 32px rgba(0,0,0,.10); padding: 1.5rem 2rem; height: 100%; font-family: 'Poppins', sans-serif;">
+                <div style="background: #fff; border-radius: 20px; box-shadow: 0 8px 32px rgba(0,0,0,.10); padding: 1.25rem 1.5rem; height: 100%; font-family: 'Poppins', sans-serif;">
             
             <!-- Header Section -->
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 border-bottom pb-3 gap-3">
@@ -1409,7 +1409,7 @@ function muatDataKehadiran() {
     .perangkat-swiper .swiper-slide,
     .bpd-swiper .swiper-slide,
     .pkk-swiper .swiper-slide {
-        width: 320px; /* Fixed width for desktop */
+        width: 220px; /* Fixed width for desktop */
         opacity: 0.5; /* Faded by default */
         transition: opacity 0.3s ease, transform 0.3s ease;
     }
@@ -1418,14 +1418,14 @@ function muatDataKehadiran() {
         .perangkat-swiper .swiper-slide,
         .bpd-swiper .swiper-slide,
         .pkk-swiper .swiper-slide {
-            width: 280px; 
+            width: 200px; 
         }
     }
     @media (max-width: 576px) {
         .perangkat-swiper .swiper-slide,
         .bpd-swiper .swiper-slide,
         .pkk-swiper .swiper-slide {
-            width: 240px; 
+            width: 180px; 
         }
     }
     
