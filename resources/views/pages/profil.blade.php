@@ -647,7 +647,7 @@
             
             <!-- Kolom Kiri: Widget Absensi -->
             <div class="col-lg-4" data-aos="fade-up">
-                <div style="background: #fff; border-radius: 20px; box-shadow: 0 8px 32px rgba(0,0,0,.10); overflow: hidden; font-family: 'Poppins', sans-serif; height: 100%; display: flex; flex-direction: column;">
+                <div style="background: #fff; border-radius: 20px; box-shadow: 0 8px 32px rgba(0,0,0,.10); overflow: hidden; font-family: 'Poppins', sans-serif; display: flex; flex-direction: column;">
                     {{-- Header Coklat --}}
                     <div style="background: var(--coklat-tua); padding: 1.25rem 1.5rem; display:flex; align-items:center; gap:.9rem; flex-shrink: 0;">
                         <div style="width:44px;height:44px;background:rgba(255,255,255,.15);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
