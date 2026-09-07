@@ -13,7 +13,7 @@ use App\Http\Controllers\Admin\PotensiController as AdminPotensiController;
 use App\Http\Controllers\Admin\PerangkatController;
 use App\Http\Controllers\Admin\PengaduanController;
 use App\Http\Controllers\Admin\SettingController;
-use App\Http\Controllers\Admin\AbsensiController;
+
 
 // ═══════════════════════════════════════════
 //  PUBLIC ROUTES — Bebas diakses siapapun
@@ -62,18 +62,13 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::resource('bagan',         App\Http\Controllers\Admin\BaganStrukturController::class);
     Route::resource('fasilitas',     App\Http\Controllers\Admin\FasilitasController::class);
 
-    // Absensi Perangkat
-    Route::get('absensi',            [AbsensiController::class, 'index'])->name('absensi.index');
-    Route::post('absensi',           [AbsensiController::class, 'store'])->name('absensi.store');
-    Route::get('absensi/riwayat',    [AbsensiController::class, 'riwayat'])->name('absensi.riwayat');
 
     // Profile Account Settings
     Route::get('/profile', [App\Http\Controllers\Admin\ProfileController::class, 'index'])->name('profile.index');
     Route::put('/profile', [App\Http\Controllers\Admin\ProfileController::class, 'update'])->name('profile.update');
 });
 
-// Public API: data absensi hari ini (tanpa auth, untuk widget publik)
-Route::get('/data/absensi-hari-ini', [HomeController::class, 'absensiHariIni'])->name('api.absensi');
+
 
 // Breeze auth helper (hanya profile update, tidak dipakai di publik)
 require __DIR__.'/auth.php';
