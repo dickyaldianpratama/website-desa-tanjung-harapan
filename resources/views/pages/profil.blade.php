@@ -647,56 +647,108 @@
             
             <!-- Kolom Kiri: Widget Absensi -->
             <div class="col-lg-4" data-aos="fade-up">
-                <div class="bg-white rounded-4 shadow-sm border p-4 h-100 d-flex flex-column">
-                    <div class="d-flex align-items-center gap-3 mb-4 border-bottom pb-3">
-                        <div class="bg-cream text-gold rounded-3 d-flex align-items-center justify-content-center shadow-sm" style="width: 50px; height: 50px;">
-                            <i class="bi bi-calendar2-check-fill fs-4"></i>
+                <div style="background: #fff; border-radius: 20px; box-shadow: 0 8px 32px rgba(0,0,0,.10); overflow: hidden; font-family: 'Poppins', sans-serif; height: 100%; display: flex; flex-direction: column;">
+                    {{-- Header Merah --}}
+                    <div style="background: linear-gradient(135deg, #c0392b 0%, #96281b 100%); padding: 1.25rem 1.5rem; display:flex; align-items:center; gap:.9rem; flex-shrink: 0;">
+                        <div style="width:44px;height:44px;background:rgba(255,255,255,.15);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                            <i class="bi bi-briefcase-fill" style="color:#fff;font-size:1.3rem"></i>
                         </div>
                         <div>
-                            <h5 class="fw-bold text-coklat-tua mb-1">Absensi Hari Ini</h5>
-                            <p class="small text-muted mb-0">{{ \Carbon\Carbon::now()->translatedFormat('l, d F Y') }}</p>
+                            <div style="font-weight:700;color:#fff;font-size:1.05rem;line-height:1.2">Jam Kerja</div>
+                            <div style="color:rgba(255,255,255,.75);font-size:.8rem">Jadwal layanan kantor</div>
                         </div>
                     </div>
-                    
-                    <div class="d-flex flex-column gap-3 flex-grow-1">
-                        <div class="d-flex justify-content-between align-items-center p-3 border rounded-3 bg-light">
-                            <span class="fw-semibold text-success"><i class="bi bi-check-circle-fill me-2"></i>Hadir</span>
-                            <span class="badge bg-success rounded-pill px-3 py-2">12 Orang</span>
+
+                    {{-- Daftar Hari --}}
+                    @php
+                        $today = now()->locale('id')->dayOfWeek;
+                        $jamKerja = [
+                            ['hari' => 'Senin',  'masuk' => '08:00', 'pulang' => '14:00', 'libur' => false, 'dow' => 1],
+                            ['hari' => 'Selasa', 'masuk' => '08:00', 'pulang' => '14:00', 'libur' => false, 'dow' => 2],
+                            ['hari' => 'Rabu',   'masuk' => '08:00', 'pulang' => '14:00', 'libur' => false, 'dow' => 3],
+                            ['hari' => 'Kamis',  'masuk' => '08:00', 'pulang' => '14:00', 'libur' => false, 'dow' => 4],
+                            ['hari' => 'Jumat',  'masuk' => '08:00', 'pulang' => '13:00', 'libur' => false, 'dow' => 5],
+                            ['hari' => 'Sabtu',  'masuk' => null,    'pulang' => null,    'libur' => true,  'dow' => 6],
+                            ['hari' => 'Minggu', 'masuk' => null,    'pulang' => null,    'libur' => true,  'dow' => 0],
+                        ];
+                    @endphp
+                    <div style="padding: .5rem 0; flex-grow: 1;">
+                        @foreach($jamKerja as $jk)
+                        @php $isToday = ($today == $jk['dow']); @endphp
+                        <div style="
+                            display:flex; align-items:center; justify-content:space-between;
+                            padding: .7rem 1.5rem;
+                            background: {{ $isToday ? 'linear-gradient(90deg,#fff5f5,#fff)' : 'transparent' }};
+                            border-left: {{ $isToday ? '3px solid #c0392b' : '3px solid transparent' }};
+                            transition: background .2s;
+                        ">
+                            <div style="display:flex;align-items:center;gap:.6rem">
+                                @if($isToday)
+                                    <span style="width:8px;height:8px;background:#c0392b;border-radius:50%;display:inline-block;flex-shrink:0"></span>
+                                @else
+                                    <span style="width:8px;height:8px;background:transparent;display:inline-block;flex-shrink:0"></span>
+                                @endif
+                                <span style="font-weight:{{ $isToday ? '700' : '500' }};color:{{ $jk['libur'] ? '#adb5bd' : '#2d3748' }};font-size:.9rem">
+                                    {{ $jk['hari'] }}
+                                </span>
+                            </div>
+                            @if($jk['libur'])
+                                <span style="background:#e2e8f0;color:#718096;border-radius:20px;padding:.25rem .85rem;font-size:.78rem;font-weight:600">
+                                    🌙 Libur
+                                </span>
+                            @else
+                                <div style="display:flex;align-items:center;gap:.5rem">
+                                    <span style="background:#e6f9f0;color:#15803d;border-radius:20px;padding:.25rem .7rem;font-size:.78rem;font-weight:600;display:inline-flex;align-items:center;gap:.25rem">
+                                        <i class="bi bi-box-arrow-in-right" style="font-size:.75rem"></i> {{ $jk['masuk'] }}
+                                    </span>
+                                    <span style="color:#adb5bd;font-size:.8rem">—</span>
+                                    <span style="background:#fff3e0;color:#c05621;border-radius:20px;padding:.25rem .7rem;font-size:.78rem;font-weight:600;display:inline-flex;align-items:center;gap:.25rem">
+                                        <i class="bi bi-box-arrow-right" style="font-size:.75rem"></i> {{ $jk['pulang'] }}
+                                    </span>
+                                </div>
+                            @endif
                         </div>
-                        <div class="d-flex justify-content-between align-items-center p-3 border rounded-3 bg-light">
-                            <span class="fw-semibold text-warning text-dark"><i class="bi bi-exclamation-circle-fill me-2"></i>Izin / Sakit</span>
-                            <span class="badge bg-warning text-dark rounded-pill px-3 py-2">2 Orang</span>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center p-3 border rounded-3 bg-light">
-                            <span class="fw-semibold text-danger"><i class="bi bi-x-circle-fill me-2"></i>Tanpa Keterangan</span>
-                            <span class="badge bg-danger rounded-pill px-3 py-2">0 Orang</span>
-                        </div>
+                        @endforeach
                     </div>
-                    
-                    <div class="mt-4 pt-3 border-top text-center mt-auto">
-                        <button type="button" class="btn btn-outline-gold rounded-pill btn-sm w-100 fw-bold" onclick="alert('Fitur rekap absensi harian akan segera hadir.')">
-                            <i class="bi bi-list-columns-reverse me-1"></i> Lihat Rekap Kehadiran
+
+                    {{-- Footer Card --}}
+                    <div style="padding: .9rem 1.5rem; display:flex; justify-content:space-between; align-items:center; border-top: 1px solid #f1f5f9; flex-shrink: 0;">
+                        <span style="font-size:.78rem;color:#94a3b8;display:flex;align-items:center;gap:.4rem">
+                            <i class="bi bi-info-circle" style="color:#c0392b"></i>
+                            Layanan sesuai jam kerja
+                        </span>
+                        <button onclick="bukaModalKehadiran()" style="
+                            background: linear-gradient(135deg,#c0392b,#96281b);
+                            color:#fff; border:none; border-radius:20px;
+                            padding:.4rem 1.1rem; font-size:.82rem; font-weight:700;
+                            font-family:'Poppins',sans-serif;
+                            cursor:pointer; display:inline-flex; align-items:center; gap:.4rem;
+                            box-shadow: 0 4px 12px rgba(192,57,43,.3);
+                            transition: all .2s;
+                        " onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform='none'">
+                            <i class="bi bi-clipboard2-check-fill"></i> Kehadiran
                         </button>
                     </div>
                 </div>
             </div>
 
             <!-- Kolom Kanan: Card Aparatur -->
-            <div class="col-lg-8">
+            <div class="col-lg-8" data-aos="fade-up" data-aos-delay="100">
                 <!-- White Card Wrapper -->
-                <div class="bg-white rounded-4 shadow-sm border p-4 p-md-5 mb-5 h-100" data-aos="fade-up" data-aos-delay="100">
+                <div style="background: #fff; border-radius: 20px; box-shadow: 0 8px 32px rgba(0,0,0,.10); overflow: hidden; padding: 1.5rem 2rem; height: 100%; display: flex; flex-direction: column; font-family: 'Poppins', sans-serif;">
             
             <!-- Header Section -->
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 border-bottom pb-3 gap-3">
                 <div class="d-flex align-items-center gap-3">
-                    <div class="rounded-4 d-flex align-items-center justify-content-center shadow-sm" style="width: 65px; height: 65px; background: rgba(61, 31, 10, 0.85); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1);">
-                        <img src="{{ asset('images/icons/gov.png') }}" alt="Icon Aparatur" class="img-fluid" style="width: 75%; height: 75%; object-fit: contain; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));">
+                    <div style="width:50px;height:50px;background:linear-gradient(135deg, #c0392b 0%, #96281b 100%);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                        <i class="bi bi-people-fill" style="color:#fff;font-size:1.5rem"></i>
                     </div>
                     <div>
-                        <h4 class="fw-bold text-coklat-tua mb-1">Aparatur Desa</h4>
-                        <p class="text-muted small mb-0">Perangkat yang melayani masyarakat</p>
+                        <div style="font-weight:700;font-size:1.1rem;line-height:1.2;color:#1e293b">Aparatur Desa</div>
+                        <div style="color:#94a3b8;font-size:.85rem">Perangkat yang melayani masyarakat</div>
                     </div>
                 </div>
+                <a href="{{ route('pemerintahan') ?? '#' }}" style="color:#c0392b;font-weight:600;font-size:.9rem;text-decoration:none">Lihat Semua <i class="bi bi-arrow-right"></i></a>
             </div>
 
             <div class="swiper perangkat-swiper" data-aos="fade-up" data-aos-delay="100">
@@ -1134,9 +1186,163 @@
     </div>
 </section>
 
+{{-- ── MODAL KEHADIRAN PERANGKAT ── --}}
+<div id="modal-kehadiran" style="
+    display:none; position:fixed; inset:0; z-index:9999;
+    background:rgba(0,0,0,.5); backdrop-filter:blur(3px);
+    align-items:center; justify-content:center; padding:1rem;
+    font-family:'Poppins',sans-serif;
+" onclick="if(event.target===this) tutupModalKehadiran()">
+    <div style="
+        background:#fff; border-radius:20px;
+        width:100%; max-width:480px;
+        max-height:90vh; overflow:hidden;
+        box-shadow: 0 25px 60px rgba(0,0,0,.25);
+        display:flex; flex-direction:column;
+        animation: modalSlideUp .3s ease;
+    ">
+        {{-- Modal Header --}}
+        <div style="background:linear-gradient(135deg,#c0392b 0%,#96281b 100%);padding:1.1rem 1.4rem;display:flex;align-items:center;justify-content:space-between;flex-shrink:0">
+            <div style="display:flex;align-items:center;gap:.75rem">
+                <div style="width:38px;height:38px;background:rgba(255,255,255,.2);border-radius:10px;display:flex;align-items:center;justify-content:center">
+                    <i class="bi bi-clipboard2-check-fill" style="color:#fff;font-size:1.1rem"></i>
+                </div>
+                <div>
+                    <div style="font-weight:700;color:#fff;font-size:1rem;line-height:1.2">Kehadiran Perangkat</div>
+                    <div style="color:rgba(255,255,255,.75);font-size:.75rem" id="modal-tanggal">Memuat...</div>
+                </div>
+            </div>
+            <div style="display:flex;gap:.5rem;align-items:center">
+                <button onclick="muatDataKehadiran()" title="Refresh" style="width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.15);border:none;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s" onmouseover="this.style.background='rgba(255,255,255,.25)'" onmouseout="this.style.background='rgba(255,255,255,.15)'">
+                    <i class="bi bi-arrow-clockwise" id="icon-refresh"></i>
+                </button>
+                <button onclick="tutupModalKehadiran()" style="width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.15);border:none;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s" onmouseover="this.style.background='rgba(255,255,255,.25)'" onmouseout="this.style.background='rgba(255,255,255,.15)'">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+        </div>
+
+        {{-- Statistik --}}
+        <div id="modal-stat" style="display:flex;border-bottom:1px solid #f1f5f9;flex-shrink:0">
+            <div style="flex:1;text-align:center;padding:.9rem .5rem;border-right:1px solid #f1f5f9">
+                <div style="font-size:1.8rem;font-weight:800;color:#16a34a;line-height:1" id="stat-hadir">-</div>
+                <div style="font-size:.7rem;font-weight:700;color:#16a34a;text-transform:uppercase;letter-spacing:1px">Hadir</div>
+            </div>
+            <div style="flex:1;text-align:center;padding:.9rem .5rem;border-right:1px solid #f1f5f9">
+                <div style="font-size:1.8rem;font-weight:800;color:#d97706;line-height:1" id="stat-izin">-</div>
+                <div style="font-size:.7rem;font-weight:700;color:#d97706;text-transform:uppercase;letter-spacing:1px">Izin</div>
+            </div>
+            <div style="flex:1;text-align:center;padding:.9rem .5rem">
+                <div style="font-size:1.8rem;font-weight:800;color:#64748b;line-height:1" id="stat-belum">-</div>
+                <div style="font-size:.7rem;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:1px">Belum</div>
+            </div>
+        </div>
+
+        {{-- Daftar Perangkat --}}
+        <div id="modal-list" style="overflow-y:auto;flex:1;padding:.5rem 0">
+            <div style="text-align:center;padding:2rem;color:#94a3b8">
+                <div class="spinner-border spinner-border-sm" role="status"></div>
+                <div style="margin-top:.5rem;font-size:.85rem">Memuat data...</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+@keyframes modalSlideUp {
+    from { opacity: 0; transform: translateY(30px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+#modal-list::-webkit-scrollbar { width: 4px; }
+#modal-list::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
+</style>
+
 @endsection
 
 @push('scripts')
+<script>
+// ── MODAL KEHADIRAN PERANGKAT ──
+const API_ABSENSI_URL = '{{ route("api.absensi") }}';
+
+function bukaModalKehadiran() {
+    const modal = document.getElementById('modal-kehadiran');
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    muatDataKehadiran();
+}
+
+function tutupModalKehadiran() {
+    document.getElementById('modal-kehadiran').style.display = 'none';
+    document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') tutupModalKehadiran(); });
+
+function muatDataKehadiran() {
+    const iconRefresh = document.getElementById('icon-refresh');
+    iconRefresh.style.animation = 'spin 1s linear infinite';
+    document.getElementById('modal-list').innerHTML = `
+        <div style="text-align:center;padding:2rem;color:#94a3b8">
+            <div class="spinner-border spinner-border-sm" role="status"></div>
+            <div style="margin-top:.5rem;font-size:.85rem">Memuat data...</div>
+        </div>`;
+
+    fetch(API_ABSENSI_URL)
+        .then(r => r.json())
+        .then(res => {
+            iconRefresh.style.animation = '';
+            document.getElementById('modal-tanggal').textContent = res.tanggal || '';
+            document.getElementById('stat-hadir').textContent = res.hadir ?? 0;
+            document.getElementById('stat-izin').textContent  = res.izin  ?? 0;
+            document.getElementById('stat-belum').textContent = res.belum ?? 0;
+
+            if (!res.data || res.data.length === 0) {
+                document.getElementById('modal-list').innerHTML = `
+                    <div style="text-align:center;padding:2rem;color:#94a3b8;font-size:.9rem">
+                        <i class="bi bi-inbox" style="font-size:2rem;display:block;margin-bottom:.5rem"></i>
+                        Belum ada data perangkat
+                    </div>`;
+                return;
+            }
+
+            const statusIcon = {
+                hadir: `<div style="width:28px;height:28px;background:#dcfce7;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="bi bi-check-circle-fill" style="color:#16a34a;font-size:.85rem"></i></div>`,
+                izin:  `<div style="width:28px;height:28px;background:#fef3c7;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="bi bi-info-circle-fill" style="color:#d97706;font-size:.85rem"></i></div>`,
+                belum: `<div style="width:28px;height:28px;background:#f1f5f9;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="bi bi-dash-circle-fill" style="color:#94a3b8;font-size:.85rem"></i></div>`,
+            };
+
+            let html = '';
+            res.data.forEach(p => {
+                const inisial = p.nama.charAt(0).toUpperCase();
+                const fotoHtml = p.foto
+                    ? `<img src="${p.foto}" alt="${p.nama}"
+                           style="width:42px;height:42px;border-radius:50%;object-fit:cover;border:2px solid #f1f5f9;flex-shrink:0"
+                           onerror="this.outerHTML='<div style=\'width:42px;height:42px;border-radius:50%;background:#fee2e2;color:#c0392b;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;flex-shrink:0\'>${inisial}</div>'">`
+                    : `<div style="width:42px;height:42px;border-radius:50%;background:#fee2e2;color:#c0392b;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;flex-shrink:0">${inisial}</div>`;
+
+                html += `
+                <div style="display:flex;align-items:center;gap:.85rem;padding:.7rem 1.25rem;border-bottom:1px solid #f8fafc">
+                    ${fotoHtml}
+                    <div style="flex:1;min-width:0">
+                        <div style="font-weight:700;font-size:.88rem;color:#1e293b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${p.nama}</div>
+                        <div style="font-size:.75rem;color:#94a3b8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${p.jabatan}</div>
+                    </div>
+                    ${statusIcon[p.status] || statusIcon.belum}
+                </div>`;
+            });
+
+            document.getElementById('modal-list').innerHTML = html;
+        })
+        .catch(() => {
+            iconRefresh.style.animation = '';
+            document.getElementById('modal-list').innerHTML = `
+                <div style="text-align:center;padding:2rem;color:#ef4444;font-size:.9rem">
+                    <i class="bi bi-exclamation-triangle" style="font-size:2rem;display:block;margin-bottom:.5rem"></i>
+                    Gagal memuat data. Silakan coba lagi.
+                </div>`;
+        });
+}
+</script>
 <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
