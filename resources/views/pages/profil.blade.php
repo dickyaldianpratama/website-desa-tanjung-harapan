@@ -87,12 +87,6 @@
     
     .kades-card-profil {
         background-color: var(--putih);
-        background-image: 
-            linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)),
-            url('{{ asset("images/".($settings["logo_desa"] ?? "logo_desa.png")) }}');
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover, 75%;
         border-radius: 16px;
         padding: 2rem;
         text-align: center;
@@ -103,6 +97,24 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        position: relative;
+        overflow: hidden;
+    }
+    .kades-card-profil::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: url('{{ asset("images/".($settings["logo_desa"] ?? "logo_desa.png")) }}');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 75%;
+        opacity: 0.35;
+        z-index: 0;
+        pointer-events: none;
+    }
+    .kades-card-profil > * {
+        position: relative;
+        z-index: 1;
     }
     .kades-card-profil img {
         width: 150px;
