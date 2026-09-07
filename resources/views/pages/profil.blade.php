@@ -104,7 +104,7 @@
         position: relative;
         z-index: 1;
     }
-    .kades-card-profil img {
+    .kades-card-profil .kades-photo-img {
         width: 150px;
         height: 150px;
         border-radius: 50%;
@@ -474,25 +474,33 @@
             
             <div class="col-lg-3 col-md-12" data-aos="fade-left" data-aos-delay="200">
                 <div class="kades-card-profil">
-                    <img src="{{ asset('images/'.($settings['logo_desa'] ?? 'logo_desa.png')) }}" alt="Watermark" class="position-absolute top-50 start-50 translate-middle" style="width: 220px; opacity: 0.4; pointer-events: none; z-index: 0;">
-                    <p class="text-muted fw-bold mb-4" style="letter-spacing: 1px; z-index: 1;"><i class="bi bi-person-badge text-gold me-2"></i>Kepala Desa</p>
-                    
-                    @php 
-                        $fotoKades = $kades && $kades->foto ? 'perangkat/'.$kades->foto : ($settings['foto_kades'] ?? 'perangkat/kades.jpg');
-                        $namaKades = $kades ? $kades->nama : ($settings['nama_kades'] ?? 'Saripudin, S.Pd.I');
-                        $jabatanKades = $kades ? $kades->jabatan : ($settings['jabatan_kades'] ?? 'Kepala Desa');
-                    @endphp
-                    
-                    @if($kades && $kades->foto)
-                        <img src="{{ Storage::disk('s3')->url('images/perangkat/' . $kades->foto) }}" alt="Foto Kades">
-                    @elseif(isset($settings['foto_kades']) && $settings['foto_kades'])
-                        <img src="{{ asset('images/'.$settings['foto_kades']) }}" alt="Foto Kades">
-                    @else
-                        <img src="{{ Storage::disk('s3')->url('images/perangkat/kades.jpg') }}" alt="Foto Kades" onerror="this.src='https://ui-avatars.com/api/?name=Kades&background=C9963A&color=fff&size=150'">
-                    @endif
-                    
-                    <h5 class="fw-bold text-coklat-tua mb-1">{{ $namaKades }}</h5>
-                    <span class="badge bg-cream px-3 py-2 mt-2 rounded-pill" style="color: var(--coklat-tua) !important;">{{ $jabatanKades }} {{ $settings['nama_desa'] ?? 'Tanjung Harapan' }}</span>
+                    <!-- Logo Desa (sebagai objek di balik kaca) -->
+                    <img src="{{ asset('images/'.($settings['logo_desa'] ?? 'logo_desa.png')) }}" alt="Watermark" class="position-absolute top-50 start-50 translate-middle" style="width: 220px; opacity: 0.65; pointer-events: none; z-index: 0;">
+
+                    <!-- Layer Kaca (Glassmorphism Effect) -->
+                    <div class="position-absolute w-100 h-100 top-0 start-0" style="background: linear-gradient(135deg, rgba(255,255,255,0.45), rgba(255,255,255,0.15)); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); z-index: 1;"></div>
+
+                    <!-- Konten -->
+                    <div class="position-relative w-100" style="z-index: 2;">
+                        <p class="text-muted fw-bold mb-4" style="letter-spacing: 1px;"><i class="bi bi-person-badge text-gold me-2"></i>Kepala Desa</p>
+                        
+                        @php 
+                            $fotoKades = $kades && $kades->foto ? 'perangkat/'.$kades->foto : ($settings['foto_kades'] ?? 'perangkat/kades.jpg');
+                            $namaKades = $kades ? $kades->nama : ($settings['nama_kades'] ?? 'Saripudin, S.Pd.I');
+                            $jabatanKades = $kades ? $kades->jabatan : ($settings['jabatan_kades'] ?? 'Kepala Desa');
+                        @endphp
+                        
+                        @if($kades && $kades->foto)
+                            <img src="{{ Storage::disk('s3')->url('images/perangkat/' . $kades->foto) }}" alt="Foto Kades" class="kades-photo-img">
+                        @elseif(isset($settings['foto_kades']) && $settings['foto_kades'])
+                            <img src="{{ asset('images/'.$settings['foto_kades']) }}" alt="Foto Kades" class="kades-photo-img">
+                        @else
+                            <img src="{{ Storage::disk('s3')->url('images/perangkat/kades.jpg') }}" alt="Foto Kades" class="kades-photo-img" onerror="this.src='https://ui-avatars.com/api/?name=Kades&background=C9963A&color=fff&size=150'">
+                        @endif
+                        
+                        <h5 class="fw-bold text-coklat-tua mb-1">{{ $namaKades }}</h5>
+                        <span class="badge bg-cream px-3 py-2 mt-2 rounded-pill" style="color: var(--coklat-tua) !important;">{{ $jabatanKades }} {{ $settings['nama_desa'] ?? 'Tanjung Harapan' }}</span>
+                    </div>
                 </div>
             </div>
         </div>
