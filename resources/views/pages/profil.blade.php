@@ -183,39 +183,61 @@
         padding-bottom: 4rem;
     }
     .perangkat-slide-card {
-        background: var(--putih);
+        background: var(--cream);
         border-radius: 16px;
-        padding: 2rem 1.5rem;
         text-align: center;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        border: 1px solid rgba(0,0,0,0.05);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        border: none;
         transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .perangkat-slide-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-        border-color: rgba(201,150,58,0.3);
+        position: relative;
+        overflow: hidden;
+        height: 360px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
     }
     .perangkat-slide-card img {
-        width: 120px;
-        height: 120px;
-        border-radius: 50%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
         object-fit: cover;
-        margin: 0 auto 1.5rem;
-        border: 3px solid var(--gold);
+        object-position: top center;
+        z-index: 0;
     }
     .perangkat-slide-card .placeholder {
-        width: 120px;
-        height: 120px;
-        border-radius: 50%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
         background: var(--cream);
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 3rem;
-        margin: 0 auto 1.5rem;
-        border: 3px solid var(--gold);
-        color: var(--coklat-muda);
+        font-size: 5rem;
+        color: #d8c3a5;
+        z-index: 0;
+    }
+    .perangkat-slide-card .card-content {
+        position: relative;
+        z-index: 2;
+        padding: 2rem 1rem 1.5rem 1rem;
+        background: linear-gradient(to top, rgba(61, 31, 10, 0.95) 0%, rgba(61, 31, 10, 0.8) 50%, transparent 100%);
+        color: white;
+    }
+    .perangkat-slide-card .card-content h5 {
+        color: white !important;
+        font-size: 1.1rem;
+        margin-bottom: 0.25rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    .perangkat-slide-card .card-content p {
+        color: rgba(255, 255, 255, 0.85) !important;
+        font-size: 0.85rem;
+        margin-bottom: 0;
     }
 
     /* KEPEMIMPINAN TIMELINE */
@@ -608,14 +630,26 @@
 </section>
 
 {{-- 5. PERANGKAT DESA (SWIPER CAROUSEL) --}}
-<section class="section-spacing">
+<section class="section-spacing bg-light-cream">
     <div class="container">
-        <div class="text-center mb-5" data-aos="fade-up">
-            <h2 class="font-serif fw-bold text-coklat-tua">Perangkat Desa</h2>
-            <p class="text-muted d-flex justify-content-center align-items-center gap-2"><i class="bi bi-people-fill text-gold"></i> Aparatur pemerintahan yang siap melayani masyarakat</p>
-        </div>
+        
+        <!-- White Card Wrapper -->
+        <div class="bg-white rounded-4 shadow-sm border p-4 p-md-5 mb-5" data-aos="fade-up">
+            
+            <!-- Header Section -->
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 border-bottom pb-3 gap-3">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="bg-coklat-tua text-white rounded-3 d-flex align-items-center justify-content-center shadow-sm" style="width: 55px; height: 55px;">
+                        <i class="bi bi-people-fill fs-3"></i>
+                    </div>
+                    <div>
+                        <h4 class="fw-bold text-coklat-tua mb-1">Aparatur Desa</h4>
+                        <p class="text-muted small mb-0">Perangkat yang melayani masyarakat</p>
+                    </div>
+                </div>
+            </div>
 
-        <div class="swiper perangkat-swiper" data-aos="fade-up" data-aos-delay="100">
+            <div class="swiper perangkat-swiper" data-aos="fade-up" data-aos-delay="100">
             <div class="swiper-wrapper">
                 @forelse($perangkats as $perangkat)
                     <div class="swiper-slide">
@@ -625,8 +659,10 @@
                             @else
                                 <div class="placeholder">👤</div>
                             @endif
-                            <h5 class="fw-bold text-coklat-tua mb-1" style="font-size: 1.1rem;">{{ $perangkat->nama }}</h5>
-                            <p class="text-secondary small mb-0">{{ $perangkat->jabatan }}</p>
+                            <div class="card-content">
+                                <h5 class="fw-bold mb-1">{{ $perangkat->nama }}</h5>
+                                <p class="small mb-0">{{ $perangkat->jabatan }}</p>
+                            </div>
                         </div>
                     </div>
                 @empty
@@ -634,36 +670,46 @@
                     <div class="swiper-slide">
                         <div class="perangkat-slide-card">
                             <div class="placeholder">👤</div>
-                            <h5 class="fw-bold text-coklat-tua mb-1 text-uppercase" style="font-size: 1.1rem;">SUPANDI, S. SI, M. SI</h5>
-                            <p class="text-secondary small mb-0">Kaur Umum dan Perencanaan</p>
+                            <div class="card-content">
+                                <h5 class="fw-bold mb-1">SUPANDI, S. SI, M. SI</h5>
+                                <p class="small mb-0">Kaur Umum dan Perencanaan</p>
+                            </div>
                         </div>
                     </div>
                     <div class="swiper-slide">
                         <div class="perangkat-slide-card">
                             <div class="placeholder">👤</div>
-                            <h5 class="fw-bold text-coklat-tua mb-1 text-uppercase" style="font-size: 1.1rem;">SUPRIADI</h5>
-                            <p class="text-secondary small mb-0">Kadus I Manunggal Jaya</p>
+                            <div class="card-content">
+                                <h5 class="fw-bold mb-1">SUPRIADI</h5>
+                                <p class="small mb-0">Kadus I Manunggal Jaya</p>
+                            </div>
                         </div>
                     </div>
                     <div class="swiper-slide">
                         <div class="perangkat-slide-card">
                             <div class="placeholder">👤</div>
-                            <h5 class="fw-bold text-coklat-tua mb-1 text-uppercase" style="font-size: 1.1rem;">MAY MAYANTIKA, S.K.M</h5>
-                            <p class="text-secondary small mb-0">Kadus IV Maju Jaya</p>
+                            <div class="card-content">
+                                <h5 class="fw-bold mb-1">MAY MAYANTIKA, S.K.M</h5>
+                                <p class="small mb-0">Kadus IV Maju Jaya</p>
+                            </div>
                         </div>
                     </div>
                     <div class="swiper-slide">
                         <div class="perangkat-slide-card">
                             <div class="placeholder">👤</div>
-                            <h5 class="fw-bold text-coklat-tua mb-1 text-uppercase" style="font-size: 1.1rem;">ZARIMA, A,Md</h5>
-                            <p class="text-secondary small mb-0">Kadus II Dusun Mekar Jaya</p>
+                            <div class="card-content">
+                                <h5 class="fw-bold mb-1">ZARIMA, A,Md</h5>
+                                <p class="small mb-0">Kadus II Dusun Mekar Jaya</p>
+                            </div>
                         </div>
                     </div>
                     <div class="swiper-slide">
                         <div class="perangkat-slide-card">
                             <div class="placeholder">👤</div>
-                            <h5 class="fw-bold text-coklat-tua mb-1 text-uppercase" style="font-size: 1.1rem;">SUMARDI</h5>
-                            <p class="text-secondary small mb-0">Kadus III Mukti Jaya</p>
+                            <div class="card-content">
+                                <h5 class="fw-bold mb-1">SUMARDI</h5>
+                                <p class="small mb-0">Kadus III Mukti Jaya</p>
+                            </div>
                         </div>
                     </div>
                 @endforelse
@@ -704,27 +750,38 @@
                 </div>
             @endif
         </div>
-
+        </div> <!-- End White Card Wrapper -->
     </div>
 </section>
 
 {{-- 6. LEMBAGA DESA (PKK & BPD) --}}
 <section class="section-spacing bg-light-cream">
     <div class="container">
-        <div class="text-center mb-5" data-aos="fade-up">
-            <p class="badge bg-cream rounded-pill px-3 py-2 fw-bold mb-3" style="color: var(--coklat-tua) !important; letter-spacing: 2px;"><i class="bi bi-diagram-3-fill me-1"></i> LEMBAGA DESA</p>
-            <h2 class="font-serif fw-bold text-coklat-tua">Susunan Kepengurusan</h2>
-            <p class="text-muted">Anggota Badan Permusyawaratan Desa (BPD) dan Tim Penggerak PKK</p>
-        </div>
+        
+        <!-- White Card Wrapper -->
+        <div class="bg-white rounded-4 shadow-sm border p-4 p-md-5 mb-5" data-aos="fade-up">
+            
+            <!-- Header Section -->
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 border-bottom pb-3 gap-3">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="bg-coklat-tua text-white rounded-3 d-flex align-items-center justify-content-center shadow-sm" style="width: 55px; height: 55px;">
+                        <i class="bi bi-diagram-3-fill fs-3"></i>
+                    </div>
+                    <div>
+                        <h4 class="fw-bold text-coklat-tua mb-1">Lembaga Desa</h4>
+                        <p class="text-muted small mb-0">Susunan Kepengurusan BPD & PKK</p>
+                    </div>
+                </div>
+            </div>
 
-        <ul class="nav nav-pills justify-content-center mb-4" id="lembagaTab" role="tablist">
-            <li class="nav-item" role="presentation">
-                <button class="nav-link active rounded-pill px-4" id="bpd-tab" data-bs-toggle="tab" data-bs-target="#bpd-tab-pane" type="button" role="tab" style="font-weight: 600;">BPD</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link rounded-pill px-4 mx-2" id="pkk-tab" data-bs-toggle="tab" data-bs-target="#pkk-tab-pane" type="button" role="tab" style="font-weight: 600;">Tim Penggerak PKK</button>
-            </li>
-        </ul>
+            <ul class="nav nav-pills mb-4" id="lembagaTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active rounded-pill px-4" id="bpd-tab" data-bs-toggle="tab" data-bs-target="#bpd-tab-pane" type="button" role="tab" style="font-weight: 600;">BPD</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link rounded-pill px-4 mx-2" id="pkk-tab" data-bs-toggle="tab" data-bs-target="#pkk-tab-pane" type="button" role="tab" style="font-weight: 600;">Tim Penggerak PKK</button>
+                </li>
+            </ul>
 
         <div class="tab-content" id="lembagaTabContent">
             <!-- BPD Tab -->
@@ -739,8 +796,10 @@
                                     @else
                                         <div class="placeholder">👤</div>
                                     @endif
-                                    <h5 class="fw-bold text-coklat-tua mb-1" style="font-size: 1.1rem;">{{ $anggota->nama }}</h5>
-                                    <p class="text-secondary small mb-0">{{ $anggota->jabatan }}</p>
+                                    <div class="card-content">
+                                        <h5 class="fw-bold mb-1">{{ $anggota->nama }}</h5>
+                                        <p class="small mb-0">{{ $anggota->jabatan }}</p>
+                                    </div>
                                 </div>
                             </div>
                         @empty
@@ -800,8 +859,10 @@
                                     @else
                                         <div class="placeholder">👤</div>
                                     @endif
-                                    <h5 class="fw-bold text-coklat-tua mb-1" style="font-size: 1.1rem;">{{ $anggota->nama }}</h5>
-                                    <p class="text-secondary small mb-0">{{ $anggota->jabatan }}</p>
+                                    <div class="card-content">
+                                        <h5 class="fw-bold mb-1">{{ $anggota->nama }}</h5>
+                                        <p class="small mb-0">{{ $anggota->jabatan }}</p>
+                                    </div>
                                 </div>
                             </div>
                         @empty
@@ -848,7 +909,8 @@
                     @endif
                 </div>
             </div>
-        </div>        
+        </div>
+        </div> <!-- End White Card Wrapper -->
         @php 
             $baganLainnya = $bagans->reject(fn($b) => 
                 str_contains(strtolower($b->nama), 'perangkat') || 
