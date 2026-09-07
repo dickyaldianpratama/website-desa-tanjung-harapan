@@ -1262,23 +1262,6 @@
             background: rgba(0, 0, 0, 0.78) !important;
         }
 
-        /* Card swiper perangkat/BPD/PKK: foto lebih kecil, padding lebih ringkas */
-        .perangkat-slide-card {
-            padding: 1.25rem 1rem !important;
-        }
-        .perangkat-slide-card img,
-        .perangkat-slide-card .placeholder {
-            width: 90px !important;
-            height: 90px !important;
-            font-size: 2.2rem !important;
-            margin-bottom: 1rem !important;
-        }
-        .perangkat-slide-card h5 {
-            font-size: 0.9rem !important;
-        }
-        .perangkat-slide-card p.small {
-            font-size: 0.78rem !important;
-        }
     }
 </style>
 
