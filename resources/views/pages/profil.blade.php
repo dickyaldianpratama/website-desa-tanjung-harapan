@@ -1305,20 +1305,31 @@ function muatDataKehadiran() {
                 return;
             }
 
-            const statusBadge = {
-                hadir: `<div style="display:flex;align-items:center;gap:.4rem;font-size:.75rem;font-weight:700;color:#16a34a;text-transform:uppercase;letter-spacing:.5px;"><span style="width:10px;height:10px;border-radius:50%;background:#16a34a;display:inline-block;box-shadow:0 0 0 3px rgba(22,163,74,.15);"></span> Hadir</div>`,
-                izin:  `<div style="display:flex;align-items:center;gap:.4rem;font-size:.75rem;font-weight:700;color:#d97706;text-transform:uppercase;letter-spacing:.5px;"><span style="width:10px;height:10px;border-radius:50%;background:#eab308;display:inline-block;box-shadow:0 0 0 3px rgba(234,179,8,.15);"></span> Izin</div>`,
-                belum: `<div style="display:flex;align-items:center;gap:.4rem;font-size:.75rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.5px;"><span style="width:10px;height:10px;border-radius:50%;background:#cbd5e1;display:inline-block;box-shadow:0 0 0 3px rgba(203,213,225,.15);"></span> Belum</div>`,
+            const statusIcon = {
+                hadir: `<div style="width:28px;height:28px;background:#dcfce7;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="bi bi-check-circle-fill" style="color:#16a34a;font-size:.85rem"></i></div>`,
+                izin:  `<div style="width:28px;height:28px;background:#fef3c7;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="bi bi-info-circle-fill" style="color:#d97706;font-size:.85rem"></i></div>`,
+                belum: `<div style="width:28px;height:28px;background:#f1f5f9;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="bi bi-dash-circle-fill" style="color:#94a3b8;font-size:.85rem"></i></div>`,
             };
+
+            const dotColor = { hadir: '#16a34a', izin: '#eab308', belum: '#94a3b8' };
 
             let html = '';
             res.data.forEach(p => {
                 const inisial = p.nama.charAt(0).toUpperCase();
+                const color = dotColor[p.status] || dotColor.belum;
+                const statusDot = `<span style="position:absolute;bottom:0;right:0;width:12px;height:12px;background:${color};border:2px solid #fff;border-radius:50%;z-index:2;"></span>`;
+
+                const fallbackHtml = `<div style="width:100%;height:100%;border-radius:50%;background:#fee2e2;color:#c0392b;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;">${inisial}</div>`;
+
                 const fotoHtml = p.foto
-                    ? `<img src="${p.foto}" alt="${p.nama}"
-                           style="width:42px;height:42px;border-radius:50%;object-fit:cover;border:2px solid #f1f5f9;flex-shrink:0"
-                           onerror="this.outerHTML='<div style=\'width:42px;height:42px;border-radius:50%;background:#fee2e2;color:#c0392b;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;flex-shrink:0\'>${inisial}</div>'">`
-                    : `<div style="width:42px;height:42px;border-radius:50%;background:#fee2e2;color:#c0392b;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;flex-shrink:0">${inisial}</div>`;
+                    ? `<div style="position:relative;width:42px;height:42px;flex-shrink:0;">
+                           <img src="${p.foto}" alt="${p.nama}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;border:1px solid #f1f5f9;" onerror="this.outerHTML='${fallbackHtml}'">
+                           ${statusDot}
+                       </div>`
+                    : `<div style="position:relative;width:42px;height:42px;flex-shrink:0;">
+                           ${fallbackHtml}
+                           ${statusDot}
+                       </div>`;
 
                 html += `
                 <div style="display:flex;align-items:center;gap:.85rem;padding:.7rem 1.25rem;border-bottom:1px solid #f8fafc">
@@ -1327,7 +1338,7 @@ function muatDataKehadiran() {
                         <div style="font-weight:700;font-size:.88rem;color:#1e293b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${p.nama}</div>
                         <div style="font-size:.75rem;color:#94a3b8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${p.jabatan}</div>
                     </div>
-                    ${statusBadge[p.status] || statusBadge.belum}
+                    ${statusIcon[p.status] || statusIcon.belum}
                 </div>`;
             });
 
