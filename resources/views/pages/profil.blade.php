@@ -87,10 +87,6 @@
     
     .kades-card-profil {
         background-color: var(--putih);
-        background-image: url('{{ asset("images/".($settings["logo_desa"] ?? "logo_desa.png")) }}');
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: 70%;
         border-radius: 16px;
         padding: 2rem;
         text-align: center;
@@ -102,6 +98,7 @@
         align-items: center;
         justify-content: center;
         position: relative;
+        overflow: hidden;
     }
     .kades-card-profil > * {
         position: relative;
@@ -477,7 +474,8 @@
             
             <div class="col-lg-3 col-md-12" data-aos="fade-left" data-aos-delay="200">
                 <div class="kades-card-profil">
-                    <p class="text-muted fw-bold mb-4" style="letter-spacing: 1px;"><i class="bi bi-person-badge text-gold me-2"></i>Kepala Desa</p>
+                    <img src="{{ asset('images/'.($settings['logo_desa'] ?? 'logo_desa.png')) }}" alt="Watermark" class="position-absolute top-50 start-50 translate-middle" style="width: 220px; opacity: 0.4; pointer-events: none; z-index: 0;">
+                    <p class="text-muted fw-bold mb-4" style="letter-spacing: 1px; z-index: 1;"><i class="bi bi-person-badge text-gold me-2"></i>Kepala Desa</p>
                     
                     @php 
                         $fotoKades = $kades && $kades->foto ? 'perangkat/'.$kades->foto : ($settings['foto_kades'] ?? 'perangkat/kades.jpg');
