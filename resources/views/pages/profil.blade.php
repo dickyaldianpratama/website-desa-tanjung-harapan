@@ -730,7 +730,7 @@
                 @endforelse
             </div>
             
-            <div class="swiper-pagination mt-4"></div>
+            <div class="swiper-button-prev perangkat-prev custom-nav-btn"></div><div class="swiper-button-next perangkat-next custom-nav-btn"></div><div class="swiper-pagination mt-4"></div>
             
             @php $baganPerangkat = $bagans->filter(fn($b) => str_contains(strtolower($b->nama), 'perangkat')); @endphp
             @if($baganPerangkat->count() > 0)
@@ -827,7 +827,7 @@
                             </div>
                         @endforelse
                     </div>
-                    <div class="swiper-pagination bpd-pagination mt-4"></div>
+                    <div class="swiper-button-prev bpd-prev custom-nav-btn"></div><div class="swiper-button-next bpd-next custom-nav-btn"></div><div class="swiper-pagination bpd-pagination mt-4"></div>
                     
                     @php $baganBpd = $bagans->filter(fn($b) => str_contains(strtolower($b->nama), 'bpd')); @endphp
                     @if($baganBpd->count() > 0)
@@ -890,7 +890,7 @@
                             </div>
                         @endforelse
                     </div>
-                    <div class="swiper-pagination pkk-pagination mt-4"></div>
+                    <div class="swiper-button-prev pkk-prev custom-nav-btn"></div><div class="swiper-button-next pkk-next custom-nav-btn"></div><div class="swiper-pagination pkk-pagination mt-4"></div>
                     
                     @php $baganPkk = $bagans->filter(fn($b) => str_contains(strtolower($b->nama), 'pkk')); @endphp
                     @if($baganPkk->count() > 0)
@@ -1099,80 +1099,12 @@
     </div>
 </section>
 
-{{-- ── MODAL KEHADIRAN PERANGKAT ── --}}
-<div id="modal-kehadiran" style="
-    display:none; position:fixed; inset:0; z-index:9999;
-    background:rgba(0,0,0,.5); backdrop-filter:blur(3px);
-    align-items:center; justify-content:center; padding:1rem;
-    font-family:'Poppins',sans-serif;
-" onclick="if(event.target===this) tutupModalKehadiran()">
-    <div style="
-        background:#fff; border-radius:20px;
-        width:100%; max-width:480px;
-        max-height:90vh; overflow:hidden;
-        box-shadow: 0 25px 60px rgba(0,0,0,.25);
-        display:flex; flex-direction:column;
-        animation: modalSlideUp .3s ease;
-    ">
-        {{-- Modal Header --}}
-        <div style="background:var(--coklat-tua);padding:1.1rem 1.4rem;display:flex;align-items:center;justify-content:space-between;flex-shrink:0">
-            <div style="display:flex;align-items:center;gap:.75rem">
-                <div style="width:38px;height:38px;background:rgba(255,255,255,.1);border-radius:10px;display:flex;align-items:center;justify-content:center">
-                    <i class="bi bi-clipboard2-check-fill" style="color:var(--gold);font-size:1.1rem"></i>
-                </div>
-                <div>
-                    <div style="font-weight:700;color:#fff;font-size:1rem;line-height:1.2">Kehadiran Perangkat</div>
-                    <div style="color:rgba(255,255,255,.75);font-size:.75rem" id="modal-tanggal">Memuat...</div>
-                </div>
-            </div>
-            <div style="display:flex;gap:.5rem;align-items:center">
-                <button onclick="muatDataKehadiran()" title="Refresh" style="width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.15);border:none;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s" onmouseover="this.style.background='rgba(255,255,255,.25)'" onmouseout="this.style.background='rgba(255,255,255,.15)'">
-                    <i class="bi bi-arrow-clockwise" id="icon-refresh"></i>
-                </button>
-                <button onclick="tutupModalKehadiran()" style="width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.15);border:none;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s" onmouseover="this.style.background='rgba(255,255,255,.25)'" onmouseout="this.style.background='rgba(255,255,255,.15)'">
-                    <i class="bi bi-x-lg"></i>
-                </button>
-            </div>
-        </div>
-
-        {{-- Statistik --}}
-        <div id="modal-stat" style="display:flex;border-bottom:1px solid #f1f5f9;flex-shrink:0">
-            <div style="flex:1;text-align:center;padding:.9rem .5rem;border-right:1px solid #f1f5f9">
-                <div style="font-size:1.8rem;font-weight:800;color:#16a34a;line-height:1" id="stat-hadir">-</div>
-                <div style="font-size:.7rem;font-weight:700;color:#16a34a;text-transform:uppercase;letter-spacing:1px">Hadir</div>
-            </div>
-            <div style="flex:1;text-align:center;padding:.9rem .5rem;border-right:1px solid #f1f5f9">
-                <div style="font-size:1.8rem;font-weight:800;color:#d97706;line-height:1" id="stat-izin">-</div>
-                <div style="font-size:.7rem;font-weight:700;color:#d97706;text-transform:uppercase;letter-spacing:1px">Izin</div>
-            </div>
-            <div style="flex:1;text-align:center;padding:.9rem .5rem">
-                <div style="font-size:1.8rem;font-weight:800;color:#64748b;line-height:1" id="stat-belum">-</div>
-                <div style="font-size:.7rem;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:1px">Belum</div>
-            </div>
-        </div>
-
-        {{-- Daftar Perangkat --}}
-        <div id="modal-list" style="overflow-y:auto;flex:1;padding:.5rem 0">
-            <div style="text-align:center;padding:2rem;color:#94a3b8">
-                <div class="spinner-border spinner-border-sm" role="status"></div>
-                <div style="margin-top:.5rem;font-size:.85rem">Memuat data...</div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<style>
-@keyframes modalSlideUp {
-    from { opacity: 0; transform: translateY(30px) scale(0.97); }
-    to   { opacity: 1; transform: translateY(0) scale(1); }
-}
-#modal-list::-webkit-scrollbar { width: 4px; }
-#modal-list::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
-</style>
-
 @endsection
 
 @push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
         Fancybox.bind("[data-fancybox]", {
             // Options
         });
@@ -1184,17 +1116,17 @@
             loop: true,
             coverflowEffect: {
                 rotate: 0,
-                stretch: 0,
-                depth: 150,
-                modifier: 1.5,
+                stretch: -10, // Pull slides closer
+                depth: 200,
+                modifier: 1,
                 slideShadows: false,
             },
             breakpoints: {
                 // when window width is >= 992px (desktop)
                 992: {
                     coverflowEffect: {
-                        stretch: -20, // tarik slide samping lebih rapat ke tengah di desktop
-                        depth: 250,
+                        stretch: -40, // overlap even more on desktop to match screenshot
+                        depth: 300,
                         modifier: 1,
                     }
                 }
@@ -1208,16 +1140,19 @@
         new Swiper('.perangkat-swiper', {
             ...swiperConfig,
             pagination: { el: '.swiper-pagination', clickable: true },
+            navigation: { nextEl: '.perangkat-next', prevEl: '.perangkat-prev' },
         });
 
         new Swiper('.bpd-swiper', {
             ...swiperConfig,
             pagination: { el: '.bpd-pagination', clickable: true },
+            navigation: { nextEl: '.bpd-next', prevEl: '.bpd-prev' },
         });
 
         new Swiper('.pkk-swiper', {
             ...swiperConfig,
             pagination: { el: '.pkk-pagination', clickable: true },
+            navigation: { nextEl: '.pkk-next', prevEl: '.pkk-prev' },
         });
     });
 </script>
@@ -1232,6 +1167,22 @@
     .swiper-pagination {
         bottom: 0 !important;
     }
+
+    /* Custom Navigation Arrows */
+    .custom-nav-btn {
+        background-color: #fff;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        color: var(--coklat-tua);
+        margin-top: -22px; /* Center vertically */
+    }
+    .custom-nav-btn::after {
+        font-size: 1.2rem;
+        font-weight: 800;
+    }
+    /* Hide nav arrows on small mobile if needed, but they usually fit well inside swiper container */
     
     /* Coverflow Slide Styling */
     .perangkat-swiper .swiper-slide,
