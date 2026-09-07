@@ -475,7 +475,7 @@
             <div class="col-lg-3 col-md-12" data-aos="fade-left" data-aos-delay="200">
                 <div class="kades-card-profil">
                     <!-- Logo Desa (sebagai objek di balik kaca) -->
-                    <img src="{{ asset('images/'.($settings['logo_desa'] ?? 'logo_desa.png')) }}" alt="Watermark" class="position-absolute top-50 start-50 translate-middle" style="width: 220px; opacity: 0.65; pointer-events: none; z-index: 0;">
+                    <img src="{{ asset('images/logo_desa.png') }}" alt="Watermark" class="position-absolute top-50 start-50 translate-middle" style="width: 220px; opacity: 0.65; pointer-events: none; z-index: 0;">
 
                     <!-- Layer Kaca (Glassmorphism Effect) -->
                     <div class="position-absolute w-100 h-100 top-0 start-0" style="background: linear-gradient(135deg, rgba(255,255,255,0.45), rgba(255,255,255,0.15)); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); z-index: 1;"></div>
