@@ -748,7 +748,6 @@
                         <div style="color:#94a3b8;font-size:.85rem">Perangkat yang melayani masyarakat</div>
                     </div>
                 </div>
-                <a href="#" style="color:var(--coklat-tua);font-weight:600;font-size:.9rem;text-decoration:none">Lihat Semua <i class="bi bi-arrow-right"></i></a>
             </div>
 
             <div class="swiper perangkat-swiper" data-aos="fade-up" data-aos-delay="100">
