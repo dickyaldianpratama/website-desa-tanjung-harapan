@@ -649,8 +649,8 @@
             <!-- Header Section -->
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 border-bottom pb-3 gap-3">
                 <div class="d-flex align-items-center gap-3">
-                    <div class="bg-coklat-tua text-white rounded-3 d-flex align-items-center justify-content-center shadow-sm p-2" style="width: 55px; height: 55px;">
-                        <img src="{{ asset('images/icons/gov.png') }}" alt="Icon Aparatur" class="img-fluid" style="width: 100%; height: 100%; object-fit: contain;">
+                    <div class="rounded-4 d-flex align-items-center justify-content-center shadow-sm" style="width: 65px; height: 65px; background: rgba(139, 90, 43, 0.15); backdrop-filter: blur(10px); border: 1px solid rgba(139, 90, 43, 0.25);">
+                        <img src="{{ asset('images/icons/gov.png') }}" alt="Icon Aparatur" class="img-fluid" style="width: 80%; height: 80%; object-fit: contain; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));">
                     </div>
                     <div>
                         <h4 class="fw-bold text-coklat-tua mb-1">Aparatur Desa</h4>
