@@ -649,8 +649,8 @@
             <!-- Header Section -->
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 border-bottom pb-3 gap-3">
                 <div class="d-flex align-items-center gap-3">
-                    <div class="rounded-4 d-flex align-items-center justify-content-center shadow-sm" style="width: 65px; height: 65px; background: rgba(139, 90, 43, 0.15); backdrop-filter: blur(10px); border: 1px solid rgba(139, 90, 43, 0.25);">
-                        <img src="{{ asset('images/icons/gov.png') }}" alt="Icon Aparatur" class="img-fluid" style="width: 80%; height: 80%; object-fit: contain; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));">
+                    <div class="rounded-4 d-flex align-items-center justify-content-center shadow-sm" style="width: 65px; height: 65px; background: rgba(61, 31, 10, 0.85); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1);">
+                        <img src="{{ asset('images/icons/gov.png') }}" alt="Icon Aparatur" class="img-fluid" style="width: 75%; height: 75%; object-fit: contain; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));">
                     </div>
                     <div>
                         <h4 class="fw-bold text-coklat-tua mb-1">Aparatur Desa</h4>
@@ -774,8 +774,8 @@
             <!-- Header Section -->
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 border-bottom pb-3 gap-3">
                 <div class="d-flex align-items-center gap-3">
-                    <div class="bg-coklat-tua text-white rounded-3 d-flex align-items-center justify-content-center shadow-sm" style="width: 55px; height: 55px;">
-                        <i class="bi bi-diagram-3-fill fs-3"></i>
+                    <div class="rounded-4 d-flex align-items-center justify-content-center shadow-sm text-white" style="width: 65px; height: 65px; background: rgba(61, 31, 10, 0.85); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1);">
+                        <i class="bi bi-diagram-3-fill fs-2"></i>
                     </div>
                     <div>
                         <h4 class="fw-bold text-coklat-tua mb-1">Lembaga Desa</h4>
