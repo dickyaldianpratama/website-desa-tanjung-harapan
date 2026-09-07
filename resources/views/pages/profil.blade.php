@@ -99,7 +99,6 @@
         justify-content: center;
         position: relative;
         overflow: hidden;
-        z-index: 1;
     }
     .kades-card-profil::before {
         content: '';
@@ -107,15 +106,18 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        width: 80%;
-        height: 80%;
+        width: 85%;
+        height: 85%;
         background-image: url('{{ asset("images/".($settings["logo_desa"] ?? "logo_desa.png")) }}');
         background-size: contain;
         background-position: center;
         background-repeat: no-repeat;
-        opacity: 0.08;
-        z-index: -1;
-        filter: drop-shadow(0 0 10px rgba(255,255,255,0.5)) grayscale(50%);
+        opacity: 0.15;
+        z-index: 0;
+    }
+    .kades-card-profil > * {
+        position: relative;
+        z-index: 1;
     }
     .kades-card-profil img {
         width: 150px;
