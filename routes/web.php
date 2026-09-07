@@ -73,7 +73,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
 });
 
 // Public API: data absensi hari ini (tanpa auth, untuk widget publik)
-Route::get('/api/absensi-hari-ini', [HomeController::class, 'absensiHariIni'])->name('api.absensi');
+Route::get('/data/absensi-hari-ini', [HomeController::class, 'absensiHariIni'])->name('api.absensi');
 
 // Breeze auth helper (hanya profile update, tidak dipakai di publik)
 require __DIR__.'/auth.php';
