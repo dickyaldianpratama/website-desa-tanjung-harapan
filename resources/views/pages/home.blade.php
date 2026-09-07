@@ -445,6 +445,19 @@
     </div>
 </section>
 
+{{-- ── CTA KONTAK ── --}}
+<section class="py-5 bg-coklat text-white text-center">
+    <div class="container">
+        <h2 class="font-serif mb-2" style="color:var(--gold)">Ada Pertanyaan atau Pengaduan?</h2>
+        <p class="mb-4" style="color:rgba(255,255,255,.8)">Kami siap melayani dan menampung aspirasi masyarakat desa</p>
+        <a href="{{ route('kontak') }}" class="btn-gold">Hubungi Kami <i class="bi bi-arrow-right ms-1"></i></a>
+    </div>
+</section>
+
+@endsection
+
+@push('scripts')
+<script>
 const heroSwiper = new Swiper('.hero-swiper', {
     loop: true,
     autoplay: { delay: 5000, disableOnInteraction: false },
@@ -525,5 +538,5 @@ new Swiper('.potensi-swiper', commonSwiperConfig);
 
     reveals.forEach(el => revealObserver.observe(el));
 })();
-
+</script>
 @endpush
