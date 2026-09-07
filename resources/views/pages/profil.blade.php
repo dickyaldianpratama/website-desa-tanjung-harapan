@@ -239,6 +239,7 @@
     }
     .perangkat-slide-card .card-content h5 {
         color: white !important;
+        font-family: 'Poppins', sans-serif;
         font-size: 0.95rem;
         margin-bottom: 0.25rem;
         text-transform: uppercase;
