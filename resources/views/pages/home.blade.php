@@ -133,7 +133,7 @@
         height: auto !important;
         min-height: 0 !important;
         max-height: none !important;
-        background: transparent !important;
+        background: linear-gradient(to bottom, var(--cream) 0%, var(--cream-light) 100%) !important;
         padding: 90px 1rem 2.5rem 1rem !important; /* Jarak untuk navbar dan pinggir layar */
     }
     .hero-swiper .swiper-wrapper {
