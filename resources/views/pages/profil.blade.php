@@ -1305,10 +1305,10 @@ function muatDataKehadiran() {
                 return;
             }
 
-            const statusIcon = {
-                hadir: `<div style="width:28px;height:28px;background:#dcfce7;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="bi bi-check-circle-fill" style="color:#16a34a;font-size:.85rem"></i></div>`,
-                izin:  `<div style="width:28px;height:28px;background:#fef3c7;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="bi bi-info-circle-fill" style="color:#d97706;font-size:.85rem"></i></div>`,
-                belum: `<div style="width:28px;height:28px;background:#f1f5f9;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="bi bi-dash-circle-fill" style="color:#94a3b8;font-size:.85rem"></i></div>`,
+            const statusBadge = {
+                hadir: `<div style="display:flex;align-items:center;gap:.4rem;font-size:.75rem;font-weight:700;color:#16a34a;text-transform:uppercase;letter-spacing:.5px;"><span style="width:10px;height:10px;border-radius:50%;background:#16a34a;display:inline-block;box-shadow:0 0 0 3px rgba(22,163,74,.15);"></span> Hadir</div>`,
+                izin:  `<div style="display:flex;align-items:center;gap:.4rem;font-size:.75rem;font-weight:700;color:#d97706;text-transform:uppercase;letter-spacing:.5px;"><span style="width:10px;height:10px;border-radius:50%;background:#eab308;display:inline-block;box-shadow:0 0 0 3px rgba(234,179,8,.15);"></span> Izin</div>`,
+                belum: `<div style="display:flex;align-items:center;gap:.4rem;font-size:.75rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.5px;"><span style="width:10px;height:10px;border-radius:50%;background:#cbd5e1;display:inline-block;box-shadow:0 0 0 3px rgba(203,213,225,.15);"></span> Belum</div>`,
             };
 
             let html = '';
@@ -1327,7 +1327,7 @@ function muatDataKehadiran() {
                         <div style="font-weight:700;font-size:.88rem;color:#1e293b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${p.nama}</div>
                         <div style="font-size:.75rem;color:#94a3b8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${p.jabatan}</div>
                     </div>
-                    ${statusIcon[p.status] || statusIcon.belum}
+                    ${statusBadge[p.status] || statusBadge.belum}
                 </div>`;
             });
 
