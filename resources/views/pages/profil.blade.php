@@ -162,13 +162,19 @@
     .sambutan-img-wrap {
         position: relative;
         height: 100%;
-        min-height: 400px;
+        min-height: 300px;
+    }
+    @media (max-width: 768px) {
+        .sambutan-img-wrap {
+            min-height: 260px;
+        }
     }
     .sambutan-img-wrap img {
         position: absolute;
         width: 100%;
         height: 100%;
         object-fit: cover;
+        object-position: top center;
     }
     
     /* PERANGKAT SWIPER */
@@ -559,9 +565,11 @@
 {{-- 4. SAMBUTAN KEPALA DESA --}}
 <section class="section-spacing bg-light-cream">
     <div class="container">
-        <div class="sambutan-box">
-            <div class="row g-0">
-                <div class="col-md-4" data-aos="fade-right">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="sambutan-box">
+                    <div class="row g-0">
+                        <div class="col-md-5" data-aos="fade-right">
                     <div class="sambutan-img-wrap">
                         @if($kades && $kades->foto)
                             <img src="{{ Storage::disk('s3')->url('images/perangkat/' . $kades->foto) }}" alt="Kepala Desa">
@@ -572,24 +580,26 @@
                         @endif
                     </div>
                 </div>
-                <div class="col-md-8 d-flex align-items-center" data-aos="fade-left">
-                    <div class="p-4 p-lg-5">
-                        <div class="d-flex align-items-center gap-2 mb-3 text-gold">
-                            <i class="bi bi-megaphone-fill"></i>
-                            <span class="fw-bold text-uppercase" style="letter-spacing: 2px; font-size: 0.85rem;">Sambutan Kepala Desa</span>
+                        <div class="col-md-7 d-flex align-items-center" data-aos="fade-left">
+                            <div class="p-4 p-lg-5">
+                                <div class="d-flex align-items-center gap-2 mb-3 text-gold">
+                                    <i class="bi bi-megaphone-fill"></i>
+                                    <span class="fw-bold text-uppercase" style="letter-spacing: 2px; font-size: 0.85rem;">Sambutan Kepala Desa</span>
+                                </div>
+                                <h3 class="fw-bold text-coklat-tua mb-2">{{ $namaKades }}</h3>
+                                <p class="text-muted fw-semibold mb-4 d-flex align-items-center gap-2"><i class="bi bi-person-vcard"></i> {{ $jabatanKades }}</p>
+                                
+                                <div class="text-secondary" style="line-height: 1.8;">
+                                    <p><em>Assalamu'alaikum Warahmatullahi Wabarakatuh,</em></p>
+                                    <p><em>Yth. Bapak/Ibu/Saudara/i sekalian warga desa yang saya cintai,</em></p>
+                                    <p>Dengan segala kerendahan hati dan rasa syukur yang mendalam, saya ingin menyampaikan terima kasih atas kepercayaan yang telah diberikan kepada saya untuk memimpin desa yang kita cintai ini. Sambutan ini bukan sekadar formalitas, melainkan wujud komitmen saya untuk bersama-sama membangun desa menjadi lebih baik...</p>
+                                </div>
+                                
+                                <a href="{{ route('home') }}" class="btn btn-gold mt-3 px-4 rounded-pill">
+                                    <i class="bi bi-chat-quote-fill me-2"></i> Selengkapnya
+                                </a>
+                            </div>
                         </div>
-                        <h3 class="fw-bold text-coklat-tua mb-2">{{ $namaKades }}</h3>
-                        <p class="text-muted fw-semibold mb-4 d-flex align-items-center gap-2"><i class="bi bi-person-vcard"></i> {{ $jabatanKades }}</p>
-                        
-                        <div class="text-secondary" style="line-height: 1.8;">
-                            <p><em>Assalamu'alaikum Warahmatullahi Wabarakatuh,</em></p>
-                            <p><em>Yth. Bapak/Ibu/Saudara/i sekalian warga desa yang saya cintai,</em></p>
-                            <p>Dengan segala kerendahan hati dan rasa syukur yang mendalam, saya ingin menyampaikan terima kasih atas kepercayaan yang telah diberikan kepada saya untuk memimpin desa yang kita cintai ini. Sambutan ini bukan sekadar formalitas, melainkan wujud komitmen saya untuk bersama-sama membangun desa menjadi lebih baik...</p>
-                        </div>
-                        
-                        <a href="{{ route('home') }}" class="btn btn-gold mt-3 px-4 rounded-pill">
-                            <i class="bi bi-chat-quote-fill me-2"></i> Selengkapnya
-                        </a>
                     </div>
                 </div>
             </div>
