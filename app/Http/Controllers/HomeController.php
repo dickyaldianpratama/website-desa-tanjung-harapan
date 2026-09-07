@@ -47,7 +47,7 @@ class HomeController extends Controller {
         });
 
         return response()->json([
-            'tanggal' => now()->translatedFormat('l, d F Y'),
+            'tanggal' => \Carbon\Carbon::now()->locale('id')->translatedFormat('l, d F Y'),
             'hadir'   => $data->where('status', 'hadir')->count(),
             'izin'    => $data->where('status', 'izin')->count(),
             'belum'   => $data->where('status', 'belum')->count(),

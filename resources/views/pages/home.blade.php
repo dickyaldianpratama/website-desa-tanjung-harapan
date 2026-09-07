@@ -769,11 +769,12 @@ function muatDataKehadiran() {
                 const color = dotColor[p.status] || dotColor.belum;
                 const statusDot = `<span style="position:absolute;bottom:0;right:0;width:12px;height:12px;background:${color};border:2px solid #fff;border-radius:50%;z-index:2;"></span>`;
 
-                const fallbackHtml = `<div style="width:100%;height:100%;border-radius:50%;background:#fee2e2;color:#c0392b;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;">${inisial}</div>`;
+                const fallbackHtml = `<div style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:50%;background:#fee2e2;color:#c0392b;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;">${inisial}</div>`;
 
                 const fotoHtml = p.foto
                     ? `<div style="position:relative;width:42px;height:42px;flex-shrink:0;">
-                           <img src="${p.foto}" alt="${p.nama}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;border:1px solid #f1f5f9;" onerror="this.outerHTML='${fallbackHtml}'">
+                           ${fallbackHtml}
+                           <img src="${p.foto}" alt="${p.nama}" style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:50%;object-fit:cover;border:1px solid #f1f5f9;z-index:1;" onerror="this.style.display='none'">
                            ${statusDot}
                        </div>`
                     : `<div style="position:relative;width:42px;height:42px;flex-shrink:0;">
