@@ -473,13 +473,13 @@
                     @php
                         $today = now()->locale('id')->dayOfWeek; // 0=Min, 1=Sen, ..., 6=Sab
                         $jamKerja = [
-                            ['hari' => 'Senin',  'masuk' => '08:00', 'pulang' => '14:00', 'libur' => false, 'dow' => 1],
-                            ['hari' => 'Selasa', 'masuk' => '08:00', 'pulang' => '14:00', 'libur' => false, 'dow' => 2],
-                            ['hari' => 'Rabu',   'masuk' => '08:00', 'pulang' => '14:00', 'libur' => false, 'dow' => 3],
-                            ['hari' => 'Kamis',  'masuk' => '08:00', 'pulang' => '14:00', 'libur' => false, 'dow' => 4],
-                            ['hari' => 'Jumat',  'masuk' => '08:00', 'pulang' => '13:00', 'libur' => false, 'dow' => 5],
-                            ['hari' => 'Sabtu',  'masuk' => null,    'pulang' => null,    'libur' => true,  'dow' => 6],
-                            ['hari' => 'Minggu', 'masuk' => null,    'pulang' => null,    'libur' => true,  'dow' => 0],
+                            ['hari' => 'Senin',  'masuk' => '08:30', 'pulang' => '16:30', 'libur' => false, 'dow' => 1],
+                            ['hari' => 'Selasa', 'masuk' => '08:30', 'pulang' => '16:30', 'libur' => false, 'dow' => 2],
+                            ['hari' => 'Rabu',   'masuk' => '08:30', 'pulang' => '16:30', 'libur' => false, 'dow' => 3],
+                            ['hari' => 'Kamis',  'masuk' => '08:30', 'pulang' => '16:30', 'libur' => false, 'dow' => 4],
+                            ['hari' => 'Jumat',  'masuk' => '08:30', 'pulang' => '16:30', 'libur' => false, 'dow' => 5],
+                            ['hari' => 'Sabtu',  'masuk' => '-',     'pulang' => '-',     'libur' => true,  'dow' => 6],
+                            ['hari' => 'Minggu', 'masuk' => '-',     'pulang' => '-',     'libur' => true,  'dow' => 0],
                         ];
                     @endphp
                     <div style="padding: .5rem 0;">
