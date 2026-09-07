@@ -292,6 +292,9 @@
         <a href="{{ route('admin.perangkat.index') }}" class="sidebar-link {{ request()->routeIs('admin.perangkat*') ? 'active' : '' }}">
             <i class="bi bi-people"></i> Perangkat Desa
         </a>
+        <a href="{{ route('admin.absensi.index') }}" class="sidebar-link {{ request()->routeIs('admin.absensi*') ? 'active' : '' }}">
+            <i class="bi bi-person-check"></i> Absensi Perangkat
+        </a>
         <a href="{{ route('admin.lembaga.index') }}" class="sidebar-link {{ request()->routeIs('admin.lembaga*') ? 'active' : '' }}">
             <i class="bi bi-diagram-3"></i> Lembaga Desa
         </a>
