@@ -648,8 +648,8 @@
             <!-- Kolom Kiri: Widget Absensi -->
             <div class="col-lg-4" data-aos="fade-up">
                 <div style="background: #fff; border-radius: 20px; box-shadow: 0 8px 32px rgba(0,0,0,.10); overflow: hidden; font-family: 'Poppins', sans-serif; height: 100%; display: flex; flex-direction: column;">
-                    {{-- Header Merah --}}
-                    <div style="background: linear-gradient(135deg, #c0392b 0%, #96281b 100%); padding: 1.25rem 1.5rem; display:flex; align-items:center; gap:.9rem; flex-shrink: 0;">
+                    {{-- Header Coklat --}}
+                    <div style="background: var(--coklat-tua); padding: 1.25rem 1.5rem; display:flex; align-items:center; gap:.9rem; flex-shrink: 0;">
                         <div style="width:44px;height:44px;background:rgba(255,255,255,.15);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
                             <i class="bi bi-briefcase-fill" style="color:#fff;font-size:1.3rem"></i>
                         </div>
@@ -678,13 +678,13 @@
                         <div style="
                             display:flex; align-items:center; justify-content:space-between;
                             padding: .7rem 1.5rem;
-                            background: {{ $isToday ? 'linear-gradient(90deg,#fff5f5,#fff)' : 'transparent' }};
-                            border-left: {{ $isToday ? '3px solid #c0392b' : '3px solid transparent' }};
+                            background: {{ $isToday ? 'rgba(201,150,58,.05)' : 'transparent' }};
+                            border-left: {{ $isToday ? '3px solid var(--gold)' : '3px solid transparent' }};
                             transition: background .2s;
                         ">
                             <div style="display:flex;align-items:center;gap:.6rem">
                                 @if($isToday)
-                                    <span style="width:8px;height:8px;background:#c0392b;border-radius:50%;display:inline-block;flex-shrink:0"></span>
+                                    <span style="width:8px;height:8px;background:var(--gold);border-radius:50%;display:inline-block;flex-shrink:0"></span>
                                 @else
                                     <span style="width:8px;height:8px;background:transparent;display:inline-block;flex-shrink:0"></span>
                                 @endif
@@ -714,19 +714,19 @@
                     {{-- Footer Card --}}
                     <div style="padding: .9rem 1.5rem; display:flex; justify-content:space-between; align-items:center; border-top: 1px solid #f1f5f9; flex-shrink: 0;">
                         <span style="font-size:.78rem;color:#94a3b8;display:flex;align-items:center;gap:.4rem">
-                            <i class="bi bi-info-circle" style="color:#c0392b"></i>
+                            <i class="bi bi-info-circle" style="color:var(--gold)"></i>
                             Layanan sesuai jam kerja
                         </span>
                         <button onclick="bukaModalKehadiran()" style="
-                            background: linear-gradient(135deg,#c0392b,#96281b);
+                            background: var(--coklat-tua);
                             color:#fff; border:none; border-radius:20px;
                             padding:.4rem 1.1rem; font-size:.82rem; font-weight:700;
                             font-family:'Poppins',sans-serif;
                             cursor:pointer; display:inline-flex; align-items:center; gap:.4rem;
-                            box-shadow: 0 4px 12px rgba(192,57,43,.3);
+                            box-shadow: 0 4px 12px rgba(61,31,10,.3);
                             transition: all .2s;
                         " onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform='none'">
-                            <i class="bi bi-clipboard2-check-fill"></i> Kehadiran
+                            <i class="bi bi-clipboard2-check-fill" style="color:var(--gold)"></i> Kehadiran
                         </button>
                     </div>
                 </div>
@@ -735,20 +735,20 @@
             <!-- Kolom Kanan: Card Aparatur -->
             <div class="col-lg-8" data-aos="fade-up" data-aos-delay="100">
                 <!-- White Card Wrapper -->
-                <div style="background: #fff; border-radius: 20px; box-shadow: 0 8px 32px rgba(0,0,0,.10); overflow: hidden; padding: 1.5rem 2rem; height: 100%; display: flex; flex-direction: column; font-family: 'Poppins', sans-serif;">
+                <div style="background: #fff; border-radius: 20px; box-shadow: 0 8px 32px rgba(0,0,0,.10); padding: 1.5rem 2rem; height: 100%; font-family: 'Poppins', sans-serif;">
             
             <!-- Header Section -->
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 border-bottom pb-3 gap-3">
                 <div class="d-flex align-items-center gap-3">
-                    <div style="width:50px;height:50px;background:linear-gradient(135deg, #c0392b 0%, #96281b 100%);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
-                        <i class="bi bi-people-fill" style="color:#fff;font-size:1.5rem"></i>
+                    <div style="width:50px;height:50px;background:var(--coklat-tua);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                        <i class="bi bi-people-fill" style="color:var(--gold);font-size:1.5rem"></i>
                     </div>
                     <div>
                         <div style="font-weight:700;font-size:1.1rem;line-height:1.2;color:#1e293b">Aparatur Desa</div>
                         <div style="color:#94a3b8;font-size:.85rem">Perangkat yang melayani masyarakat</div>
                     </div>
                 </div>
-                <a href="#" style="color:#c0392b;font-weight:600;font-size:.9rem;text-decoration:none">Lihat Semua <i class="bi bi-arrow-right"></i></a>
+                <a href="#" style="color:var(--coklat-tua);font-weight:600;font-size:.9rem;text-decoration:none">Lihat Semua <i class="bi bi-arrow-right"></i></a>
             </div>
 
             <div class="swiper perangkat-swiper" data-aos="fade-up" data-aos-delay="100">
@@ -1202,10 +1202,10 @@
         animation: modalSlideUp .3s ease;
     ">
         {{-- Modal Header --}}
-        <div style="background:linear-gradient(135deg,#c0392b 0%,#96281b 100%);padding:1.1rem 1.4rem;display:flex;align-items:center;justify-content:space-between;flex-shrink:0">
+        <div style="background:var(--coklat-tua);padding:1.1rem 1.4rem;display:flex;align-items:center;justify-content:space-between;flex-shrink:0">
             <div style="display:flex;align-items:center;gap:.75rem">
-                <div style="width:38px;height:38px;background:rgba(255,255,255,.2);border-radius:10px;display:flex;align-items:center;justify-content:center">
-                    <i class="bi bi-clipboard2-check-fill" style="color:#fff;font-size:1.1rem"></i>
+                <div style="width:38px;height:38px;background:rgba(255,255,255,.1);border-radius:10px;display:flex;align-items:center;justify-content:center">
+                    <i class="bi bi-clipboard2-check-fill" style="color:var(--gold);font-size:1.1rem"></i>
                 </div>
                 <div>
                     <div style="font-weight:700;color:#fff;font-size:1rem;line-height:1.2">Kehadiran Perangkat</div>
