@@ -86,7 +86,13 @@
     .sejarah-box::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 10px; }
     
     .kades-card-profil {
-        background: var(--putih);
+        background-color: var(--putih);
+        background-image: 
+            linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)),
+            url('{{ asset("images/".($settings["logo_desa"] ?? "logo_desa.png")) }}');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover, 75%;
         border-radius: 16px;
         padding: 2rem;
         text-align: center;
@@ -97,27 +103,6 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        position: relative;
-        overflow: hidden;
-    }
-    .kades-card-profil::before {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 85%;
-        height: 85%;
-        background-image: url('{{ asset("images/".($settings["logo_desa"] ?? "logo_desa.png")) }}');
-        background-size: contain;
-        background-position: center;
-        background-repeat: no-repeat;
-        opacity: 0.15;
-        z-index: 0;
-    }
-    .kades-card-profil > * {
-        position: relative;
-        z-index: 1;
     }
     .kades-card-profil img {
         width: 150px;
