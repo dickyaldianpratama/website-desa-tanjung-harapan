@@ -97,6 +97,25 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+    }
+    .kades-card-profil::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80%;
+        height: 80%;
+        background-image: url('{{ asset("images/".($settings["logo_desa"] ?? "logo_desa.png")) }}');
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+        opacity: 0.08;
+        z-index: -1;
+        filter: drop-shadow(0 0 10px rgba(255,255,255,0.5)) grayscale(50%);
     }
     .kades-card-profil img {
         width: 150px;
