@@ -71,6 +71,7 @@
         flex-grow: 1;
     }
     .news-category {
+        font-family: 'Poppins', sans-serif;
         font-size: 0.65rem;
         font-weight: 700;
         color: var(--coklat-tua);
@@ -82,6 +83,7 @@
         color: #d93838;
     }
     .news-title {
+        font-family: 'Poppins', sans-serif;
         font-size: 0.9rem;
         font-weight: 700;
         color: var(--coklat-tua);
@@ -97,6 +99,7 @@
         color: var(--gold);
     }
     .news-excerpt {
+        font-family: 'Inter', 'Segoe UI', sans-serif;
         font-size: 0.75rem;
         color: var(--teks-abu);
         margin-bottom: 0.6rem;
@@ -109,6 +112,7 @@
     
     /* FOOTER KARTU */
     .news-footer {
+        font-family: 'Inter', 'Segoe UI', sans-serif;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -130,6 +134,7 @@
     
     /* TOMBOL BACA */
     .btn-baca-berita {
+        font-family: 'Poppins', sans-serif;
         color: var(--coklat-tua);
         font-size: 0.7rem;
         font-weight: 700;
@@ -157,7 +162,7 @@
         
         <!-- FILTER KATEGORI -->
         <div class="d-flex flex-wrap justify-content-center gap-2 mb-5 kategori-wrapper" data-aos="fade-up">
-            <a href="{{ route('berita.index') }}" class="filter-btn {{ !$kategori ? 'active' : '' }}">Semua Berita</a>
+            <a href="{{ route('berita.index') }}" class="filter-btn {{ !$kategori ? 'active' : '' }}">Semua</a>
             
             @if(isset($kategoris) && count($kategoris) > 0)
                 @foreach($kategoris as $kat)
