@@ -110,17 +110,17 @@
 
 <!-- Modal for Cropper -->
 <div class="modal fade" id="cropModal" tabindex="-1" aria-labelledby="cropModalLabel" aria-hidden="true" data-bs-backdrop="static">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="cropModalLabel">Sesuaikan Posisi Gambar Berita</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="img-container" style="max-height: 400px; width: 100%; display: flex; justify-content: center; background-color: #f8f9fa;">
-                    <img id="imageToCrop" src="" style="max-width: 100%; max-height: 400px; display: block;">
+                <div class="img-container" style="max-height: 70vh; width: 100%; display: flex; justify-content: center; background-color: #f8f9fa;">
+                    <img id="imageToCrop" src="" style="max-width: 100%; max-height: 70vh; display: block;">
                 </div>
-                <p class="text-muted text-center mt-3 small"><i class="bi bi-arrows-move me-1"></i>Geser gambar atau gunakan scroll mouse untuk zoom agar subjek pas di tengah kotak (16:9).</p>
+                <p class="text-muted text-center mt-3 small"><i class="bi bi-arrows-move me-1"></i>Sesuaikan area potong (16:9) dengan menggeser atau memperbesar kotak, serta zoom gambar menggunakan scroll mouse.</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cancelCropBtn">Batal</button>
@@ -182,8 +182,8 @@
             guides: true,
             center: true,
             highlight: false,
-            cropBoxMovable: false, // Kotak crop diam, gambar yang digeser
-            cropBoxResizable: false, // Kotak crop tidak bisa diubah ukurannya
+            cropBoxMovable: true, // Kotak crop bisa digeser
+            cropBoxResizable: true, // Kotak crop bisa diubah ukurannya
             toggleDragModeOnDblclick: false,
         });
     });
