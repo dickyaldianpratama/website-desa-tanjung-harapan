@@ -35,9 +35,34 @@
         border: 1px solid rgba(0,0,0,0.05);
     }
     
+    .article-header-wrapper {
+        text-align: left;
+    }
+    .article-logo {
+        width: 65px;
+        height: auto;
+        object-fit: contain;
+        flex-shrink: 0;
+    }
+    
     @media (max-width: 768px) {
         .article-wrapper {
             padding: 1.5rem;
+        }
+        .article-header-wrapper {
+            align-items: center !important;
+            text-align: center;
+        }
+        .article-logo {
+            width: 55px;
+            margin-bottom: 0.5rem;
+        }
+        .article-title-container {
+            width: 100%;
+        }
+        .article-title {
+            font-size: 1.35rem !important;
+            line-height: 1.4;
         }
     }
 
@@ -252,7 +277,7 @@
 
 @section('content')
 <section class="py-4 bg-cream">
-    <div class="container">
+    <div class="container mt-5 pt-4">
         <!-- BREADCRUMBS -->
         <div class="breadcrumb-custom">
             <a href="{{ route('home') }}"><i class="bi bi-house-door-fill"></i></a>
@@ -264,10 +289,10 @@
             <!-- MAIN CONTENT -->
             <div class="col-lg-8">
                 <div class="article-wrapper" data-aos="fade-up">
-                    <div class="d-flex align-items-center gap-3 mb-3">
-                        <img src="{{ asset('images/logo_desa.png') }}" alt="Logo Desa" style="width: 50px; height: auto; object-fit: contain;">
-                        <div>
-                            <h1 class="article-title mb-1" style="font-size: 1.8rem;">{{ $berita->judul }}</h1>
+                    <div class="article-header-wrapper d-flex flex-column flex-md-row align-items-md-center gap-3 mb-4">
+                        <img src="{{ asset('images/logo_desa.png') }}" alt="Logo Desa" class="article-logo">
+                        <div class="article-title-container">
+                            <h1 class="article-title mb-1">{{ $berita->judul }}</h1>
                             <div class="text-muted small">Desa Tanjung Harapan</div>
                         </div>
                     </div>
