@@ -65,16 +65,16 @@
     }
     
     .news-body {
-        padding: 1.25rem;
+        padding: 1rem;
         display: flex;
         flex-direction: column;
         flex-grow: 1;
     }
     .news-category {
-        font-size: 0.75rem;
+        font-size: 0.7rem;
         font-weight: 700;
         color: var(--coklat-tua);
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.4rem;
         letter-spacing: 0.5px;
     }
     .news-category i {
@@ -82,10 +82,10 @@
         color: #d93838;
     }
     .news-title {
-        font-size: 1.05rem;
+        font-size: 0.95rem;
         font-weight: 700;
         color: var(--coklat-tua);
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.4rem;
         text-decoration: none;
         display: -webkit-box;
         -webkit-line-clamp: 2;
@@ -97,9 +97,9 @@
         color: var(--gold);
     }
     .news-excerpt {
-        font-size: 0.85rem;
+        font-size: 0.8rem;
         color: var(--teks-abu);
-        margin-bottom: 1rem;
+        margin-bottom: 0.8rem;
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
@@ -112,15 +112,15 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding-top: 1rem;
+        padding-top: 0.8rem;
         border-top: 1px solid rgba(0,0,0,0.05);
-        font-size: 0.8rem;
+        font-size: 0.75rem;
         color: var(--teks-abu);
     }
     .news-footer-item {
         display: flex;
         align-items: center;
-        gap: 0.3rem;
+        gap: 0.2rem;
     }
     .news-footer-item i {
         color: var(--teks-abu);
@@ -129,7 +129,7 @@
     /* TOMBOL BACA */
     .btn-baca-berita {
         color: var(--coklat-tua);
-        font-size: 0.85rem;
+        font-size: 0.8rem;
         font-weight: 700;
         text-decoration: none;
         transition: all 0.3s ease;
@@ -169,7 +169,7 @@
         <!-- GRID BERITA -->
         <div class="row g-4">
             @forelse($beritas as $berita)
-            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
+            <div class="col-md-6 col-lg-4 col-xl-3" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
                 <div class="news-card">
                     <div class="news-img-wrap">
                         @if($berita->gambar)
@@ -184,7 +184,7 @@
                             <i class="bi bi-folder-fill"></i> {{ strtoupper($berita->kategori ?? 'Berita Desa') }}
                         </div>
                         <a href="{{ route('berita.show', $berita->slug) }}" class="news-title">{{ $berita->judul }}</a>
-                        <p class="news-excerpt">{{ Str::limit(strip_tags($berita->isi), 90) }}</p>
+                        <p class="news-excerpt">{{ Str::limit(strip_tags($berita->isi), 80) }}</p>
                         
                         <div class="news-footer">
                             <div class="d-flex align-items-center gap-3">
