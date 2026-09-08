@@ -160,6 +160,18 @@
         overflow: hidden;
         box-shadow: 0 10px 40px rgba(0,0,0,0.08);
     }
+    .sambutan-text {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 300;
+        font-size: 1.05rem;
+        color: #4b5563; /* Tailwind gray-600 */
+    }
+    .btn-chevron {
+        transition: transform 0.3s ease;
+    }
+    button[aria-expanded="true"] .btn-chevron {
+        transform: rotate(180deg);
+    }
     .sambutan-img-wrap {
         position: relative;
         height: 100%;
@@ -623,21 +635,21 @@
                                 <h3 class="fw-bold text-coklat-tua mb-2">{{ $namaKades }}</h3>
                                 <p class="text-muted fw-semibold mb-4 d-flex align-items-center gap-2"><i class="bi bi-person-vcard"></i> {{ $jabatanKades }}</p>
                                 
-                                <div class="text-secondary" style="line-height: 1.8;">
-                                    <p><em>Assalamu'alaikum Warahmatullahi Wabarakatuh,</em></p>
-                                    <p><em>Yth. Bapak/Ibu/Saudara/i sekalian warga desa yang saya cintai,</em></p>
-                                    <p>Dengan segala kerendahan hati dan rasa syukur yang mendalam, saya ingin menyampaikan terima kasih atas kepercayaan yang telah diberikan kepada saya untuk memimpin desa yang kita cintai ini. Sambutan ini bukan sekadar formalitas, melainkan wujud komitmen saya untuk bersama-sama membangun desa menjadi lebih baik<span id="dotsSambutan">...</span></p>
+                                <div class="sambutan-text" style="line-height: 1.8;">
+                                    <p>Om Swastyastu<br>Salam Sejahtera bagi kita semua.</p>
+                                    <p>Selamat datang di website resmi Desa kami. Dengan segala kerendahan hati dan rasa syukur yang mendalam, saya ingin menyampaikan terima kasih atas kepercayaan yang telah diberikan kepada saya untuk memimpin desa yang kita cintai ini<span id="dotsSambutan">...</span></p>
                                     
                                     <div class="collapse" id="collapseSambutan">
                                         <p>Sebagai Kepala Desa, saya menyadari bahwa memimpin desa ini merupakan amanah yang besar. Namun, dengan dukungan, kerjasama, dan semangat gotong royong dari seluruh warga masyarakat, saya yakin kita dapat mewujudkan desa yang mandiri, berprestasi, dan sejahtera.</p>
                                         <p>Mari kita tingkatkan partisipasi aktif dalam setiap program pembangunan, baik di bidang infrastruktur, pemberdayaan ekonomi, kesehatan, maupun pendidikan. Saya mengajak seluruh elemen masyarakat untuk bersinergi dan berkolaborasi demi memajukan desa yang kita banggakan ini.</p>
                                         <p>Terima kasih atas segala dukungan yang telah diberikan. Mari kita satukan langkah dan bekerja ikhlas untuk mewujudkan visi dan misi kita bersama.</p>
-                                        <p><em>Wassalamu'alaikum Warahmatullahi Wabarakatuh.</em></p>
+                                        <p>Om Shanti Shanti Shanti Om.</p>
                                     </div>
                                 </div>
                                 
-                                <button class="btn btn-gold mt-3 px-4 rounded-pill" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSambutan" aria-expanded="false" aria-controls="collapseSambutan">
-                                    <i class="bi bi-chat-quote-fill me-2"></i> <span id="btnTextSambutan">Selengkapnya</span>
+                                <button class="btn mt-3 px-4 py-2 rounded-pill d-inline-flex align-items-center gap-2 shadow-sm" style="background-color: #a41924; color: white; font-weight: 600; border: none;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSambutan" aria-expanded="false" aria-controls="collapseSambutan">
+                                    <span id="btnTextSambutan">Baca Selengkapnya</span>
+                                    <i class="bi bi-chevron-down btn-chevron fs-5"></i>
                                 </button>
                             </div>
                         </div>
@@ -1479,7 +1491,7 @@
             if(dots) dots.style.display = 'none';
         });
         myCollapsibleSambutan.addEventListener('hide.bs.collapse', function () {
-            document.getElementById('btnTextSambutan').innerText = 'Selengkapnya';
+            document.getElementById('btnTextSambutan').innerText = 'Baca Selengkapnya';
             var dots = document.getElementById('dotsSambutan');
             if(dots) dots.style.display = 'inline';
         });
