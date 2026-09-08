@@ -54,10 +54,12 @@
         font-size: 1.1rem;
     }
     .article-image {
-        width: 100%;
-        height: auto;
+        display: block;
+        max-width: 100%;
+        width: auto;
+        max-height: 500px;
+        margin: 0 auto 2rem auto;
         border-radius: 12px;
-        margin-bottom: 2rem;
         box-shadow: 0 10px 30px rgba(0,0,0,0.05);
     }
     .article-content {
