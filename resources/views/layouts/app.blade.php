@@ -277,8 +277,9 @@
         .stat-item .stat-unit   { font-size:.9rem; color:var(--coklat-medium); font-weight:600; }
 
         /* FOOTER MODERN & PROFESIONAL */
-        footer { background:#2A1608; color:rgba(255,255,255,.8); padding:5rem 0 2rem; position:relative; }
-        footer::before { content:''; position:absolute; top:0; left:0; width:100%; height:4px; background:linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 100%); }
+        footer { background: url('{{ asset("icons/pemandangan.jpg") }}') center/cover no-repeat; color:rgba(255,255,255,.8); padding:5rem 0 2rem; position:relative; }
+        footer::before { content:''; position:absolute; top:0; left:0; right:0; bottom:0; background:rgba(42, 22, 8, 0.7); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); border-top: 4px solid var(--gold); z-index:0; }
+        footer .container { position:relative; z-index:1; }
         .footer-title { color:var(--putih); font-size:1rem; font-weight:700; margin-bottom:1.5rem; letter-spacing:2px; text-transform:uppercase; }
         .footer-links { list-style:none; padding:0; margin:0; }
         .footer-links li { margin-bottom:.8rem; }
@@ -288,7 +289,7 @@
         .footer-contact-item i { color:var(--gold); font-size:1.2rem; margin-top:-2px; }
         footer .social-icon { width:42px; height:42px; background:rgba(255,255,255,.05); border-radius:50%; display:inline-flex; align-items:center; justify-content:center; color:var(--putih); font-size:1.1rem; transition:all .3s ease; margin-right:.5rem; text-decoration:none; }
         footer .social-icon:hover { background:var(--gold); color:#2A1608; transform:translateY(-5px); box-shadow:0 10px 20px rgba(201,150,58,.3); }
-        footer .footer-bottom { border-top:1px solid rgba(255,255,255,.08); padding-top:2rem; margin-top:3rem; font-size:.85rem; color:rgba(255,255,255,.5); }
+        footer .footer-bottom { position:relative; z-index:1; border-top:1px solid rgba(255,255,255,.08); padding-top:2rem; margin-top:3rem; font-size:.85rem; color:rgba(255,255,255,.5); }
 
         /* PAGE HEADER */
         .page-header { background:linear-gradient(135deg,var(--coklat-tua) 0%,var(--coklat-medium) 100%); padding:3rem 0; color:var(--putih); position:relative; overflow:hidden; }
