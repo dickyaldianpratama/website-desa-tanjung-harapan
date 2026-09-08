@@ -130,6 +130,23 @@
     .news-footer-item i {
         color: var(--gold);
     }
+    
+    /* TOMBOL BACA */
+    .btn-baca-berita {
+        background-color: var(--coklat-tua);
+        color: white;
+        border-radius: 50px;
+        padding: 0.4rem 1.2rem;
+        font-size: 0.85rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+    .btn-baca-berita:hover {
+        background-color: var(--gold);
+        color: white;
+        transform: translateX(3px);
+    }
 </style>
 @endpush
 
@@ -179,13 +196,16 @@
                         <a href="{{ route('berita.show', $berita->slug) }}" class="news-title">{{ $berita->judul }}</a>
                         <p class="news-excerpt">{{ Str::limit(strip_tags($berita->isi), 120) }}</p>
                         
-                        <div class="news-footer">
-                            <div class="news-footer-item">
-                                <i class="bi bi-person"></i> ADMIN DESA
+                        <div class="news-footer align-items-end">
+                            <div class="d-flex flex-column gap-2">
+                                <div class="news-footer-item">
+                                    <i class="bi bi-calendar-event"></i> {{ $berita->published_at ? $berita->published_at->translatedFormat('d F Y') : '-' }}
+                                </div>
+                                <div class="news-footer-item">
+                                    <i class="bi bi-eye"></i> Dilihat {{ $berita->views }} kali
+                                </div>
                             </div>
-                            <div class="news-footer-item">
-                                <i class="bi bi-eye"></i> Dilihat {{ $berita->views }} kali
-                            </div>
+                            <a href="{{ route('berita.show', $berita->slug) }}" class="btn-baca-berita">Baca ➜</a>
                         </div>
                     </div>
                 </div>
