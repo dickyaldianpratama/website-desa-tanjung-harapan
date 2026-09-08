@@ -120,7 +120,7 @@
                 <div class="img-container" style="max-height: 70vh; width: 100%; display: flex; justify-content: center; background-color: #f8f9fa;">
                     <img id="imageToCrop" src="" style="max-width: 100%; max-height: 70vh; display: block;">
                 </div>
-                <p class="text-muted text-center mt-3 small"><i class="bi bi-arrows-move me-1"></i>Sesuaikan area potong (16:9) dengan menggeser atau memperbesar kotak, serta zoom gambar menggunakan scroll mouse.</p>
+                <p class="text-muted text-center mt-3 small"><i class="bi bi-arrows-move me-1"></i>Sesuaikan area potong dengan menggeser atau memperbesar kotak, serta zoom gambar menggunakan scroll mouse.</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cancelCropBtn">Batal</button>
@@ -174,7 +174,7 @@
             cropper.destroy();
         }
         cropper = new Cropper(imageToCrop, {
-            aspectRatio: 16 / 9, // Rasio standar berita/thumbnail
+            aspectRatio: NaN, // Bebas tanpa rasio yang dikunci
             viewMode: 1,
             dragMode: 'move', // Default drag adalah menggeser gambar
             autoCropArea: 1,
@@ -203,8 +203,8 @@
         if (cropper) {
             // Dapatkan hasil potongan gambar (canvas)
             const canvas = cropper.getCroppedCanvas({
-                width: 1200,
-                height: 675,
+                maxWidth: 1920,
+                maxHeight: 1080,
                 imageSmoothingEnabled: true,
                 imageSmoothingQuality: 'high',
             });
