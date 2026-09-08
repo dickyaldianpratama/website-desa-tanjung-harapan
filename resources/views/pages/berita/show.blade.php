@@ -55,10 +55,7 @@
     }
     .article-image {
         width: 100%;
-        max-width: 100%;
-        max-height: 500px;
-        object-fit: cover;
-        background-color: #f8f9fa; /* Latar belakang abu-abu muda jika gambar tidak memenuhi lebar penuh */
+        height: auto;
         border-radius: 12px;
         margin-bottom: 2rem;
         box-shadow: 0 10px 30px rgba(0,0,0,0.05);
