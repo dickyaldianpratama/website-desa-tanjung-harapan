@@ -265,7 +265,7 @@
             <div class="col-lg-8">
                 <div class="article-wrapper" data-aos="fade-up">
                     <div class="d-flex align-items-center gap-3 mb-3">
-                        <img src="{{ asset('logo_desa.png') }}" alt="Logo Desa" style="width: 50px; height: auto; object-fit: contain;">
+                        <img src="{{ asset('images/logo_desa.png') }}" alt="Logo Desa" style="width: 50px; height: auto; object-fit: contain;">
                         <div>
                             <h1 class="article-title mb-1" style="font-size: 1.8rem;">{{ $berita->judul }}</h1>
                             <div class="text-muted small">Desa Tanjung Harapan</div>
