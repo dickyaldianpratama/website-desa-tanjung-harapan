@@ -626,12 +626,19 @@
                                 <div class="text-secondary" style="line-height: 1.8;">
                                     <p><em>Assalamu'alaikum Warahmatullahi Wabarakatuh,</em></p>
                                     <p><em>Yth. Bapak/Ibu/Saudara/i sekalian warga desa yang saya cintai,</em></p>
-                                    <p>Dengan segala kerendahan hati dan rasa syukur yang mendalam, saya ingin menyampaikan terima kasih atas kepercayaan yang telah diberikan kepada saya untuk memimpin desa yang kita cintai ini. Sambutan ini bukan sekadar formalitas, melainkan wujud komitmen saya untuk bersama-sama membangun desa menjadi lebih baik...</p>
+                                    <p>Dengan segala kerendahan hati dan rasa syukur yang mendalam, saya ingin menyampaikan terima kasih atas kepercayaan yang telah diberikan kepada saya untuk memimpin desa yang kita cintai ini. Sambutan ini bukan sekadar formalitas, melainkan wujud komitmen saya untuk bersama-sama membangun desa menjadi lebih baik<span id="dotsSambutan">...</span></p>
+                                    
+                                    <div class="collapse" id="collapseSambutan">
+                                        <p>Sebagai Kepala Desa, saya menyadari bahwa memimpin desa ini merupakan amanah yang besar. Namun, dengan dukungan, kerjasama, dan semangat gotong royong dari seluruh warga masyarakat, saya yakin kita dapat mewujudkan desa yang mandiri, berprestasi, dan sejahtera.</p>
+                                        <p>Mari kita tingkatkan partisipasi aktif dalam setiap program pembangunan, baik di bidang infrastruktur, pemberdayaan ekonomi, kesehatan, maupun pendidikan. Saya mengajak seluruh elemen masyarakat untuk bersinergi dan berkolaborasi demi memajukan desa yang kita banggakan ini.</p>
+                                        <p>Terima kasih atas segala dukungan yang telah diberikan. Mari kita satukan langkah dan bekerja ikhlas untuk mewujudkan visi dan misi kita bersama.</p>
+                                        <p><em>Wassalamu'alaikum Warahmatullahi Wabarakatuh.</em></p>
+                                    </div>
                                 </div>
                                 
-                                <a href="{{ route('home') }}" class="btn btn-gold mt-3 px-4 rounded-pill">
-                                    <i class="bi bi-chat-quote-fill me-2"></i> Selengkapnya
-                                </a>
+                                <button class="btn btn-gold mt-3 px-4 rounded-pill" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSambutan" aria-expanded="false" aria-controls="collapseSambutan">
+                                    <i class="bi bi-chat-quote-fill me-2"></i> <span id="btnTextSambutan">Selengkapnya</span>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -1456,11 +1463,26 @@
     }
     
     // Redraw charts when collapse is shown to fix width rendering issues
-    document.getElementById('collapseBaganPerangkat').addEventListener('shown.bs.collapse', function () {
+    document.getElementById('collapseBaganPerangkat')?.addEventListener('shown.bs.collapse', function () {
         drawCharts();
     });
-    document.getElementById('collapseBaganLembaga').addEventListener('shown.bs.collapse', function () {
+    document.getElementById('collapseBaganLembaga')?.addEventListener('shown.bs.collapse', function () {
         drawCharts();
     });
+
+    // Toggle button text for Sambutan
+    var myCollapsibleSambutan = document.getElementById('collapseSambutan');
+    if (myCollapsibleSambutan) {
+        myCollapsibleSambutan.addEventListener('show.bs.collapse', function () {
+            document.getElementById('btnTextSambutan').innerText = 'Tutup';
+            var dots = document.getElementById('dotsSambutan');
+            if(dots) dots.style.display = 'none';
+        });
+        myCollapsibleSambutan.addEventListener('hide.bs.collapse', function () {
+            document.getElementById('btnTextSambutan').innerText = 'Selengkapnya';
+            var dots = document.getElementById('dotsSambutan');
+            if(dots) dots.style.display = 'inline';
+        });
+    }
 </script>
 @endpush
