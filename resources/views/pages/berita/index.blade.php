@@ -48,7 +48,7 @@
     .news-img-wrap {
         position: relative;
         width: 100%;
-        padding-top: 60%; /* Aspect Ratio */
+        padding-top: 55%; /* Aspect Ratio reduced for smaller height */
         overflow: hidden;
     }
     .news-img-wrap img {
@@ -71,18 +71,18 @@
         flex-grow: 1;
     }
     .news-category {
-        font-size: 0.7rem;
+        font-size: 0.65rem;
         font-weight: 700;
         color: var(--coklat-tua);
-        margin-bottom: 0.4rem;
+        margin-bottom: 0.3rem;
         letter-spacing: 0.5px;
     }
     .news-category i {
-        margin-right: 4px;
+        margin-right: 3px;
         color: #d93838;
     }
     .news-title {
-        font-size: 0.95rem;
+        font-size: 0.9rem;
         font-weight: 700;
         color: var(--coklat-tua);
         margin-bottom: 0.4rem;
@@ -91,15 +91,15 @@
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
-        line-height: 1.4;
+        line-height: 1.3;
     }
     .news-title:hover {
         color: var(--gold);
     }
     .news-excerpt {
-        font-size: 0.8rem;
+        font-size: 0.75rem;
         color: var(--teks-abu);
-        margin-bottom: 0.8rem;
+        margin-bottom: 0.6rem;
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
@@ -113,10 +113,10 @@
         align-items: center;
         justify-content: space-between;
         flex-wrap: wrap;
-        gap: 0.5rem;
-        padding-top: 0.8rem;
+        gap: 0.4rem;
+        padding-top: 0.6rem;
         border-top: 1px solid rgba(0,0,0,0.05);
-        font-size: 0.75rem;
+        font-size: 0.65rem;
         color: var(--teks-abu);
     }
     .news-footer-item {
@@ -131,7 +131,7 @@
     /* TOMBOL BACA */
     .btn-baca-berita {
         color: var(--coklat-tua);
-        font-size: 0.8rem;
+        font-size: 0.7rem;
         font-weight: 700;
         text-decoration: none;
         transition: all 0.3s ease;
@@ -171,7 +171,7 @@
         <!-- GRID BERITA -->
         <div class="row g-4">
             @forelse($beritas as $berita)
-            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
+            <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
                 <div class="news-card">
                     <div class="news-img-wrap">
                         @if($berita->gambar)
@@ -191,7 +191,7 @@
                         <div class="news-footer">
                             <div class="d-flex align-items-center gap-2">
                                 <div class="news-footer-item">
-                                    <i class="bi bi-calendar-event"></i> {{ $berita->published_at ? $berita->published_at->translatedFormat('d F Y') : '-' }}
+                                    <i class="bi bi-calendar-event"></i> {{ $berita->published_at ? $berita->published_at->translatedFormat('d M Y') : '-' }}
                                 </div>
                                 <div class="news-footer-item">
                                     <i class="bi bi-eye"></i> Dilihat {{ $berita->views }} kali
