@@ -112,6 +112,8 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 0.5rem;
         padding-top: 0.8rem;
         border-top: 1px solid rgba(0,0,0,0.05);
         font-size: 0.75rem;
@@ -169,7 +171,7 @@
         <!-- GRID BERITA -->
         <div class="row g-4">
             @forelse($beritas as $berita)
-            <div class="col-md-6 col-lg-4 col-xl-3" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
                 <div class="news-card">
                     <div class="news-img-wrap">
                         @if($berita->gambar)
@@ -187,7 +189,7 @@
                         <p class="news-excerpt">{{ Str::limit(strip_tags($berita->isi), 80) }}</p>
                         
                         <div class="news-footer">
-                            <div class="d-flex align-items-center gap-3">
+                            <div class="d-flex align-items-center gap-2">
                                 <div class="news-footer-item">
                                     <i class="bi bi-calendar-event"></i> {{ $berita->published_at ? $berita->published_at->translatedFormat('d F Y') : '-' }}
                                 </div>
