@@ -648,7 +648,7 @@
         <div class="row g-4 justify-content-center">
             
             <!-- Kolom Kanan: Card Aparatur -->
-            <div class="col-12" data-aos="fade-up" data-aos-delay="100">
+            <div class="col-lg-10 col-xl-9" data-aos="fade-up" data-aos-delay="100">
                 <!-- White Card Wrapper -->
                 <div style="background: #fff; border-radius: 20px; box-shadow: 0 8px 32px rgba(0,0,0,.10); padding: 1.25rem 1.5rem; height: 100%; font-family: 'Poppins', sans-serif;">
             
