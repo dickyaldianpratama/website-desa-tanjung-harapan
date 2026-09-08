@@ -277,7 +277,7 @@
         .stat-item .stat-unit   { font-size:.9rem; color:var(--coklat-medium); font-weight:600; }
 
         /* FOOTER MODERN & PROFESIONAL */
-        footer { background: url('{{ asset("icons/pemandangan.jpg") }}') center/cover no-repeat; color:rgba(255,255,255,.8); padding:5rem 0 2rem; position:relative; }
+        footer { background: url('{{ asset("images/icons/pemandangan.jpg") }}') center/cover no-repeat; color:rgba(255,255,255,.8); padding:5rem 0 2rem; position:relative; }
         footer::before { content:''; position:absolute; top:0; left:0; right:0; bottom:0; background:rgba(42, 22, 8, 0.7); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); border-top: 4px solid var(--gold); z-index:0; }
         footer .container { position:relative; z-index:1; }
         .footer-title { color:var(--putih); font-size:1rem; font-weight:700; margin-bottom:1.5rem; letter-spacing:2px; text-transform:uppercase; }
