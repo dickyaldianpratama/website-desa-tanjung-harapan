@@ -163,7 +163,7 @@
     .sambutan-text {
         font-family: 'Poppins', sans-serif;
         font-weight: 300;
-        font-size: 1.05rem;
+        font-size: 0.85rem;
         color: #4b5563; /* Tailwind gray-600 */
     }
     .btn-chevron {
@@ -627,29 +627,32 @@
                     </div>
                 </div>
                         <div class="col-md-7 d-flex align-items-center" data-aos="fade-left">
-                            <div class="p-4 p-lg-5">
-                                <div class="d-flex align-items-center gap-2 mb-3 text-gold">
+                            <div class="p-3 p-lg-4">
+                                <div class="d-flex align-items-center gap-2 mb-2 text-gold">
                                     <i class="bi bi-megaphone-fill"></i>
-                                    <span class="fw-bold text-uppercase" style="letter-spacing: 2px; font-size: 0.85rem;">Sambutan Kepala Desa</span>
+                                    <span class="fw-bold text-uppercase" style="letter-spacing: 2px; font-size: 0.75rem;">Sambutan Kepala Desa</span>
                                 </div>
-                                <h3 class="fw-bold text-coklat-tua mb-2">{{ $namaKades }}</h3>
-                                <p class="text-muted fw-semibold mb-4 d-flex align-items-center gap-2"><i class="bi bi-person-vcard"></i> {{ $jabatanKades }}</p>
+                                <h4 class="fw-bold text-coklat-tua mb-1">
+                                    <marquee behavior="scroll" direction="left" scrollamount="5">{{ $namaKades }}</marquee>
+                                </h4>
+                                <p class="text-muted fw-semibold mb-3 d-flex align-items-center gap-2" style="font-size: 0.85rem;"><i class="bi bi-person-vcard"></i> {{ $jabatanKades }}</p>
                                 
-                                <div class="sambutan-text" style="line-height: 1.8;">
-                                    <p>Om Swastyastu<br>Salam Sejahtera bagi kita semua.</p>
+                                <div class="sambutan-text" style="line-height: 1.6;">
+                                    <p><em>Assalamu'alaikum Warahmatullahi Wabarakatuh,</em></p>
+                                    <p><em>Yth. Bapak/Ibu/Saudara/i sekalian warga desa yang saya cintai,</em></p>
                                     <p>Selamat datang di website resmi Desa kami. Dengan segala kerendahan hati dan rasa syukur yang mendalam, saya ingin menyampaikan terima kasih atas kepercayaan yang telah diberikan kepada saya untuk memimpin desa yang kita cintai ini<span id="dotsSambutan">...</span></p>
                                     
                                     <div class="collapse" id="collapseSambutan">
                                         <p>Sebagai Kepala Desa, saya menyadari bahwa memimpin desa ini merupakan amanah yang besar. Namun, dengan dukungan, kerjasama, dan semangat gotong royong dari seluruh warga masyarakat, saya yakin kita dapat mewujudkan desa yang mandiri, berprestasi, dan sejahtera.</p>
                                         <p>Mari kita tingkatkan partisipasi aktif dalam setiap program pembangunan, baik di bidang infrastruktur, pemberdayaan ekonomi, kesehatan, maupun pendidikan. Saya mengajak seluruh elemen masyarakat untuk bersinergi dan berkolaborasi demi memajukan desa yang kita banggakan ini.</p>
                                         <p>Terima kasih atas segala dukungan yang telah diberikan. Mari kita satukan langkah dan bekerja ikhlas untuk mewujudkan visi dan misi kita bersama.</p>
-                                        <p>Om Shanti Shanti Shanti Om.</p>
+                                        <p><em>Wassalamu'alaikum Warahmatullahi Wabarakatuh.</em></p>
                                     </div>
                                 </div>
                                 
-                                <button class="btn mt-3 px-4 py-2 rounded-pill d-inline-flex align-items-center gap-2 shadow-sm" style="background-color: #a41924; color: white; font-weight: 600; border: none;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSambutan" aria-expanded="false" aria-controls="collapseSambutan">
+                                <button class="btn btn-gold mt-2 px-3 py-1 rounded-pill d-inline-flex align-items-center gap-2 shadow-sm" style="font-weight: 600; font-size: 0.85rem;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSambutan" aria-expanded="false" aria-controls="collapseSambutan">
                                     <span id="btnTextSambutan">Baca Selengkapnya</span>
-                                    <i class="bi bi-chevron-down btn-chevron fs-5"></i>
+                                    <i class="bi bi-chevron-down btn-chevron"></i>
                                 </button>
                             </div>
                         </div>
