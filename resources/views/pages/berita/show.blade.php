@@ -265,8 +265,7 @@
             <div class="col-lg-8">
                 <div class="article-wrapper" data-aos="fade-up">
                     <div class="d-flex align-items-center gap-3 mb-3">
-                        @php $logo = $settings['logo_desa'] ?? 'logo_desa.png'; @endphp
-                        <img src="{{ asset('images/'.$logo) }}" alt="Logo Desa" style="width: 50px; height: auto; object-fit: contain;">
+                        <img src="{{ asset('logo_desa.png') }}" alt="Logo Desa" style="width: 50px; height: auto; object-fit: contain;">
                         <div>
                             <h1 class="article-title mb-1" style="font-size: 1.8rem;">{{ $berita->judul }}</h1>
                             <div class="text-muted small">Desa Tanjung Harapan</div>
@@ -316,6 +315,25 @@
                         </a>
                     </div>
                     
+                    <!-- DAFTAR KOMENTAR -->
+                    @if(isset($komentars) && $komentars->count() > 0)
+                    <div class="mt-5 pt-4 border-top">
+                        <h4 class="fw-bold mb-4 text-coklat-tua"><i class="bi bi-chat-text-fill me-2"></i>Komentar ({{ $komentars->count() }})</h4>
+                        @foreach($komentars as $kom)
+                            <div class="d-flex gap-3 mb-4 p-3 bg-light rounded-4">
+                                <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center" style="width: 45px; height: 45px; font-size: 1.2rem; flex-shrink: 0;">
+                                    {{ strtoupper(substr($kom->nama, 0, 1)) }}
+                                </div>
+                                <div>
+                                    <h6 class="fw-bold mb-1">{{ $kom->nama }}</h6>
+                                    <div class="text-muted small mb-2"><i class="bi bi-clock me-1"></i>{{ $kom->created_at->diffForHumans() }}</div>
+                                    <p class="mb-0" style="font-size: 0.95rem;">{{ $kom->isi }}</p>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                    @endif
+
                     <!-- COMMENT SECTION -->
                     <div class="comment-section">
                         <div class="comment-title">
@@ -325,34 +343,46 @@
                         <div class="comment-alert">
                             <i class="bi bi-info-circle-fill"></i> Komentar baru terbit setelah disetujui oleh admin
                         </div>
+
+                        @if(session('success'))
+                            <div class="alert alert-success border-0 shadow-sm rounded-3">
+                                <i class="bi bi-check-circle-fill me-2"></i>{{ session('success') }}
+                            </div>
+                        @endif
+                        @if(session('error'))
+                            <div class="alert alert-danger border-0 shadow-sm rounded-3">
+                                <i class="bi bi-exclamation-triangle-fill me-2"></i>{{ session('error') }}
+                            </div>
+                        @endif
                         
-                        <form action="#" method="POST" class="comment-form" onsubmit="event.preventDefault(); alert('Fitur komentar sedang dalam pengembangan.');">
+                        <form action="{{ route('komentar.store', $berita->slug) }}" method="POST" class="comment-form">
+                            @csrf
                             <div class="mb-3">
                                 <label class="form-label">Komentar <span>*</span></label>
-                                <textarea class="form-control" rows="4" required></textarea>
+                                <textarea name="isi" class="form-control" rows="4" required>{{ old('isi') }}</textarea>
                             </div>
                             
                             <div class="row g-3 mb-3">
                                 <div class="col-md-4">
                                     <label class="form-label">Nama <span>*</span></label>
-                                    <input type="text" class="form-control" required>
+                                    <input type="text" name="nama" class="form-control" value="{{ old('nama') }}" required>
                                 </div>
                                 <div class="col-md-4">
                                     <label class="form-label">Alamat Email</label>
-                                    <input type="email" class="form-control">
+                                    <input type="email" name="email" class="form-control" value="{{ old('email') }}">
                                 </div>
                                 <div class="col-md-4">
                                     <label class="form-label">No. HP <span>*</span></label>
-                                    <input type="text" class="form-control" required>
+                                    <input type="text" name="no_hp" class="form-control" value="{{ old('no_hp') }}" required>
                                 </div>
                             </div>
                             
                             <div class="d-flex align-items-center gap-3 mb-4 flex-wrap">
-                                <div style="background: #f1f5f9; padding: 0.5rem 1rem; border-radius: 4px; font-family: monospace; font-size: 1.2rem; letter-spacing: 3px; font-weight: bold; color: #333; text-decoration: line-through;">
-                                    u d P 2 F
+                                <div id="captchaBox" style="background: #f1f5f9; padding: 0.5rem 1rem; border-radius: 4px; font-family: monospace; font-size: 1.2rem; letter-spacing: 3px; font-weight: bold; color: #333; text-decoration: line-through; user-select: none;">
+                                    {{ $captchaSpaced ?? 'C A P T C H A' }}
                                 </div>
-                                <a href="#" class="text-danger small text-decoration-none">[Ganti Gambar]</a>
-                                <input type="text" class="form-control" style="width: 200px;" placeholder="Tulis kode di samping" required>
+                                <button type="button" class="btn btn-link text-danger small text-decoration-none p-0 border-0" id="btnReloadCaptcha">[Ganti Gambar]</button>
+                                <input type="text" name="captcha" class="form-control" style="width: 200px;" placeholder="Tulis kode di samping" required>
                             </div>
                             
                             <button type="submit" class="btn-submit-comment">
@@ -414,3 +444,24 @@
     </div>
 </section>
 @endsection
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Captcha reload
+        const btnReload = document.getElementById('btnReloadCaptcha');
+        const captchaBox = document.getElementById('captchaBox');
+        
+        if (btnReload) {
+            btnReload.addEventListener('click', function() {
+                fetch('{{ route('captcha.reload') }}')
+                    .then(response => response.json())
+                    .then(data => {
+                        captchaBox.innerText = data.captcha;
+                    })
+                    .catch(error => console.error('Error reloading captcha:', error));
+            });
+        }
+    });
+</script>
+@endpush

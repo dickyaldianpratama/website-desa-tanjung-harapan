@@ -23,6 +23,8 @@ Route::get('/profil',        [ProfilController::class, 'index'])->name('profil')
 Route::get('/profil/download-bagan/{id}', [ProfilController::class, 'downloadBagan'])->name('profil.downloadBagan');
 Route::get('/berita',        [BeritaController::class, 'index'])->name('berita.index');
 Route::get('/berita/{slug}', [BeritaController::class, 'show'])->name('berita.show');
+Route::post('/berita/{slug}/komentar', [App\Http\Controllers\KomentarController::class, 'store'])->name('komentar.store');
+Route::get('/reload-captcha', [App\Http\Controllers\KomentarController::class, 'reloadCaptcha'])->name('captcha.reload');
 Route::get('/potensi',       [PotensiController::class, 'index'])->name('potensi.index');
 Route::get('/potensi/{slug}',[PotensiController::class, 'show'])->name('potensi.show');
 Route::get('/layanan',       [App\Http\Controllers\LayananController::class, 'index'])->name('layanan.index');
@@ -61,6 +63,8 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::post('setting',           [SettingController::class, 'update'])->name('setting.update');
     Route::resource('bagan',         App\Http\Controllers\Admin\BaganStrukturController::class);
     Route::resource('fasilitas',     App\Http\Controllers\Admin\FasilitasController::class);
+    Route::resource('komentar',      App\Http\Controllers\Admin\KomentarController::class)->only(['index', 'destroy']);
+    Route::post('komentar/{id}/approve', [App\Http\Controllers\Admin\KomentarController::class, 'approve'])->name('komentar.approve');
 
 
     // Profile Account Settings

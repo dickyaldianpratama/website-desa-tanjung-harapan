@@ -13,4 +13,5 @@ class Berita extends Model {
     }
     public function scopePublish($query) { return $query->where('status', 'publish'); }
     public function getRouteKeyName() { return 'slug'; }
+    public function komentars() { return $this->hasMany(Komentar::class); }
 }
