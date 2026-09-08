@@ -21,17 +21,6 @@ use App\Http\Controllers\Admin\SettingController;
 Route::get('/',              [HomeController::class, 'index'])->name('home');
 Route::get('/profil',        [ProfilController::class, 'index'])->name('profil');
 Route::get('/profil/download-bagan/{id}', [ProfilController::class, 'downloadBagan'])->name('profil.downloadBagan');
-Route::get('/migrasi-db-rahasia', function() {
-    try {
-        \Illuminate\Support\Facades\Artisan::call('migrate', [
-            '--path' => 'database/migrations/2026_09_08_043208_create_komentars_table.php',
-            '--force' => true
-        ]);
-        return 'Migrasi khusus tabel komentars berhasil: ' . \Illuminate\Support\Facades\Artisan::output();
-    } catch (\Exception $e) {
-        return 'Migrasi gagal: ' . $e->getMessage();
-    }
-});
 Route::get('/berita',        [BeritaController::class, 'index'])->name('berita.index');
 Route::get('/berita/{slug}', [BeritaController::class, 'show'])->name('berita.show');
 Route::post('/berita/{slug}/komentar', [App\Http\Controllers\KomentarController::class, 'store'])->name('komentar.store');
