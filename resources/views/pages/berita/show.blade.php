@@ -27,6 +27,20 @@
     }
 
     /* BERITA DETAIL */
+    .article-wrapper {
+        background: #ffffff;
+        border-radius: 16px;
+        padding: 2rem;
+        box-shadow: 0 4px 25px rgba(0,0,0,0.05);
+        border: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    @media (max-width: 768px) {
+        .article-wrapper {
+            padding: 1.5rem;
+        }
+    }
+
     .article-title {
         font-size: 2.2rem;
         font-weight: 800;
@@ -170,6 +184,69 @@
     .btn-whatsapp { background: #25D366; }
     .btn-facebook { background: #1877F2; }
     .btn-twitter { background: #1DA1F2; }
+    .btn-telegram { background: #0088cc; }
+    
+    /* KOMENTAR */
+    .comment-section {
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(0,0,0,0.05);
+    }
+    .comment-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--coklat-tua);
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    .comment-title i {
+        color: var(--gold);
+    }
+    .comment-alert {
+        background-color: var(--cream);
+        border: 1px solid rgba(201, 150, 58, 0.3);
+        color: var(--coklat-tua);
+        border-radius: 8px;
+        padding: 1rem;
+        font-size: 0.9rem;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    .comment-form .form-label {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #333;
+    }
+    .comment-form .form-label span {
+        color: var(--gold);
+    }
+    .comment-form .form-control {
+        border-radius: 8px;
+        border: 1px solid #ced4da;
+        padding: 0.6rem 1rem;
+    }
+    .comment-form .form-control:focus {
+        border-color: var(--gold);
+        box-shadow: 0 0 0 0.25rem rgba(201, 150, 58, 0.25);
+    }
+    .btn-submit-comment {
+        background-color: var(--coklat-tua);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 0.6rem 1.5rem;
+        font-weight: 600;
+        transition: all 0.3s;
+    }
+    .btn-submit-comment:hover {
+        background-color: var(--gold);
+        color: var(--coklat-tua);
+    }
+
 </style>
 @endpush
 
@@ -187,7 +264,14 @@
             <!-- MAIN CONTENT -->
             <div class="col-lg-8">
                 <div class="article-wrapper" data-aos="fade-up">
-                    <h1 class="article-title">{{ $berita->judul }}</h1>
+                    <div class="d-flex align-items-center gap-3 mb-3">
+                        @php $logo = $settings['logo_desa'] ?? 'logo_desa.png'; @endphp
+                        <img src="{{ asset('images/'.$logo) }}" alt="Logo Desa" style="width: 50px; height: auto; object-fit: contain;">
+                        <div>
+                            <h1 class="article-title mb-1" style="font-size: 1.8rem;">{{ $berita->judul }}</h1>
+                            <div class="text-muted small">Desa Tanjung Harapan</div>
+                        </div>
+                    </div>
                     
                     <div class="article-meta">
                         <div class="article-meta-item">
@@ -214,18 +298,69 @@
                     </div>
 
                     <!-- SHARE BUTTONS -->
-                    <div class="share-section">
-                        <span class="fw-bold text-coklat-tua">Bagikan:</span>
-                        <a href="https://api.whatsapp.com/send?text={{ urlencode($berita->judul . ' ' . Request::url()) }}" target="_blank" class="btn-share btn-whatsapp" title="Share ke WhatsApp">
-                            <i class="bi bi-whatsapp"></i>
-                        </a>
+                    <div class="share-section mt-5">
+                        <span class="fw-bold text-dark d-flex align-items-center gap-2">
+                            <i class="bi bi-share-fill"></i> Bagikan:
+                        </span>
                         <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(Request::url()) }}" target="_blank" class="btn-share btn-facebook" title="Share ke Facebook">
                             <i class="bi bi-facebook"></i>
                         </a>
                         <a href="https://twitter.com/intent/tweet?url={{ urlencode(Request::url()) }}&text={{ urlencode($berita->judul) }}" target="_blank" class="btn-share btn-twitter" title="Share ke Twitter">
                             <i class="bi bi-twitter"></i>
                         </a>
+                        <a href="https://api.whatsapp.com/send?text={{ urlencode($berita->judul . ' ' . Request::url()) }}" target="_blank" class="btn-share btn-whatsapp" title="Share ke WhatsApp">
+                            <i class="bi bi-whatsapp"></i>
+                        </a>
+                        <a href="https://t.me/share/url?url={{ urlencode(Request::url()) }}&text={{ urlencode($berita->judul) }}" target="_blank" class="btn-share btn-telegram" title="Share ke Telegram">
+                            <i class="bi bi-telegram"></i>
+                        </a>
                     </div>
+                    
+                    <!-- COMMENT SECTION -->
+                    <div class="comment-section">
+                        <div class="comment-title">
+                            <i class="bi bi-pencil-fill"></i> Beri Komentar
+                        </div>
+                        
+                        <div class="comment-alert">
+                            <i class="bi bi-info-circle-fill"></i> Komentar baru terbit setelah disetujui oleh admin
+                        </div>
+                        
+                        <form action="#" method="POST" class="comment-form" onsubmit="event.preventDefault(); alert('Fitur komentar sedang dalam pengembangan.');">
+                            <div class="mb-3">
+                                <label class="form-label">Komentar <span>*</span></label>
+                                <textarea class="form-control" rows="4" required></textarea>
+                            </div>
+                            
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-4">
+                                    <label class="form-label">Nama <span>*</span></label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Alamat Email</label>
+                                    <input type="email" class="form-control">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">No. HP <span>*</span></label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                            </div>
+                            
+                            <div class="d-flex align-items-center gap-3 mb-4 flex-wrap">
+                                <div style="background: #f1f5f9; padding: 0.5rem 1rem; border-radius: 4px; font-family: monospace; font-size: 1.2rem; letter-spacing: 3px; font-weight: bold; color: #333; text-decoration: line-through;">
+                                    u d P 2 F
+                                </div>
+                                <a href="#" class="text-danger small text-decoration-none">[Ganti Gambar]</a>
+                                <input type="text" class="form-control" style="width: 200px;" placeholder="Tulis kode di samping" required>
+                            </div>
+                            
+                            <button type="submit" class="btn-submit-comment">
+                                <i class="bi bi-send-fill me-1"></i> Kirim Komentar
+                            </button>
+                        </form>
+                    </div>
+
                 </div>
             </div>
 
