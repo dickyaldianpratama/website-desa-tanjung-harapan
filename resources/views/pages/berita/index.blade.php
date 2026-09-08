@@ -64,49 +64,44 @@
         transform: scale(1.05);
     }
     
-    /* MENGAMBANG POJOK KANAN BAWAH (Tanggal) */
-    .news-date-badge {
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        background: var(--hijau);
-        color: white;
-        padding: 10px 15px;
-        border-top-left-radius: 12px;
-        font-weight: 700;
-        text-align: center;
-        line-height: 1.2;
-        z-index: 2;
-    }
-    .news-date-badge .day { font-size: 1.2rem; display: block; }
-    .news-date-badge .month-year { font-size: 0.8rem; font-weight: 500; }
-
     .news-body {
-        padding: 1.5rem;
+        padding: 1.25rem;
         display: flex;
         flex-direction: column;
         flex-grow: 1;
     }
-    .news-title {
-        font-size: 1.15rem;
+    .news-category {
+        font-size: 0.75rem;
         font-weight: 700;
         color: var(--coklat-tua);
-        margin-bottom: 0.75rem;
+        margin-bottom: 0.5rem;
+        letter-spacing: 0.5px;
+    }
+    .news-category i {
+        margin-right: 4px;
+        color: #d93838;
+    }
+    .news-title {
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--coklat-tua);
+        margin-bottom: 0.5rem;
         text-decoration: none;
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
+        line-height: 1.4;
     }
     .news-title:hover {
         color: var(--gold);
     }
     .news-excerpt {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
         color: var(--teks-abu);
-        margin-bottom: 1.5rem;
+        margin-bottom: 1rem;
         display: -webkit-box;
-        -webkit-line-clamp: 3;
+        -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
         flex-grow: 1;
@@ -119,32 +114,30 @@
         justify-content: space-between;
         padding-top: 1rem;
         border-top: 1px solid rgba(0,0,0,0.05);
-        font-size: 0.85rem;
+        font-size: 0.8rem;
         color: var(--teks-abu);
     }
     .news-footer-item {
         display: flex;
         align-items: center;
-        gap: 0.4rem;
+        gap: 0.3rem;
     }
     .news-footer-item i {
-        color: var(--gold);
+        color: var(--teks-abu);
     }
     
     /* TOMBOL BACA */
     .btn-baca-berita {
-        background-color: var(--coklat-tua);
-        color: white;
-        border-radius: 50px;
-        padding: 0.4rem 1.2rem;
+        color: var(--coklat-tua);
         font-size: 0.85rem;
-        font-weight: 500;
-        transition: all 0.3s ease;
+        font-weight: 700;
         text-decoration: none;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
     }
     .btn-baca-berita:hover {
-        background-color: var(--gold);
-        color: white;
+        color: var(--gold);
         transform: translateX(3px);
     }
 </style>
@@ -185,19 +178,16 @@
                             @php $fallbackImg = 'berita' . (($berita->id % 3) + 1) . '.jpg'; @endphp
                             <img src="{{ Storage::disk('s3')->url('images/berita/' . $fallbackImg) }}" alt="{{ $berita->judul }}" onerror="this.src='{{ asset('images/hero-placeholder.jpg') }}'">
                         @endif
-                        
-                        <!-- DATE BADGE -->
-                        <div class="news-date-badge">
-                            <span class="day">{{ $berita->published_at ? $berita->published_at->format('d') : '-' }}</span>
-                            <span class="month-year">{{ $berita->published_at ? $berita->published_at->translatedFormat('M Y') : '-' }}</span>
-                        </div>
                     </div>
                     <div class="news-body">
+                        <div class="news-category">
+                            <i class="bi bi-folder-fill"></i> {{ strtoupper($berita->kategori ?? 'Berita Desa') }}
+                        </div>
                         <a href="{{ route('berita.show', $berita->slug) }}" class="news-title">{{ $berita->judul }}</a>
-                        <p class="news-excerpt">{{ Str::limit(strip_tags($berita->isi), 120) }}</p>
+                        <p class="news-excerpt">{{ Str::limit(strip_tags($berita->isi), 90) }}</p>
                         
-                        <div class="news-footer align-items-end">
-                            <div class="d-flex flex-column gap-2">
+                        <div class="news-footer">
+                            <div class="d-flex align-items-center gap-3">
                                 <div class="news-footer-item">
                                     <i class="bi bi-calendar-event"></i> {{ $berita->published_at ? $berita->published_at->translatedFormat('d F Y') : '-' }}
                                 </div>
@@ -205,7 +195,7 @@
                                     <i class="bi bi-eye"></i> Dilihat {{ $berita->views }} kali
                                 </div>
                             </div>
-                            <a href="{{ route('berita.show', $berita->slug) }}" class="btn-baca-berita">Baca ➜</a>
+                            <a href="{{ route('berita.show', $berita->slug) }}" class="btn-baca-berita text-nowrap">Baca ➜</a>
                         </div>
                     </div>
                 </div>
