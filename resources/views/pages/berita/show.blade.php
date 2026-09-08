@@ -277,7 +277,7 @@
 
 @section('content')
 <section class="py-4 bg-cream">
-    <div class="container mt-5 pt-4">
+    <div class="container pt-5">
         <!-- BREADCRUMBS -->
         <div class="breadcrumb-custom">
             <a href="{{ route('home') }}"><i class="bi bi-house-door-fill"></i></a>
