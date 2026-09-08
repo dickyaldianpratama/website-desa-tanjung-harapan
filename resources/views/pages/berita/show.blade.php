@@ -6,23 +6,24 @@
 <style>
     /* BREADCRUMBS */
     .breadcrumb-custom {
-        padding: 2rem 0;
+        padding: 0 0 1rem 0;
         margin: 0;
         background: transparent;
+        font-family: 'Inter', 'Poppins', sans-serif;
+        font-size: 0.95rem;
+        text-align: left;
     }
     .breadcrumb-custom a {
         color: var(--coklat-tua);
         text-decoration: none;
         font-weight: 500;
+        transition: color 0.2s;
     }
     .breadcrumb-custom a:hover {
         color: var(--gold);
     }
     .breadcrumb-custom .separator {
         margin: 0 0.5rem;
-        color: var(--teks-abu);
-    }
-    .breadcrumb-custom .active {
         color: var(--teks-abu);
     }
 
@@ -278,17 +279,17 @@
 @section('content')
 <section class="py-4 bg-cream">
     <div class="container pt-5">
-        <!-- BREADCRUMBS -->
-        <div class="breadcrumb-custom">
-            <a href="{{ route('home') }}"><i class="bi bi-house-door-fill"></i></a>
-            <span class="separator">/</span>
-            <a href="{{ route('berita.index') }}">Berita {{ $settings['nama_desa'] ?? '' }}</a>
-        </div>
-
         <div class="row g-5">
             <!-- MAIN CONTENT -->
             <div class="col-lg-8">
                 <div class="article-wrapper" data-aos="fade-up">
+                    <!-- BREADCRUMBS -->
+                    <div class="breadcrumb-custom">
+                        <a href="{{ route('home') }}"><i class="bi bi-house-door-fill"></i> Beranda</a>
+                        <span class="separator">/</span>
+                        <a href="{{ route('berita.index') }}">Berita Desa</a>
+                    </div>
+
                     <div class="article-header-wrapper d-flex flex-column flex-md-row align-items-md-center gap-3 mb-4">
                         <img src="{{ asset('images/logo_desa.png') }}" alt="Logo Desa" class="article-logo">
                         <div class="article-title-container">
