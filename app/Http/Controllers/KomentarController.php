@@ -68,15 +68,53 @@ class KomentarController extends Controller
         return back()->with('success', 'Terima kasih! Komentar Anda berhasil dikirim dan menunggu persetujuan admin.');
     }
 
-    public function reloadCaptcha()
+    public function generateCaptchaImage()
     {
-        // Generate captcha random string
-        $captcha = strtoupper(Str::random(5));
-        session(['komentar_captcha' => $captcha]);
+        $string = strtoupper(Str::random(5));
+        session(['komentar_captcha' => $string]);
+
+        $width = 160;
+        $height = 50;
+
+        $svg = '<svg xmlns="http://www.w3.org/2000/svg" width="'.$width.'" height="'.$height.'">';
+        $svg .= '<rect width="100%" height="100%" fill="#f1f5f9" />';
+
+        // Garis acak (noise)
+        for ($i = 0; $i < 5; $i++) {
+            $x1 = rand(0, $width); $y1 = rand(0, $height);
+            $x2 = rand(0, $width); $y2 = rand(0, $height);
+            $color = sprintf('#%06X', mt_rand(0x888888, 0xCCCCCC));
+            $svg .= '<line x1="'.$x1.'" y1="'.$y1.'" x2="'.$x2.'" y2="'.$y2.'" stroke="'.$color.'" stroke-width="'.rand(1,3).'" />';
+        }
+
+        // Kurva acak
+        for ($i = 0; $i < 3; $i++) {
+            $path = "M".rand(0, $width)." ".rand(0, $height)." Q".rand(0, $width)." ".rand(0, $height)." ".rand(0, $width)." ".rand(0, $height);
+            $color = sprintf('#%06X', mt_rand(0x999999, 0xDDDDDD));
+            $svg .= '<path d="'.$path.'" fill="none" stroke="'.$color.'" stroke-width="2" />';
+        }
+
+        // Teks Captcha
+        $colors = ['#d93838', '#1e40af', '#047857', '#b45309', '#6d28d9', '#1f2937'];
+        $fonts = ['Arial', 'Verdana', 'Courier New', 'Georgia', 'Trebuchet MS'];
         
-        // Buat string HTML dengan spasi agar lebih jelas
-        $captchaSpaced = implode(' ', str_split($captcha));
-        
-        return response()->json(['captcha' => $captchaSpaced]);
+        $x = 20;
+        for ($i = 0; $i < strlen($string); $i++) {
+            $color = $colors[array_rand($colors)];
+            $font = $fonts[array_rand($fonts)];
+            $y = rand(30, 40);
+            $rotate = rand(-25, 25);
+            $fontSize = rand(26, 34);
+            $weight = rand(0, 1) ? 'bold' : 'normal';
+            
+            $svg .= '<text x="'.$x.'" y="'.$y.'" font-family="'.$font.'" font-size="'.$fontSize.'" font-weight="'.$weight.'" fill="'.$color.'" transform="rotate('.$rotate.' '.$x.' '.$y.')">'.$string[$i].'</text>';
+            $x += rand(22, 28);
+        }
+
+        $svg .= '</svg>';
+
+        return response($svg)
+            ->header('Content-Type', 'image/svg+xml')
+            ->header('Cache-Control', 'no-cache, must-revalidate');
     }
 }

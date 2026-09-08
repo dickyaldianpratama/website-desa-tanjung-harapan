@@ -378,8 +378,8 @@
                             </div>
                             
                             <div class="d-flex align-items-center gap-3 mb-4 flex-wrap">
-                                <div id="captchaBox" style="background: #f1f5f9; padding: 0.5rem 1rem; border-radius: 4px; font-family: monospace; font-size: 1.2rem; letter-spacing: 3px; font-weight: bold; color: #333; text-decoration: line-through; user-select: none;">
-                                    {{ $captchaSpaced ?? 'C A P T C H A' }}
+                                <div style="background: #f1f5f9; padding: 0.25rem; border-radius: 4px; border: 1px solid #e2e8f0; display: inline-block;">
+                                    <img src="{{ route('captcha.image') }}" alt="Captcha" id="captchaImage" style="display: block; border-radius: 2px;">
                                 </div>
                                 <button type="button" class="btn btn-link text-danger small text-decoration-none p-0 border-0" id="btnReloadCaptcha">[Ganti Gambar]</button>
                                 <input type="text" name="captcha" class="form-control" style="width: 200px;" placeholder="Tulis kode di samping" required>
@@ -450,16 +450,11 @@
     document.addEventListener('DOMContentLoaded', function() {
         // Captcha reload
         const btnReload = document.getElementById('btnReloadCaptcha');
-        const captchaBox = document.getElementById('captchaBox');
+        const captchaImage = document.getElementById('captchaImage');
         
-        if (btnReload) {
+        if (btnReload && captchaImage) {
             btnReload.addEventListener('click', function() {
-                fetch('{{ route('captcha.reload') }}')
-                    .then(response => response.json())
-                    .then(data => {
-                        captchaBox.innerText = data.captcha;
-                    })
-                    .catch(error => console.error('Error reloading captcha:', error));
+                captchaImage.src = '{{ route('captcha.image') }}?' + new Date().getTime();
             });
         }
     });

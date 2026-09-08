@@ -36,14 +36,7 @@ class BeritaController extends Controller {
         
         // Ambil komentar yang sudah di-approve
         $komentars = $berita->komentars()->where('status', 'approved')->latest()->get();
-
-        // Generate captcha awal jika belum ada
-        if (!session()->has('komentar_captcha')) {
-            session(['komentar_captcha' => strtoupper(\Illuminate\Support\Str::random(5))]);
-        }
-        $captcha = session('komentar_captcha');
-        $captchaSpaced = implode(' ', str_split($captcha));
         
-        return view('pages.berita.show', compact('settings', 'berita', 'terbaru', 'kategoris', 'komentars', 'captchaSpaced'));
+        return view('pages.berita.show', compact('settings', 'berita', 'terbaru', 'kategoris', 'komentars'));
     }
 }

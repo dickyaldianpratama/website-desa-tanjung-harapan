@@ -24,7 +24,7 @@ Route::get('/profil/download-bagan/{id}', [ProfilController::class, 'downloadBag
 Route::get('/berita',        [BeritaController::class, 'index'])->name('berita.index');
 Route::get('/berita/{slug}', [BeritaController::class, 'show'])->name('berita.show');
 Route::post('/berita/{slug}/komentar', [App\Http\Controllers\KomentarController::class, 'store'])->name('komentar.store');
-Route::get('/reload-captcha', [App\Http\Controllers\KomentarController::class, 'reloadCaptcha'])->name('captcha.reload');
+Route::get('/captcha-image', [App\Http\Controllers\KomentarController::class, 'generateCaptchaImage'])->name('captcha.image');
 Route::get('/potensi',       [PotensiController::class, 'index'])->name('potensi.index');
 Route::get('/potensi/{slug}',[PotensiController::class, 'show'])->name('potensi.show');
 Route::get('/layanan',       [App\Http\Controllers\LayananController::class, 'index'])->name('layanan.index');
