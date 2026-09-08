@@ -88,9 +88,10 @@
     .kades-card-profil {
         background-color: var(--putih);
         border-radius: 16px;
-        padding: 2rem;
+        padding: 1.5rem;
         text-align: center;
-        height: 400px;
+        height: 100%;
+        min-height: 350px;
         box-shadow: 0 5px 20px rgba(0,0,0,0.05);
         border: 1px solid rgba(0,0,0,0.05);
         display: flex;
@@ -105,11 +106,11 @@
         z-index: 1;
     }
     .kades-card-profil .kades-photo-img {
-        width: 150px;
-        height: 150px;
+        width: 120px;
+        height: 120px;
         border-radius: 50%;
         object-fit: cover;
-        margin-bottom: 1.5rem;
+        margin-bottom: 1rem;
         border: 4px solid var(--cream);
         box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     }
@@ -191,19 +192,19 @@
         transition: transform 0.3s ease, box-shadow 0.3s ease;
         position: relative;
         overflow: hidden;
-        height: 250px; /* default for mobile */
+        height: 220px; /* default for mobile */
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
     }
     @media (min-width: 768px) {
         .perangkat-slide-card {
-            height: 280px;
+            height: 240px;
         }
     }
     @media (min-width: 992px) {
         .perangkat-slide-card {
-            height: 300px; /* Taller on desktop */
+            height: 250px; /* Taller on desktop */
         }
     }
     .perangkat-slide-card img {
@@ -240,14 +241,14 @@
     .perangkat-slide-card .card-content h5 {
         color: white !important;
         font-family: 'Poppins', sans-serif;
-        font-size: 0.95rem;
+        font-size: 0.85rem;
         margin-bottom: 0.25rem;
         text-transform: uppercase;
         letter-spacing: 0.5px;
     }
     .perangkat-slide-card .card-content p {
         color: rgba(255, 255, 255, 0.85) !important;
-        font-size: 0.75rem;
+        font-size: 0.7rem;
         margin-bottom: 0;
     }
 
@@ -1188,7 +1189,7 @@
     .perangkat-swiper .swiper-slide,
     .bpd-swiper .swiper-slide,
     .pkk-swiper .swiper-slide {
-        width: 220px; /* Fixed width for desktop */
+        width: 180px; /* Fixed width for desktop */
         opacity: 0.5; /* Faded by default */
         transition: opacity 0.3s ease, transform 0.3s ease;
     }
@@ -1197,14 +1198,14 @@
         .perangkat-swiper .swiper-slide,
         .bpd-swiper .swiper-slide,
         .pkk-swiper .swiper-slide {
-            width: 200px; 
+            width: 160px; 
         }
     }
     @media (max-width: 576px) {
         .perangkat-swiper .swiper-slide,
         .bpd-swiper .swiper-slide,
         .pkk-swiper .swiper-slide {
-            width: 180px; 
+            width: 140px; 
         }
     }
     
