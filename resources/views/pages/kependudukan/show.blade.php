@@ -269,34 +269,133 @@
                             </div>
                         </div>
 
-                    @else
-                        <!-- KATEGORI LAINNYA (0) -->
+                    @elseif($kategori == 'pekerjaan')
+                        <!-- DATA PEKERJAAN -->
+                        @php
+                            // SILAKAN UBAH ANGKA DI BAWAH INI SESUAI REKAP DATA ASLI
+                            $pekerjaanData = [
+                                ['nama' => 'Petani / Pekebun', 'jumlah' => 0, 'color' => '#28a745'],
+                                ['nama' => 'Mengurus Rumah Tangga', 'jumlah' => 0, 'color' => '#17a2b8'],
+                                ['nama' => 'Pelajar / Mahasiswa', 'jumlah' => 0, 'color' => '#ffc107'],
+                                ['nama' => 'Wiraswasta / Pedagang', 'jumlah' => 0, 'color' => '#fd7e14'],
+                                ['nama' => 'PNS / TNI / POLRI', 'jumlah' => 0, 'color' => '#007bff'],
+                                ['nama' => 'Pegawai Swasta', 'jumlah' => 0, 'color' => '#6610f2'],
+                                ['nama' => 'Belum / Tidak Bekerja', 'jumlah' => 0, 'color' => '#6c757d'],
+                                ['nama' => 'Pekerjaan Lainnya', 'jumlah' => 0, 'color' => '#343a40'],
+                            ];
+                            $totalPekerjaan = array_sum(array_column($pekerjaanData, 'jumlah'));
+                        @endphp
                         <div class="col-12">
-                            <div class="alert-rekapitulasi">
-                                <div class="d-flex align-items-center gap-3">
-                                    <i class="bi bi-shield-lock-fill" style="font-size: 2rem; color: #856404;"></i>
-                                    <div>
-                                        <h5 class="mb-1 fw-bold">Data Dilindungi</h5>
-                                        <p class="mb-0">Sesuai dengan kebijakan privasi dan perlindungan data masyarakat, detail rekapitulasi <strong>{{ ucfirst($kategori) }}</strong> warga tidak dapat dipublikasikan secara mendetail pada mode publik.</p>
+                            <div class="card border-0 shadow-sm p-4">
+                                @if($totalPekerjaan == 0) <div class="alert alert-info">Grafik akan muncul setelah angka data dimasukkan.</div> @endif
+                                @foreach($pekerjaanData as $p)
+                                    @php $persen = $totalPekerjaan > 0 ? round(($p['jumlah'] / $totalPekerjaan) * 100, 1) : 0; @endphp
+                                    <div class="mb-3">
+                                        <div class="d-flex justify-content-between mb-1" style="font-family: 'Poppins', sans-serif;">
+                                            <span class="fw-bold">{{ $p['nama'] }}</span>
+                                            <span class="text-muted">{{ $p['jumlah'] }} Jiwa ({{ $persen }}%)</span>
+                                        </div>
+                                        <div class="progress" style="height: 12px;">
+                                            <div class="progress-bar" role="progressbar" style="width: {{ $persen }}%; background-color: {{ $p['color'] }};" aria-valuenow="{{ $persen }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
                                     </div>
-                                </div>
+                                @endforeach
                             </div>
-                            <div class="table-responsive mt-4">
-                                <table class="table table-bordered text-center align-middle" style="font-family: 'Poppins', sans-serif;">
-                                    <thead style="background-color: var(--gold, #C9963A); color: #fff;">
-                                        <tr>
-                                            <th>Kategori {{ ucfirst($kategori) }}</th>
-                                            <th>Jumlah (Jiwa)</th>
-                                            <th>Persentase</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td colspan="3" class="text-muted fst-italic py-4">Data sedang dalam proses sinkronisasi / dilindungi</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                        </div>
+
+                    @elseif($kategori == 'pendidikan')
+                        <!-- DATA PENDIDIKAN -->
+                        @php
+                            $pendidikanData = [
+                                ['nama' => 'Belum / Tidak Sekolah', 'jumlah' => 0, 'color' => '#6c757d'],
+                                ['nama' => 'Belum Tamat SD', 'jumlah' => 0, 'color' => '#dc3545'],
+                                ['nama' => 'Tamat SD / Sederajat', 'jumlah' => 0, 'color' => '#fd7e14'],
+                                ['nama' => 'SMP / Sederajat', 'jumlah' => 0, 'color' => '#ffc107'],
+                                ['nama' => 'SMA / Sederajat', 'jumlah' => 0, 'color' => '#28a745'],
+                                ['nama' => 'Diploma (D1-D3)', 'jumlah' => 0, 'color' => '#17a2b8'],
+                                ['nama' => 'Sarjana (S1/D4)', 'jumlah' => 0, 'color' => '#007bff'],
+                                ['nama' => 'Magister / Doktor', 'jumlah' => 0, 'color' => '#6610f2'],
+                            ];
+                            $totalPendidikan = array_sum(array_column($pendidikanData, 'jumlah'));
+                        @endphp
+                        <div class="col-12">
+                            <div class="card border-0 shadow-sm p-4">
+                                @if($totalPendidikan == 0) <div class="alert alert-info">Grafik akan muncul setelah angka data dimasukkan.</div> @endif
+                                @foreach($pendidikanData as $p)
+                                    @php $persen = $totalPendidikan > 0 ? round(($p['jumlah'] / $totalPendidikan) * 100, 1) : 0; @endphp
+                                    <div class="mb-3">
+                                        <div class="d-flex justify-content-between mb-1" style="font-family: 'Poppins', sans-serif;">
+                                            <span class="fw-bold">{{ $p['nama'] }}</span>
+                                            <span class="text-muted">{{ $p['jumlah'] }} Jiwa ({{ $persen }}%)</span>
+                                        </div>
+                                        <div class="progress" style="height: 12px;">
+                                            <div class="progress-bar" role="progressbar" style="width: {{ $persen }}%; background-color: {{ $p['color'] }};" aria-valuenow="{{ $persen }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                @endforeach
                             </div>
+                        </div>
+
+                    @elseif($kategori == 'umur')
+                        <!-- DATA UMUR -->
+                        @php
+                            $umurData = [
+                                ['nama' => '0 - 4 Tahun (Balita)', 'jumlah' => 0, 'color' => '#17a2b8'],
+                                ['nama' => '5 - 14 Tahun (Anak-Anak)', 'jumlah' => 0, 'color' => '#28a745'],
+                                ['nama' => '15 - 64 Tahun (Produktif)', 'jumlah' => 0, 'color' => '#007bff'],
+                                ['nama' => '65+ Tahun (Lansia)', 'jumlah' => 0, 'color' => '#fd7e14'],
+                            ];
+                            $totalUmur = array_sum(array_column($umurData, 'jumlah'));
+                        @endphp
+                        <div class="col-12">
+                            <div class="card border-0 shadow-sm p-4">
+                                @if($totalUmur == 0) <div class="alert alert-info">Grafik akan muncul setelah angka data dimasukkan.</div> @endif
+                                @foreach($umurData as $u)
+                                    @php $persen = $totalUmur > 0 ? round(($u['jumlah'] / $totalUmur) * 100, 1) : 0; @endphp
+                                    <div class="mb-3">
+                                        <div class="d-flex justify-content-between mb-1" style="font-family: 'Poppins', sans-serif;">
+                                            <span class="fw-bold">{{ $u['nama'] }}</span>
+                                            <span class="text-muted">{{ $u['jumlah'] }} Jiwa ({{ $persen }}%)</span>
+                                        </div>
+                                        <div class="progress" style="height: 12px;">
+                                            <div class="progress-bar" role="progressbar" style="width: {{ $persen }}%; background-color: {{ $u['color'] }};" aria-valuenow="{{ $persen }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+
+                    @elseif($kategori == 'perkawinan')
+                        <!-- DATA PERKAWINAN -->
+                        @php
+                            $perkawinanData = [
+                                ['nama' => 'Belum Kawin', 'jumlah' => 0, 'color' => '#17a2b8'],
+                                ['nama' => 'Kawin', 'jumlah' => 0, 'color' => '#28a745'],
+                                ['nama' => 'Cerai Hidup', 'jumlah' => 0, 'color' => '#fd7e14'],
+                                ['nama' => 'Cerai Mati', 'jumlah' => 0, 'color' => '#dc3545'],
+                            ];
+                            $totalPerkawinan = array_sum(array_column($perkawinanData, 'jumlah'));
+                        @endphp
+                        <div class="col-12">
+                            <div class="card border-0 shadow-sm p-4">
+                                @if($totalPerkawinan == 0) <div class="alert alert-info">Grafik akan muncul setelah angka data dimasukkan.</div> @endif
+                                @foreach($perkawinanData as $p)
+                                    @php $persen = $totalPerkawinan > 0 ? round(($p['jumlah'] / $totalPerkawinan) * 100, 1) : 0; @endphp
+                                    <div class="mb-3">
+                                        <div class="d-flex justify-content-between mb-1" style="font-family: 'Poppins', sans-serif;">
+                                            <span class="fw-bold">{{ $p['nama'] }}</span>
+                                            <span class="text-muted">{{ $p['jumlah'] }} Jiwa ({{ $persen }}%)</span>
+                                        </div>
+                                        <div class="progress" style="height: 12px;">
+                                            <div class="progress-bar" role="progressbar" style="width: {{ $persen }}%; background-color: {{ $p['color'] }};" aria-valuenow="{{ $persen }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    @else
+                        <div class="col-12 text-center text-muted py-5">
+                            Kategori tidak ditemukan.
                         </div>
                     @endif
                 </div>
