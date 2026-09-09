@@ -132,8 +132,8 @@
             }
             .navbar-desa .navbar-brand { max-width: calc(100% - 60px); gap: .4rem; }
             .brand-logo { 
-                width: 40px; 
-                height: 40px; 
+                width: 38px; 
+                height: 38px; 
                 background: transparent; 
                 border: none; 
                 box-shadow: none; 
@@ -141,110 +141,348 @@
                 padding: 0;
                 transform-style: preserve-3d;
             }
-            .navbar-desa.scrolled .brand-logo { width: 35px; height: 35px; }
+            .navbar-desa.scrolled .brand-logo { width: 33px; height: 33px; }
             
             @-webkit-keyframes nengok-kiri-kanan {
-                0%, 100% { -webkit-transform: perspective(400px) rotateY(-45deg); transform: perspective(400px) rotateY(-45deg); }
-                50% { -webkit-transform: perspective(400px) rotateY(45deg); transform: perspective(400px) rotateY(45deg); }
+                0%, 100% { -webkit-transform: perspective(400px) rotateY(-40deg); transform: perspective(400px) rotateY(-40deg); }
+                50% { -webkit-transform: perspective(400px) rotateY(40deg); transform: perspective(400px) rotateY(40deg); }
             }
             @keyframes nengok-kiri-kanan {
-                0%, 100% { transform: perspective(400px) rotateY(-45deg); }
-                50% { transform: perspective(400px) rotateY(45deg); }
+                0%, 100% { transform: perspective(400px) rotateY(-40deg); }
+                50% { transform: perspective(400px) rotateY(40deg); }
             }
             .brand-logo img {
-                -webkit-animation: nengok-kiri-kanan 4s ease-in-out infinite;
-                animation: nengok-kiri-kanan 4s ease-in-out infinite;
+                -webkit-animation: nengok-kiri-kanan 5s ease-in-out infinite;
+                animation: nengok-kiri-kanan 5s ease-in-out infinite;
                 transform-origin: center;
                 -webkit-transform-style: preserve-3d;
             }
             
-            .brand-text { min-width: 0; /* Penting untuk ellipsis */ }
+            .brand-text { min-width: 0; }
             .brand-text .nama { 
-                font-size: 1.05rem; 
+                font-size: 1.0rem; 
                 white-space: nowrap; 
                 overflow: hidden; 
                 text-overflow: ellipsis; 
             }
-            .brand-text .sub { font-size: .75rem; }
+            .brand-text .sub { font-size: .72rem; }
             .navbar-toggler { padding: .25rem .5rem; }
         }
-        .navbar-desa .nav-link {
-            color: rgba(255,255,255,.9) !important;
-            font-size: .875rem;
-            font-weight: 600;
-            padding: .45rem 1rem !important;
-            border-radius: 20px;
-            transition: all .25s;
-            text-shadow: 0 1px 4px rgba(0,0,0,.5);
-            letter-spacing: .2px;
-            border: 1.5px solid transparent;
-        }
-        .navbar-desa .nav-link:hover {
-            color: var(--gold) !important;
-            background: rgba(201,150,58,.15);
-            text-shadow: none;
-            border-color: rgba(201,150,58,.3);
-        }
-        .navbar-desa .nav-link.active {
-            color: var(--coklat-tua) !important;
-            background: var(--gold) !important;
-            text-shadow: none;
-            border-color: var(--gold);
-            font-weight: 700;
-        }
-        .navbar-toggler { border: none !important; box-shadow: none !important; padding-right:0; }
-        .navbar-toggler-icon { filter: invert(1); }
 
-        /* PERBAIKAN OFFCANVAS MENU DI HP */
+        /* ===================================================
+           OFFCANVAS MODERN PREMIUM REDESIGN
+           =================================================== */
         @media (max-width: 991px) {
+
+            /* === Panel Offcanvas === */
             .offcanvas-lg {
-                background: var(--coklat-tua);
-                border-left: 1px solid rgba(201,150,58,0.2);
-                width: 280px !important;
+                background: linear-gradient(160deg, #1a0a02 0%, #2d1207 40%, #3d1a08 70%, #2a1005 100%) !important;
+                border-left: 1px solid rgba(201,150,58,0.25) !important;
+                width: 290px !important;
+                box-shadow: -8px 0 40px rgba(0,0,0,0.5) !important;
             }
-            .offcanvas-header { border-bottom: 1px solid rgba(255,255,255,0.05); }
-            .navbar-desa .nav-link {
-                border-radius: 8px;
-                padding: 0.8rem 1rem !important;
-                border: none;
-                border-bottom: 1px solid rgba(255,255,255,0.05);
-                text-shadow: none;
-                margin-bottom: 2px;
+
+            /* Dekorasi pola latar belakang */
+            .offcanvas-lg::before {
+                content: '';
+                position: absolute;
+                top: 0; left: 0; right: 0; bottom: 0;
+                background-image:
+                    radial-gradient(ellipse at 80% 10%, rgba(201,150,58,0.12) 0%, transparent 55%),
+                    radial-gradient(ellipse at 20% 90%, rgba(201,150,58,0.08) 0%, transparent 50%),
+                    repeating-linear-gradient(
+                        45deg,
+                        rgba(255,255,255,0.01) 0px,
+                        rgba(255,255,255,0.01) 1px,
+                        transparent 1px,
+                        transparent 30px
+                    );
+                pointer-events: none;
+                z-index: 0;
             }
-            .navbar-desa .nav-link:last-child { border-bottom: none; }
-            .navbar-desa .nav-link.active {
-                background: rgba(201,150,58,0.15) !important;
-                color: var(--gold) !important;
+
+            /* === Header Offcanvas === */
+            .offcanvas-header {
+                background: linear-gradient(135deg, rgba(201,150,58,0.18) 0%, rgba(201,150,58,0.05) 100%);
+                border-bottom: 1px solid rgba(201,150,58,0.25) !important;
+                padding: 0.85rem 1.25rem !important;
+                position: relative;
+                z-index: 1;
             }
-            .navbar-desa .nav-link:hover {
+            .offcanvas-header::after {
+                content: '';
+                position: absolute;
+                bottom: 0; left: 1.25rem; right: 1.25rem;
+                height: 1px;
+                background: linear-gradient(to right, transparent, rgba(201,150,58,0.5), transparent);
+            }
+
+            /* === Logo di Header Offcanvas === */
+            .offcanvas-logo-wrap {
+                display: flex;
+                align-items: center;
+                gap: 0.65rem;
+            }
+            .offcanvas-logo-img {
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+                border: 1.5px solid rgba(201,150,58,0.6);
+                padding: 2px;
                 background: rgba(255,255,255,0.05);
-                transform: translateX(5px);
-                color: var(--gold) !important;
+                object-fit: contain;
+                /* Animasi gentle float — tidak norak */
+                animation: logoGentleFloat 4s ease-in-out infinite;
+                transform-origin: center;
             }
-            /* Style dropdown di mobile agar menyatu (tidak kotak putih) */
+            @keyframes logoGentleFloat {
+                0%, 100% { transform: translateY(0px) scale(1); filter: drop-shadow(0 0 4px rgba(201,150,58,0.3)); }
+                50%       { transform: translateY(-3px) scale(1.04); filter: drop-shadow(0 4px 8px rgba(201,150,58,0.5)); }
+            }
+            .offcanvas-logo-text {
+                display: flex;
+                flex-direction: column;
+            }
+            .offcanvas-logo-text .oc-nama {
+                font-family: 'Playfair Display', serif;
+                font-size: 0.9rem;
+                font-weight: 700;
+                color: #fff;
+                line-height: 1.2;
+                letter-spacing: 0.2px;
+            }
+            .offcanvas-logo-text .oc-sub {
+                font-size: 0.68rem;
+                color: var(--gold-light);
+                font-weight: 500;
+                letter-spacing: 0.5px;
+            }
+
+            /* Tombol close modern */
+            .offcanvas-header .btn-close-white {
+                background-color: rgba(255,255,255,0.08) !important;
+                border-radius: 8px !important;
+                opacity: 1 !important;
+                width: 30px;
+                height: 30px;
+                padding: 0 !important;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.2s ease;
+                filter: invert(1) !important;
+            }
+            .offcanvas-header .btn-close-white:hover {
+                background-color: rgba(201,150,58,0.3) !important;
+                transform: rotate(90deg);
+            }
+
+            /* === Body Offcanvas === */
+            .offcanvas-body {
+                position: relative;
+                z-index: 1;
+                padding: 0.5rem 0 1.5rem !important;
+                overflow-y: auto;
+            }
+            /* Custom scrollbar */
+            .offcanvas-body::-webkit-scrollbar { width: 3px; }
+            .offcanvas-body::-webkit-scrollbar-track { background: transparent; }
+            .offcanvas-body::-webkit-scrollbar-thumb { background: rgba(201,150,58,0.3); border-radius: 10px; }
+
+            /* Label section di dalam offcanvas */
+            .offcanvas-section-label {
+                font-size: 0.62rem;
+                font-weight: 700;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+                color: rgba(201,150,58,0.6);
+                padding: 1rem 1.25rem 0.35rem;
+            }
+
+            /* === Nav Links di Offcanvas === */
+            .offcanvas-lg .navbar-nav {
+                padding: 0.25rem 0.75rem !important;
+                gap: 2px !important;
+            }
+            .navbar-desa .nav-link {
+                border-radius: 10px;
+                padding: 0.75rem 1rem !important;
+                border: 1px solid transparent !important;
+                border-bottom: none !important;
+                text-shadow: none;
+                margin-bottom: 1px;
+                color: rgba(255,255,255,0.85) !important;
+                font-size: 0.875rem;
+                font-weight: 500;
+                display: flex;
+                align-items: center;
+                gap: 0.65rem;
+                position: relative;
+                overflow: hidden;
+                transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+                /* Animasi staggered saat offcanvas dibuka */
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            .offcanvas.show .navbar-desa .nav-link,
+            .offcanvas-lg.show .navbar-desa .nav-link {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            /* Stagger delay untuk tiap menu item */
+            .offcanvas-lg .nav-item:nth-child(1) .nav-link { transition-delay: 0.05s !important; }
+            .offcanvas-lg .nav-item:nth-child(2) .nav-link { transition-delay: 0.10s !important; }
+            .offcanvas-lg .nav-item:nth-child(3) .nav-link { transition-delay: 0.15s !important; }
+            .offcanvas-lg .nav-item:nth-child(4) .nav-link { transition-delay: 0.20s !important; }
+            .offcanvas-lg .nav-item:nth-child(5) .nav-link { transition-delay: 0.25s !important; }
+            .offcanvas-lg .nav-item:nth-child(6) .nav-link { transition-delay: 0.30s !important; }
+            .offcanvas-lg .nav-item:nth-child(7) .nav-link { transition-delay: 0.35s !important; }
+            .offcanvas-lg .nav-item:nth-child(8) .nav-link { transition-delay: 0.40s !important; }
+
+            /* Efek ripple/shine saat hover */
+            .navbar-desa .nav-link::before {
+                content: '';
+                position: absolute;
+                left: -60%;
+                top: 0;
+                width: 40%;
+                height: 100%;
+                background: linear-gradient(to right, transparent, rgba(255,255,255,0.06), transparent);
+                transform: skewX(-20deg);
+                transition: left 0.5s ease;
+                pointer-events: none;
+            }
+            .navbar-desa .nav-link:hover::before {
+                left: 140%;
+            }
+
+            /* State hover */
+            .navbar-desa .nav-link:hover {
+                background: rgba(201,150,58,0.12) !important;
+                border-color: rgba(201,150,58,0.2) !important;
+                color: var(--gold-light) !important;
+                transform: translateX(4px) !important;
+            }
+
+            /* State aktif */
+            .navbar-desa .nav-link.active {
+                background: linear-gradient(135deg, rgba(201,150,58,0.25) 0%, rgba(201,150,58,0.1) 100%) !important;
+                border-color: rgba(201,150,58,0.35) !important;
+                color: var(--gold) !important;
+                font-weight: 700 !important;
+            }
+            /* Indikator garis emas di kiri untuk active */
+            .navbar-desa .nav-link.active::after {
+                content: '';
+                position: absolute;
+                left: 0; top: 20%; bottom: 20%;
+                width: 3px;
+                background: linear-gradient(to bottom, var(--gold-light), var(--gold));
+                border-radius: 0 3px 3px 0;
+            }
+
+            /* Icon dekoratif di kanan untuk non-active (chevron) */
+            .navbar-desa .nav-item:not(.dropdown) .nav-link:not(.active)::after {
+                content: '›';
+                position: absolute;
+                right: 1rem;
+                font-size: 1.1rem;
+                color: rgba(255,255,255,0.2);
+                transition: all 0.2s ease;
+                line-height: 1;
+            }
+            .navbar-desa .nav-item:not(.dropdown) .nav-link:hover::after {
+                color: rgba(201,150,58,0.6);
+                right: 0.75rem;
+            }
+
+            /* Dropdown di mobile */
             .navbar-desa .dropdown-menu {
-                background: rgba(0,0,0,0.15);
-                border: none;
-                margin: 0;
-                padding: 0.5rem;
-                border-radius: 0 0 8px 8px;
+                background: rgba(0,0,0,0.25);
+                border: 1px solid rgba(201,150,58,0.1) !important;
+                border-radius: 10px !important;
+                margin: 0.25rem 0 0 0;
+                padding: 0.4rem;
+                backdrop-filter: blur(10px);
             }
             .navbar-desa .dropdown-item {
-                color: rgba(255,255,255,0.85);
-                border-radius: 6px;
-                padding: 0.7rem 1rem;
-                transition: 0.2s;
+                color: rgba(255,255,255,0.8);
+                border-radius: 8px;
+                padding: 0.65rem 1rem;
+                transition: all 0.2s ease;
+                font-size: 0.85rem;
             }
             .navbar-desa .dropdown-item:hover, .navbar-desa .dropdown-item:active {
                 background: rgba(201,150,58,0.2) !important;
                 color: var(--gold) !important;
-                transform: translateX(5px);
+                transform: translateX(4px);
             }
             .navbar-desa .nav-link.dropdown-toggle::after {
                 float: right;
                 margin-top: 8px;
             }
+
+            /* Garis pemisah dekoratif */
+            .offcanvas-divider {
+                height: 1px;
+                background: linear-gradient(to right, transparent, rgba(201,150,58,0.2), transparent);
+                margin: 0.5rem 1.25rem;
+            }
+
+            /* Footer di bawah offcanvas */
+            .offcanvas-footer {
+                padding: 0.75rem 1.25rem;
+                border-top: 1px solid rgba(255,255,255,0.06);
+                margin-top: auto;
+            }
+            .offcanvas-footer-text {
+                font-size: 0.68rem;
+                color: rgba(255,255,255,0.3);
+                text-align: center;
+                letter-spacing: 0.5px;
+            }
         }
+
+        /* === Nav links DESKTOP (lg ke atas) — tampilan horizontal normal === */
+        @media (min-width: 992px) {
+            .navbar-desa .nav-link {
+                color: rgba(255,255,255,.9) !important;
+                font-size: .875rem;
+                font-weight: 600;
+                padding: .45rem 1rem !important;
+                border-radius: 20px;
+                transition: all .25s;
+                text-shadow: 0 1px 4px rgba(0,0,0,.5);
+                letter-spacing: .2px;
+                border: 1.5px solid transparent;
+                opacity: 1 !important;
+                transform: none !important;
+            }
+            .navbar-desa .nav-link:hover {
+                color: var(--gold) !important;
+                background: rgba(201,150,58,.15);
+                text-shadow: none;
+                border-color: rgba(201,150,58,.3);
+            }
+            .navbar-desa .nav-link.active {
+                color: var(--coklat-tua) !important;
+                background: var(--gold) !important;
+                text-shadow: none;
+                border-color: var(--gold);
+                font-weight: 700;
+            }
+            /* Reset semua pseudo-element offcanvas di desktop */
+            .navbar-desa .nav-link::before,
+            .navbar-desa .nav-link::after,
+            .navbar-desa .nav-link.active::after {
+                display: none !important;
+            }
+            .navbar-desa .nav-item:not(.dropdown) .nav-link::after { display: none !important; }
+            /* Icon di nav desktop disembunyikan */
+            .navbar-desa .nav-link i.bi { display: none; }
+        }
+        .navbar-toggler { border: none !important; box-shadow: none !important; padding-right:0; }
+        .navbar-toggler-icon { filter: invert(1); }
 
         /* SECTION TITLES */
         .section-title { font-family:'Playfair Display',serif; color:var(--coklat-medium); font-size:2rem; font-weight:700; position:relative; margin-bottom:.5rem; }
@@ -528,31 +766,85 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="offcanvas-lg offcanvas-end" tabindex="-1" id="navMenu">
-            <div class="offcanvas-header d-lg-none d-flex align-items-center justify-content-between px-4 py-3">
-                <h5 class="offcanvas-title text-white font-serif mb-0 d-flex align-items-center gap-2">
-                    <img src="{{ asset('images/logo_desa.png') }}" alt="Logo" width="30">
-                    Menu Utama
-                </h5>
+            {{-- Header Offcanvas Modern --}}
+            <div class="offcanvas-header d-lg-none d-flex align-items-center justify-content-between">
+                <div class="offcanvas-logo-wrap">
+                    @if(!empty($settings['logo_desa']))
+                        <img src="{{ asset('images/'.$settings['logo_desa']) }}" alt="Logo Desa" class="offcanvas-logo-img">
+                    @else
+                        <img src="{{ asset('images/logo_desa.png') }}" alt="Logo Desa" class="offcanvas-logo-img">
+                    @endif
+                    <div class="offcanvas-logo-text">
+                        <span class="oc-nama">{{ $settings['nama_desa'] ?? 'Tanjung Harapan' }}</span>
+                        <span class="oc-sub">{{ $settings['nama_kabupaten'] ?? 'Kab. Kampar' }}</span>
+                    </div>
+                </div>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" data-bs-target="#navMenu" aria-label="Close"></button>
             </div>
-            <div class="offcanvas-body">
-                <ul class="navbar-nav gap-1 justify-content-end w-100 px-3 px-lg-0 pb-4 pb-lg-0">
-                    <li class="nav-item"><a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">Beranda</a></li>
-                    <li class="nav-item"><a class="nav-link {{ request()->routeIs('profil') ? 'active' : '' }}" href="{{ route('profil') }}">Profil Desa</a></li>
-                    <li class="nav-item"><a class="nav-link {{ request()->routeIs('berita*') ? 'active' : '' }}" href="{{ route('berita.index') }}">Berita</a></li>
-                    <li class="nav-item"><a class="nav-link {{ request()->routeIs('potensi*') ? 'active' : '' }}" href="{{ route('potensi.index') }}">Potensi</a></li>
-                    <li class="nav-item"><a class="nav-link {{ request()->routeIs('fasilitas*') ? 'active' : '' }}" href="{{ route('fasilitas.index') }}">Fasilitas</a></li>
-                    <li class="nav-item"><a class="nav-link {{ request()->routeIs('layanan*') ? 'active' : '' }}" href="{{ route('layanan.index') }}">E-Layanan</a></li>
-                    <li class="nav-item"><a class="nav-link {{ request()->routeIs('kontak') ? 'active' : '' }}" href="{{ route('kontak') }}">Kontak</a></li>
+
+            {{-- Body Offcanvas --}}
+            <div class="offcanvas-body d-flex flex-column">
+                {{-- Label section navigasi --}}
+                <div class="offcanvas-section-label d-lg-none">Navigasi</div>
+
+                <ul class="navbar-nav gap-1 justify-content-end w-100 px-lg-0 pb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">
+                            <i class="bi bi-house-fill" style="color: var(--gold-light); font-size: 0.9rem;"></i> Beranda
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('profil') ? 'active' : '' }}" href="{{ route('profil') }}">
+                            <i class="bi bi-building" style="color: var(--gold-light); font-size: 0.9rem;"></i> Profil Desa
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('berita*') ? 'active' : '' }}" href="{{ route('berita.index') }}">
+                            <i class="bi bi-newspaper" style="color: var(--gold-light); font-size: 0.9rem;"></i> Berita
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('potensi*') ? 'active' : '' }}" href="{{ route('potensi.index') }}">
+                            <i class="bi bi-gem" style="color: var(--gold-light); font-size: 0.9rem;"></i> Potensi
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('fasilitas*') ? 'active' : '' }}" href="{{ route('fasilitas.index') }}">
+                            <i class="bi bi-hospital" style="color: var(--gold-light); font-size: 0.9rem;"></i> Fasilitas
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('layanan*') ? 'active' : '' }}" href="{{ route('layanan.index') }}">
+                            <i class="bi bi-file-earmark-check" style="color: var(--gold-light); font-size: 0.9rem;"></i> E-Layanan
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('kontak') ? 'active' : '' }}" href="{{ route('kontak') }}">
+                            <i class="bi bi-telephone-fill" style="color: var(--gold-light); font-size: 0.9rem;"></i> Kontak
+                        </a>
+                    </li>
+
+                    {{-- Divider dekoratif --}}
+                    <li class="d-lg-none" style="list-style:none;">
+                        <div class="offcanvas-divider my-1"></div>
+                    </li>
+
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle {{ request()->routeIs('kependudukan*') ? 'active' : '' }}" href="#" id="navbarLainnya" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Lainnya
+                            <i class="bi bi-grid-fill" style="color: var(--gold-light); font-size: 0.9rem;"></i> Lainnya
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0" aria-labelledby="navbarLainnya">
                             <li><a class="dropdown-item py-2" href="{{ route('kependudukan.show', 'wilayah') }}"><i class="bi bi-bar-chart-fill text-danger me-2"></i>Data Statistik</a></li>
                         </ul>
                     </li>
                 </ul>
+
+                {{-- Footer kecil di bawah offcanvas --}}
+                <div class="offcanvas-footer d-lg-none mt-auto">
+                    <p class="offcanvas-footer-text">
+                        © {{ date('Y') }} {{ $settings['nama_desa'] ?? 'Desa Tanjung Harapan' }}
+                    </p>
+                </div>
             </div>
         </div>
     </div>
