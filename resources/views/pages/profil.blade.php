@@ -1514,16 +1514,38 @@
     if (typingNameElem) {
         var textToType = typingNameElem.getAttribute('data-text');
         var typingIndex = 0;
+        var isDeleting = false;
         
         function typeWriter() {
-            if (typingIndex < textToType.length) {
-                typingNameElem.innerHTML += textToType.charAt(typingIndex);
+            if (!isDeleting && typingIndex <= textToType.length) {
+                // Mengetik
+                typingNameElem.innerHTML = textToType.substring(0, typingIndex);
                 typingIndex++;
-                setTimeout(typeWriter, 120); // Kecepatan ketik 120ms per karakter
+                
+                if (typingIndex > textToType.length) {
+                    // Selesai mengetik, tunggu 7 detik sebelum menghapus
+                    isDeleting = true;
+                    setTimeout(typeWriter, 7000); 
+                } else {
+                    setTimeout(typeWriter, 120);
+                }
+            } else if (isDeleting && typingIndex >= 0) {
+                // Menghapus
+                typingNameElem.innerHTML = textToType.substring(0, typingIndex);
+                typingIndex--;
+                
+                if (typingIndex < 0) {
+                    // Selesai menghapus, ketik ulang
+                    isDeleting = false;
+                    typingIndex = 0;
+                    setTimeout(typeWriter, 500);
+                } else {
+                    setTimeout(typeWriter, 50); // Hapus lebih cepat
+                }
             }
         }
         
-        // Mulai efek ketik setelah jeda sedikit
+        // Mulai efek ketik
         setTimeout(typeWriter, 500);
     }
 </script>
