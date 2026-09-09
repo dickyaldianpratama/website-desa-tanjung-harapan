@@ -215,17 +215,69 @@
         height: 100%;
         min-height: 300px;
     }
-    @media (max-width: 768px) {
-        .sambutan-img-wrap {
-            min-height: 260px;
-        }
+    .kades-glow-wrap {
+        width: 100%;
+        height: 100%;
+        position: absolute;
     }
-    .sambutan-img-wrap img {
+    .sambutan-img-wrap img.kades-img {
         position: absolute;
         width: 100%;
         height: 100%;
         object-fit: cover;
         object-position: top center;
+    }
+
+    @media (max-width: 768px) {
+        .sambutan-img-wrap {
+            min-height: 380px;
+            background: linear-gradient(135deg, #4e342e 0%, #3e2723 50%, #5d4037 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem 0;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .sambutan-img-wrap::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 30px, transparent 30px, transparent 60px);
+            z-index: 1;
+        }
+        
+        .kades-glow-wrap {
+            position: relative;
+            z-index: 2;
+            width: 160px;
+            height: 210px;
+            border-radius: 16px;
+            background: linear-gradient(45deg, #C9963A, #fff, #f6e58d, #C9963A, #fff);
+            background-size: 300% 300%;
+            animation: animateGlow 4s ease infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.5rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+        
+        .sambutan-img-wrap img.kades-img {
+            position: relative;
+            width: 152px;
+            height: 202px;
+            object-fit: cover;
+            border-radius: 12px;
+            z-index: 3;
+            border: 2px solid #fff;
+        }
+    }
+    
+    @keyframes animateGlow {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
     }
     
     /* PERANGKAT SWIPER */
@@ -655,13 +707,21 @@
                     <div class="row g-0">
                         <div class="col-md-5" data-aos="fade-right">
                     <div class="sambutan-img-wrap">
-                        @if($kades && $kades->foto)
-                            <img src="{{ Storage::disk('s3')->url('images/perangkat/' . $kades->foto) }}" alt="Kepala Desa">
-                        @elseif(isset($settings['foto_kades']) && $settings['foto_kades'])
-                            <img src="{{ asset('images/'.$settings['foto_kades']) }}" alt="Kepala Desa">
-                        @else
-                            <img src="{{ Storage::disk('s3')->url('images/perangkat/kades.jpg') }}" alt="Kepala Desa" onerror="this.src='https://ui-avatars.com/api/?name=Kades&background=C9963A&color=fff&size=500'">
-                        @endif
+                        <div class="kades-glow-wrap">
+                            @if($kades && $kades->foto)
+                                <img src="{{ Storage::disk('s3')->url('images/perangkat/' . $kades->foto) }}" alt="Kepala Desa" class="kades-img">
+                            @elseif(isset($settings['foto_kades']) && $settings['foto_kades'])
+                                <img src="{{ asset('images/'.$settings['foto_kades']) }}" alt="Kepala Desa" class="kades-img">
+                            @else
+                                <img src="{{ Storage::disk('s3')->url('images/perangkat/kades.jpg') }}" alt="Kepala Desa" class="kades-img" onerror="this.src='https://ui-avatars.com/api/?name=Kades&background=C9963A&color=fff&size=500'">
+                            @endif
+                        </div>
+                        <div class="mobile-kades-info d-md-none text-center mt-3 position-relative z-3">
+                            <h4 class="fw-bold text-white mb-1" style="text-shadow: 1px 1px 3px rgba(0,0,0,0.8);">
+                                <span class="typingName" data-text="{{ $namaKades }}"></span><span class="typing-cursor">|</span>
+                            </h4>
+                            <p class="text-white-50 small mb-0"><i class="bi bi-geo-alt-fill text-gold"></i> {{ $jabatanKades }} {{ $settings['nama_desa'] ?? 'Tanjung Harapan' }}</p>
+                        </div>
                     </div>
                 </div>
                         <div class="col-md-7 d-flex align-items-center" data-aos="fade-left">
@@ -670,10 +730,10 @@
                                     <i class="bi bi-megaphone-fill"></i>
                                     <span class="fw-bold text-uppercase" style="letter-spacing: 2px; font-size: 0.75rem;">Sambutan Kepala Desa</span>
                                 </div>
-                                <h4 class="fw-bold text-coklat-tua mb-1">
-                                    <span id="typingName" data-text="{{ $namaKades }}"></span><span class="typing-cursor">|</span>
+                                <h4 class="fw-bold text-coklat-tua mb-1 d-none d-md-block">
+                                    <span class="typingName" data-text="{{ $namaKades }}"></span><span class="typing-cursor">|</span>
                                 </h4>
-                                <p class="text-muted fw-semibold mb-3 d-flex align-items-center gap-2" style="font-size: 0.85rem;"><i class="bi bi-person-vcard"></i> {{ $jabatanKades }}</p>
+                                <p class="text-muted fw-semibold mb-3 d-flex align-items-center gap-2 d-none d-md-flex" style="font-size: 0.85rem;"><i class="bi bi-person-vcard"></i> {{ $jabatanKades }}</p>
                                 
                                 <div class="sambutan-text" style="line-height: 1.6;">
                                     <p><em>Assalamu'alaikum Warahmatullahi Wabarakatuh,</em></p>
@@ -1539,43 +1599,35 @@
     }
 
     // Typing effect for Head of Village Name
-    var typingNameElem = document.getElementById('typingName');
-    if (typingNameElem) {
-        var textToType = typingNameElem.getAttribute('data-text');
+    var typingNameElems = document.querySelectorAll('.typingName');
+    typingNameElems.forEach(function(elem) {
+        var textToType = elem.getAttribute('data-text');
         var typingIndex = 0;
         var isDeleting = false;
         
         function typeWriter() {
             if (!isDeleting && typingIndex <= textToType.length) {
-                // Mengetik
-                typingNameElem.innerHTML = textToType.substring(0, typingIndex);
+                elem.innerHTML = textToType.substring(0, typingIndex);
                 typingIndex++;
-                
                 if (typingIndex > textToType.length) {
-                    // Selesai mengetik, tunggu 7 detik sebelum menghapus
                     isDeleting = true;
                     setTimeout(typeWriter, 7000); 
                 } else {
                     setTimeout(typeWriter, 120);
                 }
             } else if (isDeleting && typingIndex >= 0) {
-                // Menghapus
-                typingNameElem.innerHTML = textToType.substring(0, typingIndex);
+                elem.innerHTML = textToType.substring(0, typingIndex);
                 typingIndex--;
-                
                 if (typingIndex < 0) {
-                    // Selesai menghapus, ketik ulang
                     isDeleting = false;
                     typingIndex = 0;
                     setTimeout(typeWriter, 500);
                 } else {
-                    setTimeout(typeWriter, 50); // Hapus lebih cepat
+                    setTimeout(typeWriter, 50); 
                 }
             }
         }
-        
-        // Mulai efek ketik
         setTimeout(typeWriter, 500);
-    }
+    });
 </script>
 @endpush
