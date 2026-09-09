@@ -171,12 +171,6 @@
         color: #b71c1c !important;
         text-align: right;
     }
-    .link-dusun {
-        color: #1a73e8;
-        text-decoration: none;
-        font-weight: 500;
-    }
-    .link-dusun:hover { text-decoration: underline; color: #1152a3; }
 </style>
 @endpush
 
@@ -282,9 +276,7 @@
                                 <tbody>
                                     <tr>
                                         <td class="text-center">1</td>
-                                        <td>
-                                            <a href="https://docs.google.com/spreadsheets/d/1QEhKsH3GG-UANc32xkpfGXYhulNvAVnHxu8uY66r7EU/edit?gid=2004923148#gid=2004923148" target="_blank" class="link-dusun">Dusun 1 <i class="bi bi-box-arrow-up-right ms-1" style="font-size:0.75rem"></i></a>
-                                        </td>
+                                        <td class="fw-medium text-dark">Dusun 1</td>
                                         <td class="text-center">82</td>
                                         <td class="text-center">216</td>
                                         <td class="text-center">111</td>
@@ -292,9 +284,7 @@
                                     </tr>
                                     <tr>
                                         <td class="text-center">2</td>
-                                        <td>
-                                            <a href="https://docs.google.com/spreadsheets/d/1mDNg53Xk2n0yIQ2y7cNwKHsciC4-klgyEAUGkpC8a4o/edit?gid=2004923148#gid=2004923148" target="_blank" class="link-dusun">Dusun 2 <i class="bi bi-box-arrow-up-right ms-1" style="font-size:0.75rem"></i></a>
-                                        </td>
+                                        <td class="fw-medium text-dark">Dusun 2</td>
                                         <td class="text-center">174</td>
                                         <td class="text-center">440</td>
                                         <td class="text-center">220</td>
@@ -302,9 +292,7 @@
                                     </tr>
                                     <tr>
                                         <td class="text-center">3</td>
-                                        <td>
-                                            <a href="https://docs.google.com/spreadsheets/d/1MljmMpCDAKDo-LQBuEDSGDkFDkh2x8DEFkxCr3v2olw/edit?gid=2004923148#gid=2004923148" target="_blank" class="link-dusun">Dusun 3 <i class="bi bi-box-arrow-up-right ms-1" style="font-size:0.75rem"></i></a>
-                                        </td>
+                                        <td class="fw-medium text-dark">Dusun 3</td>
                                         <td class="text-center">196</td>
                                         <td class="text-center">510</td>
                                         <td class="text-center">243</td>
@@ -312,9 +300,7 @@
                                     </tr>
                                     <tr>
                                         <td class="text-center">4</td>
-                                        <td>
-                                            <a href="https://docs.google.com/spreadsheets/d/1YNNKrbbEVE77nkuERs06RJ-wcC8t2lR4tOBryoaI1PU/edit?gid=285984163#gid=285984163" target="_blank" class="link-dusun">Dusun 4 <i class="bi bi-box-arrow-up-right ms-1" style="font-size:0.75rem"></i></a>
-                                        </td>
+                                        <td class="fw-medium text-dark">Dusun 4</td>
                                         <td class="text-center">130</td>
                                         <td class="text-center">348</td>
                                         <td class="text-center">163</td>
