@@ -14,33 +14,42 @@
     .breadcrumb-desa a:hover { color: #fff; text-decoration: underline; }
     .breadcrumb-item.active { color: #ddd; }
 
+    .page-statistik-wrapper {
+        font-family: 'Poppins', sans-serif !important;
+        font-size: 0.9rem;
+    }
+
     /* Navigasi Sidebar */
     .nav-statistik-card {
         background: #fff;
-        border-radius: 12px;
-        box-shadow: 0 5px 25px rgba(0,0,0,0.05);
+        border-radius: 10px;
+        box-shadow: 0 8px 25px rgba(84, 58, 20, 0.08); /* Shadow tema coklat lembut */
         overflow: hidden;
-        border: 1px solid #eee;
+        border: none;
         position: sticky;
         top: 100px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .nav-statistik-card:hover {
+        box-shadow: 0 12px 35px rgba(84, 58, 20, 0.12);
     }
     .nav-header {
-        background: #b71c1c; /* Warna merah seperti referensi */
+        background: linear-gradient(135deg, var(--coklat-tua) 0%, #3a250b 100%);
         color: #fff;
         padding: 15px 20px;
-        font-weight: 700;
+        font-weight: 600;
         display: flex;
         align-items: center;
         gap: 10px;
-        font-family: 'Poppins', sans-serif;
+        letter-spacing: 0.5px;
     }
     .nav-header-mobile {
-        background: #fdf1f1;
-        color: #b71c1c;
-        padding: 15px 20px;
+        background: #faf8f5;
+        color: var(--coklat-tua);
+        padding: 12px 20px;
         font-weight: 600;
         text-decoration: none;
-        border-bottom: 1px solid #f9e3e3;
+        border-bottom: 1px solid #f0eae1;
     }
     .nav-header-mobile[aria-expanded="true"] i {
         transform: rotate(180deg);
@@ -52,7 +61,7 @@
         margin: 0;
     }
     .nav-item-stat {
-        border-bottom: 1px solid #f0f0f0;
+        border-bottom: 1px solid #f9f9f9;
     }
     .nav-item-stat:last-child { border-bottom: none; }
     
@@ -60,121 +69,128 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 15px 20px;
-        color: #444;
-        font-weight: 600;
+        padding: 12px 20px;
+        color: #555;
+        font-weight: 500;
         text-decoration: none;
-        transition: all 0.2s ease;
+        transition: all 0.3s ease;
     }
     .nav-link-stat:hover, .nav-link-stat.active-parent {
-        background: #fcfcfc;
-        color: #b71c1c;
+        background: #faf8f5;
+        color: var(--coklat-tua);
+        padding-left: 25px; /* Efek bergeser halus */
     }
     .nav-link-stat i.bi-chevron-down { transition: transform 0.3s; }
     .nav-link-stat[aria-expanded="true"] i.bi-chevron-down { transform: rotate(180deg); }
-    .nav-link-stat i.icon-main { width: 25px; text-align: center; margin-right: 8px; color: #666; }
-    .nav-link-stat:hover i.icon-main, .nav-link-stat.active-parent i.icon-main { color: #b71c1c; }
+    .nav-link-stat i.icon-main { width: 25px; text-align: center; margin-right: 8px; color: #888; transition: 0.3s; }
+    .nav-link-stat:hover i.icon-main, .nav-link-stat.active-parent i.icon-main { color: var(--gold); }
 
     .subnav-list {
         list-style: none;
-        padding: 10px 0 10px 45px;
+        padding: 8px 0 8px 45px;
         margin: 0;
         background: #fafafa;
-        border-left: 3px solid #b71c1c;
+        border-left: 3px solid var(--gold);
     }
     .subnav-link {
         display: block;
-        padding: 8px 15px;
-        color: #555;
+        padding: 6px 15px;
+        color: #666;
         text-decoration: none;
-        font-size: 0.95rem;
-        transition: 0.2s;
+        font-size: 0.85rem;
+        transition: 0.3s ease;
         border-radius: 6px 0 0 6px;
     }
     .subnav-link:hover, .subnav-link.active {
-        background: #f0f0f0;
-        color: #b71c1c;
+        background: #fdfaf5;
+        color: var(--coklat-tua);
         font-weight: 600;
+        transform: translateX(4px);
     }
 
     /* Content Area */
     .stat-content-card {
         background: #fff;
-        border-radius: 12px;
-        box-shadow: 0 5px 25px rgba(0,0,0,0.05);
-        padding: 30px;
-        border: 1px solid #eee;
+        border-radius: 10px;
+        box-shadow: 0 8px 25px rgba(84, 58, 20, 0.08);
+        padding: 25px;
+        border: none;
+        transition: box-shadow 0.3s ease;
+    }
+    .stat-content-card:hover {
+        box-shadow: 0 12px 35px rgba(84, 58, 20, 0.12);
     }
     .stat-title-wrap {
         display: flex;
         align-items: center;
         gap: 15px;
-        margin-bottom: 30px;
+        margin-bottom: 25px;
     }
     .stat-title-icon {
-        background: #b71c1c;
+        background: linear-gradient(135deg, var(--gold) 0%, #a87928 100%);
         color: #fff;
-        width: 50px;
-        height: 50px;
+        width: 45px;
+        height: 45px;
         border-radius: 10px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 1.5rem;
+        font-size: 1.3rem;
         flex-shrink: 0;
+        box-shadow: 0 4px 10px rgba(201, 150, 58, 0.3);
     }
     .stat-title-text {
-        font-weight: 700;
-        font-size: 1.3rem;
-        color: #2c3e50;
+        font-weight: 600;
+        font-size: 1.15rem;
+        color: var(--coklat-tua);
         margin: 0;
         line-height: 1.4;
     }
 
     .table-container {
-        border: 1px solid #ebebeb;
-        border-radius: 10px;
+        border: 1px solid #f0eae1;
+        border-radius: 8px;
         overflow: hidden;
     }
     .table-header-custom {
-        background: #fdfdfd;
-        padding: 15px 20px;
-        font-weight: 700;
-        border-bottom: 1px solid #ebebeb;
+        background: #faf8f5;
+        padding: 12px 20px;
+        font-weight: 600;
+        border-bottom: 1px solid #f0eae1;
         display: flex;
         align-items: center;
         gap: 10px;
-        color: #b71c1c;
+        color: var(--coklat-tua);
     }
-    .table-stat { margin: 0; }
+    .table-stat { margin: 0; font-size: 0.85rem; }
     .table-stat thead th {
-        background: #111;
+        background: var(--coklat-tua);
         color: #fff;
         border: none;
-        padding: 15px;
-        font-weight: 600;
+        padding: 12px 15px;
+        font-weight: 500;
         text-transform: uppercase;
-        font-size: 0.85rem;
         letter-spacing: 0.5px;
     }
     .table-stat tbody td {
-        padding: 15px;
+        padding: 12px 15px;
         vertical-align: middle;
-        border-color: #f0f0f0;
-        color: #444;
+        border-color: #f0eae1;
+        color: #555;
     }
     .table-stat tbody tr:last-child td { border-bottom: none; }
     .table-stat tbody tr:hover { background: #fafafa; }
     
     .table-total {
-        font-weight: 700;
-        color: #b71c1c !important;
+        font-weight: 600;
+        color: var(--coklat-tua) !important;
         text-align: right;
     }
 </style>
 @endpush
 
 @section('content')
+<div class="page-statistik-wrapper">
 
 <!-- Header -->
 <div class="page-header-bg">
@@ -185,7 +201,7 @@
                 <li class="breadcrumb-item active" aria-current="page">Data Statistik</li>
             </ol>
         </nav>
-        <h1 class="display-5 font-serif fw-bold text-white mb-2">Data Statistik Desa</h1>
+        <h1 class="display-5 fw-bold text-white mb-2" style="font-family: 'Poppins', sans-serif;">Data Statistik Desa</h1>
         <p class="lead text-white-50 mb-0">Kumpulan data administratif dan kependudukan masyarakat desa.</p>
     </div>
 </div>
@@ -335,5 +351,7 @@
             </div>
         </div>
     </div>
+</div>
+
 </div>
 @endsection
