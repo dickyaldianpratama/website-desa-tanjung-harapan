@@ -144,7 +144,7 @@
         border: 1px solid rgba(0,0,0,0.05);
     }
     .widget-profil-desa .widget-header {
-        background: linear-gradient(135deg, #a71d2a 0%, #7b111b 100%);
+        background: linear-gradient(135deg, var(--coklat-tua) 0%, var(--coklat-medium) 100%);
         color: white;
         padding: 1rem 1.25rem;
         font-weight: 700;
@@ -170,11 +170,11 @@
         background: transparent;
     }
     .widget-profil-desa .nav-tabs .nav-link:hover {
-        color: #a71d2a;
+        color: var(--coklat-medium);
     }
     .widget-profil-desa .nav-tabs .nav-link.active {
-        color: #a71d2a;
-        border-bottom: 2px solid #C9963A; /* Warna gold sebagai indikator aktif sesuai tema */
+        color: var(--coklat-tua);
+        border-bottom: 2px solid var(--gold);
     }
     .widget-profil-desa .table-profil {
         margin-bottom: 0;
