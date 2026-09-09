@@ -272,31 +272,42 @@
             width: 160px;
             height: 210px;
             border-radius: 16px;
-            background: linear-gradient(45deg, #C9963A, #fff, #f6e58d, #C9963A, #fff);
-            background-size: 300% 300%;
-            animation: animateGlow 4s ease infinite;
+            margin-bottom: 0.5rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            background: #2a1610; 
+            overflow: hidden; 
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 0.5rem;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            padding: 4px; /* ketebalan border */
+        }
+        
+        .kades-glow-wrap::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent 0%, transparent 60%, var(--gold, #C9963A) 80%, #fff 100%);
+            animation: rotateBorder 2.5s linear infinite;
+            z-index: 1;
         }
         
         .sambutan-img-wrap img.kades-img {
             position: relative;
-            width: 152px;
-            height: 202px;
+            width: 100%;
+            height: 100%;
             object-fit: cover;
             border-radius: 12px;
             z-index: 3;
-            border: 2px solid #fff;
+            /* border dihapus karena bingkai digantikan oleh gap padding dari ::before */
         }
     }
     
-    @keyframes animateGlow {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
+    @keyframes rotateBorder {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
     }
     
     /* PERANGKAT SWIPER */
