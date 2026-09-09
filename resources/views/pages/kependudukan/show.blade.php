@@ -104,6 +104,33 @@
     font-family: 'Poppins', sans-serif;
     color: #856404;
 }
+
+/* Custom Nav Pills for Dusun Tabs */
+.dusun-tabs-wrapper .nav-pills .nav-link {
+    background: #f8f9fa;
+    color: #555;
+    transition: all 0.3s ease;
+}
+.dusun-tabs-wrapper .nav-pills .nav-link:hover {
+    background: #e9ecef;
+}
+.dusun-tabs-wrapper .nav-pills .nav-link.active {
+    background: var(--gold, #C9963A);
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(201,150,58,0.3);
+}
+.dusun-tabs-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .iframe-container {
+        height: 450px !important;
+    }
+    .statistik-title {
+        font-size: 1.1rem;
+    }
+}
 </style>
 @endpush
 
@@ -159,47 +186,37 @@
         <!-- MAIN CONTENT -->
         <div class="col-lg-8">
             <div class="statistik-content-card">
-                @if($kategori == 'wilayah')
-                    <h3 class="statistik-title">Jumlah dan Persentase Penduduk Berdasarkan Wilayah Dusun di Desa Tanjung Harapan, 2026</h3>
-                    
-                    <!-- Tabs untuk Dusun 1, 2, 3, 4 -->
-                    <ul class="nav nav-tabs mb-3" id="dusunTab" role="tablist">
+                @php
+                    $judul = $kategori == 'wilayah' ? 'Wilayah Dusun' : ucfirst($kategori);
+                @endphp
+                <h3 class="statistik-title">Jumlah dan Persentase Penduduk Berdasarkan {{ $judul }} di Desa Tanjung Harapan, 2026</h3>
+                
+                <!-- Tabs untuk Dusun 1, 2, 3, 4 -->
+                <div class="dusun-tabs-wrapper">
+                    <ul class="nav nav-pills mb-4 flex-nowrap overflow-auto pb-2" id="dusunTab" role="tablist" style="scrollbar-width: none; -ms-overflow-style: none;">
                         @php $i = 0; @endphp
                         @foreach($sheets as $dusun => $link)
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link {{ $i == 0 ? 'active' : '' }}" id="tab-{{ Str::slug($dusun) }}" data-bs-toggle="tab" data-bs-target="#content-{{ Str::slug($dusun) }}" type="button" role="tab" style="font-family: 'Poppins', sans-serif; font-weight: 500; color: #3b2314;">
+                            <li class="nav-item" role="presentation" style="flex-shrink: 0;">
+                                <button class="nav-link {{ $i == 0 ? 'active' : '' }} px-4 py-2" id="tab-{{ Str::slug($dusun) }}" data-bs-toggle="tab" data-bs-target="#content-{{ Str::slug($dusun) }}" type="button" role="tab" style="font-family: 'Poppins', sans-serif; font-weight: 600; border-radius: 50px; margin-right: 10px;">
                                     {{ $dusun }}
                                 </button>
                             </li>
                             @php $i++; @endphp
                         @endforeach
                     </ul>
-                    
-                    <div class="tab-content" id="dusunTabContent">
-                        @php $i = 0; @endphp
-                        @foreach($sheets as $dusun => $link)
-                            <div class="tab-pane fade {{ $i == 0 ? 'show active' : '' }}" id="content-{{ Str::slug($dusun) }}" role="tabpanel">
-                                <div class="ratio ratio-16x9">
-                                    <iframe src="{{ $link }}" style="border:0; border-radius: 8px; width:100%; height:100%;" allowfullscreen></iframe>
-                                </div>
-                            </div>
-                            @php $i++; @endphp
-                        @endforeach
-                    </div>
-
-                @else
-                    <!-- Kategori Selain Wilayah (Agama, Pekerjaan, dll) -->
-                    <h3 class="statistik-title">Statistik {{ ucfirst($kategori) }} Penduduk Desa Tanjung Harapan, 2026</h3>
-                    <div class="alert-rekapitulasi mt-4">
-                        <div class="d-flex align-items-center gap-3">
-                            <i class="bi bi-info-circle-fill" style="font-size: 2rem;"></i>
-                            <div>
-                                <h5 class="mb-1 fw-bold">Informasi</h5>
-                                <p class="mb-0">Data statistik untuk kategori <strong>{{ ucfirst($kategori) }}</strong> saat ini sedang dalam proses rekapitulasi oleh perangkat desa.</p>
+                </div>
+                
+                <div class="tab-content" id="dusunTabContent">
+                    @php $i = 0; @endphp
+                    @foreach($sheets as $dusun => $link)
+                        <div class="tab-pane fade {{ $i == 0 ? 'show active' : '' }}" id="content-{{ Str::slug($dusun) }}" role="tabpanel">
+                            <div class="iframe-container" style="position: relative; width: 100%; height: 600px; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #eaeaea;">
+                                <iframe src="{{ $link }}" style="border:0; width:100%; height:100%;" allowfullscreen></iframe>
                             </div>
                         </div>
-                    </div>
-                @endif
+                        @php $i++; @endphp
+                    @endforeach
+                </div>
             </div>
         </div>
 
