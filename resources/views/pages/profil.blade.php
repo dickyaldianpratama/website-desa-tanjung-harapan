@@ -201,6 +201,18 @@
         transform: translateY(0);
         box-shadow: 0 2px 5px rgba(201, 150, 58, 0.4) !important;
     }
+    .name-3d {
+        font-family: 'Poppins', sans-serif !important;
+        font-weight: 800 !important;
+        color: var(--gold, #C9963A) !important;
+        text-shadow: 
+            1px 1px 0px #a87928,
+            2px 2px 0px #8b5a19,
+            3px 3px 0px #6e4310,
+            4px 4px 0px #4e2f0a,
+            5px 5px 6px rgba(0, 0, 0, 0.4) !important;
+        letter-spacing: 0.5px;
+    }
     /* Bouncy text animation replaced by JS */
     .sambutan-img-wrap {
         position: relative;
@@ -709,8 +721,8 @@
                             @endif
                         </div>
                         <div class="mobile-kades-info d-md-none text-center mt-3 position-relative z-3">
-                            <h4 class="fw-bold text-white mb-1" style="text-shadow: 1px 1px 3px rgba(0,0,0,0.8);">
-                                <span class="typingName" data-text="{{ $namaKades }}"></span>
+                            <h4 class="mb-1" style="text-shadow: none;">
+                                <span class="typingName name-3d" data-text="{{ $namaKades }}"></span>
                             </h4>
                             <p class="text-white-50 small mb-0"><i class="bi bi-geo-alt-fill text-gold"></i> {{ $jabatanKades }} {{ $settings['nama_desa'] ?? 'Tanjung Harapan' }}</p>
                         </div>
@@ -722,8 +734,8 @@
                                     <i class="bi bi-megaphone-fill"></i>
                                     <span class="fw-bold text-uppercase" style="letter-spacing: 2px; font-size: 0.75rem;">Sambutan Kepala Desa</span>
                                 </div>
-                                <h4 class="fw-bold text-coklat-tua mb-1 d-none d-md-block">
-                                    <span class="typingName" data-text="{{ $namaKades }}"></span>
+                                <h4 class="mb-1 d-none d-md-block">
+                                    <span class="typingName name-3d" data-text="{{ $namaKades }}"></span>
                                 </h4>
                                 <p class="text-muted fw-semibold mb-3 d-flex align-items-center gap-2 d-none d-md-flex" style="font-size: 0.85rem;"><i class="bi bi-person-vcard"></i> {{ $jabatanKades }}</p>
                                 
