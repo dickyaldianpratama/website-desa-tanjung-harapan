@@ -213,6 +213,21 @@
             5px 5px 6px rgba(0, 0, 0, 0.4) !important;
         letter-spacing: 0.5px;
     }
+    @media (min-width: 768px) {
+        .title-3d-desktop {
+            font-family: 'Poppins', sans-serif !important;
+            font-weight: 800 !important;
+            color: var(--gold, #C9963A) !important;
+            text-shadow: 
+                1px 1px 0px #a87928,
+                2px 2px 0px #8b5a19,
+                3px 3px 0px #6e4310,
+                4px 4px 0px #4e2f0a,
+                5px 5px 6px rgba(0, 0, 0, 0.4) !important;
+            font-size: 1.25rem !important; /* Make it slightly bigger to stand out as 3D */
+            letter-spacing: 1px !important;
+        }
+    }
     /* Bouncy text animation replaced by JS */
     .sambutan-img-wrap {
         position: relative;
@@ -732,10 +747,10 @@
                             <div class="p-3 p-lg-4">
                                 <div class="d-flex align-items-center gap-2 mb-2 text-gold">
                                     <i class="bi bi-megaphone-fill"></i>
-                                    <span class="fw-bold text-uppercase" style="letter-spacing: 2px; font-size: 0.75rem;">Sambutan Kepala Desa</span>
+                                    <span class="fw-bold text-uppercase title-3d-desktop" style="letter-spacing: 2px; font-size: 0.75rem;">Sambutan Kepala Desa</span>
                                 </div>
-                                <h4 class="mb-1 d-none d-md-block">
-                                    <span class="typingName name-3d" data-text="{{ $namaKades }}"></span>
+                                <h4 class="fw-bold text-coklat-tua mb-1 d-none d-md-block">
+                                    <span class="typingName" data-text="{{ $namaKades }}"></span>
                                 </h4>
                                 <p class="text-muted fw-semibold mb-3 d-flex align-items-center gap-2 d-none d-md-flex" style="font-size: 0.85rem;"><i class="bi bi-person-vcard"></i> {{ $jabatanKades }}</p>
                                 
