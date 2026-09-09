@@ -736,10 +736,92 @@
             background-color: transparent;
             border-color: #e5e7eb;
         }
+
+        /* PRELOADER STYLES */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--cream);
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .preloader.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+        .preloader-inner {
+            position: relative;
+            width: 110px;
+            height: 110px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .preloader-logo {
+            width: 55px;
+            height: auto;
+            z-index: 10;
+            animation: preloader-pulse 2s infinite ease-in-out;
+        }
+        .spinner-ring {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 3px solid transparent;
+        }
+        .spinner-ring.ring-1 {
+            border-top-color: var(--gold);
+            border-bottom-color: var(--gold);
+            animation: spin-clockwise 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+        }
+        .spinner-ring.ring-2 {
+            border-left-color: var(--coklat-tua);
+            border-right-color: var(--coklat-tua);
+            width: 76%;
+            height: 76%;
+            top: 12%;
+            left: 12%;
+            animation: spin-counter-clockwise 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+        }
+        @keyframes spin-clockwise {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes spin-counter-clockwise {
+            0% { transform: rotate(360deg); }
+            100% { transform: rotate(0deg); }
+        }
+        @keyframes preloader-pulse {
+            0% { transform: scale(0.9); opacity: 0.8; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(0.9); opacity: 0.8; }
+        }
     </style>
     @stack('styles')
 </head>
 <body>
+
+<!-- PRELOADER -->
+<div id="preloader" class="preloader">
+    <div class="preloader-inner">
+        <div class="spinner-ring ring-1"></div>
+        <div class="spinner-ring ring-2"></div>
+        @if(!empty($settings['logo_desa']))
+            <img src="{{ asset('images/'.$settings['logo_desa']) }}" alt="Logo Desa" class="preloader-logo">
+        @else
+            <img src="{{ asset('images/logo_desa.png') }}" alt="Logo Desa" class="preloader-logo">
+        @endif
+    </div>
+</div>
 
 <nav class="navbar navbar-desa navbar-expand-lg {{ request()->routeIs('home') || request()->routeIs('profil') ? '' : 'solid' }}">
     <div class="container">
@@ -1093,6 +1175,42 @@ AOS.init({
         popup.classList.toggle('show');
         btn.classList.toggle('active');
     }
+
+    // PRELOADER LOGIC
+    window.addEventListener('load', function() {
+        const preloader = document.getElementById('preloader');
+        if (preloader) {
+            // Beri sedikit delay minimal agar animasi sempat terlihat walau internet super cepat (300ms)
+            setTimeout(() => {
+                preloader.classList.add('fade-out');
+                setTimeout(() => {
+                    preloader.style.display = 'none';
+                }, 600); // durasi sesuai dengan transition di CSS
+            }, 300);
+        }
+    });
+
+    // Pemicu preloader saat klik navigasi pindah halaman (kecuali new tab/anchor dll)
+    document.addEventListener("DOMContentLoaded", () => {
+        const links = document.querySelectorAll('a[href]:not([target="_blank"]):not([href^="#"]):not([href^="mailto:"]):not([href^="tel:"]):not([href^="javascript:"])');
+        links.forEach(link => {
+            link.addEventListener('click', function(e) {
+                // Jangan trigger jika link itu punya class download atau mencegah default
+                if(this.hasAttribute('download') || e.defaultPrevented) return;
+                
+                // Jangan trigger untuk buka di tab baru pake keyboard shortcut
+                if(!e.ctrlKey && !e.metaKey && !e.shiftKey) {
+                    const preloader = document.getElementById('preloader');
+                    if(preloader) {
+                        preloader.style.display = 'flex';
+                        // Force reflow agar animasi jalan mulus kembali
+                        void preloader.offsetWidth;
+                        preloader.classList.remove('fade-out');
+                    }
+                }
+            });
+        });
+    });
 </script>
 
 </body>
