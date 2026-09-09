@@ -201,15 +201,7 @@
         transform: translateY(0);
         box-shadow: 0 2px 5px rgba(201, 150, 58, 0.4) !important;
     }
-    @keyframes bounceLetter {
-        0%, 15%, 100% {
-            transform: translateY(0);
-        }
-        5% {
-            transform: translateY(-8px);
-            color: var(--gold, #C9963A);
-        }
-    }
+    /* Bouncy text animation replaced by JS */
     .sambutan-img-wrap {
         position: relative;
         height: 100%;
@@ -1598,20 +1590,47 @@
         });
     }
 
-    // Bouncy effect for Head of Village Name (loops every 3 seconds)
-    var bouncyNameElems = document.querySelectorAll('.typingName');
-    bouncyNameElems.forEach(function(elem) {
+    var standUpElems = document.querySelectorAll('.typingName');
+    standUpElems.forEach(function(elem) {
         var text = elem.getAttribute('data-text');
         elem.innerHTML = '';
+        elem.style.perspective = '400px';
+        
+        var spans = [];
         for (var i = 0; i < text.length; i++) {
             var span = document.createElement('span');
             span.innerText = text[i] === ' ' ? '\u00A0' : text[i];
             span.style.display = 'inline-block';
-            span.style.animation = 'bounceLetter 3s infinite';
-            // Stagger animation delay to create a wave effect
-            span.style.animationDelay = (i * 0.08) + 's';
+            span.style.opacity = '0';
+            span.style.transform = 'translateY(15px) rotateX(-90deg)';
+            span.style.transition = 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
             elem.appendChild(span);
+            spans.push(span);
         }
+        
+        function animateText() {
+            // Sembunyikan semua huruf terlebih dahulu
+            spans.forEach(function(s) {
+                s.style.opacity = '0';
+                s.style.transform = 'translateY(15px) rotateX(-90deg)';
+            });
+            
+            // Munculkan huruf satu per satu (efek bangkit)
+            setTimeout(function() {
+                spans.forEach(function(s, index) {
+                    setTimeout(function() {
+                        s.style.opacity = '1';
+                        s.style.transform = 'translateY(0) rotateX(0)';
+                    }, index * 80); // jeda 80ms antar huruf
+                });
+            }, 100);
+        }
+        
+        // Animasi pertama kali
+        setTimeout(animateText, 500);
+        
+        // Looping setiap 3 detik + waktu total animasi muncul
+        setInterval(animateText, 3000 + (text.length * 80));
     });
 </script>
 @endpush
