@@ -32,10 +32,20 @@ class KependudukanController extends Controller
         ];
 
         foreach ($keys as $key) {
-            Setting::updateOrCreate(
-                ['key' => $key],
-                ['value' => $request->input($key)]
-            );
+            $setting = Setting::where('key', $key)->first();
+            if ($setting) {
+                $setting->update(['value' => $request->input($key)]);
+            } else {
+                // To avoid PostgreSQL sequence errors on insert:
+                $maxId = Setting::max('id');
+                Setting::insert([
+                    'id' => $maxId ? $maxId + 1 : 1,
+                    'key' => $key,
+                    'value' => $request->input($key),
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            }
         }
 
         return redirect()->route('admin.kependudukan.index')->with('success', 'Data kependudukan berhasil diperbarui.');
