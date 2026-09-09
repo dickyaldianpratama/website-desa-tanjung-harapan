@@ -521,6 +521,14 @@
                     <li class="nav-item"><a class="nav-link {{ request()->routeIs('fasilitas*') ? 'active' : '' }}" href="{{ route('fasilitas.index') }}">Fasilitas</a></li>
                     <li class="nav-item"><a class="nav-link {{ request()->routeIs('layanan*') ? 'active' : '' }}" href="{{ route('layanan.index') }}">E-Layanan</a></li>
                     <li class="nav-item"><a class="nav-link {{ request()->routeIs('kontak') ? 'active' : '' }}" href="{{ route('kontak') }}">Kontak</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle {{ request()->routeIs('statistik*') ? 'active' : '' }}" href="#" id="navbarLainnya" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Lainnya
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0" aria-labelledby="navbarLainnya">
+                            <li><a class="dropdown-item py-2" href="{{ route('statistik.show', 'wilayah') }}"><i class="bi bi-bar-chart-fill text-danger me-2"></i>Data Statistik</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>
