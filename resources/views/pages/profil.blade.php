@@ -172,6 +172,15 @@
     button[aria-expanded="true"] .btn-chevron {
         transform: rotate(180deg);
     }
+    .typing-cursor {
+        font-weight: 300;
+        color: var(--gold);
+        animation: blink 1s step-end infinite;
+    }
+    @keyframes blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0; }
+    }
     .sambutan-img-wrap {
         position: relative;
         height: 100%;
@@ -633,7 +642,7 @@
                                     <span class="fw-bold text-uppercase" style="letter-spacing: 2px; font-size: 0.75rem;">Sambutan Kepala Desa</span>
                                 </div>
                                 <h4 class="fw-bold text-coklat-tua mb-1">
-                                    <marquee behavior="scroll" direction="left" scrollamount="5">{{ $namaKades }}</marquee>
+                                    <span id="typingName" data-text="{{ $namaKades }}"></span><span class="typing-cursor">|</span>
                                 </h4>
                                 <p class="text-muted fw-semibold mb-3 d-flex align-items-center gap-2" style="font-size: 0.85rem;"><i class="bi bi-person-vcard"></i> {{ $jabatanKades }}</p>
                                 
@@ -1498,6 +1507,24 @@
             var dots = document.getElementById('dotsSambutan');
             if(dots) dots.style.display = 'inline';
         });
+    }
+
+    // Typing effect for Head of Village Name
+    var typingNameElem = document.getElementById('typingName');
+    if (typingNameElem) {
+        var textToType = typingNameElem.getAttribute('data-text');
+        var typingIndex = 0;
+        
+        function typeWriter() {
+            if (typingIndex < textToType.length) {
+                typingNameElem.innerHTML += textToType.charAt(typingIndex);
+                typingIndex++;
+                setTimeout(typeWriter, 120); // Kecepatan ketik 120ms per karakter
+            }
+        }
+        
+        // Mulai efek ketik setelah jeda sedikit
+        setTimeout(typeWriter, 500);
     }
 </script>
 @endpush
