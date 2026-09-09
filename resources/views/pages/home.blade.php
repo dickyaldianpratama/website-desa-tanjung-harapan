@@ -305,16 +305,18 @@
 .marquee-icon {
     background: #fff;
     color: #D32F2F;
-    padding: 10px 20px;
-    font-size: 1.25rem;
+    padding: 10px 30px 10px 20px;
+    font-size: 1.1rem;
     display: flex;
     align-items: center;
     justify-content: center;
     clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
-    min-width: 60px;
+    min-width: 100px;
+    font-weight: 800;
+    letter-spacing: 1px;
 }
 .marquee-text-wrap {
-    flex-grow: 1;
+    width: 60%; /* Hanya sampai sekitar setengah/lebih sedikit halaman */
     overflow: hidden;
     padding: 0 15px;
     font-family: 'Poppins', sans-serif;
@@ -592,11 +594,17 @@
 {{-- ── MEGAPHONE RUNNING TEXT ── --}}
 <div class="marquee-bar">
     <div class="marquee-icon">
-        <i class="bi bi-megaphone-fill"></i>
+        <i class="bi bi-megaphone-fill me-2"></i> INFO
     </div>
     <div class="marquee-text-wrap">
-        <marquee behavior="scroll" direction="left" scrollamount="6">
+        <marquee behavior="scroll" direction="left" scrollamount="6" onmouseover="this.stop();" onmouseout="this.start();">
             {{ $settings['running_text_kependudukan'] ?? 'Selamat Datang di Website Resmi Pemerintah Desa Tanjung Harapan. Bersama Membangun Desa yang Mandiri dan Sejahtera.' }}
+            
+            &nbsp; &nbsp; &bull; &nbsp; &nbsp;
+            
+            <a href="https://www.desatanjungharapan.site" target="_blank" style="color: #ffd700; text-decoration: none; font-weight: 600; padding: 2px 6px; border-radius: 4px; transition: 0.3s;" onmouseover="this.style.textDecoration='underline'; this.style.color='#fff';" onmouseout="this.style.textDecoration='none'; this.style.color='#ffd700';">
+                Kunjungi: desatanjungharapan.site <i class="bi bi-box-arrow-up-right ms-1" style="font-size: 0.8rem;"></i>
+            </a>
         </marquee>
     </div>
 </div>
