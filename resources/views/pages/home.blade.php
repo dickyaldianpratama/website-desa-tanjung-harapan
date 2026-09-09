@@ -398,6 +398,13 @@
     padding: 15px 10px;
 }
 .kpd-card-sm .kpd-label { font-size: 0.65rem; color: #ccc; }
+
+@media (max-width: 576px) {
+    .kpd-card { padding: 10px !important; gap: 8px !important; }
+    .kpd-icon { width: 38px; height: 38px; font-size: 1rem; }
+    .kpd-value { font-size: 1.1rem; }
+    .kpd-label { font-size: 0.6rem; }
+}
 </style>
 @endpush
 
@@ -494,9 +501,9 @@
     <div class="container reveal">
         <div class="kependudukan-title">Data Kependudukan</div>
         
-        <div class="row g-3 justify-content-center">
+        <div class="row g-2 g-md-3 justify-content-center">
             <!-- Total Jiwa -->
-            <div class="col-6 col-md-4">
+            <div class="col-6 col-lg-3">
                 <a href="#" class="kpd-card">
                     <div class="kpd-icon red"><i class="bi bi-people-fill"></i></div>
                     <div class="kpd-info">
@@ -507,7 +514,7 @@
             </div>
             
             <!-- Laki-laki -->
-            <div class="col-6 col-md-4">
+            <div class="col-6 col-lg-3">
                 <a href="#" class="kpd-card">
                     <div class="kpd-icon blue"><i class="bi bi-gender-male"></i></div>
                     <div class="kpd-info">
@@ -518,7 +525,7 @@
             </div>
             
             <!-- Perempuan -->
-            <div class="col-6 col-md-4">
+            <div class="col-6 col-lg-3">
                 <a href="#" class="kpd-card">
                     <div class="kpd-icon pink"><i class="bi bi-gender-female"></i></div>
                     <div class="kpd-info">
@@ -529,11 +536,11 @@
             </div>
 
             <!-- Lihat Statistik Keluarga -->
-            <div class="col-12 col-md-6 mt-3">
-                <a href="{{ $settings['link_statistik_keluarga'] ?? '#' }}" class="kpd-card" style="justify-content: center;">
+            <div class="col-6 col-lg-3">
+                <a href="{{ $settings['link_statistik_keluarga'] ?? '#' }}" class="kpd-card">
                     <div class="kpd-icon green"><i class="bi bi-house-door-fill"></i></div>
-                    <div class="kpd-info text-center ms-2">
-                        <div class="kpd-value" style="font-size: 1.1rem;">Lihat Statistik</div>
+                    <div class="kpd-info">
+                        <div class="kpd-value" style="font-size: 1rem; line-height: 1.2;">Lihat Statistik</div>
                         <div class="kpd-label">Keluarga</div>
                     </div>
                 </a>
