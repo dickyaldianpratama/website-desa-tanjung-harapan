@@ -221,29 +221,6 @@
                 transform: translateX(5px);
                 color: var(--gold) !important;
             }
-            /* Style dropdown di mobile agar menyatu (tidak kotak putih) */
-            .navbar-desa .dropdown-menu {
-                background: rgba(0,0,0,0.15);
-                border: none;
-                margin: 0;
-                padding: 0.5rem;
-                border-radius: 0 0 8px 8px;
-            }
-            .navbar-desa .dropdown-item {
-                color: rgba(255,255,255,0.85);
-                border-radius: 6px;
-                padding: 0.7rem 1rem;
-                transition: 0.2s;
-            }
-            .navbar-desa .dropdown-item:hover, .navbar-desa .dropdown-item:active {
-                background: rgba(201,150,58,0.2) !important;
-                color: var(--gold) !important;
-                transform: translateX(5px);
-            }
-            .navbar-desa .nav-link.dropdown-toggle::after {
-                float: right;
-                margin-top: 8px;
-            }
         }
 
         /* SECTION TITLES */
@@ -534,24 +511,23 @@
                     Menu Utama
                 </h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" data-bs-target="#navMenu" aria-label="Close"></button>
-            </div>
             <div class="offcanvas-body">
                 <ul class="navbar-nav gap-1 justify-content-end w-100 px-3 px-lg-0 pb-4 pb-lg-0">
                     <li class="nav-item"><a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">Beranda</a></li>
                     <li class="nav-item"><a class="nav-link {{ request()->routeIs('profil') ? 'active' : '' }}" href="{{ route('profil') }}">Profil Desa</a></li>
                     <li class="nav-item"><a class="nav-link {{ request()->routeIs('berita*') ? 'active' : '' }}" href="{{ route('berita.index') }}">Berita</a></li>
                     <li class="nav-item"><a class="nav-link {{ request()->routeIs('potensi*') ? 'active' : '' }}" href="{{ route('potensi.index') }}">Potensi</a></li>
-                    <li class="nav-item"><a class="nav-link {{ request()->routeIs('fasilitas*') ? 'active' : '' }}" href="{{ route('fasilitas.index') }}">Fasilitas</a></li>
-                    <li class="nav-item"><a class="nav-link {{ request()->routeIs('layanan*') ? 'active' : '' }}" href="{{ route('layanan.index') }}">E-Layanan</a></li>
-                    <li class="nav-item"><a class="nav-link {{ request()->routeIs('kontak') ? 'active' : '' }}" href="{{ route('kontak') }}">Kontak</a></li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle {{ request()->routeIs('statistik*') ? 'active' : '' }}" href="#" id="navbarLainnya" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle {{ request()->routeIs('kependudukan*') ? 'active' : '' }}" href="#" id="navbarLainnya" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Lainnya
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0" aria-labelledby="navbarLainnya">
-                            <li><a class="dropdown-item py-2" href="{{ route('statistik.show', 'wilayah') }}"><i class="bi bi-bar-chart-fill text-danger me-2"></i>Data Statistik</a></li>
+                            <li><a class="dropdown-item py-2" href="{{ route('kependudukan.show', 'wilayah') }}"><i class="bi bi-bar-chart-fill text-danger me-2"></i>Data Statistik</a></li>
                         </ul>
                     </li>
+                    <li class="nav-item"><a class="nav-link {{ request()->routeIs('fasilitas*') ? 'active' : '' }}" href="{{ route('fasilitas.index') }}">Fasilitas</a></li>
+                    <li class="nav-item"><a class="nav-link {{ request()->routeIs('layanan*') ? 'active' : '' }}" href="{{ route('layanan.index') }}">E-Layanan</a></li>
+                    <li class="nav-item"><a class="nav-link {{ request()->routeIs('kontak') ? 'active' : '' }}" href="{{ route('kontak') }}">Kontak</a></li>
                 </ul>
             </div>
         </div>
