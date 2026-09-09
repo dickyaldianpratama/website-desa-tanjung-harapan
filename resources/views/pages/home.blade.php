@@ -311,9 +311,11 @@
     align-items: center;
     justify-content: center;
     clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
-    min-width: 100px;
+    min-width: 110px;
     font-weight: 800;
     letter-spacing: 1px;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 .marquee-text-wrap {
     width: 60%; /* Hanya sampai sekitar setengah/lebih sedikit halaman */
@@ -406,6 +408,15 @@
     .kpd-icon { width: 38px; height: 38px; font-size: 1rem; }
     .kpd-value { font-size: 1.1rem; }
     .kpd-label { font-size: 0.6rem; }
+    
+    .marquee-icon {
+        padding: 8px 20px 8px 10px;
+        font-size: 0.9rem;
+        min-width: 80px;
+    }
+    .marquee-text-wrap {
+        width: 75%; /* Beri ruang lebih banyak untuk teks di mobile */
+    }
 }
 </style>
 @endpush
@@ -597,7 +608,7 @@
         <i class="bi bi-megaphone-fill me-2"></i> INFO
     </div>
     <div class="marquee-text-wrap">
-        <marquee behavior="scroll" direction="left" scrollamount="6" onmouseover="this.stop();" onmouseout="this.start();">
+        <marquee behavior="scroll" direction="left" scrollamount="3" onmouseover="this.stop();" onmouseout="this.start();">
             {{ $settings['running_text_kependudukan'] ?? 'Selamat Datang di Website Resmi Pemerintah Desa Tanjung Harapan. Bersama Membangun Desa yang Mandiri dan Sejahtera.' }}
             
             &nbsp; &nbsp; &bull; &nbsp; &nbsp;
