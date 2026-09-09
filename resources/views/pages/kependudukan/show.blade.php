@@ -1,0 +1,208 @@
+@extends('layouts.app')
+
+@section('title', 'Data Kependudukan - ' . ucfirst($kategori))
+
+@push('styles')
+<style>
+/* CSS Sidebar Navigasi Statistik */
+.nav-statistik-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    overflow: hidden;
+}
+.nav-statistik-header {
+    background: #3b2314; /* Coklat Tua */
+    color: #fff;
+    padding: 15px 20px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.nav-statistik-header i {
+    color: var(--gold, #C9963A);
+}
+.nav-statistik-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.nav-statistik-item {
+    border-bottom: 1px solid #f0f0f0;
+}
+.nav-statistik-item:last-child {
+    border-bottom: none;
+}
+.nav-statistik-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    color: #333;
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+.nav-statistik-link:hover {
+    background: #faf8f5;
+    color: var(--gold, #C9963A);
+}
+.nav-statistik-link.active {
+    color: var(--gold, #C9963A);
+    font-weight: 600;
+}
+.nav-statistik-sublist {
+    list-style: none;
+    padding: 10px 0 10px 0;
+    margin: 0;
+    background: #fdfbf9;
+    border-left: 3px solid var(--gold, #C9963A);
+}
+.nav-statistik-subitem a {
+    display: block;
+    padding: 8px 20px 8px 40px;
+    color: #555;
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+}
+.nav-statistik-subitem a:hover {
+    color: var(--gold, #C9963A);
+}
+.nav-statistik-subitem a.active {
+    font-weight: 600;
+    color: #3b2314;
+}
+
+/* CSS Konten Statistik */
+.statistik-content-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    padding: 30px;
+    min-height: 500px;
+}
+.statistik-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    color: #003366; /* Warna biru sesuai gambar "Jumlah dan Persentase Penduduk..." */
+    font-size: 1.4rem;
+    line-height: 1.4;
+    margin-bottom: 25px;
+}
+
+.alert-rekapitulasi {
+    background: #fff3cd;
+    border-left: 4px solid #ffc107;
+    padding: 20px;
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+    color: #856404;
+}
+</style>
+@endpush
+
+@section('content')
+<div class="container py-5 mt-4">
+    <div class="row g-4">
+        
+        <!-- SIDEBAR -->
+        <div class="col-lg-4">
+            <div class="nav-statistik-card">
+                <div class="nav-statistik-header">
+                    <i class="bi bi-pie-chart-fill"></i> Navigasi Statistik
+                </div>
+                <ul class="nav-statistik-list">
+                    <li class="nav-statistik-item">
+                        <a href="#" class="nav-statistik-link" data-bs-toggle="collapse" data-bs-target="#collapsePenduduk" aria-expanded="true">
+                            Statistik Penduduk <i class="bi bi-chevron-up"></i>
+                        </a>
+                        <ul class="nav-statistik-sublist collapse show" id="collapsePenduduk">
+                            <li class="nav-statistik-subitem">
+                                <a href="{{ route('kependudukan.show', 'wilayah') }}" class="{{ $kategori == 'wilayah' ? 'active' : '' }}">Data Wilayah</a>
+                            </li>
+                            <li class="nav-statistik-subitem">
+                                <a href="{{ route('kependudukan.show', 'agama') }}" class="{{ $kategori == 'agama' ? 'active' : '' }}">Agama</a>
+                            </li>
+                            <li class="nav-statistik-subitem">
+                                <a href="{{ route('kependudukan.show', 'pekerjaan') }}" class="{{ $kategori == 'pekerjaan' ? 'active' : '' }}">Pekerjaan</a>
+                            </li>
+                            <li class="nav-statistik-subitem">
+                                <a href="{{ route('kependudukan.show', 'pendidikan') }}" class="{{ $kategori == 'pendidikan' ? 'active' : '' }}">Pendidikan</a>
+                            </li>
+                            <li class="nav-statistik-subitem">
+                                <a href="{{ route('kependudukan.show', 'umur') }}" class="{{ $kategori == 'umur' ? 'active' : '' }}">Umur</a>
+                            </li>
+                            <li class="nav-statistik-subitem">
+                                <a href="{{ route('kependudukan.show', 'perkawinan') }}" class="{{ $kategori == 'perkawinan' ? 'active' : '' }}">Perkawinan</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-statistik-item">
+                        <a href="#" class="nav-statistik-link">Statistik Keluarga</a>
+                    </li>
+                    <li class="nav-statistik-item">
+                        <a href="#" class="nav-statistik-link">Statistik Bantuan <i class="bi bi-chevron-down"></i></a>
+                    </li>
+                    <li class="nav-statistik-item">
+                        <a href="#" class="nav-statistik-link">Statistik Lainnya <i class="bi bi-chevron-down"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="col-lg-8">
+            <div class="statistik-content-card">
+                @if($kategori == 'wilayah')
+                    <h3 class="statistik-title">Jumlah dan Persentase Penduduk Berdasarkan Wilayah Dusun di Desa Tanjung Harapan, 2026</h3>
+                    
+                    <!-- Tabs untuk Dusun 1, 2, 3, 4 -->
+                    <ul class="nav nav-tabs mb-3" id="dusunTab" role="tablist">
+                        @php $i = 0; @endphp
+                        @foreach($sheets as $dusun => $link)
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link {{ $i == 0 ? 'active' : '' }}" id="tab-{{ Str::slug($dusun) }}" data-bs-toggle="tab" data-bs-target="#content-{{ Str::slug($dusun) }}" type="button" role="tab" style="font-family: 'Poppins', sans-serif; font-weight: 500; color: #3b2314;">
+                                    {{ $dusun }}
+                                </button>
+                            </li>
+                            @php $i++; @endphp
+                        @endforeach
+                    </ul>
+                    
+                    <div class="tab-content" id="dusunTabContent">
+                        @php $i = 0; @endphp
+                        @foreach($sheets as $dusun => $link)
+                            <div class="tab-pane fade {{ $i == 0 ? 'show active' : '' }}" id="content-{{ Str::slug($dusun) }}" role="tabpanel">
+                                <div class="ratio ratio-16x9">
+                                    <iframe src="{{ $link }}" style="border:0; border-radius: 8px; width:100%; height:100%;" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                            @php $i++; @endphp
+                        @endforeach
+                    </div>
+
+                @else
+                    <!-- Kategori Selain Wilayah (Agama, Pekerjaan, dll) -->
+                    <h3 class="statistik-title">Statistik {{ ucfirst($kategori) }} Penduduk Desa Tanjung Harapan, 2026</h3>
+                    <div class="alert-rekapitulasi mt-4">
+                        <div class="d-flex align-items-center gap-3">
+                            <i class="bi bi-info-circle-fill" style="font-size: 2rem;"></i>
+                            <div>
+                                <h5 class="mb-1 fw-bold">Informasi</h5>
+                                <p class="mb-0">Data statistik untuk kategori <strong>{{ ucfirst($kategori) }}</strong> saat ini sedang dalam proses rekapitulasi oleh perangkat desa.</p>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+            </div>
+        </div>
+
+    </div>
+</div>
+@endsection

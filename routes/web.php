@@ -36,9 +36,9 @@ Route::get('/layanan/cetak-surat/{nomor_tiket}', [App\Http\Controllers\LayananCo
 Route::get('/kontak',        [KontakController::class, 'index'])->name('kontak');
 Route::post('/kontak',       [KontakController::class, 'store'])->name('kontak.store')->middleware('throttle:3,10');
 Route::get('/fasilitas',     [App\Http\Controllers\FasilitasController::class, 'index'])->name('fasilitas.index');
-Route::get('/statistik/{jenis?}', [App\Http\Controllers\StatistikController::class, 'show'])->name('statistik.show');
 
 // ═══════════════════════════════════════════
+Route::get('/kependudukan/{kategori?}', [App\Http\Controllers\KependudukanController::class, 'show'])->name('kependudukan.show');
 //  ADMIN AUTH — Login/Logout admin desa
 // ═══════════════════════════════════════════
 Route::get('/admin/login',   [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'create'])->name('login')->middleware('guest');

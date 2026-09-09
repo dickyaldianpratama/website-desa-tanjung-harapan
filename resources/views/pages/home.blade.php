@@ -550,7 +550,7 @@
 
             <!-- Lihat Statistik Keluarga -->
             <div class="col-6 col-lg-3">
-                <a href="{{ $settings->get('link_statistik_keluarga') && $settings->get('link_statistik_keluarga') != '#' ? $settings->get('link_statistik_keluarga') : route('statistik.show', 'keluarga') }}" class="kpd-card">
+                <a href="{{ route('kependudukan.show', 'wilayah') }}" class="kpd-card">
                     <div class="kpd-icon green"><i class="bi bi-house-door-fill"></i></div>
                     <div class="kpd-info">
                         <div class="kpd-value" style="font-size: 1rem; line-height: 1.2;">Lihat Statistik</div>
@@ -563,37 +563,37 @@
         <!-- 6 Small Cards -->
         <div class="row g-3 mt-3 justify-content-center">
             <div class="col-4 col-md-2">
-                <a href="{{ $settings->get('link_agama') && $settings->get('link_agama') != '#' ? $settings->get('link_agama') : route('statistik.show', 'agama') }}" class="kpd-card kpd-card-sm">
+                <a href="{{ route('kependudukan.show', 'agama') }}" class="kpd-card kpd-card-sm">
                     <div class="kpd-icon gold"><i class="bi bi-person-hearts"></i></div>
                     <div class="kpd-label">Agama</div>
                 </a>
             </div>
             <div class="col-4 col-md-2">
-                <a href="{{ $settings->get('link_pekerjaan') && $settings->get('link_pekerjaan') != '#' ? $settings->get('link_pekerjaan') : route('statistik.show', 'pekerjaan') }}" class="kpd-card kpd-card-sm">
+                <a href="{{ route('kependudukan.show', 'pekerjaan') }}" class="kpd-card kpd-card-sm">
                     <div class="kpd-icon gold"><i class="bi bi-briefcase-fill"></i></div>
                     <div class="kpd-label">Pekerjaan</div>
                 </a>
             </div>
             <div class="col-4 col-md-2">
-                <a href="{{ $settings->get('link_pendidikan') && $settings->get('link_pendidikan') != '#' ? $settings->get('link_pendidikan') : route('statistik.show', 'pendidikan') }}" class="kpd-card kpd-card-sm">
+                <a href="{{ route('kependudukan.show', 'pendidikan') }}" class="kpd-card kpd-card-sm">
                     <div class="kpd-icon gold"><i class="bi bi-mortarboard-fill"></i></div>
                     <div class="kpd-label">Pendidikan</div>
                 </a>
             </div>
             <div class="col-4 col-md-2">
-                <a href="{{ $settings->get('link_umur') && $settings->get('link_umur') != '#' ? $settings->get('link_umur') : route('statistik.show', 'umur') }}" class="kpd-card kpd-card-sm">
+                <a href="{{ route('kependudukan.show', 'umur') }}" class="kpd-card kpd-card-sm">
                     <div class="kpd-icon gold"><i class="bi bi-calendar-check-fill"></i></div>
                     <div class="kpd-label">Umur</div>
                 </a>
             </div>
             <div class="col-4 col-md-2">
-                <a href="{{ $settings->get('link_perkawinan') && $settings->get('link_perkawinan') != '#' ? $settings->get('link_perkawinan') : route('statistik.show', 'perkawinan') }}" class="kpd-card kpd-card-sm">
+                <a href="{{ route('kependudukan.show', 'perkawinan') }}" class="kpd-card kpd-card-sm">
                     <div class="kpd-icon gold"><i class="bi bi-heart-fill"></i></div>
                     <div class="kpd-label">Perkawinan</div>
                 </a>
             </div>
             <div class="col-4 col-md-2">
-                <a href="{{ $settings->get('link_wilayah') && $settings->get('link_wilayah') != '#' ? $settings->get('link_wilayah') : route('statistik.show', 'wilayah') }}" class="kpd-card kpd-card-sm">
+                <a href="{{ route('kependudukan.show', 'wilayah') }}" class="kpd-card kpd-card-sm">
                     <div class="kpd-icon gold"><i class="bi bi-geo-alt-fill"></i></div>
                     <div class="kpd-label">Wilayah</div>
                 </a>
