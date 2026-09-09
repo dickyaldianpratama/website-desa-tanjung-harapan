@@ -269,45 +269,45 @@
         .kades-glow-wrap {
             position: relative;
             z-index: 2;
-            width: 160px;
-            height: 210px;
+            width: 156px;
+            height: 206px;
             border-radius: 16px;
             margin-bottom: 0.5rem;
             box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            background: #2a1610; 
+            background: transparent; 
             overflow: hidden; 
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 4px; /* ketebalan border */
+            border: 3px solid rgba(201, 150, 58, 0.8); /* Bingkai emas statis */
         }
         
+        /* Efek kaca berkilau (glass shine sweep) */
         .kades-glow-wrap::before {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: conic-gradient(from 0deg, transparent 0%, transparent 60%, var(--gold, #C9963A) 80%, #fff 100%);
-            animation: rotateBorder 2.5s linear infinite;
-            z-index: 1;
+            top: 0; left: -100%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-25deg);
+            animation: glassShineSweep 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+            z-index: 4;
+            pointer-events: none;
         }
         
         .sambutan-img-wrap img.kades-img {
-            position: relative;
+            position: absolute;
+            top: 0; left: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
             border-radius: 12px;
             z-index: 3;
-            /* border dihapus karena bingkai digantikan oleh gap padding dari ::before */
         }
     }
     
-    @keyframes rotateBorder {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
+    @keyframes glassShineSweep {
+        0% { left: -100%; }
+        25% { left: 200%; }
+        100% { left: 200%; } /* Jeda sebelum mengulang */
     }
     
     /* PERANGKAT SWIPER */
