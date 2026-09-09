@@ -69,8 +69,8 @@
                     </div>
 
                     <div class="mt-4 text-end">
-                        <button type="submit" class="btn btn-desa-primary px-4">
-                            <i class="bi bi-save me-1"></i> Simpan Pengaturan
+                        <button type="submit" class="btn btn-simpan-gradient px-4">
+                            <i class="bi bi-save me-1"></i> Simpan
                         </button>
                     </div>
                 </form>
@@ -78,4 +78,29 @@
         </div>
     </div>
 </div>
+
+@push('styles')
+<style>
+.btn-simpan-gradient {
+    background: linear-gradient(135deg, var(--gold, #C9963A) 0%, #a87928 100%);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 15px rgba(201, 150, 58, 0.4);
+    transition: all 0.3s ease;
+}
+.btn-simpan-gradient:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(201, 150, 58, 0.6);
+    color: #fff;
+    background: linear-gradient(135deg, #a87928 0%, var(--gold, #C9963A) 100%);
+}
+.btn-simpan-gradient:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(201, 150, 58, 0.4);
+}
+</style>
+@endpush
 @endsection
