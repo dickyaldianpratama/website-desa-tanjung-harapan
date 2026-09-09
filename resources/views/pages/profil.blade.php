@@ -819,74 +819,81 @@
                 </div>
             </div>
 
-            <div class="swiper perangkat-swiper" data-aos="fade-up" data-aos-delay="100">
-            <div class="swiper-wrapper">
-                @forelse($perangkats as $perangkat)
-                    <div class="swiper-slide">
-                        <div class="perangkat-slide-card">
-                            @if($perangkat->foto)
-                                <img src="{{ Storage::disk('s3')->url('images/perangkat/' . $perangkat->foto) }}" alt="{{ $perangkat->nama }}">
-                            @else
-                                <div class="placeholder">👤</div>
-                            @endif
-                            <div class="card-content">
-                                <h5 class="fw-bold mb-1">{{ $perangkat->nama }}</h5>
-                                <p class="small mb-0">{{ $perangkat->jabatan }}</p>
+            {{-- Swiper area wrapper: posisi relative agar nav buttons terkunci di atas swiper saja --}}
+            <div class="swiper-area-wrapper" style="position: relative;">
+                <div class="swiper perangkat-swiper" data-aos="fade-up" data-aos-delay="100">
+                    <div class="swiper-wrapper">
+                        @forelse($perangkats as $perangkat)
+                            <div class="swiper-slide">
+                                <div class="perangkat-slide-card">
+                                    @if($perangkat->foto)
+                                        <img src="{{ Storage::disk('s3')->url('images/perangkat/' . $perangkat->foto) }}" alt="{{ $perangkat->nama }}">
+                                    @else
+                                        <div class="placeholder">👤</div>
+                                    @endif
+                                    <div class="card-content">
+                                        <h5 class="fw-bold mb-1">{{ $perangkat->nama }}</h5>
+                                        <p class="small mb-0">{{ $perangkat->jabatan }}</p>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                @empty
-                    <!-- Dummy Data -->
-                    <div class="swiper-slide">
-                        <div class="perangkat-slide-card">
-                            <div class="placeholder">👤</div>
-                            <div class="card-content">
-                                <h5 class="fw-bold mb-1">SUPANDI, S. SI, M. SI</h5>
-                                <p class="small mb-0">Kaur Umum dan Perencanaan</p>
+                        @empty
+                            <!-- Dummy Data -->
+                            <div class="swiper-slide">
+                                <div class="perangkat-slide-card">
+                                    <div class="placeholder">👤</div>
+                                    <div class="card-content">
+                                        <h5 class="fw-bold mb-1">SUPANDI, S. SI, M. SI</h5>
+                                        <p class="small mb-0">Kaur Umum dan Perencanaan</p>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="perangkat-slide-card">
-                            <div class="placeholder">👤</div>
-                            <div class="card-content">
-                                <h5 class="fw-bold mb-1">SUPRIADI</h5>
-                                <p class="small mb-0">Kadus I Manunggal Jaya</p>
+                            <div class="swiper-slide">
+                                <div class="perangkat-slide-card">
+                                    <div class="placeholder">👤</div>
+                                    <div class="card-content">
+                                        <h5 class="fw-bold mb-1">SUPRIADI</h5>
+                                        <p class="small mb-0">Kadus I Manunggal Jaya</p>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="perangkat-slide-card">
-                            <div class="placeholder">👤</div>
-                            <div class="card-content">
-                                <h5 class="fw-bold mb-1">MAY MAYANTIKA, S.K.M</h5>
-                                <p class="small mb-0">Kadus IV Maju Jaya</p>
+                            <div class="swiper-slide">
+                                <div class="perangkat-slide-card">
+                                    <div class="placeholder">👤</div>
+                                    <div class="card-content">
+                                        <h5 class="fw-bold mb-1">MAY MAYANTIKA, S.K.M</h5>
+                                        <p class="small mb-0">Kadus IV Maju Jaya</p>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="perangkat-slide-card">
-                            <div class="placeholder">👤</div>
-                            <div class="card-content">
-                                <h5 class="fw-bold mb-1">ZARIMA, A,Md</h5>
-                                <p class="small mb-0">Kadus II Dusun Mekar Jaya</p>
+                            <div class="swiper-slide">
+                                <div class="perangkat-slide-card">
+                                    <div class="placeholder">👤</div>
+                                    <div class="card-content">
+                                        <h5 class="fw-bold mb-1">ZARIMA, A,Md</h5>
+                                        <p class="small mb-0">Kadus II Dusun Mekar Jaya</p>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="perangkat-slide-card">
-                            <div class="placeholder">👤</div>
-                            <div class="card-content">
-                                <h5 class="fw-bold mb-1">SUMARDI</h5>
-                                <p class="small mb-0">Kadus III Mukti Jaya</p>
+                            <div class="swiper-slide">
+                                <div class="perangkat-slide-card">
+                                    <div class="placeholder">👤</div>
+                                    <div class="card-content">
+                                        <h5 class="fw-bold mb-1">SUMARDI</h5>
+                                        <p class="small mb-0">Kadus III Mukti Jaya</p>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        @endforelse
                     </div>
-                @endforelse
-            </div>
-            
-            <div class="swiper-button-prev perangkat-prev custom-nav-btn"></div><div class="swiper-button-next perangkat-next custom-nav-btn"></div><div class="swiper-pagination mt-4"></div>
-            
+                    <div class="swiper-pagination mt-4"></div>
+                </div>
+                {{-- Nav buttons di luar .swiper tapi masih di dalam .swiper-area-wrapper --}}
+                {{-- Posisinya absolute terkunci di tengah swiper, tidak terpengaruh konten di bawahnya --}}
+                <div class="swiper-button-prev perangkat-prev custom-nav-btn"></div>
+                <div class="swiper-button-next perangkat-next custom-nav-btn"></div>
+            </div>{{-- End swiper-area-wrapper --}}
+
             @php $baganPerangkat = $bagans->filter(fn($b) => str_contains(strtolower($b->nama), 'perangkat')); @endphp
             @if($baganPerangkat->count() > 0)
                 <div class="row">
@@ -958,128 +965,135 @@
         <div class="tab-content" id="lembagaTabContent">
             <!-- BPD Tab -->
             <div class="tab-pane fade show active" id="bpd-tab-pane" role="tabpanel" tabindex="0">
-                <div class="swiper bpd-swiper" data-aos="fade-up" data-aos-delay="100">
-                    <div class="swiper-wrapper">
-                        @forelse($bpd as $anggota)
-                            <div class="swiper-slide">
-                                <div class="perangkat-slide-card">
-                                    @if($anggota->foto)
-                                        <img src="{{ Storage::disk('s3')->url('images/lembaga/' . $anggota->foto) }}" alt="{{ $anggota->nama }}">
-                                    @else
-                                        <div class="placeholder">👤</div>
-                                    @endif
-                                    <div class="card-content">
-                                        <h5 class="fw-bold mb-1">{{ $anggota->nama }}</h5>
-                                        <p class="small mb-0">{{ $anggota->jabatan }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        @empty
-                            <div class="col-12 text-center text-muted py-5">
-                                <p>Data struktur BPD belum tersedia. Admin dapat menambahkannya melalui Panel Admin.</p>
-                                <!-- Fallback image if data empty -->
-                                <img src="{{ Storage::disk('s3')->url('images/lembaga/struktur-bpd.jpg') }}" alt="Struktur BPD Sementara" style="max-width: 100%; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" onerror="this.style.display='none'">
-                            </div>
-                        @endforelse
-                    </div>
-                    <div class="swiper-button-prev bpd-prev custom-nav-btn"></div><div class="swiper-button-next bpd-next custom-nav-btn"></div><div class="swiper-pagination bpd-pagination mt-4"></div>
-                    
-                    @php $baganBpd = $bagans->filter(fn($b) => str_contains(strtolower($b->nama), 'bpd')); @endphp
-                    @if($baganBpd->count() > 0)
-                        <div class="row">
-                            @foreach($baganBpd as $bagan)
-                                <div class="col-12 text-center mt-5" data-aos="fade-up">
-                                    <button class="btn btn-outline-primary rounded-pill px-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBagan{{ $bagan->id }}" aria-expanded="false" aria-controls="collapseBagan{{ $bagan->id }}" style="border-color: var(--gold); color: var(--coklat-tua); font-weight: 600;">
-                                        <i class="bi bi-diagram-3-fill me-2"></i>Lihat {{ $bagan->nama }}
-                                    </button>
-                                    <p class="text-muted small mt-2 d-md-none"><i class="bi bi-zoom-in"></i> Ketuk gambar untuk memperbesar</p>
-                                    
-                                    <div class="collapse mt-4" id="collapseBagan{{ $bagan->id }}">
-                                        <div class="card card-body border-0 shadow-sm rounded-4 bg-white text-center">
-                                            @if($bagan->gambar)
-                                                <a href="{{ Storage::disk('s3')->url('images/struktur/' . $bagan->gambar) }}" data-fancybox="bagan-gallery" data-caption="{{ $bagan->nama }}" class="d-block text-decoration-none">
-                                                    <img src="{{ Storage::disk('s3')->url('images/struktur/' . $bagan->gambar) }}" alt="{{ $bagan->nama }}" class="img-fluid rounded shadow-sm mx-auto d-block" style="max-width: 100%; cursor: zoom-in;">
-                                                </a>
-                                                <div class="mt-3">
-                                                    <a href="{{ route('profil.downloadBagan', $bagan->id) }}" class="btn btn-sm btn-light border rounded-pill">
-                                                        <i class="bi bi-download me-1"></i> Download Bagan
-                                                    </a>
-                                                </div>
-                                            @else
-                                                <div class="py-4 border border-dashed rounded bg-light text-muted">
-                                                    <p class="mb-0">Gambar {{ $bagan->nama }} belum diunggah.</p>
-                                                </div>
-                                            @endif
+                <div class="swiper-area-wrapper" style="position: relative;">
+                    <div class="swiper bpd-swiper" data-aos="fade-up" data-aos-delay="100">
+                        <div class="swiper-wrapper">
+                            @forelse($bpd as $anggota)
+                                <div class="swiper-slide">
+                                    <div class="perangkat-slide-card">
+                                        @if($anggota->foto)
+                                            <img src="{{ Storage::disk('s3')->url('images/lembaga/' . $anggota->foto) }}" alt="{{ $anggota->nama }}">
+                                        @else
+                                            <div class="placeholder">👤</div>
+                                        @endif
+                                        <div class="card-content">
+                                            <h5 class="fw-bold mb-1">{{ $anggota->nama }}</h5>
+                                            <p class="small mb-0">{{ $anggota->jabatan }}</p>
                                         </div>
                                     </div>
                                 </div>
-                            @endforeach
+                            @empty
+                                <div class="col-12 text-center text-muted py-5">
+                                    <p>Data struktur BPD belum tersedia. Admin dapat menambahkannya melalui Panel Admin.</p>
+                                    <img src="{{ Storage::disk('s3')->url('images/lembaga/struktur-bpd.jpg') }}" alt="Struktur BPD Sementara" style="max-width: 100%; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" onerror="this.style.display='none'">
+                                </div>
+                            @endforelse
                         </div>
-                    @endif
-                </div>
+                        <div class="swiper-pagination bpd-pagination mt-4"></div>
+                    </div>
+                    <div class="swiper-button-prev bpd-prev custom-nav-btn"></div>
+                    <div class="swiper-button-next bpd-next custom-nav-btn"></div>
+                </div>{{-- End swiper-area-wrapper --}}
+
+                @php $baganBpd = $bagans->filter(fn($b) => str_contains(strtolower($b->nama), 'bpd')); @endphp
+                @if($baganBpd->count() > 0)
+                    <div class="row">
+                        @foreach($baganBpd as $bagan)
+                            <div class="col-12 text-center mt-5" data-aos="fade-up">
+                                <button class="btn btn-outline-primary rounded-pill px-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBagan{{ $bagan->id }}" aria-expanded="false" aria-controls="collapseBagan{{ $bagan->id }}" style="border-color: var(--gold); color: var(--coklat-tua); font-weight: 600;">
+                                    <i class="bi bi-diagram-3-fill me-2"></i>Lihat {{ $bagan->nama }}
+                                </button>
+                                <p class="text-muted small mt-2 d-md-none"><i class="bi bi-zoom-in"></i> Ketuk gambar untuk memperbesar</p>
+                                
+                                <div class="collapse mt-4" id="collapseBagan{{ $bagan->id }}">
+                                    <div class="card card-body border-0 shadow-sm rounded-4 bg-white text-center">
+                                        @if($bagan->gambar)
+                                            <a href="{{ Storage::disk('s3')->url('images/struktur/' . $bagan->gambar) }}" data-fancybox="bagan-gallery" data-caption="{{ $bagan->nama }}" class="d-block text-decoration-none">
+                                                <img src="{{ Storage::disk('s3')->url('images/struktur/' . $bagan->gambar) }}" alt="{{ $bagan->nama }}" class="img-fluid rounded shadow-sm mx-auto d-block" style="max-width: 100%; cursor: zoom-in;">
+                                            </a>
+                                            <div class="mt-3">
+                                                <a href="{{ route('profil.downloadBagan', $bagan->id) }}" class="btn btn-sm btn-light border rounded-pill">
+                                                    <i class="bi bi-download me-1"></i> Download Bagan
+                                                </a>
+                                            </div>
+                                        @else
+                                            <div class="py-4 border border-dashed rounded bg-light text-muted">
+                                                <p class="mb-0">Gambar {{ $bagan->nama }} belum diunggah.</p>
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
             </div>
 
             <!-- PKK Tab -->
             <div class="tab-pane fade" id="pkk-tab-pane" role="tabpanel" tabindex="0">
-                <div class="swiper pkk-swiper" data-aos="fade-up" data-aos-delay="100">
-                    <div class="swiper-wrapper">
-                        @forelse($pkk as $anggota)
-                            <div class="swiper-slide">
-                                <div class="perangkat-slide-card">
-                                    @if($anggota->foto)
-                                        <img src="{{ Storage::disk('s3')->url('images/lembaga/' . $anggota->foto) }}" alt="{{ $anggota->nama }}">
-                                    @else
-                                        <div class="placeholder">👤</div>
-                                    @endif
-                                    <div class="card-content">
-                                        <h5 class="fw-bold mb-1">{{ $anggota->nama }}</h5>
-                                        <p class="small mb-0">{{ $anggota->jabatan }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        @empty
-                            <div class="col-12 text-center text-muted py-5">
-                                <p>Data struktur Tim Penggerak PKK belum tersedia. Admin dapat menambahkannya melalui Panel Admin.</p>
-                                <!-- Fallback image if data empty -->
-                                <img src="{{ Storage::disk('s3')->url('images/lembaga/struktur-pkk.jpg') }}" alt="Struktur PKK Sementara" style="max-width: 100%; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" onerror="this.style.display='none'">
-                            </div>
-                        @endforelse
-                    </div>
-                    <div class="swiper-button-prev pkk-prev custom-nav-btn"></div><div class="swiper-button-next pkk-next custom-nav-btn"></div><div class="swiper-pagination pkk-pagination mt-4"></div>
-                    
-                    @php $baganPkk = $bagans->filter(fn($b) => str_contains(strtolower($b->nama), 'pkk')); @endphp
-                    @if($baganPkk->count() > 0)
-                        <div class="row">
-                            @foreach($baganPkk as $bagan)
-                                <div class="col-12 text-center mt-5" data-aos="fade-up">
-                                    <button class="btn btn-outline-primary rounded-pill px-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBagan{{ $bagan->id }}" aria-expanded="false" aria-controls="collapseBagan{{ $bagan->id }}" style="border-color: var(--gold); color: var(--coklat-tua); font-weight: 600;">
-                                        <i class="bi bi-diagram-3-fill me-2"></i>Lihat {{ $bagan->nama }}
-                                    </button>
-                                    <p class="text-muted small mt-2 d-md-none"><i class="bi bi-zoom-in"></i> Ketuk gambar untuk memperbesar</p>
-                                    
-                                    <div class="collapse mt-4" id="collapseBagan{{ $bagan->id }}">
-                                        <div class="card card-body border-0 shadow-sm rounded-4 bg-white text-center">
-                                            @if($bagan->gambar)
-                                                <a href="{{ Storage::disk('s3')->url('images/struktur/' . $bagan->gambar) }}" data-fancybox="bagan-gallery" data-caption="{{ $bagan->nama }}" class="d-block text-decoration-none">
-                                                    <img src="{{ Storage::disk('s3')->url('images/struktur/' . $bagan->gambar) }}" alt="{{ $bagan->nama }}" class="img-fluid rounded shadow-sm mx-auto d-block" style="max-width: 100%; cursor: zoom-in;">
-                                                </a>
-                                                <div class="mt-3">
-                                                    <a href="{{ route('profil.downloadBagan', $bagan->id) }}" class="btn btn-sm btn-light border rounded-pill">
-                                                        <i class="bi bi-download me-1"></i> Download Bagan
-                                                    </a>
-                                                </div>
-                                            @else
-                                                <div class="py-4 border border-dashed rounded bg-light text-muted">
-                                                    <p class="mb-0">Gambar {{ $bagan->nama }} belum diunggah.</p>
-                                                </div>
-                                            @endif
+                <div class="swiper-area-wrapper" style="position: relative;">
+                    <div class="swiper pkk-swiper" data-aos="fade-up" data-aos-delay="100">
+                        <div class="swiper-wrapper">
+                            @forelse($pkk as $anggota)
+                                <div class="swiper-slide">
+                                    <div class="perangkat-slide-card">
+                                        @if($anggota->foto)
+                                            <img src="{{ Storage::disk('s3')->url('images/lembaga/' . $anggota->foto) }}" alt="{{ $anggota->nama }}">
+                                        @else
+                                            <div class="placeholder">👤</div>
+                                        @endif
+                                        <div class="card-content">
+                                            <h5 class="fw-bold mb-1">{{ $anggota->nama }}</h5>
+                                            <p class="small mb-0">{{ $anggota->jabatan }}</p>
                                         </div>
                                     </div>
                                 </div>
-                            @endforeach
+                            @empty
+                                <div class="col-12 text-center text-muted py-5">
+                                    <p>Data struktur Tim Penggerak PKK belum tersedia. Admin dapat menambahkannya melalui Panel Admin.</p>
+                                    <!-- Fallback image if data empty -->
+                                    <img src="{{ Storage::disk('s3')->url('images/lembaga/struktur-pkk.jpg') }}" alt="Struktur PKK Sementara" style="max-width: 100%; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);" onerror="this.style.display='none'">
+                                </div>
+                            @endforelse
                         </div>
-                    @endif
-                </div>
+                        <div class="swiper-pagination pkk-pagination mt-4"></div>
+                    </div>
+                    <div class="swiper-button-prev pkk-prev custom-nav-btn"></div>
+                    <div class="swiper-button-next pkk-next custom-nav-btn"></div>
+                </div>{{-- End swiper-area-wrapper --}}
+
+                @php $baganPkk = $bagans->filter(fn($b) => str_contains(strtolower($b->nama), 'pkk')); @endphp
+                @if($baganPkk->count() > 0)
+                    <div class="row">
+                        @foreach($baganPkk as $bagan)
+                            <div class="col-12 text-center mt-5" data-aos="fade-up">
+                                <button class="btn btn-outline-primary rounded-pill px-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBagan{{ $bagan->id }}" aria-expanded="false" aria-controls="collapseBagan{{ $bagan->id }}" style="border-color: var(--gold); color: var(--coklat-tua); font-weight: 600;">
+                                    <i class="bi bi-diagram-3-fill me-2"></i>Lihat {{ $bagan->nama }}
+                                </button>
+                                <p class="text-muted small mt-2 d-md-none"><i class="bi bi-zoom-in"></i> Ketuk gambar untuk memperbesar</p>
+                                
+                                <div class="collapse mt-4" id="collapseBagan{{ $bagan->id }}">
+                                    <div class="card card-body border-0 shadow-sm rounded-4 bg-white text-center">
+                                        @if($bagan->gambar)
+                                            <a href="{{ Storage::disk('s3')->url('images/struktur/' . $bagan->gambar) }}" data-fancybox="bagan-gallery" data-caption="{{ $bagan->nama }}" class="d-block text-decoration-none">
+                                                <img src="{{ Storage::disk('s3')->url('images/struktur/' . $bagan->gambar) }}" alt="{{ $bagan->nama }}" class="img-fluid rounded shadow-sm mx-auto d-block" style="max-width: 100%; cursor: zoom-in;">
+                                            </a>
+                                            <div class="mt-3">
+                                                <a href="{{ route('profil.downloadBagan', $bagan->id) }}" class="btn btn-sm btn-light border rounded-pill">
+                                                    <i class="bi bi-download me-1"></i> Download Bagan
+                                                </a>
+                                            </div>
+                                        @else
+                                            <div class="py-4 border border-dashed rounded bg-light text-muted">
+                                                <p class="mb-0">Gambar {{ $bagan->nama }} belum diunggah.</p>
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
             </div>
         </div>
         </div> <!-- End White Card Wrapper -->
@@ -1323,21 +1337,57 @@
         bottom: 0 !important;
     }
 
-    /* Custom Navigation Arrows */
+    /* Custom Navigation Arrows - absolute positioned inside .swiper-area-wrapper */
+    /* Sehingga posisinya TIDAK ikut bergerak saat konten bagan di bawahnya expand/collapse */
+    .swiper-area-wrapper {
+        position: relative;
+    }
     .custom-nav-btn {
-        background-color: #fff;
-        width: 44px;
-        height: 44px;
+        position: absolute !important;
+        /* Card foto mobile = 220px, padding-top swiper = 20px → tengah foto = (220+20)/2 = 120px, dikurangi setengah tinggi tombol 16px */
+        top: 104px !important;
+        margin-top: 0 !important;
+        z-index: 10;
+        background-color: rgba(255, 255, 255, 0.92);
+        width: 32px !important;
+        height: 32px !important;
         border-radius: 50%;
-        box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         color: var(--coklat-tua);
-        margin-top: -22px; /* Center vertically */
+    }
+    .custom-nav-btn.swiper-button-prev {
+        left: 4px !important;
+    }
+    .custom-nav-btn.swiper-button-next {
+        right: 4px !important;
     }
     .custom-nav-btn::after {
-        font-size: 1.2rem;
+        font-size: 0.75rem !important;
         font-weight: 800;
     }
-    /* Hide nav arrows on small mobile if needed, but they usually fit well inside swiper container */
+    @media (min-width: 768px) {
+        .custom-nav-btn {
+            /* Card foto md = 240px, padding-top = 20px → tengah foto = (240+20)/2 = 130px, dikurangi setengah 18px */
+            top: 112px !important;
+            width: 36px !important;
+            height: 36px !important;
+        }
+        .custom-nav-btn.swiper-button-prev {
+            left: 2px !important;
+        }
+        .custom-nav-btn.swiper-button-next {
+            right: 2px !important;
+        }
+        .custom-nav-btn::after {
+            font-size: 0.85rem !important;
+        }
+    }
+    @media (min-width: 992px) {
+        .custom-nav-btn {
+            /* Card foto desktop = 250px, padding-top = 20px → tengah foto = (250+20)/2 = 135px, dikurangi setengah 18px */
+            top: 117px !important;
+        }
+    }
     
     /* Coverflow Slide Styling */
     .perangkat-swiper .swiper-slide,
