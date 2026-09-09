@@ -172,6 +172,35 @@
     button[aria-expanded="true"] .btn-chevron {
         transform: rotate(180deg);
     }
+    .btn-sambutan-collapse {
+        background: linear-gradient(135deg, var(--gold, #C9963A) 0%, #a87928 100%);
+        color: white !important;
+        border: none;
+        transition: all 0.3s linear; /* Linear effect */
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+    }
+    .btn-sambutan-collapse::after {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: linear-gradient(135deg, #a87928 0%, var(--gold, #C9963A) 100%);
+        z-index: -1;
+        opacity: 0;
+        transition: opacity 0.3s linear;
+    }
+    .btn-sambutan-collapse:hover::after {
+        opacity: 1;
+    }
+    .btn-sambutan-collapse:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 15px rgba(201, 150, 58, 0.4) !important;
+    }
+    .btn-sambutan-collapse:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 5px rgba(201, 150, 58, 0.4) !important;
+    }
     .typing-cursor {
         font-weight: 300;
         color: var(--gold);
@@ -659,7 +688,7 @@
                                     </div>
                                 </div>
                                 
-                                <button class="btn btn-gold mt-2 px-3 py-1 rounded-pill d-inline-flex align-items-center gap-2 shadow-sm" style="font-weight: 600; font-size: 0.85rem;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSambutan" aria-expanded="false" aria-controls="collapseSambutan">
+                                <button class="btn btn-sambutan-collapse mt-2 px-3 py-1 rounded-pill d-inline-flex align-items-center gap-2" style="font-weight: 600; font-size: 0.85rem;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSambutan" aria-expanded="false" aria-controls="collapseSambutan">
                                     <span id="btnTextSambutan">Baca Selengkapnya</span>
                                     <i class="bi bi-chevron-down btn-chevron"></i>
                                 </button>
