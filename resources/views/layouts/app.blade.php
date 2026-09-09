@@ -319,25 +319,21 @@
                 gap: 0.65rem;
                 position: relative;
                 overflow: hidden;
-                transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
-                /* Animasi staggered saat offcanvas dibuka */
-                opacity: 0;
-                transform: translateX(20px);
+                transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease, transform 0.25s ease !important;
             }
-            .offcanvas.show .navbar-desa .nav-link,
-            .offcanvas-lg.show .navbar-desa .nav-link {
-                opacity: 1;
-                transform: translateX(0);
+            /* Animasi slide-in staggered menggunakan @keyframes — tidak bergantung class .show */
+            @keyframes navItemSlideIn {
+                from { opacity: 0; transform: translateX(18px); }
+                to   { opacity: 1; transform: translateX(0); }
             }
-            /* Stagger delay untuk tiap menu item */
-            .offcanvas-lg .nav-item:nth-child(1) .nav-link { transition-delay: 0.05s !important; }
-            .offcanvas-lg .nav-item:nth-child(2) .nav-link { transition-delay: 0.10s !important; }
-            .offcanvas-lg .nav-item:nth-child(3) .nav-link { transition-delay: 0.15s !important; }
-            .offcanvas-lg .nav-item:nth-child(4) .nav-link { transition-delay: 0.20s !important; }
-            .offcanvas-lg .nav-item:nth-child(5) .nav-link { transition-delay: 0.25s !important; }
-            .offcanvas-lg .nav-item:nth-child(6) .nav-link { transition-delay: 0.30s !important; }
-            .offcanvas-lg .nav-item:nth-child(7) .nav-link { transition-delay: 0.35s !important; }
-            .offcanvas-lg .nav-item:nth-child(8) .nav-link { transition-delay: 0.40s !important; }
+            .offcanvas-lg .nav-item:nth-child(1) .nav-link { animation: navItemSlideIn 0.35s cubic-bezier(0.4,0,0.2,1) 0.05s both; }
+            .offcanvas-lg .nav-item:nth-child(2) .nav-link { animation: navItemSlideIn 0.35s cubic-bezier(0.4,0,0.2,1) 0.10s both; }
+            .offcanvas-lg .nav-item:nth-child(3) .nav-link { animation: navItemSlideIn 0.35s cubic-bezier(0.4,0,0.2,1) 0.15s both; }
+            .offcanvas-lg .nav-item:nth-child(4) .nav-link { animation: navItemSlideIn 0.35s cubic-bezier(0.4,0,0.2,1) 0.20s both; }
+            .offcanvas-lg .nav-item:nth-child(5) .nav-link { animation: navItemSlideIn 0.35s cubic-bezier(0.4,0,0.2,1) 0.25s both; }
+            .offcanvas-lg .nav-item:nth-child(6) .nav-link { animation: navItemSlideIn 0.35s cubic-bezier(0.4,0,0.2,1) 0.30s both; }
+            .offcanvas-lg .nav-item:nth-child(7) .nav-link { animation: navItemSlideIn 0.35s cubic-bezier(0.4,0,0.2,1) 0.35s both; }
+            .offcanvas-lg .nav-item:nth-child(8) .nav-link { animation: navItemSlideIn 0.35s cubic-bezier(0.4,0,0.2,1) 0.40s both; }
 
             /* Efek ripple/shine saat hover */
             .navbar-desa .nav-link::before {
