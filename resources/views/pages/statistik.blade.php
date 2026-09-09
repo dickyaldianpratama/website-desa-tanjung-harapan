@@ -34,6 +34,18 @@
         gap: 10px;
         font-family: 'Poppins', sans-serif;
     }
+    .nav-header-mobile {
+        background: #fdf1f1;
+        color: #b71c1c;
+        padding: 15px 20px;
+        font-weight: 600;
+        text-decoration: none;
+        border-bottom: 1px solid #f9e3e3;
+    }
+    .nav-header-mobile[aria-expanded="true"] i {
+        transform: rotate(180deg);
+        transition: 0.3s;
+    }
     .nav-list {
         list-style: none;
         padding: 0;
@@ -58,6 +70,8 @@
         background: #fcfcfc;
         color: #b71c1c;
     }
+    .nav-link-stat i.bi-chevron-down { transition: transform 0.3s; }
+    .nav-link-stat[aria-expanded="true"] i.bi-chevron-down { transform: rotate(180deg); }
     .nav-link-stat i.icon-main { width: 25px; text-align: center; margin-right: 8px; color: #666; }
     .nav-link-stat:hover i.icon-main, .nav-link-stat.active-parent i.icon-main { color: #b71c1c; }
 
@@ -187,45 +201,55 @@
         <!-- Sidebar Navigasi -->
         <div class="col-lg-3">
             <div class="nav-statistik-card">
-                <div class="nav-header">
+                <!-- Header Desktop -->
+                <div class="nav-header d-none d-lg-flex">
                     <i class="bi bi-pie-chart-fill"></i> Navigasi Statistik
                 </div>
-                <ul class="nav-list">
-                    <li class="nav-item-stat">
-                        @php $isPenduduk = in_array($jenis, ['agama','pekerjaan','pendidikan','umur','perkawinan','wilayah']); @endphp
-                        <a href="#menuPenduduk" class="nav-link-stat {{ $isPenduduk ? 'active-parent' : '' }}" data-bs-toggle="collapse" aria-expanded="{{ $isPenduduk ? 'true' : 'false' }}">
-                            <div><i class="bi bi-people-fill icon-main"></i> Statistik Penduduk</div>
-                            <i class="bi bi-chevron-down" style="font-size:0.8rem"></i>
-                        </a>
-                        <div class="collapse {{ $isPenduduk ? 'show' : '' }}" id="menuPenduduk">
-                            <ul class="subnav-list">
-                                <li><a href="{{ route('statistik.show', 'agama') }}" class="subnav-link {{ $jenis == 'agama' ? 'active' : '' }}">Agama</a></li>
-                                <li><a href="{{ route('statistik.show', 'pekerjaan') }}" class="subnav-link {{ $jenis == 'pekerjaan' ? 'active' : '' }}">Pekerjaan</a></li>
-                                <li><a href="{{ route('statistik.show', 'pendidikan') }}" class="subnav-link {{ $jenis == 'pendidikan' ? 'active' : '' }}">Pendidikan</a></li>
-                                <li><a href="{{ route('statistik.show', 'umur') }}" class="subnav-link {{ $jenis == 'umur' ? 'active' : '' }}">Umur</a></li>
-                                <li><a href="{{ route('statistik.show', 'perkawinan') }}" class="subnav-link {{ $jenis == 'perkawinan' ? 'active' : '' }}">Perkawinan</a></li>
-                                <li><a href="{{ route('statistik.show', 'wilayah') }}" class="subnav-link {{ $jenis == 'wilayah' ? 'active' : '' }}">Wilayah</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="nav-item-stat">
-                        <a href="{{ route('statistik.show', 'keluarga') }}" class="nav-link-stat {{ $jenis == 'keluarga' ? 'active-parent' : '' }}">
-                            <div><i class="bi bi-house-door-fill icon-main"></i> Statistik Keluarga</div>
-                        </a>
-                    </li>
-                    <li class="nav-item-stat">
-                        <a href="#" class="nav-link-stat">
-                            <div><i class="bi bi-heart-pulse-fill icon-main"></i> Statistik Bantuan</div>
-                            <i class="bi bi-chevron-down" style="font-size:0.8rem"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item-stat">
-                        <a href="#" class="nav-link-stat">
-                            <div><i class="bi bi-bar-chart-line-fill icon-main"></i> Statistik Lainnya</div>
-                            <i class="bi bi-chevron-down" style="font-size:0.8rem"></i>
-                        </a>
-                    </li>
-                </ul>
+                
+                <!-- Toggle Mobile (Accordion Header) -->
+                <a href="#navStatistikMobile" data-bs-toggle="collapse" class="nav-header-mobile d-flex d-lg-none justify-content-between align-items-center">
+                    <div>Data Statistik</div>
+                    <i class="bi bi-chevron-down"></i>
+                </a>
+
+                <div class="collapse d-lg-block" id="navStatistikMobile">
+                    <ul class="nav-list">
+                        <li class="nav-item-stat">
+                            @php $isPenduduk = in_array($jenis, ['agama','pekerjaan','pendidikan','umur','perkawinan','wilayah']); @endphp
+                            <a href="#menuPenduduk" class="nav-link-stat {{ $isPenduduk ? 'active-parent' : '' }}" data-bs-toggle="collapse" aria-expanded="{{ $isPenduduk ? 'true' : 'false' }}">
+                                <div>Statistik Penduduk</div>
+                                <i class="bi bi-chevron-down" style="font-size:0.8rem"></i>
+                            </a>
+                            <div class="collapse {{ $isPenduduk ? 'show' : '' }}" id="menuPenduduk">
+                                <ul class="subnav-list">
+                                    <li><a href="{{ route('statistik.show', 'wilayah') }}" class="subnav-link {{ $jenis == 'wilayah' ? 'active' : '' }}">Data Wilayah</a></li>
+                                    <li><a href="{{ route('statistik.show', 'agama') }}" class="subnav-link {{ $jenis == 'agama' ? 'active' : '' }}">Agama</a></li>
+                                    <li><a href="{{ route('statistik.show', 'pekerjaan') }}" class="subnav-link {{ $jenis == 'pekerjaan' ? 'active' : '' }}">Pekerjaan</a></li>
+                                    <li><a href="{{ route('statistik.show', 'pendidikan') }}" class="subnav-link {{ $jenis == 'pendidikan' ? 'active' : '' }}">Pendidikan</a></li>
+                                    <li><a href="{{ route('statistik.show', 'umur') }}" class="subnav-link {{ $jenis == 'umur' ? 'active' : '' }}">Umur</a></li>
+                                    <li><a href="{{ route('statistik.show', 'perkawinan') }}" class="subnav-link {{ $jenis == 'perkawinan' ? 'active' : '' }}">Perkawinan</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item-stat">
+                            <a href="{{ route('statistik.show', 'keluarga') }}" class="nav-link-stat {{ $jenis == 'keluarga' ? 'active-parent' : '' }}">
+                                <div>Statistik Keluarga</div>
+                            </a>
+                        </li>
+                        <li class="nav-item-stat">
+                            <a href="#" class="nav-link-stat">
+                                <div>Statistik Bantuan</div>
+                                <i class="bi bi-chevron-down" style="font-size:0.8rem"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item-stat">
+                            <a href="#" class="nav-link-stat">
+                                <div>Statistik Lainnya</div>
+                                <i class="bi bi-chevron-down" style="font-size:0.8rem"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
 

@@ -221,6 +221,29 @@
                 transform: translateX(5px);
                 color: var(--gold) !important;
             }
+            /* Style dropdown di mobile agar menyatu (tidak kotak putih) */
+            .navbar-desa .dropdown-menu {
+                background: rgba(0,0,0,0.15);
+                border: none;
+                margin: 0;
+                padding: 0.5rem;
+                border-radius: 0 0 8px 8px;
+            }
+            .navbar-desa .dropdown-item {
+                color: rgba(255,255,255,0.85);
+                border-radius: 6px;
+                padding: 0.7rem 1rem;
+                transition: 0.2s;
+            }
+            .navbar-desa .dropdown-item:hover, .navbar-desa .dropdown-item:active {
+                background: rgba(201,150,58,0.2) !important;
+                color: var(--gold) !important;
+                transform: translateX(5px);
+            }
+            .navbar-desa .nav-link.dropdown-toggle::after {
+                float: right;
+                margin-top: 8px;
+            }
         }
 
         /* SECTION TITLES */
