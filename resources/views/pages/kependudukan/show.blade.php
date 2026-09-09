@@ -191,31 +191,114 @@
                 @endphp
                 <h3 class="statistik-title">Jumlah dan Persentase Penduduk Berdasarkan {{ $judul }} di Desa Tanjung Harapan, 2026</h3>
                 
-                <!-- Tabs untuk Dusun 1, 2, 3, 4 -->
-                <div class="dusun-tabs-wrapper">
-                    <ul class="nav nav-pills mb-4 flex-nowrap overflow-auto pb-2" id="dusunTab" role="tablist" style="scrollbar-width: none; -ms-overflow-style: none;">
-                        @php $i = 0; @endphp
-                        @foreach($sheets as $dusun => $link)
-                            <li class="nav-item" role="presentation" style="flex-shrink: 0;">
-                                <button class="nav-link {{ $i == 0 ? 'active' : '' }} px-4 py-2" id="tab-{{ Str::slug($dusun) }}" data-bs-toggle="tab" data-bs-target="#content-{{ Str::slug($dusun) }}" type="button" role="tab" style="font-family: 'Poppins', sans-serif; font-weight: 600; border-radius: 50px; margin-right: 10px;">
-                                    {{ $dusun }}
-                                </button>
-                            </li>
-                            @php $i++; @endphp
-                        @endforeach
-                    </ul>
-                </div>
-                
-                <div class="tab-content" id="dusunTabContent">
-                    @php $i = 0; @endphp
-                    @foreach($sheets as $dusun => $link)
-                        <div class="tab-pane fade {{ $i == 0 ? 'show active' : '' }}" id="content-{{ Str::slug($dusun) }}" role="tabpanel">
-                            <div class="iframe-container" style="position: relative; width: 100%; height: 600px; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #eaeaea;">
-                                <iframe src="{{ $link }}" style="border:0; width:100%; height:100%;" allowfullscreen></iframe>
+                <div class="row g-4 mb-5">
+                    @if($kategori == 'wilayah')
+                        <!-- DATA WILAYAH -->
+                        @php
+                            $wilayahData = [
+                                ['nama' => 'Dusun 1', 'total' => 148, 'laki' => 82, 'perempuan' => 66, 'kk' => 45],
+                                ['nama' => 'Dusun 2', 'total' => 83, 'laki' => 47, 'perempuan' => 36, 'kk' => 45],
+                                ['nama' => 'Dusun 3', 'total' => 176, 'laki' => 94, 'perempuan' => 82, 'kk' => 45],
+                                ['nama' => 'Dusun 4', 'total' => 212, 'laki' => 108, 'perempuan' => 104, 'kk' => 65],
+                            ];
+                            $totalPenduduk = array_sum(array_column($wilayahData, 'total'));
+                        @endphp
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover text-center align-middle" style="font-family: 'Poppins', sans-serif;">
+                                    <thead style="background-color: var(--gold, #C9963A); color: #fff;">
+                                        <tr>
+                                            <th>Wilayah / Dusun</th>
+                                            <th>Laki-Laki</th>
+                                            <th>Perempuan</th>
+                                            <th>Total Penduduk</th>
+                                            <th>Jumlah KK</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($wilayahData as $w)
+                                        <tr>
+                                            <td class="fw-bold text-start">{{ $w['nama'] }}</td>
+                                            <td>{{ $w['laki'] }} Jiwa</td>
+                                            <td>{{ $w['perempuan'] }} Jiwa</td>
+                                            <td class="fw-bold" style="color: #003366;">{{ $w['total'] }} Jiwa</td>
+                                            <td>{{ $w['kk'] }} KK</td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                    <tfoot style="background-color: #f8f9fa; font-weight: bold;">
+                                        <tr>
+                                            <td class="text-start">TOTAL KESELURUHAN</td>
+                                            <td>{{ array_sum(array_column($wilayahData, 'laki')) }} Jiwa</td>
+                                            <td>{{ array_sum(array_column($wilayahData, 'perempuan')) }} Jiwa</td>
+                                            <td style="color: #003366;">{{ $totalPenduduk }} Jiwa</td>
+                                            <td>{{ array_sum(array_column($wilayahData, 'kk')) }} KK</td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
                             </div>
                         </div>
-                        @php $i++; @endphp
-                    @endforeach
+
+                    @elseif($kategori == 'agama')
+                        <!-- DATA AGAMA -->
+                        @php
+                            $agamaData = [
+                                ['nama' => 'Islam', 'jumlah' => 540, 'color' => '#28a745'],
+                                ['nama' => 'Kristen', 'jumlah' => 72, 'color' => '#17a2b8'],
+                                ['nama' => 'Katholik', 'jumlah' => 7, 'color' => '#ffc107'],
+                                ['nama' => 'Hindu', 'jumlah' => 0, 'color' => '#dc3545'],
+                                ['nama' => 'Buddha', 'jumlah' => 0, 'color' => '#6c757d'],
+                                ['nama' => 'Konghucu', 'jumlah' => 0, 'color' => '#343a40'],
+                            ];
+                            $totalAgama = array_sum(array_column($agamaData, 'jumlah'));
+                        @endphp
+                        <div class="col-12">
+                            <div class="card border-0 shadow-sm p-4">
+                                @foreach($agamaData as $a)
+                                    @php $persen = $totalAgama > 0 ? round(($a['jumlah'] / $totalAgama) * 100, 1) : 0; @endphp
+                                    <div class="mb-3">
+                                        <div class="d-flex justify-content-between mb-1" style="font-family: 'Poppins', sans-serif;">
+                                            <span class="fw-bold">{{ $a['nama'] }}</span>
+                                            <span class="text-muted">{{ $a['jumlah'] }} Jiwa ({{ $persen }}%)</span>
+                                        </div>
+                                        <div class="progress" style="height: 12px;">
+                                            <div class="progress-bar" role="progressbar" style="width: {{ $persen }}%; background-color: {{ $a['color'] }};" aria-valuenow="{{ $persen }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+
+                    @else
+                        <!-- KATEGORI LAINNYA (0) -->
+                        <div class="col-12">
+                            <div class="alert-rekapitulasi">
+                                <div class="d-flex align-items-center gap-3">
+                                    <i class="bi bi-shield-lock-fill" style="font-size: 2rem; color: #856404;"></i>
+                                    <div>
+                                        <h5 class="mb-1 fw-bold">Data Dilindungi</h5>
+                                        <p class="mb-0">Sesuai dengan kebijakan privasi dan perlindungan data masyarakat, detail rekapitulasi <strong>{{ ucfirst($kategori) }}</strong> warga tidak dapat dipublikasikan secara mendetail pada mode publik.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-responsive mt-4">
+                                <table class="table table-bordered text-center align-middle" style="font-family: 'Poppins', sans-serif;">
+                                    <thead style="background-color: var(--gold, #C9963A); color: #fff;">
+                                        <tr>
+                                            <th>Kategori {{ ucfirst($kategori) }}</th>
+                                            <th>Jumlah (Jiwa)</th>
+                                            <th>Persentase</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="3" class="text-muted fst-italic py-4">Data sedang dalam proses sinkronisasi / dilindungi</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
