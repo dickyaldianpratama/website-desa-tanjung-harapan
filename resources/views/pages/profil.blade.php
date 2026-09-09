@@ -248,6 +248,10 @@
     }
 
     @media (max-width: 768px) {
+        .sambutan-box {
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
         .sambutan-img-wrap {
             min-height: 380px;
             background: linear-gradient(135deg, #4e342e 0%, #3e2723 50%, #5d4037 100%);
