@@ -74,9 +74,26 @@
 .nav-statistik-subitem a:hover {
     color: var(--gold, #C9963A);
 }
-.nav-statistik-subitem a.active {
+.nav-statistik-subitem .active {
+    background: #f8f9fa;
+    color: var(--gold, #C9963A);
     font-weight: 600;
-    color: #3b2314;
+}
+.nav-statistik-subitem .active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 3px;
+    background: var(--gold, #C9963A);
+}
+/* Rotate chevron logic */
+.nav-statistik-link[aria-expanded="true"] .bi-chevron-down {
+    transform: rotate(180deg);
+}
+.nav-statistik-link i.bi-chevron-down {
+    transition: transform 0.3s ease;
 }
 
 /* CSS Konten Statistik */
@@ -85,17 +102,14 @@
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.05);
     padding: 30px;
-    min-height: 500px;
 }
 .statistik-title {
     font-family: 'Poppins', sans-serif;
-    font-weight: 600;
-    color: #003366; /* Warna biru sesuai gambar "Jumlah dan Persentase Penduduk..." */
-    font-size: 1.4rem;
+    color: #003366;
+    font-weight: 700;
+    margin-bottom: 30px;
     line-height: 1.4;
-    margin-bottom: 25px;
 }
-
 .alert-rekapitulasi {
     background: #fff3cd;
     border-left: 4px solid #ffc107;
@@ -135,7 +149,7 @@
 @endpush
 
 @section('content')
-<div class="container py-5 mt-4">
+<div class="container py-5 mt-5 pt-5">
     <div class="row g-4">
         
         <!-- SIDEBAR -->
@@ -147,7 +161,7 @@
                 <ul class="nav-statistik-list">
                     <li class="nav-statistik-item">
                         <a href="#" class="nav-statistik-link" data-bs-toggle="collapse" data-bs-target="#collapsePenduduk" aria-expanded="true">
-                            Statistik Penduduk <i class="bi bi-chevron-up"></i>
+                            Statistik Penduduk <i class="bi bi-chevron-down"></i>
                         </a>
                         <ul class="nav-statistik-sublist collapse show" id="collapsePenduduk">
                             <li class="nav-statistik-subitem">
@@ -269,24 +283,22 @@
                             </div>
                         </div>
 
-                    @elseif($kategori == 'pekerjaan')
                         <!-- DATA PEKERJAAN -->
                         @php
-                            // SILAKAN UBAH ANGKA DI BAWAH INI SESUAI REKAP DATA ASLI
                             $pekerjaanData = [
-                                ['nama' => 'Petani / Pekebun', 'jumlah' => 0, 'color' => '#28a745'],
-                                ['nama' => 'Mengurus Rumah Tangga', 'jumlah' => 0, 'color' => '#17a2b8'],
-                                ['nama' => 'Pelajar / Mahasiswa', 'jumlah' => 0, 'color' => '#ffc107'],
-                                ['nama' => 'Wiraswasta / Pedagang', 'jumlah' => 0, 'color' => '#fd7e14'],
+                                ['nama' => 'Petani / Pekebun', 'jumlah' => 101, 'color' => '#28a745'],
+                                ['nama' => 'Mengurus Rumah Tangga', 'jumlah' => 156, 'color' => '#17a2b8'],
+                                ['nama' => 'Pelajar / Mahasiswa', 'jumlah' => 73, 'color' => '#ffc107'],
+                                ['nama' => 'Wiraswasta / Pedagang', 'jumlah' => 63, 'color' => '#fd7e14'],
                                 ['nama' => 'PNS / TNI / POLRI', 'jumlah' => 0, 'color' => '#007bff'],
-                                ['nama' => 'Pegawai Swasta', 'jumlah' => 0, 'color' => '#6610f2'],
-                                ['nama' => 'Belum / Tidak Bekerja', 'jumlah' => 0, 'color' => '#6c757d'],
-                                ['nama' => 'Pekerjaan Lainnya', 'jumlah' => 0, 'color' => '#343a40'],
+                                ['nama' => 'Pegawai Swasta', 'jumlah' => 4, 'color' => '#6610f2'],
+                                ['nama' => 'Belum / Tidak Bekerja', 'jumlah' => 215, 'color' => '#6c757d'],
+                                ['nama' => 'Pekerjaan Lainnya', 'jumlah' => 7, 'color' => '#343a40'],
                             ];
                             $totalPekerjaan = array_sum(array_column($pekerjaanData, 'jumlah'));
                         @endphp
                         <div class="col-12">
-                            <div class="card border-0 shadow-sm p-4">
+                            <div class="card border-0 shadow-sm p-4 mt-2">
                                 @if($totalPekerjaan == 0) <div class="alert alert-info">Grafik akan muncul setelah angka data dimasukkan.</div> @endif
                                 @foreach($pekerjaanData as $p)
                                     @php $persen = $totalPekerjaan > 0 ? round(($p['jumlah'] / $totalPekerjaan) * 100, 1) : 0; @endphp
@@ -307,19 +319,19 @@
                         <!-- DATA PENDIDIKAN -->
                         @php
                             $pendidikanData = [
-                                ['nama' => 'Belum / Tidak Sekolah', 'jumlah' => 0, 'color' => '#6c757d'],
-                                ['nama' => 'Belum Tamat SD', 'jumlah' => 0, 'color' => '#dc3545'],
-                                ['nama' => 'Tamat SD / Sederajat', 'jumlah' => 0, 'color' => '#fd7e14'],
-                                ['nama' => 'SMP / Sederajat', 'jumlah' => 0, 'color' => '#ffc107'],
-                                ['nama' => 'SMA / Sederajat', 'jumlah' => 0, 'color' => '#28a745'],
-                                ['nama' => 'Diploma (D1-D3)', 'jumlah' => 0, 'color' => '#17a2b8'],
-                                ['nama' => 'Sarjana (S1/D4)', 'jumlah' => 0, 'color' => '#007bff'],
+                                ['nama' => 'Belum / Tidak Sekolah', 'jumlah' => 169, 'color' => '#6c757d'],
+                                ['nama' => 'Belum Tamat SD', 'jumlah' => 89, 'color' => '#dc3545'],
+                                ['nama' => 'Tamat SD / Sederajat', 'jumlah' => 190, 'color' => '#fd7e14'],
+                                ['nama' => 'SMP / Sederajat', 'jumlah' => 78, 'color' => '#ffc107'],
+                                ['nama' => 'SMA / Sederajat', 'jumlah' => 82, 'color' => '#28a745'],
+                                ['nama' => 'Diploma (D1-D3)', 'jumlah' => 3, 'color' => '#17a2b8'],
+                                ['nama' => 'Sarjana (S1/D4)', 'jumlah' => 8, 'color' => '#007bff'],
                                 ['nama' => 'Magister / Doktor', 'jumlah' => 0, 'color' => '#6610f2'],
                             ];
                             $totalPendidikan = array_sum(array_column($pendidikanData, 'jumlah'));
                         @endphp
                         <div class="col-12">
-                            <div class="card border-0 shadow-sm p-4">
+                            <div class="card border-0 shadow-sm p-4 mt-2">
                                 @if($totalPendidikan == 0) <div class="alert alert-info">Grafik akan muncul setelah angka data dimasukkan.</div> @endif
                                 @foreach($pendidikanData as $p)
                                     @php $persen = $totalPendidikan > 0 ? round(($p['jumlah'] / $totalPendidikan) * 100, 1) : 0; @endphp
@@ -340,15 +352,15 @@
                         <!-- DATA UMUR -->
                         @php
                             $umurData = [
-                                ['nama' => '0 - 4 Tahun (Balita)', 'jumlah' => 0, 'color' => '#17a2b8'],
-                                ['nama' => '5 - 14 Tahun (Anak-Anak)', 'jumlah' => 0, 'color' => '#28a745'],
-                                ['nama' => '15 - 64 Tahun (Produktif)', 'jumlah' => 0, 'color' => '#007bff'],
-                                ['nama' => '65+ Tahun (Lansia)', 'jumlah' => 0, 'color' => '#fd7e14'],
+                                ['nama' => '0 - 4 Tahun (Balita)', 'jumlah' => 31, 'color' => '#17a2b8'],
+                                ['nama' => '5 - 14 Tahun (Anak-Anak)', 'jumlah' => 103, 'color' => '#28a745'],
+                                ['nama' => '15 - 64 Tahun (Produktif)', 'jumlah' => 467, 'color' => '#007bff'],
+                                ['nama' => '65+ Tahun (Lansia)', 'jumlah' => 18, 'color' => '#fd7e14'],
                             ];
                             $totalUmur = array_sum(array_column($umurData, 'jumlah'));
                         @endphp
                         <div class="col-12">
-                            <div class="card border-0 shadow-sm p-4">
+                            <div class="card border-0 shadow-sm p-4 mt-2">
                                 @if($totalUmur == 0) <div class="alert alert-info">Grafik akan muncul setelah angka data dimasukkan.</div> @endif
                                 @foreach($umurData as $u)
                                     @php $persen = $totalUmur > 0 ? round(($u['jumlah'] / $totalUmur) * 100, 1) : 0; @endphp
@@ -369,15 +381,15 @@
                         <!-- DATA PERKAWINAN -->
                         @php
                             $perkawinanData = [
-                                ['nama' => 'Belum Kawin', 'jumlah' => 0, 'color' => '#17a2b8'],
-                                ['nama' => 'Kawin', 'jumlah' => 0, 'color' => '#28a745'],
-                                ['nama' => 'Cerai Hidup', 'jumlah' => 0, 'color' => '#fd7e14'],
-                                ['nama' => 'Cerai Mati', 'jumlah' => 0, 'color' => '#dc3545'],
+                                ['nama' => 'Belum Kawin', 'jumlah' => 294, 'color' => '#17a2b8'],
+                                ['nama' => 'Kawin', 'jumlah' => 312, 'color' => '#28a745'],
+                                ['nama' => 'Cerai Hidup', 'jumlah' => 2, 'color' => '#fd7e14'],
+                                ['nama' => 'Cerai Mati', 'jumlah' => 11, 'color' => '#dc3545'],
                             ];
                             $totalPerkawinan = array_sum(array_column($perkawinanData, 'jumlah'));
                         @endphp
                         <div class="col-12">
-                            <div class="card border-0 shadow-sm p-4">
+                            <div class="card border-0 shadow-sm p-4 mt-2">
                                 @if($totalPerkawinan == 0) <div class="alert alert-info">Grafik akan muncul setelah angka data dimasukkan.</div> @endif
                                 @foreach($perkawinanData as $p)
                                     @php $persen = $totalPerkawinan > 0 ? round(($p['jumlah'] / $totalPerkawinan) * 100, 1) : 0; @endphp
