@@ -61,6 +61,11 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('layanan/{id}/download-lampiran', [App\Http\Controllers\Admin\LayananController::class, 'downloadLampiran'])->name('layanan.download');
     Route::get('setting',            [SettingController::class, 'index'])->name('setting.index');
     Route::post('setting',           [SettingController::class, 'update'])->name('setting.update');
+    
+    // KEPENDUDUKAN
+    Route::get('kependudukan',       [App\Http\Controllers\Admin\KependudukanController::class, 'index'])->name('kependudukan.index');
+    Route::post('kependudukan',      [App\Http\Controllers\Admin\KependudukanController::class, 'update'])->name('kependudukan.update');
+    
     Route::resource('bagan',         App\Http\Controllers\Admin\BaganStrukturController::class);
     Route::resource('fasilitas',     App\Http\Controllers\Admin\FasilitasController::class);
     Route::resource('komentar',      App\Http\Controllers\Admin\KomentarController::class)->only(['index', 'destroy']);

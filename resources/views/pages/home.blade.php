@@ -290,6 +290,114 @@
     margin: 0;
     line-height: 1.3;
 }
+
+/* ── RUNNING TEXT MEGAPHONE ── */
+.marquee-bar {
+    background: linear-gradient(90deg, #8B0000 0%, #D32F2F 100%);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    position: relative;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    z-index: 10;
+}
+.marquee-icon {
+    background: #fff;
+    color: #D32F2F;
+    padding: 10px 20px;
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
+    min-width: 60px;
+}
+.marquee-text-wrap {
+    flex-grow: 1;
+    overflow: hidden;
+    padding: 0 15px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* ── KEPENDUDUKAN ── */
+.kependudukan-section {
+    background: #1e1e1e; /* Dark background as requested */
+    font-family: 'Poppins', sans-serif;
+    color: #fff;
+    padding: 40px 0;
+}
+.kependudukan-title {
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 30px;
+    color: #fff;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.kependudukan-title::before, .kependudukan-title::after {
+    content: '';
+    height: 2px;
+    background: #555;
+    flex-grow: 1;
+    max-width: 100px;
+    margin: 0 15px;
+}
+.kpd-card {
+    background: #2a2a2a;
+    border-radius: 12px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: #fff;
+    border: 1px solid #333;
+    height: 100%;
+}
+.kpd-card:hover {
+    transform: translateY(-3px);
+    background: #333;
+    border-color: var(--gold);
+    color: #fff;
+}
+.kpd-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    color: #fff;
+    flex-shrink: 0;
+}
+.kpd-icon.red { background: #E53935; box-shadow: 0 0 15px rgba(229,57,53,0.4); }
+.kpd-icon.blue { background: #1E88E5; box-shadow: 0 0 15px rgba(30,136,229,0.4); }
+.kpd-icon.pink { background: #D81B60; box-shadow: 0 0 15px rgba(216,27,96,0.4); }
+.kpd-icon.green { background: #43A047; box-shadow: 0 0 15px rgba(67,160,71,0.4); }
+.kpd-icon.gold { background: transparent; color: var(--gold); font-size: 1.5rem; }
+
+.kpd-info { display: flex; flex-direction: column; justify-content: center; }
+.kpd-value { font-size: 1.4rem; font-weight: 800; line-height: 1.1; margin-bottom: 2px; }
+.kpd-label { font-size: 0.7rem; color: #aaa; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* Small card style */
+.kpd-card-sm {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    gap: 8px;
+    padding: 15px 10px;
+}
+.kpd-card-sm .kpd-label { font-size: 0.65rem; color: #ccc; }
 </style>
 @endpush
 
@@ -380,6 +488,112 @@
         </div>
     </div>
 </section>
+
+{{-- ── DATA KEPENDUDUKAN ── --}}
+<section class="kependudukan-section">
+    <div class="container reveal">
+        <div class="kependudukan-title">Data Kependudukan</div>
+        
+        <div class="row g-3 justify-content-center">
+            <!-- Total Jiwa -->
+            <div class="col-6 col-md-4">
+                <a href="#" class="kpd-card">
+                    <div class="kpd-icon red"><i class="bi bi-people-fill"></i></div>
+                    <div class="kpd-info">
+                        <div class="kpd-value">{{ $settings['penduduk_total'] ?? ($settings['jumlah_penduduk'] ?? '0') }}</div>
+                        <div class="kpd-label">Total Jiwa</div>
+                    </div>
+                </a>
+            </div>
+            
+            <!-- Laki-laki -->
+            <div class="col-6 col-md-4">
+                <a href="#" class="kpd-card">
+                    <div class="kpd-icon blue"><i class="bi bi-gender-male"></i></div>
+                    <div class="kpd-info">
+                        <div class="kpd-value">{{ $settings['penduduk_laki'] ?? '0' }}</div>
+                        <div class="kpd-label">Laki-Laki</div>
+                    </div>
+                </a>
+            </div>
+            
+            <!-- Perempuan -->
+            <div class="col-6 col-md-4">
+                <a href="#" class="kpd-card">
+                    <div class="kpd-icon pink"><i class="bi bi-gender-female"></i></div>
+                    <div class="kpd-info">
+                        <div class="kpd-value">{{ $settings['penduduk_perempuan'] ?? '0' }}</div>
+                        <div class="kpd-label">Perempuan</div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Lihat Statistik Keluarga -->
+            <div class="col-12 col-md-6 mt-3">
+                <a href="{{ $settings['link_statistik_keluarga'] ?? '#' }}" class="kpd-card" style="justify-content: center;">
+                    <div class="kpd-icon green"><i class="bi bi-house-door-fill"></i></div>
+                    <div class="kpd-info text-center ms-2">
+                        <div class="kpd-value" style="font-size: 1.1rem;">Lihat Statistik</div>
+                        <div class="kpd-label">Keluarga</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- 6 Small Cards -->
+        <div class="row g-3 mt-3 justify-content-center">
+            <div class="col-4 col-md-2">
+                <a href="{{ $settings['link_agama'] ?? '#' }}" class="kpd-card kpd-card-sm">
+                    <div class="kpd-icon gold"><i class="bi bi-person-hearts"></i></div>
+                    <div class="kpd-label">Agama</div>
+                </a>
+            </div>
+            <div class="col-4 col-md-2">
+                <a href="{{ $settings['link_pekerjaan'] ?? '#' }}" class="kpd-card kpd-card-sm">
+                    <div class="kpd-icon gold"><i class="bi bi-briefcase-fill"></i></div>
+                    <div class="kpd-label">Pekerjaan</div>
+                </a>
+            </div>
+            <div class="col-4 col-md-2">
+                <a href="{{ $settings['link_pendidikan'] ?? '#' }}" class="kpd-card kpd-card-sm">
+                    <div class="kpd-icon gold"><i class="bi bi-mortarboard-fill"></i></div>
+                    <div class="kpd-label">Pendidikan</div>
+                </a>
+            </div>
+            <div class="col-4 col-md-2">
+                <a href="{{ $settings['link_umur'] ?? '#' }}" class="kpd-card kpd-card-sm">
+                    <div class="kpd-icon gold"><i class="bi bi-calendar-check-fill"></i></div>
+                    <div class="kpd-label">Umur</div>
+                </a>
+            </div>
+            <div class="col-4 col-md-2">
+                <a href="{{ $settings['link_perkawinan'] ?? '#' }}" class="kpd-card kpd-card-sm">
+                    <div class="kpd-icon gold"><i class="bi bi-heart-fill"></i></div>
+                    <div class="kpd-label">Perkawinan</div>
+                </a>
+            </div>
+            <div class="col-4 col-md-2">
+                <a href="{{ $settings['link_wilayah'] ?? '#' }}" class="kpd-card kpd-card-sm">
+                    <div class="kpd-icon gold"><i class="bi bi-geo-alt-fill"></i></div>
+                    <div class="kpd-label">Wilayah</div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{{-- ── MEGAPHONE RUNNING TEXT ── --}}
+<div class="marquee-bar">
+    <div class="marquee-icon">
+        <i class="bi bi-megaphone-fill"></i>
+    </div>
+    <div class="marquee-text-wrap">
+        <marquee behavior="scroll" direction="left" scrollamount="6">
+            {{ $settings['running_text_kependudukan'] ?? 'Selamat Datang di Website Resmi Pemerintah Desa Tanjung Harapan. Bersama Membangun Desa yang Mandiri dan Sejahtera.' }}
+        </marquee>
+    </div>
+</div>
+
 
 {{-- ── SAMBUTAN KEPALA DESA ── --}}
 <section class="sambutan-section py-5">

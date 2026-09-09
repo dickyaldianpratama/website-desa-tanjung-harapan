@@ -317,6 +317,9 @@
         <a href="{{ route('admin.setting.index') }}" class="sidebar-link {{ request()->routeIs('admin.setting*') ? 'active' : '' }}">
             <i class="bi bi-gear"></i> Setting Desa
         </a>
+        <a href="{{ route('admin.kependudukan.index') }}" class="sidebar-link {{ request()->routeIs('admin.kependudukan*') ? 'active' : '' }}">
+            <i class="bi bi-people-fill"></i> Data Kependudukan
+        </a>
 
         <div class="menu-label mt-2">Akun</div>
         <a href="{{ route('admin.bagan.index') }}" class="sidebar-link {{ request()->routeIs('admin.bagan*') ? 'active' : '' }}">
