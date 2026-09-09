@@ -201,14 +201,14 @@
         transform: translateY(0);
         box-shadow: 0 2px 5px rgba(201, 150, 58, 0.4) !important;
     }
-    .typing-cursor {
-        font-weight: 300;
-        color: var(--gold);
-        animation: blink 1s step-end infinite;
-    }
-    @keyframes blink {
-        0%, 100% { opacity: 1; }
-        50% { opacity: 0; }
+    @keyframes bounceLetter {
+        0%, 15%, 100% {
+            transform: translateY(0);
+        }
+        5% {
+            transform: translateY(-8px);
+            color: var(--gold, #C9963A);
+        }
     }
     .sambutan-img-wrap {
         position: relative;
@@ -718,7 +718,7 @@
                         </div>
                         <div class="mobile-kades-info d-md-none text-center mt-3 position-relative z-3">
                             <h4 class="fw-bold text-white mb-1" style="text-shadow: 1px 1px 3px rgba(0,0,0,0.8);">
-                                <span class="typingName" data-text="{{ $namaKades }}"></span><span class="typing-cursor">|</span>
+                                <span class="typingName" data-text="{{ $namaKades }}"></span>
                             </h4>
                             <p class="text-white-50 small mb-0"><i class="bi bi-geo-alt-fill text-gold"></i> {{ $jabatanKades }} {{ $settings['nama_desa'] ?? 'Tanjung Harapan' }}</p>
                         </div>
@@ -731,7 +731,7 @@
                                     <span class="fw-bold text-uppercase" style="letter-spacing: 2px; font-size: 0.75rem;">Sambutan Kepala Desa</span>
                                 </div>
                                 <h4 class="fw-bold text-coklat-tua mb-1 d-none d-md-block">
-                                    <span class="typingName" data-text="{{ $namaKades }}"></span><span class="typing-cursor">|</span>
+                                    <span class="typingName" data-text="{{ $namaKades }}"></span>
                                 </h4>
                                 <p class="text-muted fw-semibold mb-3 d-flex align-items-center gap-2 d-none d-md-flex" style="font-size: 0.85rem;"><i class="bi bi-person-vcard"></i> {{ $jabatanKades }}</p>
                                 
@@ -1598,36 +1598,20 @@
         });
     }
 
-    // Typing effect for Head of Village Name
-    var typingNameElems = document.querySelectorAll('.typingName');
-    typingNameElems.forEach(function(elem) {
-        var textToType = elem.getAttribute('data-text');
-        var typingIndex = 0;
-        var isDeleting = false;
-        
-        function typeWriter() {
-            if (!isDeleting && typingIndex <= textToType.length) {
-                elem.innerHTML = textToType.substring(0, typingIndex);
-                typingIndex++;
-                if (typingIndex > textToType.length) {
-                    isDeleting = true;
-                    setTimeout(typeWriter, 7000); 
-                } else {
-                    setTimeout(typeWriter, 120);
-                }
-            } else if (isDeleting && typingIndex >= 0) {
-                elem.innerHTML = textToType.substring(0, typingIndex);
-                typingIndex--;
-                if (typingIndex < 0) {
-                    isDeleting = false;
-                    typingIndex = 0;
-                    setTimeout(typeWriter, 500);
-                } else {
-                    setTimeout(typeWriter, 50); 
-                }
-            }
+    // Bouncy effect for Head of Village Name (loops every 3 seconds)
+    var bouncyNameElems = document.querySelectorAll('.typingName');
+    bouncyNameElems.forEach(function(elem) {
+        var text = elem.getAttribute('data-text');
+        elem.innerHTML = '';
+        for (var i = 0; i < text.length; i++) {
+            var span = document.createElement('span');
+            span.innerText = text[i] === ' ' ? '\u00A0' : text[i];
+            span.style.display = 'inline-block';
+            span.style.animation = 'bounceLetter 3s infinite';
+            // Stagger animation delay to create a wave effect
+            span.style.animationDelay = (i * 0.08) + 's';
+            elem.appendChild(span);
         }
-        setTimeout(typeWriter, 500);
     });
 </script>
 @endpush
