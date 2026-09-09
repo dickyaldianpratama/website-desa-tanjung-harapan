@@ -224,6 +224,72 @@
 @media (hover: hover) {
     .card-desa:hover img { transform: scale(1.08); }
 }
+/* ── GRID MENU (QUICK LINKS) ── */
+.grid-menu-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    padding: 10px;
+}
+@media (max-width: 991px) {
+    .grid-menu-container { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 576px) {
+    .grid-menu-container { grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 5px; }
+}
+.grid-menu-item {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 20px 10px;
+    text-align: center;
+    text-decoration: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0,0,0,0.03);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--coklat-tua);
+}
+.grid-menu-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(201,150,58,0.15);
+    border-color: rgba(201,150,58,0.3);
+    color: var(--gold);
+}
+.grid-menu-icon {
+    font-size: 2rem;
+    color: #1a1a1a;
+    margin-bottom: 12px;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+}
+.grid-menu-icon::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    right: -4px;
+    width: 10px;
+    height: 10px;
+    background: #e53935; /* Aksen merah seperti pada referensi gambar */
+    border-radius: 50%;
+    border: 2px solid #fff;
+    transition: all 0.3s ease;
+}
+.grid-menu-item:hover .grid-menu-icon {
+    color: var(--gold);
+}
+.grid-menu-item:hover .grid-menu-icon::after {
+    background: var(--gold);
+}
+.grid-menu-text {
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin: 0;
+    line-height: 1.3;
+}
 </style>
 @endpush
 
@@ -352,6 +418,50 @@
                     <div style="font-size:.85rem;color:var(--teks-abu)">{{ $jabatanKades }}</div>
                 </div>
                 <a href="{{ route('profil') }}" class="btn-desa-primary mt-3 d-inline-block">Selengkapnya</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{{-- ── MENU CEPAT (GRID MENU) ── --}}
+<section class="quick-links-section py-4" style="background: #f8f9fa;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="grid-menu-container">
+                    <a href="{{ route('profil') }}" class="grid-menu-item reveal">
+                        <div class="grid-menu-icon"><i class="bi bi-card-heading"></i></div>
+                        <p class="grid-menu-text">Identitas Desa</p>
+                    </a>
+                    <a href="{{ route('profil') }}" class="grid-menu-item reveal" style="transition-delay: 50ms;">
+                        <div class="grid-menu-icon"><i class="bi bi-person-badge"></i></div>
+                        <p class="grid-menu-text">Aparatur Desa</p>
+                    </a>
+                    <a href="{{ route('berita.index') }}" class="grid-menu-item reveal" style="transition-delay: 100ms;">
+                        <div class="grid-menu-icon"><i class="bi bi-newspaper"></i></div>
+                        <p class="grid-menu-text">Berita Desa</p>
+                    </a>
+                    <a href="{{ route('potensi.index') }}" class="grid-menu-item reveal" style="transition-delay: 150ms;">
+                        <div class="grid-menu-icon"><i class="bi bi-stars"></i></div>
+                        <p class="grid-menu-text">Potensi Desa</p>
+                    </a>
+                    <a href="{{ route('layanan.index') }}" class="grid-menu-item reveal" style="transition-delay: 200ms;">
+                        <div class="grid-menu-icon"><i class="bi bi-envelope-paper"></i></div>
+                        <p class="grid-menu-text">Layanan Surat</p>
+                    </a>
+                    <a href="{{ route('fasilitas.index') }}" class="grid-menu-item reveal" style="transition-delay: 250ms;">
+                        <div class="grid-menu-icon"><i class="bi bi-building"></i></div>
+                        <p class="grid-menu-text">Fasilitas Desa</p>
+                    </a>
+                    <a href="{{ route('profil') }}" class="grid-menu-item reveal" style="transition-delay: 300ms;">
+                        <div class="grid-menu-icon"><i class="bi bi-geo-alt"></i></div>
+                        <p class="grid-menu-text">Peta Desa</p>
+                    </a>
+                    <a href="{{ route('kontak') }}" class="grid-menu-item reveal" style="transition-delay: 350ms;">
+                        <div class="grid-menu-icon"><i class="bi bi-chat-square-text"></i></div>
+                        <p class="grid-menu-text">Ruang Lapor</p>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
