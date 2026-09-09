@@ -830,7 +830,19 @@
                             <i class="bi bi-grid-fill" style="color: var(--gold-light); font-size: 0.9rem;"></i> Lainnya
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0" aria-labelledby="navbarLainnya">
-                            <li><a class="dropdown-item py-2" href="{{ route('kependudukan.show', 'wilayah') }}"><i class="bi bi-bar-chart-fill text-danger me-2"></i>Data Statistik</a></li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('kependudukan.show', 'wilayah') }}">
+                                    <span class="d-flex align-items-center gap-2">
+                                        <span style="width:28px;height:28px;border-radius:8px;background:rgba(201,150,58,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                                            <i class="bi bi-bar-chart-line-fill" style="color:var(--gold-light);font-size:0.8rem;"></i>
+                                        </span>
+                                        <span>
+                                            <span style="display:block;font-size:0.82rem;font-weight:600;color:rgba(255,255,255,0.9);">Data Statistik</span>
+                                            <span style="display:block;font-size:0.68rem;color:rgba(255,255,255,0.4);line-height:1.2;">Kependudukan & Wilayah</span>
+                                        </span>
+                                    </span>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                 </ul>
