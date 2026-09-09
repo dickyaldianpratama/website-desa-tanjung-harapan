@@ -283,6 +283,7 @@
                             </div>
                         </div>
 
+                    @elseif($kategori == 'pekerjaan')
                         <!-- DATA PEKERJAAN -->
                         @php
                             $pekerjaanData = [
