@@ -178,7 +178,7 @@
         /* RIGHT PANEL (Form) */
         .login-right {
             flex: 4;
-            background-color: #ffffff;
+            background-color: #F8FAFC; /* Sedikit abu-abu terang agar card form terlihat menonjol */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -188,7 +188,12 @@
         
         .form-wrapper {
             width: 100%;
-            max-width: 380px;
+            max-width: 420px;
+            background-color: #ffffff;
+            padding: 2.5rem 2rem;
+            border-radius: 16px;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
         }
 
         .form-wrapper h2 {
