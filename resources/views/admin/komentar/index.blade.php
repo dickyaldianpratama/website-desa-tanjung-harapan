@@ -52,20 +52,26 @@
                             {{ $item->created_at->format('d/m/Y H:i') }}
                         </td>
                         <td>
-                            <div class="btn-group" role="group">
+                            <div class="d-flex gap-2 position-relative" style="min-width: 120px;">
                                 @if($item->status == 'pending')
-                                    <form action="{{ route('admin.komentar.approve', $item->id) }}" method="POST" class="d-inline">
+                                    <form action="{{ route('admin.komentar.approve', $item->id) }}" method="POST" class="d-inline position-relative form-approve">
                                         @csrf
-                                        <button class="btn btn-sm btn-success" title="Setujui">
-                                            <i class="bi bi-check-lg"></i>
+                                        <button class="btn btn-sm btn-success" title="Setujui agar tampil di publik">
+                                            <i class="bi bi-check-lg"></i> Setujui
                                         </button>
+                                        
+                                        <!-- Animasi Jari & Notif -->
+                                        <div class="pointer-hint" style="position: absolute; right: 105%; top: 50%; transform: translateY(-50%); display: flex; align-items: center; white-space: nowrap; pointer-events: none;">
+                                            <span class="badge bg-danger pulse-anim me-2" style="font-size: 0.65rem; padding: 4px 8px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">Wajib Cek!</span>
+                                            <i class="bi bi-hand-index-fill text-warning bounce-horizontal" style="font-size: 1.3rem; transform: rotate(90deg);"></i>
+                                        </div>
                                     </form>
                                 @endif
-                                <form action="{{ route('admin.komentar.destroy', $item->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus komentar ini?');">
+                                <form action="{{ route('admin.komentar.destroy', $item->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus komentar ini secara permanen?');">
                                     @csrf
                                     @method('DELETE')
                                     <button class="btn btn-sm btn-danger" title="Hapus">
-                                        <i class="bi bi-trash"></i>
+                                        <i class="bi bi-trash"></i> Hapus
                                     </button>
                                 </form>
                             </div>
@@ -78,6 +84,32 @@
     </div>
 </div>
 @endsection
+
+@push('styles')
+<style>
+    @keyframes pulseRed {
+        0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.7); }
+        70% { transform: scale(1.05); box-shadow: 0 0 0 6px rgba(220, 53, 69, 0); }
+        100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(220, 53, 69, 0); }
+    }
+    @keyframes bounceHorizontal {
+        0%, 100% { transform: rotate(90deg) translateY(0); }
+        50% { transform: rotate(90deg) translateY(-8px); }
+    }
+    .pulse-anim {
+        animation: pulseRed 2s infinite;
+    }
+    .bounce-horizontal {
+        animation: bounceHorizontal 1.5s infinite ease-in-out;
+    }
+    
+    /* Make sure form layout doesn't clip the absolute tooltip */
+    .table-responsive {
+        overflow-x: visible !important;
+        overflow-y: visible !important;
+    }
+</style>
+@endpush
 
 @push('scripts')
 <script>

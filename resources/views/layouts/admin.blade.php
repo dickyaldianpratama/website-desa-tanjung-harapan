@@ -280,11 +280,15 @@
         </a>
 
         <div class="menu-label mt-2">Konten</div>
-        <a href="{{ route('admin.berita.index') }}" class="sidebar-link {{ request()->routeIs('admin.berita.*') ? 'active' : '' }}">
+        <a href="{{ route('admin.berita.index') }}" class="sidebar-link {{ request()->routeIs('admin.berita*') ? 'active' : '' }}">
             <i class="bi bi-newspaper"></i> Berita & Pengumuman
         </a>
         <a href="{{ route('admin.komentar.index') }}" class="sidebar-link {{ request()->routeIs('admin.komentar.*') ? 'active' : '' }}">
             <i class="bi bi-chat-dots-fill"></i> Komentar Pengunjung
+            @php $pendingKomentar = \App\Models\Komentar::where('status', 'pending')->count(); @endphp
+            @if($pendingKomentar > 0)
+                <span class="badge bg-danger rounded-pill ms-auto">{{ $pendingKomentar }}</span>
+            @endif
         </a>
         <a href="{{ route('admin.slider.index') }}" class="sidebar-link {{ request()->routeIs('admin.slider*') ? 'active' : '' }}">
             <i class="bi bi-images"></i> Slider Hero
