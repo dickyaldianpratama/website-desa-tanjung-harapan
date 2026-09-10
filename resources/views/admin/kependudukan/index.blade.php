@@ -29,35 +29,35 @@
                     </div>
 
                     <h6 class="fw-bold mb-3 mt-4"><i class="bi bi-link-45deg"></i> Link Tombol Statistik (Tautan Halaman)</h6>
-                    <p class="text-muted small mb-3">Kosongkan jika tombol belum ingin diarahkan ke mana-mana (bisa diisi dengan "#").</p>
+                    <p class="text-muted small mb-3">Biarkan kosong jika tombol belum memiliki halaman tujuan.</p>
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label class="form-label fw-semibold">Link Lihat Statistik Keluarga</label>
-                            <input type="text" class="form-control" name="link_statistik_keluarga" value="{{ $settings['link_statistik_keluarga'] ?? '#' }}">
+                            <input type="text" class="form-control" name="link_statistik_keluarga" value="{{ $settings['link_statistik_keluarga'] ?? '' }}" placeholder="https://...">
                         </div>
                         <div class="col-md-6 mb-3">
                             <label class="form-label fw-semibold">Link Agama</label>
-                            <input type="text" class="form-control" name="link_agama" value="{{ $settings['link_agama'] ?? '#' }}">
+                            <input type="text" class="form-control" name="link_agama" value="{{ $settings['link_agama'] ?? '' }}" placeholder="https://...">
                         </div>
                         <div class="col-md-6 mb-3">
                             <label class="form-label fw-semibold">Link Pekerjaan</label>
-                            <input type="text" class="form-control" name="link_pekerjaan" value="{{ $settings['link_pekerjaan'] ?? '#' }}">
+                            <input type="text" class="form-control" name="link_pekerjaan" value="{{ $settings['link_pekerjaan'] ?? '' }}" placeholder="https://...">
                         </div>
                         <div class="col-md-6 mb-3">
                             <label class="form-label fw-semibold">Link Pendidikan</label>
-                            <input type="text" class="form-control" name="link_pendidikan" value="{{ $settings['link_pendidikan'] ?? '#' }}">
+                            <input type="text" class="form-control" name="link_pendidikan" value="{{ $settings['link_pendidikan'] ?? '' }}" placeholder="https://...">
                         </div>
                         <div class="col-md-6 mb-3">
                             <label class="form-label fw-semibold">Link Umur</label>
-                            <input type="text" class="form-control" name="link_umur" value="{{ $settings['link_umur'] ?? '#' }}">
+                            <input type="text" class="form-control" name="link_umur" value="{{ $settings['link_umur'] ?? '' }}" placeholder="https://...">
                         </div>
                         <div class="col-md-6 mb-3">
                             <label class="form-label fw-semibold">Link Perkawinan</label>
-                            <input type="text" class="form-control" name="link_perkawinan" value="{{ $settings['link_perkawinan'] ?? '#' }}">
+                            <input type="text" class="form-control" name="link_perkawinan" value="{{ $settings['link_perkawinan'] ?? '' }}" placeholder="https://...">
                         </div>
                         <div class="col-md-6 mb-3">
                             <label class="form-label fw-semibold">Link Wilayah</label>
-                            <input type="text" class="form-control" name="link_wilayah" value="{{ $settings['link_wilayah'] ?? '#' }}">
+                            <input type="text" class="form-control" name="link_wilayah" value="{{ $settings['link_wilayah'] ?? '' }}" placeholder="https://...">
                         </div>
                     </div>
 

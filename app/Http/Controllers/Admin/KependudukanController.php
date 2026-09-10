@@ -19,6 +19,13 @@ class KependudukanController extends Controller
         
         $settings = Setting::whereIn('key', $keys)->pluck('value', 'key')->toArray();
         
+        // Bersihkan tanda '#' dari database agar tidak membingungkan admin
+        foreach ($settings as $key => $val) {
+            if ($val === '#') {
+                $settings[$key] = '';
+            }
+        }
+        
         return view('admin.kependudukan.index', compact('settings'));
     }
 
@@ -32,16 +39,17 @@ class KependudukanController extends Controller
         ];
 
         foreach ($keys as $key) {
+            $val = $request->input($key, ''); // default empty string
             $setting = Setting::where('key', $key)->first();
             if ($setting) {
-                $setting->update(['value' => $request->input($key)]);
+                $setting->update(['value' => $val]);
             } else {
                 // To avoid PostgreSQL sequence errors on insert:
                 $maxId = Setting::max('id');
                 Setting::insert([
                     'id' => $maxId ? $maxId + 1 : 1,
                     'key' => $key,
-                    'value' => $request->input($key),
+                    'value' => $val,
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);
