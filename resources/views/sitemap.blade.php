@@ -48,7 +48,7 @@
     @foreach ($berita as $item)
     <url>
         <loc>{{ url('/berita/' . $item->slug) }}</loc>
-        <lastmod>{{ $item->updated_at->tz('UTC')->toAtomString() }}</lastmod>
+        <lastmod>{{ $item->updated_at ? $item->updated_at->tz('UTC')->toAtomString() : now()->tz('UTC')->toAtomString() }}</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
     </url>
@@ -58,7 +58,7 @@
     @foreach ($potensi as $item)
     <url>
         <loc>{{ url('/potensi/' . $item->slug) }}</loc>
-        <lastmod>{{ $item->updated_at->tz('UTC')->toAtomString() }}</lastmod>
+        <lastmod>{{ $item->updated_at ? $item->updated_at->tz('UTC')->toAtomString() : now()->tz('UTC')->toAtomString() }}</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
