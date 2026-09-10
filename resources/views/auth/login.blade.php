@@ -288,24 +288,22 @@
         .btn-login {
             background: linear-gradient(135deg, var(--gold) 0%, var(--gold-hover) 100%);
             color: #ffffff;
-            font-weight: 700;
-            font-size: 0.95rem;
-            padding: 0.8rem 2rem;
+            font-weight: 600;
+            font-size: 0.85rem;
+            padding: 0.6rem 1.5rem;
             border-radius: 50px; /* lebih membulat (pill shape) agar terlihat padat */
             border: none;
             transition: all 0.3s ease;
             display: inline-flex;
             justify-content: center;
             align-items: center;
-            gap: 0.5rem;
-            box-shadow: 0 4px 15px rgba(212, 163, 66, 0.4);
-            width: 100%;
-            max-width: 250px;
+            gap: 0.4rem;
+            box-shadow: 0 4px 10px rgba(212, 163, 66, 0.4);
         }
         .btn-login-wrapper {
             display: flex;
             justify-content: center;
-            margin-top: 1.5rem;
+            margin-top: 1rem;
         }
         .btn-login:hover {
             transform: translateY(-2px);
