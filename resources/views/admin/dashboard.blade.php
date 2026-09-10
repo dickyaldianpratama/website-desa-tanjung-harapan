@@ -62,6 +62,24 @@
         <p class="mb-0" style="color: #f8dbb1; font-size: 0.95rem;">
             Ringkasan sistem dan aktivitas terbaru Desa Tanjung Harapan hari ini.
         </p>
+
+        <!-- WIDGET HARI PERINGATAN (TODAY IN HISTORY) -->
+        @if(isset($specialDay) && $specialDay)
+            <div class="mt-3" style="background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); padding: 10px 15px; border-radius: 12px; display: inline-flex; align-items: center; backdrop-filter: blur(5px); box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                <div style="background: var(--gold); width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-right: 12px;">
+                    <i class="bi {{ $specialDay['icon'] }} fs-5 text-white"></i>
+                </div>
+                <div>
+                    <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.85); font-weight: 600;">Peringatan Hari Ini</div>
+                    <div style="font-weight: 700; font-size: 1.05rem; color: #fff;">{{ $specialDay['name'] }}</div>
+                </div>
+            </div>
+        @else
+            <div class="mt-3" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); padding: 8px 15px; border-radius: 10px; display: inline-flex; align-items: center;">
+                <i class="bi bi-calendar2-check me-2" style="color: #f8dbb1;"></i>
+                <span style="font-size: 0.85rem; color: #fff; font-weight: 500;">Selamat beraktivitas dan memberikan pelayanan terbaik untuk warga hari ini!</span>
+            </div>
+        @endif
     </div>
 </div>
 
