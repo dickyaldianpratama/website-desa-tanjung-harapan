@@ -324,25 +324,48 @@
 
         /* Mobile Adjustments */
         @media (max-width: 991px) {
+            body {
+                /* Pada mobile, gunakan background gambar full dengan overlay gelap */
+                background-image: linear-gradient(rgba(61, 31, 10, 0.75), rgba(61, 31, 10, 0.85)), url("{{ asset('images/icons/desa.jpg') }}");
+                background-size: cover;
+                background-position: center;
+                background-attachment: fixed;
+            }
+            .top-header {
+                display: none; /* Sembunyikan header atas, karena logo sudah ada di card */
+            }
             .main-wrapper {
-                padding: 0;
+                padding: 1rem;
             }
             .login-container {
                 border-radius: 0;
                 border: none;
                 flex-direction: column;
-                height: 100vh;
+                height: auto;
                 max-height: none;
+                background-color: transparent;
+                box-shadow: none;
             }
             .login-left {
-                display: none; /* Hide left panel completely on mobile to match clean form look */
+                display: none; /* Hide left panel completely on mobile */
             }
             .login-right {
                 flex: 1;
-                padding: 2rem;
+                padding: 1rem;
+                background-color: transparent;
             }
             .form-wrapper {
                 max-width: 100%;
+                background-color: #ffffff;
+                box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+                padding: 2.5rem 1.5rem;
+                border: none;
+            }
+            .form-header {
+                display: none; /* Replaced by mobile-brand */
+            }
+            .mobile-brand {
+                display: block;
             }
         }
     </style>
