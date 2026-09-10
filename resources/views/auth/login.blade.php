@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Admin - {{ \App\Models\Setting::where('key', 'nama_desa')->value('value') ?? 'Panel Desa' }}</title>
+    <title>Login Admin - Desa Tanjung Harapan</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Bootstrap CSS -->
@@ -12,327 +12,330 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
         :root {
-            --gold: #c9963a;
-            --gold-light: #e4b764;
+            --coklat-tua: #3D1F0A;
+            --coklat-medium: #6B3F1F;
+            --gold: #C9963A;
+            --cream-light: #FAF6EF;
         }
         body {
             font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 0;
+            background-color: var(--cream-light);
             min-height: 100vh;
-            /* Background gambar full screen */
-            background: url("{{ asset('images/sliders/slider1.jpg') }}") no-repeat center center fixed;
-            background-size: cover;
-            position: relative;
-            overflow: hidden; /* No scrolling */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            padding: 1rem;
         }
-        /* Overlay gelap agar teks terbaca */
-        body::before {
+        .login-card {
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(61, 31, 10, 0.08);
+            overflow: hidden;
+            width: 100%;
+            max-width: 1000px;
+            display: flex;
+            min-height: 550px;
+        }
+        
+        /* Left Panel - Branding */
+        .login-brand {
+            background: linear-gradient(145deg, var(--coklat-tua) 0%, var(--coklat-medium) 100%);
+            width: 45%;
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        .login-brand::after {
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(20, 10, 0, 0.4); 
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9963a' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
             z-index: 0;
         }
-
-        .login-container {
-            position: relative;
+        .login-brand > * {
             z-index: 1;
-            display: flex;
-            width: 100%;
-            height: 100vh;
+            position: relative;
+        }
+        .brand-logo {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            margin-bottom: 2rem;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
+        }
+        .brand-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 1.5rem;
+        }
+        .brand-subtitle {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.5px;
+        }
+        .brand-location {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.5;
         }
 
-        /* ---------------------------------
-           DESKTOP DESIGN (Split Screen)
-        -----------------------------------*/
-        .login-left {
-            flex: 1;
+        /* Right Panel - Form */
+        .login-form-wrapper {
+            width: 55%;
+            padding: 4rem;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 5rem 6rem;
-            color: #ffffff;
         }
-        
-        .login-left h1 {
-            font-weight: 800;
-            font-size: 3.5rem;
-            line-height: 1.2;
-            margin-bottom: 1.5rem;
-            text-shadow: 0 4px 10px rgba(0,0,0,0.5);
-        }
-
-        .login-left p.lead {
-            font-size: 1.2rem;
-            max-width: 600px;
-            color: rgba(255, 255, 255, 0.9);
-            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
-            margin-bottom: 3rem;
-        }
-
-        /* Panel Glass Kanan (Desktop) */
-        .login-right {
-            width: 500px;
-            background: rgba(25, 15, 5, 0.3); /* Gelap kaca */
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-left: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: -15px 0 35px rgba(0,0,0,0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .glass-card {
-            width: 100%;
-            padding: 3rem 4rem;
-            color: #ffffff;
-        }
-
-        /* Logo CSS */
-        .village-logo {
-            width: 130px;
-            height: 130px;
-            margin-bottom: 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .village-logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.4));
-        }
-
-        .village-logo-mobile {
-            display: none; /* Sembunyi di Desktop */
-        }
-
-        /* Text Form */
-        .glass-card h2 {
-            font-weight: 800;
-            margin-bottom: 0.2rem;
-            letter-spacing: 0.5px;
-        }
-        .glass-card p.subtitle {
-            color: rgba(255, 255, 255, 0.85);
-            font-size: 0.95rem;
+        .form-header {
             margin-bottom: 2.5rem;
         }
+        .form-header h3 {
+            font-weight: 700;
+            color: var(--coklat-tua);
+            margin-bottom: 0.5rem;
+        }
+        .form-header p {
+            color: #6c757d;
+            font-size: 0.95rem;
+        }
 
-        /* Form Inputs Glass */
-        .form-control, .input-group-text {
-            background: rgba(0, 0, 0, 0.2) !important;
-            border: 1px solid rgba(255, 255, 255, 0.2) !important;
-            color: #ffffff !important;
-            padding: 0.8rem 1rem;
-        }
-        .form-control:focus {
-            background: rgba(0, 0, 0, 0.3) !important;
-            border-color: var(--gold-light) !important;
-            box-shadow: 0 0 0 4px rgba(201, 150, 58, 0.2) !important;
-        }
-        .form-control::placeholder {
-            color: rgba(255, 255, 255, 0.5);
-        }
-        .input-group-text {
-            color: var(--gold-light) !important;
-            border-right: none !important;
-        }
-        .form-control.with-icon {
-            border-left: none !important;
-        }
+        /* Clean Inputs */
         .form-label {
             font-weight: 600;
+            color: var(--coklat-tua);
             font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 0.4rem;
+            margin-bottom: 0.5rem;
+        }
+        .input-group {
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background: #f8fafc;
+        }
+        .input-group:focus-within {
+            border-color: var(--gold);
+            box-shadow: 0 0 0 4px rgba(201, 150, 58, 0.1);
+            background: #ffffff;
+        }
+        .input-group-text {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            padding-left: 1.2rem;
+        }
+        .input-group:focus-within .input-group-text {
+            color: var(--gold);
+        }
+        .form-control {
+            border: none;
+            background: transparent;
+            padding: 0.8rem 1rem;
+            color: var(--coklat-tua);
+            font-weight: 500;
+        }
+        .form-control:focus {
+            box-shadow: none;
+            background: transparent;
+        }
+        .form-control::placeholder {
+            color: #cbd5e1;
+            font-weight: 400;
+        }
+        
+        .btn-toggle-password {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            padding-right: 1.2rem;
+        }
+        .btn-toggle-password:hover {
+            color: var(--coklat-tua);
         }
 
-        /* Checkbox Glass */
         .form-check-input {
-            background-color: rgba(0,0,0,0.2);
-            border-color: rgba(255,255,255,0.3);
+            border-color: #cbd5e1;
         }
         .form-check-input:checked {
             background-color: var(--gold);
             border-color: var(--gold);
         }
         .form-check-label {
-            color: rgba(255, 255, 255, 0.85);
+            color: #64748b;
+            font-size: 0.9rem;
         }
 
-        /* Tombol Emas */
         .btn-login {
-            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
-            border: none;
+            background: var(--coklat-tua);
             color: white;
-            padding: 1rem;
+            border: none;
             border-radius: 12px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            transition: all 0.3s;
-            box-shadow: 0 8px 20px rgba(201, 150, 58, 0.3);
+            padding: 0.9rem;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
         }
         .btn-login:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 25px rgba(201, 150, 58, 0.4);
+            background: var(--coklat-medium);
             color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(107, 63, 31, 0.2);
         }
 
         .alert-error {
-            background: rgba(239, 68, 68, 0.2);
-            border: 1px solid rgba(239, 68, 68, 0.4);
-            color: #fca5a5;
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #ef4444;
             border-radius: 12px;
-            padding: 10px;
+            padding: 12px 16px;
             font-size: 0.85rem;
-            backdrop-filter: blur(5px);
+            margin-bottom: 2rem;
         }
 
-        /* ---------------------------------
-           MOBILE DESIGN (Centered Glass Card)
-        -----------------------------------*/
+        /* Mobile specific adjustments */
+        .mobile-brand {
+            display: none;
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+        .mobile-brand img {
+            width: 80px;
+            margin-bottom: 1rem;
+        }
+        .mobile-brand h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--coklat-tua);
+            margin-bottom: 0.3rem;
+        }
+        .mobile-brand p.sub {
+            color: var(--gold);
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+        .mobile-brand p.loc {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-bottom: 0;
+        }
+
         @media (max-width: 991px) {
-            .login-container {
+            .login-card {
                 flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                padding: 1.5rem;
+                max-width: 500px;
             }
-            .login-left {
-                display: none; /* Sembunyikan teks besar di mobile */
+            .login-brand {
+                display: none; /* Hide left panel on mobile */
             }
-            
-            /* Pada mobile, login-right kehilangan bentuk panel tingginya */
-            .login-right {
+            .login-form-wrapper {
                 width: 100%;
-                max-width: 450px;
-                background: transparent; 
-                backdrop-filter: none;
-                -webkit-backdrop-filter: none;
-                border: none;
-                box-shadow: none;
-            }
-
-            /* Efek kaca dipindah ke glass-card untuk mobile */
-            .glass-card {
-                background: rgba(255, 255, 255, 0.15);
-                backdrop-filter: blur(12px);
-                -webkit-backdrop-filter: blur(12px);
-                border: 1px solid rgba(255, 255, 255, 0.3);
-                border-radius: 24px;
-                box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2);
                 padding: 2.5rem 2rem;
-                text-align: center;
             }
-
-            .village-logo-mobile {
-                display: flex; /* Muncul di Mobile */
-                width: 90px;
-                height: 90px;
-                margin: 0 auto 1.5rem auto;
+            .form-header {
+                display: none; /* Replaced by mobile-brand */
             }
-            .village-logo-mobile img {
-                width: 100%;
-                height: 100%;
-                object-fit: contain;
-                filter: drop-shadow(0 8px 12px rgba(0,0,0,0.4));
+            .mobile-brand {
+                display: block;
             }
-
-            .glass-card form {
-                text-align: left; /* Kembalikan text form rata kiri */
-            }
-            
-            .glass-card h2 { font-size: 1.6rem; }
-            .mb-4 { margin-bottom: 1.2rem !important; }
         }
     </style>
 </head>
 <body>
 
-    <div class="login-container">
-        <!-- DESKTOP KIRI -->
-        <div class="login-left">
-            <div class="village-logo">
-                <img src="{{ asset('images/logo_desa.png') }}" alt="Logo Desa">
-            </div>
-            <h1>Sistem Informasi<br>Manajemen Desa</h1>
-            <p class="lead">Kelola seluruh potensi, data aparatur, dan layanan pengaduan warga dalam satu pintu panel digital yang modern dan transparan.</p>
-            <div class="mt-4">
-                <a href="/" class="btn btn-outline-light px-4 py-2" style="border-radius: 20px; font-weight: 500;">
-                    <i class="bi bi-globe me-2"></i> Kunjungi Website Utama
-                </a>
+    <div class="login-card">
+        <!-- BRANDING PANEL (KIRI) -->
+        <div class="login-brand">
+            <img src="{{ asset('images/logo_desa.png') }}" alt="Logo Kampar" class="brand-logo">
+            <h1 class="brand-title">Selamat Datang di Portal Admin</h1>
+            <div class="brand-details">
+                <div class="brand-subtitle">Desa Tanjung Harapan</div>
+                <div class="brand-location">
+                    Kecamatan Kampar Kiri<br>
+                    Kabupaten Kampar
+                </div>
             </div>
         </div>
 
-        <!-- KANAN / MOBILE CENTER -->
-        <div class="login-right">
-            <div class="glass-card">
-                
-                <!-- Muncul hanya di mobile -->
-                <div class="village-logo-mobile">
-                    <img src="{{ asset('images/logo_desa.png') }}" alt="Logo Desa">
-                </div>
-                
-                @php
-                    $namaDesa = \App\Models\Setting::where('key', 'nama_desa')->value('value');
-                @endphp
-                
-                <h2>Panel Admin</h2>
-                <p class="subtitle">{{ $namaDesa ? $namaDesa : 'Sistem Informasi Manajemen Desa' }}</p>
-
-                <!-- Pesan Error -->
-                @if ($errors->any())
-                    <div class="alert-error mb-4">
-                        <ul class="mb-0 ps-3">
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-
-                <form method="POST" action="{{ route('login') }}">
-                    @csrf
-                    <div class="mb-4">
-                        <label class="form-label">Alamat Email</label>
-                        <div class="input-group">
-                            <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
-                            <input type="email" name="email" class="form-control with-icon" placeholder="admin@desa.id" value="{{ old('email') }}" required autofocus>
-                        </div>
-                    </div>
-
-                    <div class="mb-4">
-                        <label class="form-label">Kata Sandi</label>
-                        <div class="input-group">
-                            <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
-                            <input type="password" name="password" id="password" class="form-control with-icon" placeholder="••••••••" required>
-                            <button class="btn" type="button" id="togglePassword" style="background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(255, 255, 255, 0.2); border-left: none; color: rgba(255,255,255,0.7);">
-                                <i class="bi bi-eye"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="mb-4 d-flex align-items-center">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="remember" id="remember">
-                            <label class="form-check-label small" for="remember">
-                                Ingat Saya
-                            </label>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="btn btn-login w-100 mb-3">Masuk Sistem <i class="bi bi-box-arrow-in-right ms-2"></i></button>
-                    <div class="text-center">
-                        <p class="mb-0" style="font-size: 0.8rem; color: rgba(255,255,255,0.6);">
-                            &copy; {{ date('Y') }} {{ $namaDesa ?? 'Pemerintah Desa' }}.
-                        </p>
-                    </div>
-                </form>
+        <!-- FORM PANEL (KANAN) -->
+        <div class="login-form-wrapper">
+            
+            <!-- Muncul khusus di layar HP (Mobile) -->
+            <div class="mobile-brand">
+                <img src="{{ asset('images/logo_desa.png') }}" alt="Logo Kampar">
+                <h3>Portal Admin</h3>
+                <p class="sub">Desa Tanjung Harapan</p>
+                <p class="loc">Kec. Kampar Kiri, Kab. Kampar</p>
             </div>
+
+            <!-- Header khusus PC -->
+            <div class="form-header">
+                <h3>Otentikasi Sistem</h3>
+                <p>Silakan masukkan kredensial Anda untuk melanjutkan.</p>
+            </div>
+
+            @if ($errors->any())
+                <div class="alert-error">
+                    <ul class="mb-0 ps-3">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            <form method="POST" action="{{ route('login') }}">
+                @csrf
+                
+                <div class="mb-4">
+                    <label class="form-label">Alamat Email</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                        <input type="email" name="email" class="form-control" placeholder="admin@tanjungharapan.desa.id" value="{{ old('email') }}" required autofocus autocomplete="username">
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label">Kata Sandi</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-shield-lock"></i></span>
+                        <input type="password" name="password" id="password" class="form-control" placeholder="••••••••" required autocomplete="current-password">
+                        <button class="btn-toggle-password" type="button" id="togglePassword">
+                            <i class="bi bi-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="mb-4 d-flex justify-content-between align-items-center">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="remember" id="remember">
+                        <label class="form-check-label" for="remember">
+                            Ingat sesi saya
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-login w-100">
+                    Masuk ke Dashboard <i class="bi bi-arrow-right ms-2"></i>
+                </button>
+                
+                <div class="text-center mt-4">
+                    <a href="/" class="text-decoration-none" style="font-size: 0.85rem; color: #94a3b8;">
+                        <i class="bi bi-arrow-left me-1"></i> Kembali ke Beranda
+                    </a>
+                </div>
+            </form>
         </div>
     </div>
 
