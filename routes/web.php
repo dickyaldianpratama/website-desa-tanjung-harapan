@@ -43,11 +43,9 @@ Route::get('/kependudukan/{kategori?}', [App\Http\Controllers\KependudukanContro
 // SITEMAP (Untuk SEO Google Search Console)
 Route::get('/sitemap.xml', [\App\Http\Controllers\SitemapController::class, 'index'])->name('sitemap');
 
-//  ADMIN AUTH — Login/Logout admin desa
+//  ADMIN AUTH (Pintu Masuk Login)
+//  Sudah dipindahkan dan diatur di routes/auth.php dengan URL rahasia
 // ═══════════════════════════════════════════
-Route::get('/admin/login',   [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'create'])->name('login')->middleware('guest');
-Route::post('/admin/login',  [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'store'])->middleware('guest');
-Route::post('/admin/logout', [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
 // ═══════════════════════════════════════════
 //  ADMIN PANEL — Khusus admin desa (butuh login)
