@@ -749,7 +749,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: opacity 0.4s ease-out, visibility 0.4s ease-out;
         }
         .preloader.fade-out {
             opacity: 0;
@@ -762,6 +762,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+        }
+        /* Efek terbenam (sinking) saat loading selesai */
+        .preloader.fade-out .preloader-inner {
+            transform: scale(0.4) translateY(40px);
+            opacity: 0;
         }
         .preloader-logo {
             width: 55px;
@@ -778,10 +784,11 @@
             border-radius: 50%;
             border: 3px solid transparent;
         }
+        /* Putaran diperlambat (3s & 2.5s) dan menggunakan linear agar mulus elegan */
         .spinner-ring.ring-1 {
             border-top-color: var(--gold);
             border-bottom-color: var(--gold);
-            animation: spin-clockwise 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+            animation: spin-clockwise 3s linear infinite;
         }
         .spinner-ring.ring-2 {
             border-left-color: var(--coklat-tua);
@@ -790,7 +797,7 @@
             height: 76%;
             top: 12%;
             left: 12%;
-            animation: spin-counter-clockwise 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+            animation: spin-counter-clockwise 2.5s linear infinite;
         }
         @keyframes spin-clockwise {
             0% { transform: rotate(0deg); }
@@ -1180,13 +1187,11 @@ AOS.init({
     window.addEventListener('load', function() {
         const preloader = document.getElementById('preloader');
         if (preloader) {
-            // Beri sedikit delay minimal agar animasi sempat terlihat walau internet super cepat (300ms)
+            // Langsung mulai efek fade-out dan sinking ketika halaman sudah ter-load penuh
+            preloader.classList.add('fade-out');
             setTimeout(() => {
-                preloader.classList.add('fade-out');
-                setTimeout(() => {
-                    preloader.style.display = 'none';
-                }, 600); // durasi sesuai dengan transition di CSS
-            }, 300);
+                preloader.style.display = 'none';
+            }, 500); // durasi selaras dengan transition CSS
         }
     });
 
@@ -1203,7 +1208,7 @@ AOS.init({
                     const preloader = document.getElementById('preloader');
                     if(preloader) {
                         preloader.style.display = 'flex';
-                        // Force reflow agar animasi jalan mulus kembali
+                        // Force reflow agar transisi sinking sebelumnya di-reset
                         void preloader.offsetWidth;
                         preloader.classList.remove('fade-out');
                     }
