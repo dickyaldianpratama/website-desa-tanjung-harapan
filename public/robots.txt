@@ -1,9 +1,6 @@
 User-agent: *
 Disallow: /admin/
-Disallow: /admin-login
-Disallow: /password/
-Disallow: /install/
-
+Disallow: /api/
 Allow: /
 
-Sitemap: /sitemap.xml
+Sitemap: https://www.desatanjungharapan.site/sitemap.xml

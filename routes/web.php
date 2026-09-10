@@ -39,6 +39,10 @@ Route::get('/fasilitas',     [App\Http\Controllers\FasilitasController::class, '
 
 // ═══════════════════════════════════════════
 Route::get('/kependudukan/{kategori?}', [App\Http\Controllers\KependudukanController::class, 'show'])->name('kependudukan.show');
+
+// SITEMAP (Untuk SEO Google Search Console)
+Route::get('/sitemap.xml', [\App\Http\Controllers\SitemapController::class, 'index'])->name('sitemap');
+
 //  ADMIN AUTH — Login/Logout admin desa
 // ═══════════════════════════════════════════
 Route::get('/admin/login',   [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'create'])->name('login')->middleware('guest');
