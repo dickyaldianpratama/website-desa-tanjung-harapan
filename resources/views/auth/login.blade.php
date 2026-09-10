@@ -100,6 +100,24 @@
             overflow: hidden;
         }
         
+        /* Image on the right side of the left panel */
+        .left-bg-image {
+            position: absolute;
+            top: 0; right: 0; bottom: 0;
+            width: 75%;
+            background-image: url("{{ asset('images/icons/desa.jpg') }}");
+            background-position: center;
+            background-size: cover;
+            z-index: 0;
+        }
+        /* Fade effect to blend the image seamlessly into the brown background */
+        .left-bg-image::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -1px; right: 0; bottom: 0;
+            background: linear-gradient(to right, var(--coklat-tua) 0%, rgba(61, 31, 10, 0.8) 40%, rgba(61, 31, 10, 0) 100%);
+        }
+
         /* Hexagon / Geometric Background Pattern */
         .login-left::before {
             content: '';
@@ -113,7 +131,7 @@
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(135deg, rgba(61, 31, 10, 0.9) 0%, rgba(107, 63, 31, 0.7) 100%);
+            background: linear-gradient(90deg, rgba(61, 31, 10, 0.95) 0%, rgba(61, 31, 10, 0.6) 45%, rgba(61, 31, 10, 0.1) 100%);
             z-index: 2;
         }
 
@@ -340,6 +358,8 @@
             
             <!-- LEFT PANEL -->
             <div class="login-left">
+                <div class="left-bg-image"></div>
+                
                 <div class="left-content">
                     <h3>Selamat Datang di</h3>
                     <h1>Portal Admin <span>Desa</span></h1>
