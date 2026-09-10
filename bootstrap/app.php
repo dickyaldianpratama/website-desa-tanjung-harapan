@@ -15,6 +15,12 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->web(append: [
             \App\Http\Middleware\TrackVisitor::class,
         ]);
+        
+        // Jika ada tamu (hacker) memaksa masuk ke /admin tanpa login, lempar ke beranda (/)
+        // Jangan lempar ke route('login') agar URL rahasianya tidak bocor
+        $middleware->redirectGuestsTo(function (Request $request) {
+            return url('/');
+        });
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->render(function (\Illuminate\Http\Exceptions\ThrottleRequestsException $e, Request $request) {
