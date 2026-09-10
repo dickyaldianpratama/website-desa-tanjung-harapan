@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Admin - Desa Tanjung Harapan</title>
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
@@ -15,13 +15,13 @@
             --coklat-tua: #3D1F0A;
             --coklat-medium: #6B3F1F;
             --gold: #D4A342;
-            --gold-hover: #C19135;
+            --gold-hover: #b8860b;
             --bg-light: #F4F7FA;
             --text-dark: #1F2937;
             --text-gray: #6B7280;
         }
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-family: 'Poppins', sans-serif;
             background-color: var(--bg-light);
             margin: 0;
             padding: 0;
@@ -286,23 +286,31 @@
 
         /* Button */
         .btn-login {
-            background-color: var(--gold);
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-hover) 100%);
             color: #ffffff;
             font-weight: 700;
             font-size: 0.95rem;
-            padding: 1rem;
-            border-radius: 8px;
+            padding: 0.8rem 2rem;
+            border-radius: 50px; /* lebih membulat (pill shape) agar terlihat padat */
             border: none;
-            transition: all 0.2s ease;
-            display: flex;
+            transition: all 0.3s ease;
+            display: inline-flex;
             justify-content: center;
             align-items: center;
             gap: 0.5rem;
-            margin-top: 1rem;
+            box-shadow: 0 4px 15px rgba(212, 163, 66, 0.4);
+            width: 100%;
+            max-width: 250px;
+        }
+        .btn-login-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-top: 1.5rem;
         }
         .btn-login:hover {
-            background-color: var(--gold-hover);
-            transform: translateY(-1px);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 163, 66, 0.6);
+            color: #ffffff;
         }
 
         /* Alerts */
@@ -436,9 +444,11 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-login w-100">
-                            MASUK KE DASHBOARD <i class="bi bi-arrow-right"></i>
-                        </button>
+                        <div class="btn-login-wrapper">
+                            <button type="submit" class="btn btn-login">
+                                MASUK KE DASHBOARD <i class="bi bi-arrow-right"></i>
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>
