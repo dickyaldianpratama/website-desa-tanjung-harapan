@@ -476,6 +476,29 @@
             .navbar-desa .nav-item:not(.dropdown) .nav-link::after { display: none !important; }
             /* Icon di nav desktop disembunyikan */
             .navbar-desa .nav-link i.bi { display: none; }
+
+            /* Dropdown menu di desktop */
+            .navbar-desa .dropdown-menu {
+                background: var(--coklat-tua) !important;
+                border: 1px solid rgba(201,150,58,0.3) !important;
+                border-radius: 12px !important;
+                box-shadow: 0 8px 30px rgba(61,31,10,0.35) !important;
+                padding: 0.5rem !important;
+                margin-top: 0.5rem !important;
+                min-width: 220px;
+            }
+            .navbar-desa .dropdown-item {
+                color: rgba(255,255,255,0.85) !important;
+                border-radius: 8px;
+                padding: 0.65rem 1rem;
+                transition: all 0.2s ease;
+                font-size: 0.85rem;
+            }
+            .navbar-desa .dropdown-item:hover,
+            .navbar-desa .dropdown-item:focus {
+                background: rgba(201,150,58,0.2) !important;
+                color: var(--gold-light) !important;
+            }
         }
         .navbar-toggler { border: none !important; box-shadow: none !important; padding-right:0; }
         .navbar-toggler-icon { filter: invert(1); }
