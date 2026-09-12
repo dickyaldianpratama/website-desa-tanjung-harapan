@@ -11,16 +11,25 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
+// ─── REGISTER ROUTE: Sengaja dinonaktifkan ───────────────────────────────────
+// Pendaftaran akun admin hanya bisa dilakukan langsung via database/seeder.
+// Jangan aktifkan kembali kecuali ada kebutuhan mendesak.
+// Route::get('register', ...)
+// Route::post('register', ...)
+// ─────────────────────────────────────────────────────────────────────────────
+
 Route::middleware('guest')->group(function () {
-    Route::get('register', [RegisteredUserController::class, 'create'])
-        ->name('register');
 
-    Route::post('register', [RegisteredUserController::class, 'store']);
+    // URL login diambil dari environment variable ADMIN_LOGIN_PATH
+    // sehingga tidak terekspos di source code publik.
+    $loginPath = env('ADMIN_LOGIN_PATH', 'portal-admin');
 
-    Route::get('auth-tjh-LBP81', [AuthenticatedSessionController::class, 'create'])
+    Route::get($loginPath, [AuthenticatedSessionController::class, 'create'])
+        ->middleware('throttle:5,10') // Maks 5 percobaan per 10 menit
         ->name('login');
 
-    Route::post('auth-tjh-LBP81', [AuthenticatedSessionController::class, 'store']);
+    Route::post($loginPath, [AuthenticatedSessionController::class, 'store'])
+        ->middleware('throttle:5,10'); // Maks 5 percobaan per 10 menit
 
     Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
         ->name('password.request');
@@ -57,3 +66,4 @@ Route::middleware('auth')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
 });
+

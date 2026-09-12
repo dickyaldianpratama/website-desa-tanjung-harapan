@@ -24,6 +24,8 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->render(function (\Illuminate\Http\Exceptions\ThrottleRequestsException $e, Request $request) {
-            return back()->with('error', 'Terlalu banyak permintaan! Sistem mendeteksi aktivitas tidak wajar. Mohon tunggu sekitar 10 menit sebelum mengirim pesan lagi.');
+            // Pesan generik untuk semua throttle (kontak, login, dll)
+            return back()->with('error', 'Terlalu banyak percobaan! Sistem mendeteksi aktivitas tidak wajar. Mohon tunggu beberapa menit sebelum mencoba lagi.');
         });
     })->create();
+
